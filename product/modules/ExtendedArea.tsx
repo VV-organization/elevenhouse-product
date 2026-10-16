@@ -1,3 +1,4 @@
+import './section-directory.css'
 import {LearningTip} from '../components/Learning'
 import {useState,type Dispatch,type SetStateAction} from 'react'
 import {ServicesFinance} from './ServicesFinance'
@@ -6,16 +7,38 @@ import {Tools} from './Tools'
 import {SectionHeader,useModuleState,Notice,type ModuleProps} from './ModuleKit'
 import type {Practice} from '../state/model'
 import {Icon} from '../components/Icon'
-const groups=[
- {title:'Работа с клиентами',items:[['tools','chart','Расчёты','Карты клиентов и отдельный ввод данных'],['services','service','Услуги и цены','Настройте длительность и стоимость консультаций'],['library','note','Мои материалы','Ваши памятки и тексты к консультациям'],['journal','note','Заметки и итоги','История личных записей по клиентам'],['astro-calendar','calendar','Напоминания','Встречи, дни рождения и личные задачи']]},
- {title:'Доход и развитие',items:[['finance','wallet','Оплаты','Поступления и история операций'],['analytics','analytics','Аналитика','Доход и услуги за выбранный период'],['content','note','Публикации','Черновики и план публикаций'],['reviews','star','Отзывы','Обратная связь клиентов']]},
- {title:'Настройки',items:[['automations','flow','Автоматические напоминания','Подготовка сообщений по событию'],['settings','settings','Настройки профиля','Имя, часовой пояс и оформление']]}
+const groups = [
+ {id:'consultations',title:'Для консультаций',items:[['tools','chart','Расчёты'],['journal','note','Заметки и итоги'],['library','note','Мои материалы']]},
+ {id:'income',title:'Услуги и оплаты',items:[['services','service','Услуги и цены'],['finance','wallet','Оплаты'],['analytics','analytics','Аналитика']]},
+ {id:'reminders',title:'Напоминания',items:[['astro-calendar','calendar','Личные задачи и даты'],['automations','flow','Автоматические напоминания']]},
+ {id:'promotion',title:'Продвижение',items:[['content','note','Публикации'],['reviews','star','Отзывы']]},
 ]
-const items=groups.flatMap(group=>group.items)
+const items = [...groups.flatMap(group=>group.items), ['settings','settings','Настройки профиля']]
+
+function SectionDirectory() {
+ return <div className="ep-directory">
+  <SectionHeader title="Все разделы"/>
+  <div className="ep-directory-groups">
+   {groups.map(group=><section className="ep-directory-group" key={group.id} aria-labelledby={`directory-${group.id}`}>
+    <h2 id={`directory-${group.id}`}>{group.title}</h2>
+    <ul>
+     {group.items.map(([id,icon,title])=><li key={id}>
+      <a className="ep-directory-link" href={`#${id}`}>
+       <Icon name={icon} size={20}/><span>{title}</span><Icon name="arrow" size={18}/>
+      </a>
+     </li>)}
+    </ul>
+   </section>)}
+  </div>
+  <div className="ep-directory-settings">
+   <a className="ep-directory-link" href="#settings"><Icon name="settings" size={20}/><span>Настройки профиля</span><Icon name="arrow" size={18}/></a>
+  </div>
+ </div>
+}
 
 export const extendedSections=['practice','services','finance','analytics','messages','content','automations','reviews','tools','journal','astro-calendar','library','settings']
 export function ExtendedArea({page,practice,onOpenClient,onChange,theme,onThemeChange,onClientPreview}:{page:string,onChange:Dispatch<SetStateAction<Practice>>,theme:string,onThemeChange:(theme:'dark'|'light')=>void,onClientPreview:()=>void}&ModuleProps){
- if(page==='practice')return <><SectionHeader title="Все разделы"/>{groups.map(group=><section className="ep-nav-group" key={group.title}><h2>{group.title}</h2><div className="ex-hub">{group.items.map(([id,icon,title,description])=><a key={id} href={`#${id}`}><Icon name={icon} size={24}/><div><h3>{title}</h3><p>{description}</p></div><Icon name="arrow" size={18}/></a>)}</div></section>)}</>
+ if(page==='practice')return <SectionDirectory/>
  const back=!['messages','tools'].includes(page)&&items.some(i=>i[0]===page)?'practice':''
  return <>{!['tools','journal'].includes(page)&&<LearningTip topic={page}/>} {back&&<a href={`#${back}`} className="ex-section-back"><Icon name="back" size={16}/>{back==='practice'?'Все разделы':'Все инструменты'}</a>}{['services','finance','analytics'].includes(page)?<ServicesFinance key={page} section={page as 'services'} practice={practice} onOpenClient={onOpenClient}/>:['messages','content','automations','reviews'].includes(page)?<Communication key={page} section={page as 'messages'} practice={practice} onOpenClient={onOpenClient}/>:['tools','journal','astro-calendar','library'].includes(page)?<Tools key={page} section={page as 'tools'} onChange={onChange} practice={practice} onOpenClient={onOpenClient}/>:<Settings practice={practice} onChange={onChange} theme={theme} onThemeChange={onThemeChange} onClientPreview={onClientPreview}/>}</>
 }
