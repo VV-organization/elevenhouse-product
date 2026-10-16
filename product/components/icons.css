@@ -11,3 +11,15 @@
  .ep-icon[data-playing=true]>.ep-icon-static { visibility:visible; }
  .ep-icon[data-playing=true]>.ep-icon-motion { visibility:hidden; }
 }
+
+/* A single, local gesture for the two custom symbols; the outline stays anchored. */
+.ep-icon[data-playing=true] .ep-icon-profile-person { animation:ep-icon-profile-person 1.1s ease-in-out both; }
+.ep-icon[data-playing=true] .ep-icon-profile-line { stroke-dasharray:1; animation:ep-icon-profile-line 1.1s ease-in-out both; }
+.ep-icon[data-playing=true] .ep-icon-profile-line-last { animation-delay:80ms; animation-duration:1.02s; }
+.ep-icon[data-playing=true] .ep-icon-clock-hands { transform-origin:64px 64px; animation:ep-icon-clock-hands 1.1s ease-in-out both; }
+@keyframes ep-icon-profile-person { 0%,100% { transform:translateY(0); } 40% { transform:translateY(-1px); } }
+@keyframes ep-icon-profile-line { 0%,100% { stroke-dashoffset:0; } 35% { stroke-dashoffset:1; } 75% { stroke-dashoffset:0; } }
+@keyframes ep-icon-clock-hands { 0%,100% { transform:rotate(0); } 50% { transform:rotate(24deg); } }
+@media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse) {
+ .ep-icon[data-playing=true] .ep-icon-motion * { animation:none!important; }
+}
