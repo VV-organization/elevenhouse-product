@@ -156,9 +156,10 @@
 .ep-today-aside>.ep-recent{margin-top:0;padding-top:0;border-top:0}
 @media(max-width:1150px){.ep-today-aside{grid-template-columns:minmax(0,1fr)}}
 
-/* Account disclosure stays beside its trigger; native popover supplies light dismissal. */
-.ep-account-panel{position:fixed;inset:auto;margin:0;padding:8px;background:var(--surface,#f2f1eb);color:var(--navy);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px #0003;max-width:calc(100vw - 32px)}
-.ep-account-panel:popover-open{display:grid;gap:4px}
+/* Account disclosure stays beside its trigger; native popover supplies light dismissal.
+   Use an intrinsic-height flex column: Safari stretches grid popovers to the viewport. */
+.ep-account-panel{position:fixed;inset:auto;margin:0;height:max-content;padding:8px;background:var(--surface,#f2f1eb);color:var(--navy);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px #0003;max-width:calc(100vw - 32px)}
+.ep-account-panel:popover-open{display:flex;flex-direction:column;gap:4px}
 .ep-account-panel a,.ep-account-panel button{display:flex;align-items:center;gap:12px;min-height:48px;padding:12px;border:0;border-radius:6px;background:transparent;color:inherit;text-align:left;text-decoration:none;font:inherit;font-size:14px;cursor:pointer}
 .ep-account-panel a:hover,.ep-account-panel button:hover{background:var(--hover,#d9d9cf)}
 .ep-account-panel a:focus-visible,.ep-account-panel button:focus-visible{outline:2px solid var(--gold,#b59b54);outline-offset:-2px}

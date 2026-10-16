@@ -1,0 +1,5 @@
+Account menu — Safari sizing fix
+
+Reproduced on the current local build in macOS Safari: an open grid popover expanded to viewport height, spreading its two actions vertically. Explicit max-content height alone did not fix it. Switching the open popover to an intrinsic-height flex column restored the compact menu above the account button. Native popover dismissal and positioning remain unchanged.
+
+Visual verification: Safari desktop before/after, Escape dismissal; Chromium mobile 390 x 844, settings navigation and logout/login. Screenshots are retained in the workspace artifacts/account-menu-review directory.
