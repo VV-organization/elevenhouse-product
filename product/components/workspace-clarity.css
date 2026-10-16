@@ -1,0 +1,31 @@
+.ep-root .ep-location { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.ep-root .ep-skip-link { position: fixed; top: 8px; left: 16px; transform: translateY(-150%); z-index: 60; padding: 12px 20px; background: var(--navy); color: var(--ivory); border-radius: 6px; }
+.ep-root .ep-skip-link:focus { transform: none; }
+.ep-root .ep-main:focus { outline: none; }
+.ep-root .ep-client-request { padding: 0 0 24px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+.ep-root .ep-client-request .ep-section-heading { margin-bottom: 8px; gap: 16px; }
+.ep-root .ep-client-request h2 { font: 600 16px/1.5 'Auth Manrope', sans-serif; letter-spacing: 0; }
+.ep-root .ep-client-request p { font-size: 16px; line-height: 1.65; max-width: 65ch; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ep-root .ep-client-request > .ep-text-button { margin-top: 8px; }
+.ep-root .ep-client-request .ep-text-button { min-height: 44px; }
+.ep-root .ep-meeting-payment { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 12px; }
+.ep-root .ep-meeting-payment button { width: 100%; display: flex; gap: 12px; min-height: 48px; text-align: left; }
+.ep-root .ep-meeting-payment button svg:last-child { margin-left: auto; }
+.ep-root .ep-undo-notice {
+ position: fixed; z-index: 22; bottom: max(16px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
+ display: flex; align-items: center; gap: 12px; width: max-content; max-width: calc(100% - 32px);
+ background: var(--surface-raised, #e5e5da); color: var(--navy); border: 1px solid var(--line); border-radius: 12px; padding: 16px;
+ box-shadow: 0 8px 32px #0003;
+}
+.ep-root .ep-undo-notice>div { min-width: 0; }
+.ep-root .ep-undo-notice strong { display: block; font-size: 14px; }
+.ep-root .ep-undo-notice span { display: block; font-size: 12px; color: var(--muted); }
+.ep-root .ep-undo-notice p { font-size: 14px; margin-top: 8px; }
+.ep-root .ep-undo-notice .ep-text-button { min-height: 44px; white-space: nowrap; text-decoration: underline; text-underline-offset: 4px; }
+@media(max-width:600px) {
+ .ep-root .ep-undo-notice { display: grid; grid-template-columns: minmax(0,1fr) 44px; gap: 4px 12px; width: calc(100% - 32px); }
+ .ep-root .ep-undo-notice>.ep-text-button { grid-column: 1; justify-self: start; }
+ .ep-root .ep-undo-notice>.ep-icon-button { grid-column: 2; grid-row: 1; }
+ .ep-root .ep-client-request { padding-bottom: 16px; margin-bottom: 24px; }
+ .ep-root .ep-client-grid { gap: 24px; }
+}

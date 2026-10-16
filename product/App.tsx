@@ -35,7 +35,7 @@ export function App(){
   },[practice,screen,account])
 
   useEffect(()=>{window.scrollTo({top:0,behavior:'instant'})},[screen])
-  useEffect(()=>{if(screen!=='auth')document.title=screen==='start'?'Первый шаг — ElevenHouse':screen==='client'?'Кабинет клиента — ElevenHouse':screen==='admin'?'Администрирование — ElevenHouse':'Моя практика — ElevenHouse'},[screen])
+  useEffect(()=>{if(screen!=='auth'&&screen!=='workspace')document.title=screen==='start'?'Первый шаг — ElevenHouse':screen==='client'?'Кабинет клиента — ElevenHouse':screen==='admin'?'Администрирование — ElevenHouse':'Моя практика — ElevenHouse'},[screen])
 
   function auth(mode:'login'|'register'){
     const url=new URL(window.location.href);url.searchParams.set('mode',mode);url.searchParams.delete('surface');url.hash='';window.history.replaceState(null,'',url)

@@ -5,8 +5,8 @@ import {Icon} from './Icon'
 import {LearningTip} from './Learning'
 import {useFormExit} from './useFormExit'
 
-type Props={appointment:Appointment,client:Client,onClose:()=>void,onNotes:()=>void,onReschedule:()=>void,onCancel:()=>void,onStatus:(status:'confirmed'|'completed')=>void,onOutcome?:(text:string)=>void,onNextMeeting?:()=>void,startWithOutcome?:boolean}
-export function MeetingDetails({appointment:a,client,onClose,onNotes,onReschedule,onCancel,onStatus,onOutcome,onNextMeeting,startWithOutcome=false}:Props){
+type Props={appointment:Appointment,client:Client,onClose:()=>void,onNotes:()=>void,onReschedule:()=>void,onCancel:()=>void,onStatus:(status:'confirmed'|'completed')=>void,onOutcome?:(text:string)=>void,onNextMeeting?:()=>void,onPayment?:()=>void,startWithOutcome?:boolean}
+export function MeetingDetails({appointment:a,client,onClose,onNotes,onReschedule,onCancel,onStatus,onOutcome,onNextMeeting,onPayment,startWithOutcome=false}:Props){
  const [editing,setEditing]=useState(()=>startWithOutcome&&!!onOutcome&&a.status!=='cancelled')
  const [statusError,setStatusError]=useState('')
  function restore(){try{onStatus('confirmed');setStatusError('')}catch(error){setStatusError((error as Error).message)}}
@@ -26,6 +26,7 @@ export function MeetingDetails({appointment:a,client,onClose,onNotes,onReschedul
    {a.status==='confirmed'&&<button className="ep-text-button" onClick={onCancel}>Отменить запись</button>}
    {a.status==='completed'&&onOutcome&&<button className="ep-button" onClick={()=>setEditing(true)}>{a.outcome?'Изменить итог':'Добавить итог'}</button>}
   </div>
+  {!!a.price&&a.status!=='cancelled'&&onPayment&&<div className="ep-meeting-payment"><button className="ep-text-button" onClick={onPayment}><Icon name="wallet" size={18}/>Оплата встречи<Icon name="arrow" size={16}/></button></div>}
   {(a.status!=='confirmed'||needsOutcome||!canRecordOutcome)&&<details className="ep-meeting-extra"><summary>Другие действия</summary><div className="ex-actions">{a.status==='confirmed'?<>{needsOutcome&&<button className="ep-button" onClick={onReschedule}>Перенести</button>}{!canRecordOutcome&&(onOutcome?<button className="ep-button" onClick={()=>setEditing(true)}>Записать итог и завершить</button>:<button className="ep-button" onClick={()=>onStatus('completed')}>Завершить встречу</button>)}</>:<button className="ep-button" onClick={restore}>{a.status==='cancelled'?'Восстановить запись':'Вернуть в план'}</button>}</div></details>}
  </div></Dialog>
 }

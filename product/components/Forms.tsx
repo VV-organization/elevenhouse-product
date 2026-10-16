@@ -6,7 +6,7 @@ import {clientFullName,splitClientName} from '../state/names'
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useModuleState } from '../modules/ModuleKit'
 import { DEFAULT_SERVICES, type Service } from '../modules/ServicesFinance'
-import { addClient, addAppointment, TODAY, formatDate, updateClientDetails, rescheduleAppointment, type Appointment, type Client, type Practice } from '../state/model'
+import { addClient, addAppointment, TODAY, formatDate, updateClientDetails, rescheduleAppointment, restoreAppointmentAt, type Appointment, type Client, type Practice } from '../state/model'
 import { Dialog } from './Dialog'
 import {useFormExit} from './useFormExit'
 
@@ -39,14 +39,14 @@ export function AppointmentForm({practice,onSave,onClose,clientId='',date=TODAY,
   const d=new FormData(event.currentTarget)
   try{
    const values={title,date:String(d.get('date')),time:String(d.get('time')),duration:Number(duration),serviceId:serviceId||undefined,price:price.trim()===''?undefined:Number(price)}
-   const next=appointment?rescheduleAppointment(practice,appointment.id,values):addAppointment(practice,{...values,clientId:selectedClient})
+   const next=appointment?(appointment.status==='cancelled'?restoreAppointmentAt:rescheduleAppointment)(practice,appointment.id,values):addAppointment(practice,{...values,clientId:selectedClient})
    onSave(next,appointment?.id??next.appointments.find(a=>!practice.appointments.some(old=>old.id===a.id))!.id)
   }catch(e){setError((e as Error).message)}
  }
  const titleField=<label>Тема консультации<input name="title" value={title} onChange={event=>setTitle(event.target.value)} required/></label>
  const conditionFields=<div className="ep-form-pair"><label>Длительность, минут<input name="duration" type="number" min="1" max="1440" step="1" inputMode="numeric" value={duration} onChange={event=>setDuration(event.target.value)} required/></label><label>Стоимость, ₽ <span className="ep-muted">необязательно</span><input name="price" type="number" min="0" step="0.01" inputMode="decimal" value={price} onChange={event=>setPrice(event.target.value)} placeholder="Не указана"/></label></div>
  const serviceField=(available.length>0||serviceId)&&<label>Услуга<select name="serviceId" value={serviceId} onChange={event=>chooseService(event.target.value)}><option value="">Без готовой услуги</option>{retainedService&&<option value={serviceId}>{services.find(service=>service.id===serviceId)?.name||appointment?.title||title} · сохранённая услуга</option>}{available.map(service=><option key={service.id} value={service.id}>{service.name}</option>)}</select></label>
- return <Dialog title={appointment?'Перенести встречу':'Новая встреча'} onClose={exit.close}><form ref={form} className="ep-form" onInput={exit.changed} onChange={exit.changed} onSubmit={submit} onInvalidCapture={event=>{const details=(event.target as HTMLElement).closest('details');if(details)details.open=true}}>
+ return <Dialog title={appointment?(appointment.status==='cancelled'?'Восстановить встречу':'Перенести встречу'):'Новая встреча'} onClose={exit.close}><form ref={form} className="ep-form" onInput={exit.changed} onChange={exit.changed} onSubmit={submit} onInvalidCapture={event=>{const details=(event.target as HTMLElement).closest('details');if(details)details.open=true}}>
   <LearningTip topic="appointment" title={appointment?'Выберите новое время':!selectedClient?'Кого записываем?':serviceId?'Выберите дату и время':available.length?'Выберите услугу':'Выберите дату и время'}>{appointment?'Выберите новые дату и время. Клиент, стоимость и история встречи останутся на месте.':!selectedClient?'Выберите клиента или добавьте нового. Затем укажите время встречи.':serviceId?'Условия услуги уже подставлены. Сохраните запись — она появится в календаре.':available.length?'Услуга подставит длительность и стоимость. Можно заполнить их самостоятельно.':'Сохраните запись — она появится в календаре и у клиента.'}</LearningTip>
   {appointment&&<div><strong>{practice.clients.find(c=>c.id===appointment.clientId)?.name}</strong><p className="ep-muted">{appointment.title} · сейчас {formatDate(appointment.date)}, {appointment.time}</p></div>}
   {!appointment&&<ClientPicker clients={practice.clients} value={selectedClient} onChange={id=>{setSelectedClient(id);setError('');exit.changed()}} name="clientId" disabled={!!appointment} required/>}
@@ -56,7 +56,7 @@ export function AppointmentForm({practice,onSave,onClose,clientId='',date=TODAY,
   <div className="ep-form-pair ep-meeting-date-time"><label>Дата<input name="date" type="date" defaultValue={initial.date} required/></label><label>Время<input name="time" type="time" defaultValue={initial.time} required/></label></div>
   {appointment?<details><summary>Изменить услугу, длительность или стоимость</summary><div className="ep-form-fields">{serviceField}{titleField}{conditionFields}</div></details>:serviceId?<><p className="ep-muted" aria-live="polite">{duration||'—'} мин · {price.trim()===''?'Стоимость не указана':`${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(Number(price))} ₽`}</p><details><summary>Изменить условия встречи</summary><div className="ep-form-fields">{titleField}{conditionFields}</div></details></>:conditionFields}
   <p className="ep-muted">Часовой пояс: {practice.profile.timeZone}. {appointment?'Клиент и история встречи сохранятся.':'Запись появится в календаре и у клиента.'}</p>
-  {error&&<p className="ep-error" role="alert">{error}</p>}{exit.warning}<footer className="ep-form-footer"><button type="button" className="ep-button" onClick={exit.close}>Отмена</button><button className="ep-button ep-button--primary">{appointment?'Перенести встречу':'Записать на встречу'}</button></footer>
+  {error&&<p className="ep-error" role="alert">{error}</p>}{exit.warning}<footer className="ep-form-footer"><button type="button" className="ep-button" onClick={exit.close}>Отмена</button><button className="ep-button ep-button--primary">{appointment?(appointment.status==='cancelled'?'Восстановить встречу':'Перенести встречу'):'Записать на встречу'}</button></footer>
  </form></Dialog>
 }
 

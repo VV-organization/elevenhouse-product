@@ -160,6 +160,15 @@ export function rescheduleAppointment(practice: Practice, id: string, input: Omi
   return { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, ...details, title: details.title.trim() } : a) };
 }
 
+/** Restore the same cancelled record at a new time without losing its payment link. */
+export function restoreAppointmentAt(practice: Practice, id: string, input: Omit<Appointment, 'id' | 'status' | 'clientId'>): Practice {
+  const appointment = practice.appointments.find(a => a.id === id);
+  if (!appointment) throw new Error('Запись не найдена.');
+  if (appointment.status !== 'cancelled') throw new Error('Восстановить можно только отменённую встречу.');
+  const restored: Practice = { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, status: 'confirmed' } : a) };
+  return rescheduleAppointment(restored, id, input);
+}
+
 export function saveClientNotes(practice: Practice, id: string, notes: string): Practice {
   if (!practice.clients.some(c => c.id === id)) throw new Error('Клиент не найден.');
   if (typeof notes !== 'string') throw new Error('Введите текст заметки.');

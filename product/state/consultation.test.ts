@@ -1,7 +1,26 @@
 import {describe,expect,it} from 'vitest'
-import {addAppointment,completeAppointment,createExamplePractice,parsePractice,rescheduleAppointment,setAppointmentStatus,type Appointment} from './model'
+import {addAppointment,completeAppointment,createExamplePractice,parsePractice,rescheduleAppointment,restoreAppointmentAt,setAppointmentStatus,type Appointment} from './model'
 
 describe('consultation details and outcome',()=>{
+ it('restores a cancelled meeting at a new time with the same identity and conditions',()=>{
+  const original=createExamplePractice()
+  const priced={...original,appointments:original.appointments.map((a,i)=>i===0?{...a,serviceId:'natal',price:4200,outcome:'Сохранённая история'}:a)}
+  const cancelled=setAppointmentStatus(priced,'session-marina','cancelled')
+  const before=JSON.stringify(cancelled)
+  const old=cancelled.appointments[0]
+  const restored=restoreAppointmentAt(cancelled,old.id,{date:'2026-10-20',time:'10:00',duration:old.duration,title:old.title})
+  expect(restored.appointments[0]).toMatchObject({...old,status:'confirmed',date:'2026-10-20',time:'10:00'})
+  expect(restored.appointments).toHaveLength(cancelled.appointments.length)
+  expect(JSON.stringify(cancelled)).toBe(before)
+ })
+ it('rejects restoration to an occupied time without changing the cancellation',()=>{
+  const cancelled=setAppointmentStatus(createExamplePractice(),'session-marina','cancelled')
+  const old=cancelled.appointments[0],occupied=cancelled.appointments[1]
+  expect(()=>restoreAppointmentAt(cancelled,old.id,{...old,date:occupied.date,time:occupied.time})).toThrow(/занято/i)
+  expect(cancelled.appointments[0].status).toBe('cancelled')
+  expect(()=>restoreAppointmentAt(createExamplePractice(),old.id,{...old})).toThrow(/отменённую/)
+ })
+
  it('restores older appointments without inventing services, prices or outcomes',()=>{
   const original=createExamplePractice()
   expect(parsePractice(JSON.stringify(original))).toEqual(original)
