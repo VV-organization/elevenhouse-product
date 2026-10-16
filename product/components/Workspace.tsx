@@ -1,3 +1,4 @@
+import {useEntranceMotion} from './useEntranceMotion'
 import {PracticeDashboard} from './PracticeDashboard'
 import type {ProductData} from '../state/product-data'
 import {TodayWorkbench} from './TodayWorkbench'
@@ -63,6 +64,7 @@ function WorkspaceContent({data,practice,onChange,onLogout,initialAction,clearIn
  useEffect(()=>{keepParam('day',date)},[date])
  const scrollPositions=useRef<Record<string,number>>({})
  useLayoutEffect(()=>{window.scrollTo({top:scrollPositions.current[page]||0,behavior:'instant'})},[page])
+ useEntranceMotion(mainRef,`${page}:${page.startsWith('client/')?tab:''}`)
  useEffect(()=>{const remember=()=>{if(route()===page)scrollPositions.current[page]=window.scrollY};window.addEventListener('scroll',remember,{passive:true});return()=>window.removeEventListener('scroll',remember)},[page])
  function go(next:string,clientTab:ClientTab=rememberedTabs.current[next]||'overview'){
   const url=destinationUrl(window.location.href,next,clientTab)

@@ -1,0 +1,23 @@
+/* Product-only motion. The landing and its locked Hero are outside this scope.
+   Fluent 2: top-level fades, short local entrances, bounded choreography.
+   No element relies on animation to become visible or interactive. */
+@keyframes ep-surface-enter {
+ from { opacity:.35; transform:translateY(6px); }
+ to { opacity:1; transform:translateY(0); }
+}
+@keyframes ep-feedback-enter {
+ from { opacity:.35; }
+ to { opacity:1; }
+}
+.ep-root .ep-dialog[open] { animation:ep-surface-enter 200ms cubic-bezier(.16,1,.3,1); }
+.ep-root .ep-dialog[open]::backdrop { animation:ep-feedback-enter 160ms ease-out; }
+.ep-root :is(.ep-account-panel,.ep-select-menu):popover-open { animation:ep-surface-enter 160ms cubic-bezier(.16,1,.3,1); }
+.ep-root :is(.ep-toast,.ex-notice,.ep-empty,[role="tabpanel"]) { animation:ep-feedback-enter 160ms ease-out; }
+.ep-root .ep-start { animation:ep-feedback-enter 200ms ease-out; }
+@media(max-width:800px) {
+ .ep-root .ep-dialog[open] { animation-duration:180ms; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .ep-root :is(.ep-dialog,.ep-account-panel,.ep-select-menu,.ep-toast,.ex-notice,.ep-empty,.ep-start,[role="tabpanel"]),
+ .ep-root .ep-dialog::backdrop { animation:none!important; }
+}
