@@ -1,0 +1,20 @@
+.ep-natal{min-width:0}.ep-natal>h2{margin-bottom:24px}
+.ep-natal-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.85fr);align-items:center;gap:32px;max-width:1040px}
+.ep-natal-wheel{display:block;width:100%;max-width:520px;margin:auto;overflow:visible}
+.ep-natal-paper{fill:var(--chart-paper,#faf9f5);stroke:var(--chart-line,#bbb8ad);stroke-width:1}
+.ep-natal-ring{fill:none;stroke:var(--chart-line,#bbb8ad);stroke-width:1}.ep-natal-inner{fill:none;stroke:var(--line);stroke-width:1}
+.ep-natal-sign{color:var(--muted)}.ep-natal-sign.is-selected{color:var(--navy)}
+.ep-natal-marker{color:var(--navy)}.ep-natal-leader{fill:none;stroke:currentColor;stroke-width:1;opacity:.4}
+.ep-natal-marker-bg{fill:var(--chart-paper,#faf9f5)}.ep-natal-marker.is-selected .ep-natal-marker-bg{fill:var(--gold)}.ep-natal-marker.is-selected>svg{color:#152037}
+.ep-natal-center{color:var(--navy)}.ep-natal-name{fill:var(--navy);font-size:22px;font-weight:600}.ep-natal-position{fill:var(--muted);font-size:16px}
+.ep-natal-columns,.ep-natal-row{display:grid;grid-template-columns:minmax(0,1fr) 56px 96px;gap:12px;align-items:center}
+.ep-natal-columns{padding:0 16px 12px;color:var(--muted);font-size:12px;border-bottom:1px solid var(--line)}
+.ep-natal-columns>span:nth-child(2){text-align:right}
+.ep-natal-row{width:100%;min-height:48px;padding:10px 16px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;color:var(--navy);text-align:left;font-size:14px}
+.ep-natal-planet{display:flex;align-items:center;gap:12px;min-width:0}.ep-natal-planet svg{flex:none;color:var(--muted)}
+.ep-natal-degree{text-align:right;font-variant-numeric:tabular-nums}.ep-natal-zodiac{color:var(--muted);font-size:13px}
+.ep-natal-row:hover{background:var(--surface-raised,#e8e7df)}.ep-natal-row[aria-pressed=true]{background:var(--surface-raised,#e4e2d6);box-shadow:inset 2px 0 #ad9146}.ep-natal-row[aria-pressed=true] .ep-natal-planet svg{color:var(--navy)}
+.ep-root[data-theme=dark] .ep-natal-row[aria-pressed=true]{box-shadow:inset 2px 0 var(--gold)}.ep-root[data-theme=dark] .ep-natal-row[aria-pressed=true] .ep-natal-planet svg,.ep-root[data-theme=dark] .ep-natal-sign.is-selected{color:var(--gold)}
+@media(max-width:1050px){.ep-natal-layout{gap:24px;grid-template-columns:minmax(0,1fr) minmax(290px,.9fr)}.ep-natal-columns,.ep-natal-row{grid-template-columns:minmax(0,1fr) 44px 84px;gap:8px;padding-inline:12px}}
+@media(max-width:800px){.ep-natal-layout{grid-template-columns:1fr;gap:24px;max-width:520px;margin-inline:auto}.ep-natal-wheel{max-width:440px}.ep-natal-row{min-height:48px}.ep-natal-columns,.ep-natal-row{grid-template-columns:minmax(0,1fr) 48px 88px}.ep-natal-planet{gap:10px}}
+@media(max-width:360px){.ep-natal-columns,.ep-natal-row{padding-inline:8px;grid-template-columns:minmax(0,1fr) 38px 76px;gap:12px}.ep-natal-row{font-size:13px}.ep-natal-zodiac{font-size:12px}.ep-natal-planet{gap:8px}.ep-natal-planet svg{width:20px;height:20px}}

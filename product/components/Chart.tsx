@@ -1,6 +1,39 @@
 import {tr} from '../i18n'
-import { useState } from 'react'
-const getPlanets=()=>[['☉',tr("Солнце", "Sun"),353.9],['☽',tr("Луна", "Moon"),38.2],['☿',tr("Меркурий", "Mercury"),335.5],['♀',tr("Венера", "Venus"),328.03],['♂',tr("Марс", "Mars"),282.75],['♃',tr("Юпитер", "Jupiter"),90.3],['♄',tr("Сатурн", "Saturn"),293.17],['♅',tr("Уран", "Uranus"),278.67],['♆',tr("Нептун", "Neptune"),283.92],['♇',tr("Плутон", "Pluto"),227.33]] as const
-const getSigns=()=>[tr("Овен", "Aries"),tr("Телец", "Taurus"),tr("Близнецы", "Gemini"),tr("Рак", "Cancer"),tr("Лев", "Leo"),tr("Дева", "Virgo"),tr("Весы", "Libra"),tr("Скорпион", "Scorpio"),tr("Стрелец", "Sagittarius"),tr("Козерог", "Capricorn"),tr("Водолей", "Aquarius"),tr("Рыбы", "Pisces")]
-function point(angle:number,r:number){const a=(angle+145)*Math.PI/180;return {x:200+Math.cos(a)*r,y:200-Math.sin(a)*r}}
-export function Chart(){const planets=getPlanets(),signs=getSigns();const [selected,setSelected]=useState(0);return <div><div className="ep-section-heading"><h2>{tr("Натальная карта", "Natal chart")}</h2></div><div className="ep-chart-layout"><svg viewBox="0 0 400 400" role="img" aria-label={tr("Натальная карта. Положения планет доступны в таблице рядом.", "Natal chart. Planet positions are available in the list alongside it.")}><circle cx="200" cy="200" r="184" fill="var(--chart-paper,#faf9f5)" stroke="var(--chart-line,#bbb8ad)"/><circle cx="200" cy="200" r="146" fill="none" stroke="var(--chart-line,#bbb8ad)"/><circle cx="200" cy="200" r="111" fill="none" stroke="var(--line,#dedcd3)"/>{signs.map((s,i)=>{const a=point(i*30,146),b=point(i*30,184),t=point(i*30+15,166);return <g key={s}><path d={`M${a.x} ${a.y}L${b.x} ${b.y}`} stroke="var(--chart-line,#bbb8ad)"/><text x={t.x} y={t.y} textAnchor="middle" dominantBaseline="middle" fontSize="11" fill="var(--muted,#666b73)">{s}</text></g>})}{planets.map(([symbol,name,angle],i)=>{const p=point(angle,i%2?122:136);return <g key={name}><circle cx={p.x} cy={p.y} r="12" fill={i===selected?'#e2ca79':'var(--chart-paper,#faf9f5)'}/><text x={p.x} y={p.y+1} textAnchor="middle" dominantBaseline="middle" fontSize="18" fill={i===selected?'#152037':'var(--chart-ink,#152037)'}>{symbol}</text></g>})}<text x="200" y="192" textAnchor="middle" fontSize="18" fill="var(--chart-ink,#152037)">Марина</text><text x="200" y="215" textAnchor="middle" fontSize="12" fill="var(--muted,#626975)">{tr("14 марта 1990 · 08:25", "14 March 1990 · 08:25")}</text></svg><div className="ep-planet-list" aria-label={tr("Положения планет", "Planet positions")}>{planets.map(([symbol,name,angle],i)=><button key={name} aria-pressed={selected===i} onClick={()=>setSelected(i)}><span>{symbol} {name}</span><span>{Math.floor(angle%30)}° {signs[Math.floor(angle/30)]}</span></button>)}</div></div></div>}
+import {useState} from 'react'
+import {AstroSymbol} from './AstroSymbol'
+import './chart.css'
+const getPlanets=()=>[['sun',tr('Солнце','Sun'),353.9],['moon',tr('Луна','Moon'),38.2],['mercury',tr('Меркурий','Mercury'),335.5],['venus',tr('Венера','Venus'),328.03],['mars',tr('Марс','Mars'),282.75],['jupiter',tr('Юпитер','Jupiter'),90.3],['saturn',tr('Сатурн','Saturn'),293.17],['uranus',tr('Уран','Uranus'),278.67],['neptune',tr('Нептун','Neptune'),283.92],['pluto',tr('Плутон','Pluto'),227.33]] as const
+const signKeys=['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
+const getSigns=()=>[tr('Овен','Aries'),tr('Телец','Taurus'),tr('Близнецы','Gemini'),tr('Рак','Cancer'),tr('Лев','Leo'),tr('Дева','Virgo'),tr('Весы','Libra'),tr('Скорпион','Scorpio'),tr('Стрелец','Sagittarius'),tr('Козерог','Capricorn'),tr('Водолей','Aquarius'),tr('Рыбы','Pisces')]
+function point(angle:number,r:number){const a=(angle+145)*Math.PI/180;return {x:240+Math.cos(a)*r,y:240-Math.sin(a)*r}}
+function positions(planets:ReturnType<typeof getPlanets>){
+ const placed:{x:number,y:number,index:number}[]=[]
+ planets.map((p,index)=>({angle:p[2],index})).sort((a,b)=>a.angle-b.angle).forEach(({angle,index})=>{
+  const p=[158,126,94].map(r=>point(angle,r)).find(p=>placed.every(q=>Math.hypot(p.x-q.x,p.y-q.y)>=29))||point(angle,94)
+  placed.push({...p,index})
+ })
+ return planets.map((_,index)=>placed.find(p=>p.index===index)!)
+}
+export function Chart(){
+ const planets=getPlanets(),signs=getSigns(),markers=positions(planets)
+ const [selected,setSelected]=useState(0)
+ const active=planets[selected],signIndex=Math.floor(active[2]/30)
+ return <section className="ep-natal" aria-label={tr('Натальная карта','Natal chart')}>
+  <h2>{tr('Натальная карта','Natal chart')}</h2>
+  <div className="ep-natal-layout">
+   <svg className="ep-natal-wheel" viewBox="0 0 480 480" role="img" aria-label={tr(`Натальная карта. Выбрано: ${active[1]}. Положения доступны в списке планет.`,`Natal chart. Selected: ${active[1]}. Positions are available in the planet list.`)}>
+    <circle cx="240" cy="240" r="218" className="ep-natal-paper"/>
+    <circle cx="240" cy="240" r="180" className="ep-natal-ring"/>
+    <circle cx="240" cy="240" r="76" className="ep-natal-inner"/>
+    {Array.from({length:72},(_,i)=>{const a=point(i*5,180),b=point(i*5,i%6===0?218:185);return <path key={i} d={`M${a.x} ${a.y}L${b.x} ${b.y}`} className="ep-natal-ring"/>})}
+    {signs.map((name,i)=>{const p=point(i*30+15,199);return <g key={signKeys[i]} className={i===signIndex?'ep-natal-sign is-selected':'ep-natal-sign'}><title>{name}</title><AstroSymbol name={signKeys[i]} x={p.x-12} y={p.y-12} width="24" height="24"/></g>})}
+    {planets.map(([key,name,angle],i)=>{const p=markers[i],edge=point(angle,178);return <g key={key} className={i===selected?'ep-natal-marker is-selected':'ep-natal-marker'}><title>{name}</title><path d={`M${edge.x} ${edge.y}L${p.x} ${p.y}`} className="ep-natal-leader"/><circle cx={edge.x} cy={edge.y} r="2" fill="currentColor"/><circle cx={p.x} cy={p.y} r="14" className="ep-natal-marker-bg"/><AstroSymbol name={key} x={p.x-10} y={p.y-10} width="20" height="20"/></g>})}
+    <g className="ep-natal-center"><AstroSymbol name={active[0]} x="226" y="194" width="28" height="28"/><text x="240" y="248" textAnchor="middle" className="ep-natal-name">{active[1]}</text><text x="240" y="273" textAnchor="middle" className="ep-natal-position">{Math.floor(active[2]%30)}° · {signs[signIndex]}</text></g>
+   </svg>
+   <div className="ep-natal-positions" role="group" aria-label={tr('Положения планет','Planet positions')}>
+    <div className="ep-natal-columns" aria-hidden="true"><span>{tr('Планета','Planet')}</span><span>{tr('Градус','Degree')}</span><span>{tr('Знак','Sign')}</span></div>
+    {planets.map(([key,name,angle],i)=><button type="button" key={key} className="ep-natal-row" aria-pressed={selected===i} onClick={()=>setSelected(i)}><span className="ep-natal-planet"><AstroSymbol name={key} width="22" height="22"/><span>{name}</span></span><span className="ep-natal-degree">{Math.floor(angle%30)}°</span><span className="ep-natal-zodiac">{signs[Math.floor(angle/30)]}</span></button>)}
+   </div>
+  </div>
+ </section>
+}
