@@ -1,0 +1,81 @@
+/* Related details use 8–16px gaps; independent tasks use 32–40px. Product only. */
+.ep-root .ep-spatial-day{gap:40px;align-items:start}
+.ep-root .ep-day-agenda .ep-section-heading{margin-bottom:16px}
+.ep-root .ep-day-timeline{list-style:none;margin:0;padding:0}
+.ep-root .ep-day-timeline>li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:16px;padding:20px 0}
+.ep-root .ep-day-timeline>li+li{border-top:1px solid var(--line)}
+.ep-root .ep-day-time{display:flex;flex-direction:column;gap:4px;padding-top:4px;font-variant-numeric:tabular-nums}
+.ep-root .ep-day-time strong{font-size:20px;font-weight:600}
+.ep-root .ep-day-time span{font-size:13px;color:var(--muted)}
+.ep-root .ep-day-appointment{position:relative;min-width:0;padding:4px 0 4px 20px;border-left:2px solid var(--line)}
+.ep-root .is-featured .ep-day-appointment{border-left-color:var(--gold)}
+.ep-root .ep-day-identity{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px}
+.ep-root .ep-day-identity h3{margin:0;font:600 18px/1.45 'Auth Manrope',sans-serif;overflow-wrap:anywhere}
+.ep-root .ep-day-label{width:100%;font-size:12px;color:var(--muted);margin-bottom:4px}
+.ep-root .ep-day-appointment>p{margin:6px 0 0;line-height:1.6;font-size:14px;color:var(--muted);max-width:65ch;overflow-wrap:anywhere}
+.ep-root .ep-day-appointment>.ep-day-request{margin-top:12px;color:var(--navy)}
+.ep-root .ep-day-request>span{color:var(--muted)}
+.ep-root .ep-day-note{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:12px}
+.ep-root .ep-day-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:12px}
+.ep-root .ep-day-actions>.ep-text-button{min-height:44px;padding:8px 0;text-align:left}
+.ep-root .ep-day-empty{padding:24px 0;display:grid;justify-items:start;gap:16px}
+.ep-root .ep-spatial-day .ep-quick-actions{margin:32px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+.ep-root .ep-spatial-day .ep-today-aside{border:0;padding:0;display:grid;grid-template-columns:1fr;gap:32px}
+.ep-root .ep-spatial-day .ep-today-aside section{margin:0;padding-top:0;border-top:0}
+.ep-root .ep-spatial-day .ep-today-aside h2{font:600 17px/1.5 'Auth Manrope',sans-serif;margin-bottom:8px}
+.ep-root .ep-client-header{margin-bottom:16px}
+.ep-root .ep-client-context{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;padding:0 0 24px;margin:0 0 24px;border:0;border-radius:0;background:transparent}
+.ep-root .ep-client-context .ex-detail{display:flex;flex:1;flex-wrap:wrap;gap:16px 32px;margin:0;min-width:0}
+.ep-root .ep-client-context .ex-detail>div{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:0;border:0;min-width:0}
+.ep-root .ep-client-context dt{font-size:12px;color:var(--muted)}
+.ep-root .ep-client-context dd{font-size:14px;text-align:left;margin:0;max-width:32ch}
+.ep-root .ep-client-context .ex-actions{margin:0}
+.ep-root .ep-spatial-client{gap:40px}
+.ep-root .ep-spatial-client>aside{display:grid;align-content:start;gap:32px}
+.ep-root[data-theme] .ep-workspace .ep-spatial-client .ep-birth{padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.ep-root .ep-spatial-client .ep-note-preview{padding:0}
+.ep-root .ep-spatial-client .ep-client-request{border:0;padding-bottom:0;margin-bottom:32px}
+.ep-root .ep-spatial-client .ep-client-meetings{margin-bottom:40px}
+.ep-root .ep-spatial-client .ep-meeting-open>span{display:grid;gap:6px}
+.ep-root .ep-spatial-client .ep-meeting-open strong{margin:0}
+.ep-root .ep-appointment-form .ep-task-fields{display:grid;gap:16px;min-width:0;border:0;padding:0;margin:0 0 28px}
+.ep-root .ep-appointment-form .ep-task-fields>legend{padding:0;margin-bottom:16px;font-size:16px;font-weight:650}
+.ep-root .ep-appointment-form .ep-task-fields label{margin:0}
+.ep-root .ep-appointment-form .ep-task-fields .ep-form-pair{gap:16px}
+.ep-root .ep-appointment-form .ep-task-fields details{margin:0;border-bottom:0}
+.ep-root .ep-appointment-form .ep-form-fields{display:grid;gap:16px;padding-bottom:8px}
+.ep-root .ep-appointment-form .ep-task-fields .ep-client-picker{margin:0;width:100%;max-width:none}
+.ep-root .ep-appointment-client>.ep-text-button{min-height:44px;margin-top:4px;padding:8px 0}
+.ep-root .ep-appointment-context p{margin:4px 0;font-size:14px}
+.ep-root .ep-appointment-conditions{margin:0;font-size:14px;color:var(--muted)}
+.ep-root .ep-appointment-form .ep-field-hint{margin:0;font-size:13px;color:var(--muted);line-height:1.6}
+.ep-root .ep-appointment-form .ep-meeting-date-time+.ep-field-hint{margin-top:-8px}
+.ep-root .ep-appointment-form .ep-form-footer{margin-top:16px}
+@media(max-width:1150px){
+ .ep-root .ep-spatial-day .ep-today-aside{grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);padding-top:28px}
+}
+@media(max-width:800px){
+ .ep-root .ep-spatial-client{gap:32px}
+ .ep-root .ep-spatial-client>aside{grid-template-columns:1fr}
+ .ep-root .ep-client-context{gap:16px;margin-bottom:16px;padding-bottom:8px}
+ .ep-root .ep-client-context .ex-detail{flex-basis:100%;gap:12px 24px}
+}
+@media(max-width:520px){
+ .ep-root .ep-spatial-day{gap:32px}
+ .ep-root .ep-spatial-day .ep-today-aside{grid-template-columns:1fr}
+ .ep-root .ep-day-timeline>li{grid-template-columns:48px minmax(0,1fr);gap:10px;padding:18px 0}
+ .ep-root .ep-day-time strong{font-size:17px}
+ .ep-root .ep-day-time span{font-size:12px}
+ .ep-root .ep-day-appointment{padding-left:12px}
+ .ep-root .ep-day-identity h3{font-size:16px}
+ .ep-root .ep-day-actions{align-items:stretch;flex-direction:column;gap:4px}
+ .ep-root .ep-day-actions>.ep-button{justify-content:center}
+ .ep-root .ep-day-identity .ep-status{white-space:normal}
+ .ep-root .ep-appointment-form .ep-meeting-date-time{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px}
+}
+.ep-root .ep-spatial-day .ep-data-tasks>button{border:0;border-bottom:1px solid var(--line);border-radius:0;margin:0;padding:14px 12px}
+.ep-root .ep-spatial-day .ep-data-tasks>button:hover{background:var(--surface,#e9e8df);border-radius:8px}
+.ep-root .tw-workbench>.tw-tabs{border-bottom:1px solid var(--line);gap:4px 16px;padding-bottom:4px;margin-bottom:24px}
+.ep-root .tw-workbench>.tw-tabs>.ep-button{background:transparent;border-color:transparent;box-shadow:none;border-radius:4px;padding:10px 8px;color:var(--muted)}
+.ep-root .tw-workbench>.tw-tabs>.ep-button[aria-pressed=true]{color:var(--navy);box-shadow:0 2px 0 var(--gold)}
+.ep-root .tw-workbench>.tw-tabs>.ep-button:hover{background:var(--surface,#e9e8df)}
