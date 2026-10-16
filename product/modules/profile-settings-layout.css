@@ -1,0 +1,26 @@
+/* Profile settings share column edges, label baselines and a 24/8 px field rhythm. */
+.ep-root .ep-profile-settings-grid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px;row-gap:32px;align-items:start}
+.ep-root .ep-profile-settings-grid>section{min-width:0;padding-top:24px}
+.ep-root .ep-profile-settings-grid h2{margin:0 0 24px}
+.ep-root .ep-profile-settings-form,.ep-root .ep-profile-settings-fields{display:grid;gap:24px;min-width:0}
+.ep-root .ep-profile-settings-form>label,.ep-root .ep-profile-setting-field{display:grid;gap:8px;min-width:0;font-size:14px;line-height:20px;margin:0}
+.ep-root .ep-profile-settings-form>label>input,.ep-root .ep-profile-settings-grid .ep-select-trigger{height:52px;min-height:52px;margin:0;border-color:var(--line);border-radius:8px}
+.ep-root .ep-profile-settings-grid .ep-select{width:100%;margin-top:0}
+.ep-root .ep-profile-settings-grid .ep-language-control{padding:0;margin:0;min-width:0}
+.ep-root .ep-profile-settings-grid .ep-language-control legend{font-size:14px;line-height:20px;color:var(--navy);margin:0 0 8px}
+.ep-root .ep-profile-settings-grid .ep-language-control>div{height:52px;padding:4px}
+.ep-root .ep-profile-settings-grid .ep-language-control button{min-height:42px;padding:6px 12px}
+.ep-root .ep-profile-settings-form>.ex-note,.ep-root .ep-profile-settings-fields>.ex-note{margin:0;line-height:1.6}
+.ep-root .ep-profile-settings-form>.ex-note+.ex-note{margin-top:-16px}
+.ep-root .ep-profile-settings-form>.ex-actions{margin:0}
+.ep-root .ep-profile-settings-links{margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
+.ep-root .ep-profile-settings-links h2{font-size:18px;margin-bottom:16px}
+.ep-root .ep-profile-settings-links>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 40px}
+.ep-root .ep-profile-settings-links :is(a,button){display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:52px;padding:12px 16px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--navy);font:inherit;font-size:14px;font-weight:600;text-align:left}
+.ep-root .ep-profile-settings-links :is(a,button):hover{background:var(--surface)}
+.ep-root .ep-profile-settings>.settings-capabilities{margin-top:32px;padding-top:24px}
+.ep-root .ep-profile-settings .settings-capabilities>h2{margin-bottom:24px}
+.ep-root .ep-profile-settings .settings-capabilities>.ex-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.ep-root .ep-profile-settings .settings-capabilities>.ex-tabs button{padding:12px 16px;min-height:48px;text-align:left;line-height:1.5}
+@media(max-width:900px){.ep-root .ep-profile-settings-grid{grid-template-columns:1fr;gap:32px}.ep-root .ep-profile-settings-links>div{grid-template-columns:1fr;gap:12px}}
+@media(max-width:600px){.ep-root .ep-profile-settings .settings-capabilities>.ex-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.ep-root .ep-profile-settings .settings-capabilities>.ex-tabs button{padding:10px 12px}}
