@@ -19,7 +19,7 @@
 .ep-root .ep-directory-group ul { list-style: none; padding: 0; margin: 0; }
 .ep-root .ep-directory-link {
   display: grid;
-  grid-template-columns: 20px minmax(0, 1fr) 18px;
+  grid-template-columns: 24px minmax(0, 1fr) 18px;
   align-items: center;
   gap: 16px;
   min-height: 56px;
@@ -32,7 +32,7 @@
   line-height: 1.5;
 }
 .ep-root .ep-directory-link span { min-width: 0; overflow-wrap: anywhere; }
-.ep-root .ep-directory-link svg { color: var(--muted); }
+.ep-root .ep-directory-link .ep-icon { color: var(--muted); }
 .ep-root .ep-directory-link:hover,
 .ep-root .ep-directory-link:focus-visible { background: var(--surface-raised, #e5e5da); }
 .ep-root .ep-directory-link:active { background: var(--surface, #e9e9df); }

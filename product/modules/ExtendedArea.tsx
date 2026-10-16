@@ -8,10 +8,10 @@ import {SectionHeader,useModuleState,Notice,type ModuleProps} from './ModuleKit'
 import type {Practice} from '../state/model'
 import {Icon} from '../components/Icon'
 const groups = [
- {id:'consultations',title:'Для консультаций',items:[['tools','chart','Расчёты'],['journal','note','Заметки и итоги'],['library','note','Мои материалы']]},
+ {id:'consultations',title:'Для консультаций',items:[['tools','chart','Расчёты'],['journal','note','Заметки и итоги'],['library','library','Мои материалы']]},
  {id:'income',title:'Услуги и оплаты',items:[['services','service','Услуги и цены'],['finance','wallet','Оплаты'],['analytics','analytics','Аналитика']]},
- {id:'reminders',title:'Напоминания',items:[['astro-calendar','calendar','Личные задачи и даты'],['automations','flow','Автоматические напоминания']]},
- {id:'promotion',title:'Продвижение',items:[['content','note','Публикации'],['reviews','star','Отзывы']]},
+ {id:'reminders',title:'Напоминания',items:[['astro-calendar','reminder','Личные задачи и даты'],['automations','flow','Автоматические напоминания']]},
+ {id:'promotion',title:'Продвижение',items:[['content','publication','Публикации'],['reviews','star','Отзывы']]},
 ]
 const items = [...groups.flatMap(group=>group.items), ['settings','settings','Настройки профиля']]
 
@@ -24,14 +24,14 @@ function SectionDirectory() {
     <ul>
      {group.items.map(([id,icon,title])=><li key={id}>
       <a className="ep-directory-link" href={`#${id}`}>
-       <Icon name={icon} size={20}/><span>{title}</span><Icon name="arrow" size={18}/>
+       <Icon name={icon} size={24}/><span>{title}</span><Icon name="arrow" size={18}/>
       </a>
      </li>)}
     </ul>
    </section>)}
   </div>
   <div className="ep-directory-settings">
-   <a className="ep-directory-link" href="#settings"><Icon name="settings" size={20}/><span>Настройки профиля</span><Icon name="arrow" size={18}/></a>
+   <a className="ep-directory-link" href="#settings"><Icon name="settings" size={24}/><span>Настройки профиля</span><Icon name="arrow" size={18}/></a>
   </div>
  </div>
 }

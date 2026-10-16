@@ -1,6 +1,6 @@
 .ep-root .ep-learning-tip{display:flex;align-items:flex-start;gap:12px;padding:16px;margin:0 0 24px;border:1px solid var(--line);border-left:3px solid #b79d54;border-radius:8px;background:var(--surface,#f2f1eb);color:var(--navy);text-align:left;font-size:14px;line-height:1.6;min-width:0}
 .ep-root[data-theme=dark] .ep-learning-tip{background:#1a283c;border-color:#3b485b;border-left-color:#e2ca79;color:#f2f1eb}
-.ep-root .ep-learning-tip>svg{flex-shrink:0;margin-top:3px;color:#b79d54}
+.ep-root .ep-learning-tip>.ep-icon{flex-shrink:0;margin-top:3px;color:#b79d54}
 .ep-root .ep-learning-tip>div{flex:1;min-width:0}
 .ep-root .ep-learning-tip strong{font-size:14px}
 .ep-root .ep-learning-tip p{margin:4px 0 8px;font-size:14px;color:inherit;line-height:1.6}
@@ -21,7 +21,7 @@
 .ep-root .ep-nav-group h3{font-family:'Auth Manrope',sans-serif;font-size:13px;color:var(--muted);font-weight:500;margin:0 0 8px;padding:0 12px}
 .ep-root .ep-topbar .ep-help-button{display:flex;align-items:center;gap:8px;min-height:44px;background:none;border:0;color:inherit;font-size:13px}
 .ep-root .ep-page-heading h1{overflow-wrap:anywhere}
-@media(max-width:520px){.ep-root .ep-learning-tip{padding:12px;gap:8px}.ep-root .ep-learning-tip>svg{display:none}.ep-root .ep-quick-actions{display:grid;grid-template-columns:1fr 1fr}.ep-root .ep-quick-actions .ep-button{padding:10px 8px;font-size:12px!important}.ep-root .ep-help-list button{padding:12px}.ep-root .ep-home-search{margin-bottom:16px}}
+@media(max-width:520px){.ep-root .ep-learning-tip{padding:12px;gap:8px}.ep-root .ep-learning-tip>.ep-icon{display:none}.ep-root .ep-quick-actions{display:grid;grid-template-columns:1fr 1fr}.ep-root .ep-quick-actions .ep-button{padding:10px 8px;font-size:12px!important}.ep-root .ep-help-list button{padding:12px}.ep-root .ep-home-search{margin-bottom:16px}}
 
 /* Keep guidance and the next action in view on a small phone. */
 @media(max-width:520px){

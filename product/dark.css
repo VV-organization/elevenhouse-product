@@ -38,4 +38,4 @@
 .ep-root[data-theme=dark] .is-selected .ep-radio{background:#e2ca79;box-shadow:inset 0 0 0 4px #23314a}
 .ep-root[data-theme=dark] .ep-welcome>img{filter:none}.ep-root[data-theme=dark] .ep-toast{background:#22354e;border-color:#657591;color:#f2f1eb}
 .ep-root[data-theme=dark] :is(button,a,input,select,textarea,summary):focus-visible{outline-color:#e2ca79}
-.ep-root[data-theme=dark] .ep-empty>svg{color:#c6b77f}
+.ep-root[data-theme=dark] .ep-empty>.ep-icon{color:#c6b77f}

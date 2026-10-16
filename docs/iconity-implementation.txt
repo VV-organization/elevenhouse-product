@@ -1,0 +1,36 @@
+ElevenHouse / Iconity — 16 October 2026
+
+Source: the purchased “540 animated and static icons” Iconity archive supplied by the project owner.
+32 selected pack symbols are embedded in the product; the full archive and editable AE/AI originals are not included.
+The clock is a custom vector companion, matching the 128 px canvas, 7 px stroke and rounded geometry.
+
+Meaning is consistent across navigation, actions and empty states:
+Today → house; Clients → address book; Calendar → calendar; Calculations → compass;
+Messages → chat bubble; All sections → app grid; Notes and outcomes → open notebook;
+Materials → folder; Publications → megaphone; Services → briefcase; Payments → receipt;
+Analytics → bars; Tasks and dates → bell; Automatic reminders → connected steps;
+Reviews → star; Profile settings → gear.
+Shared action symbols (back, add, close) intentionally repeat for the same action.
+
+Motion:
+- Static SVG is available without loading the animation player.
+- On a fine pointer, the leading icon of a link/button plays once on pointer entry.
+- Keyboard focus-visible uses the same short feedback.
+- No autoplay or loops; leaving the control resets its static image.
+- Touch/coarse pointers and prefers-reduced-motion use static icons.
+- Utility arrows, checks, close and add controls stay static for stable interaction cues.
+- Animation JSON and the player load on first interaction, not on page load.
+- Player and event listeners are destroyed on unmount; late fetches are aborted.
+- All icons are decorative to screen readers; existing text and accessible button labels remain.
+
+Runtime: official lottie-web light 5.12.1, vendored as an ES module wrapper.
+Source: https://github.com/airbnb/lottie-web/blob/v5.12.1/build/player/lottie_light.min.js
+MIT license: product/vendor/lottie.LICENSE.txt. No package dependencies added.
+Icon artwork licensing is separate from the animation runtime license.
+
+Verification:
+Visual checks of dark and light themes, mobile directory and login at 390 px.
+Pointer entry starts only one icon; after completion the focused/hovered icon stays static.
+Keyboard focus starts motion; labels and focus indicators remain present.
+Arrow/chevron viewboxes optically adjusted to avoid undersized navigation cues.
+Product and landing assets/styles are separate; no landing or Hero files changed.
