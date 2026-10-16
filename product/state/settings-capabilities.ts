@@ -1,3 +1,4 @@
+import type {TwoFactorSetupData} from '../modules/settings-security'
 import {emptyOwnBirth,type OwnBirthDetails} from './settings-export'
 export type SettingsRequest={id:string;kind:'integration-connect'|'integration-disconnect'|'security-2fa'|'security-revoke'|'login-change'|'billing-plan'|'billing-method'|'verification'|'consents'|'delete-account'|'referral-link';target:string;payload:Record<string,unknown>;createdAt:string;status:'prepared'|'cancelled'}
 export type IntegrationId='telegram'|'google-calendar'|'yookassa'|'zoom'|'instagram'
@@ -10,6 +11,7 @@ export function loyaltyError(value:SettingsPreferences['loyalty']){return value.
 export function integrationDraftError(value:IntegrationDraft){return !value.account.trim()||!value.resource.trim()?'required':''}
 export function verificationError(value:SettingsPreferences['verification'],files:{name:string;size:number}[]){if(!value.name.trim()||!value.qualification.trim())return 'required';if(files.length>6||files.some(f=>f.size>10*1024*1024))return 'files';if(!files.length&&!value.links.trim())return 'evidence';if(value.links.split('\n').filter(s=>s.trim()).some(s=>{try{const u=new URL(s);return !['http:','https:'].includes(u.protocol)||!!u.username||!!u.password}catch{return true}}))return 'url';return ''}
 export type SettingsServerData={
+ twoFactorSetup?:TwoFactorSetupData;
  integrations?:Partial<Record<IntegrationId,{status:'connected'|'disconnected'|'error';account?:string;checkedAt?:string;error?:string}>>;
  security?:{twoFactor:'enabled'|'disabled'|null;methods:{kind:string;destination:string;verified:boolean}[];sessions:{id:string;device:string;location?:string;lastSeen:string;current:boolean}[]};
  billing?:{plans:{id:string;name:string;monthly:number;annual:number;fee:number;features:string[]}[];currentPlanId?:string;cycle?:'month'|'year';nextCharge?:string;paymentMethod?:string;invoices:{id:string;date:string;amount:number;status:string;receiptUrl?:string}[]};

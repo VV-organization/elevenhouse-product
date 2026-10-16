@@ -14,4 +14,10 @@ describe('settings plan catalog',()=>{
   expect(html).toContain('Рабочий тариф');expect(html).toContain('Особая возможность');expect(html).not.toContain('Studio');expect(html).not.toContain('Исходные условия')
   const empty=renderToStaticMarkup(<SettingsPlanCatalog cycle="month" billing={{plans:[],invoices:[]}} onRequest={()=>{}}/>);expect(empty).not.toContain('Подготовить переход')
  })
+ it('identifies the active plan while still allowing a different billing period',()=>{
+  const billing={plans:[{id:'pro',name:'Pro',monthly:990,annual:9900,fee:4,features:[]}],currentPlanId:'pro',cycle:'month' as const,invoices:[]};
+  const current=renderToStaticMarkup(<SettingsPlanCatalog cycle="month" billing={billing} onRequest={()=>{}}/>);expect(current).toContain('Текущий тариф');expect(current).toContain('disabled');
+  const annual=renderToStaticMarkup(<SettingsPlanCatalog cycle="year" billing={billing} onRequest={()=>{}}/>);expect(annual).toContain('Подготовить переход');expect(annual).not.toContain('disabled');
+ })
+
 })

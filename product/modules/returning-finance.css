@@ -41,3 +41,20 @@
 .ep-root .ec-ledger>.ep-form-pair label{display:grid;gap:8px;min-width:0}
 .ep-root .ec-ledger>.ep-form-pair input{min-width:0;width:100%;min-height:48px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--navy);font:inherit}
 @media(max-width:640px){.ep-root .ec-ledger .ex-toolbar{grid-template-columns:1fr}.ep-root .ec-ledger>.ep-form-pair{gap:12px}}
+
+/* Separate wallet facts from the request list; validation remains visible above the sticky form actions. */
+.ep-root .ec-money>h3{margin-top:28px;margin-bottom:16px}
+.ep-root .ec-money-error{scroll-margin-block:20px 100px;outline:none}
+/* Labels remain readable in the full service editor on narrow screens. */
+.ep-root .ec-conditions .ex-tabs button{font-size:14px;min-height:44px}
+.ep-root .ec-options .ep-checkbox{font-size:15px;line-height:1.5}
+.ep-root .ec-options .ep-checkbox input{width:18px;height:18px;min-height:18px;padding:0;accent-color:var(--gold,#e2ca79)}
+@media(max-width:520px){
+ .ep-root .ec-summary .ex-detail>div{grid-template-columns:minmax(0,1fr);justify-content:stretch;gap:6px}
+ .ep-root .ec-summary .ex-detail dd{width:100%;max-width:none;text-align:left}
+}
+
+.ep-root .ec-billing-history{margin-top:24px;border-top:1px solid var(--line);padding-top:8px}
+.ep-root .ec-billing-history>summary{min-height:44px;display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--muted);font-size:14px}
+.ep-root .ec-billing-history>summary::before{content:"+"}
+.ep-root .ec-billing-history[open]>summary::before{content:"−"}

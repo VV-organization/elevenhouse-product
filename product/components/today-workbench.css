@@ -3,3 +3,5 @@
 .ep-root .tw-proposal{margin-top:24px;padding:20px;border:1px solid var(--line);border-radius:8px}.ep-root .tw-proposal p{white-space:pre-wrap}
 
 .ep-root:not([data-theme=dark]) .tw-tabs [aria-pressed=true]{color:var(--navy);border-color:var(--navy)}
+
+.ep-root .tw-panel>.tw-refresh{margin-inline-start:12px}.ep-root .tw-result{font-weight:600;color:var(--navy);margin:8px 0}@media(max-width:600px){.ep-root .tw-panel>.tw-refresh{margin-inline-start:0;display:flex}}
