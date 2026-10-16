@@ -1,3 +1,4 @@
+import {Select} from '../components/Select'
 import {Icon} from '../components/Icon'
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import wordmark from '../assets/brand/eleven-house-stacked.svg'
@@ -246,7 +247,7 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
               <div className="eh-auth__contact-head"><label htmlFor="auth-contact">{channel === 'email' ? t('Электронная почта') : t('Номер телефона')}</label><button type="button" disabled={!!busy} onClick={() => { setChannel(channel === 'email' ? 'phone' : 'email'); setErrors({}); setNotice(null) }}>{channel === 'email' ? t('По телефону') : t('По почте')} </button></div>
               <div className="eh-auth__field eh-auth__field--contact">
                 <div className={`eh-auth__contact-input ${channel === 'phone' ? 'eh-auth__contact-input--phone' : ''}`} data-invalid={!!errors.contact}>
-                  {channel === 'phone' && <div className="eh-auth__country"><span className="eh-auth__country-code">{selectedCountry.id} {selectedCountry.prefix}</span><select aria-label={t("Код страны")} value={country} disabled={!!busy} onChange={(event) => { setCountry(event.target.value); setErrors({}) }}>{countries.map((item) => <option key={item.id} value={item.id}>{t(item.name)} ({item.prefix})</option>)}</select></div>}
+                  {channel === 'phone' && <div className="eh-auth__country"><span className="eh-auth__country-code">{selectedCountry.id} {selectedCountry.prefix}</span><Select displayValue={`${selectedCountry.id} ${selectedCountry.prefix}`} aria-label={t("Код страны")} value={country} disabled={!!busy} onChange={(event) => { setCountry(event.target.value); setErrors({}) }}>{countries.map((item) => <option key={item.id} value={item.id}>{t(item.name)} ({item.prefix})</option>)}</Select></div>}
                   <input key={channel} id="auth-contact" name={channel} type={channel === 'email' ? 'email' : 'tel'} inputMode={channel === 'email' ? 'email' : 'tel'} autoComplete={channel === 'email' ? 'email' : 'tel-national'} autoCapitalize="none" spellCheck={false} placeholder={channel === 'email' ? 'you@example.com' : '999 123-45-67'} value={contact} maxLength={channel === 'email' ? 254 : 22} disabled={!!busy} aria-invalid={!!errors.contact} aria-describedby={errors.contact ? 'auth-contact-error' : 'auth-contact-hint'} onChange={(event) => { channel === 'email' ? setEmail(event.target.value) : setPhone(event.target.value); setErrors((value) => ({ ...value, contact: undefined })); setNotice(null) }} />
                   {channel === 'email' && <Icon name="mail" size={19} />}
                 </div>
