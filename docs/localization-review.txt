@@ -1,0 +1,25 @@
+ElevenHouse — RU/EN localization review, 2026-10-16
+
+Implemented
+- One persistent language preference for authentication, onboarding, workspace, client portal and administration.
+- Language selection in account menu and profile settings; language controls on standalone surfaces.
+- Translated navigation, forms, feedback, empty states, guided learning, calculations, statuses and accessible names.
+- Locale-aware dates, weekdays, numbers and plurals. Currency remains RUB; changing language does not change monetary amounts.
+- Browser constraint validation uses the selected product language.
+- Client names, notes, conversations, service descriptions and other authored content remain unchanged.
+- Switching language does not remount the workspace or reset open drafts.
+- Account menu fits narrow and short windows. Active language keeps contrast on hover.
+
+Verification
+- Standalone production build and TypeScript check passed.
+- 21 test files, 143 tests passed, including 9 localization tests.
+- UI checks: English navigation, calendar, client form, calculations, notes, materials, messages, services, payments, analytics, reminders, posts, reviews and client portal.
+- Mobile widths 390 and 320 px; desktop 1280 px; short window 1024 x 320 px.
+- English native required-field error visibly verified in client form.
+- Profile draft survives EN -> RU; test draft discarded afterward.
+- English choice survives reload and sign out -> sign in.
+- Native Safari: account menu and live English translation verified; selected-language hover collision corrected afterward.
+- Supporting server-rendered checks covered empty/populated modules and guided-learning components in both languages.
+
+Scope
+This remains the existing frontend product prototype; no backend integration or external email/SMS/payment behavior added.

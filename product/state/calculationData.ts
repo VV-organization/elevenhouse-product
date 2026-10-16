@@ -1,3 +1,4 @@
+import {tr} from '../i18n'
 import {TODAY, type Client} from './model'
 
 export type BirthData = Pick<Client, 'birthDate' | 'birthTime' | 'birthPlace' | 'unknownTime'>
@@ -7,10 +8,10 @@ export function birthDataOf(client: BirthData): BirthData {
 }
 export function birthDataError(data: BirthData): string {
   const date = new Date(`${data.birthDate}T00:00:00Z`)
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.birthDate) || !Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== data.birthDate) return 'Укажите корректную дату рождения.'
-  if (data.birthDate > TODAY) return 'Дата рождения не может быть в будущем.'
-  if (!data.birthPlace.trim()) return 'Укажите город и страну рождения.'
-  if (!data.unknownTime && !/^([01]\d|2[0-3]):[0-5]\d$/.test(data.birthTime)) return 'Укажите время рождения или отметьте «Время неизвестно».'
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.birthDate) || !Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== data.birthDate) return tr("Укажите корректную дату рождения.","Enter a valid birth date.")
+  if (data.birthDate > TODAY) return tr("Дата рождения не может быть в будущем.","The birth date cannot be in the future.")
+  if (!data.birthPlace.trim()) return tr("Укажите город и страну рождения.","Enter the city and country of birth.")
+  if (!data.unknownTime && !/^([01]\d|2[0-3]):[0-5]\d$/.test(data.birthTime)) return tr("Укажите время рождения или отметьте «Время неизвестно».","Enter the birth time or select “Birth time unknown”.")
   return ''
 }
 export function hasSavedNatalChart(client: Client | undefined, isExample: boolean): boolean {

@@ -1,3 +1,5 @@
+import {localizeInvalidControl, clearLocalizedValidity} from './validationCopy'
+import {tr, useLocale, LanguageControl} from './i18n'
 import {givenName} from './state/names'
 import { useEffect, useState } from 'react'
 import { AuthPage, type AuthenticatedPreview } from './auth/AuthPage'
@@ -17,6 +19,7 @@ const memory:Partial<Record<AccountKind,Practice>>={}
 function load(kind:AccountKind){if(memory[kind])return memory[kind]!;const key=accountPracticeKey(kind);const raw=read(key);const restored=parsePractice(raw);const parsed=restored&&(kind==='member'||kind==='example')?upgradeSeedClientNames(restored):restored;if(parsed)memory[kind]=parsed;else if(raw){unreadable.add(kind);try{localStorage.setItem(`${key}-recovery`,raw)}catch{protectedStorage.add(kind)}}return parsed}
 
 export function App(){
+  const {locale}=useLocale()
   const [account,setAccount]=useState<AccountKind>(()=>storedAccount(read(keys.session)))
   const [practice,setPractice]=useState<Practice>(()=>load(storedAccount(read(keys.session)))??createEmptyPractice(''))
   const [screen,setScreen]=useState<'auth'|'start'|'workspace'|'client'|'admin'>(()=>new URL(window.location.href).searchParams.has('mode')?'auth':new URL(window.location.href).searchParams.get('surface')==='client'?'client':new URL(window.location.href).searchParams.get('surface')==='admin'?'admin':read(keys.session)&&load(storedAccount(read(keys.session)))?(load(storedAccount(read(keys.session)))!.onboarded?'workspace':'start'):'auth')
@@ -35,7 +38,7 @@ export function App(){
   },[practice,screen,account])
 
   useEffect(()=>{window.scrollTo({top:0,behavior:'instant'})},[screen])
-  useEffect(()=>{if(screen!=='auth'&&screen!=='workspace')document.title=screen==='start'?'Первый шаг — ElevenHouse':screen==='client'?'Кабинет клиента — ElevenHouse':screen==='admin'?'Администрирование — ElevenHouse':'Моя практика — ElevenHouse'},[screen])
+  useEffect(()=>{if(screen!=='auth'&&screen!=='workspace')document.title=screen==='start'?tr("Первый шаг — ElevenHouse","Get started — ElevenHouse"):screen==='client'?tr("Кабинет клиента — ElevenHouse","Client account — ElevenHouse"):screen==='admin'?tr("Администрирование — ElevenHouse","Administration — ElevenHouse"):tr("Моя практика — ElevenHouse","My practice — ElevenHouse")},[screen,locale])
 
   function auth(mode:'login'|'register'){
     const url=new URL(window.location.href);url.searchParams.set('mode',mode);url.searchParams.delete('surface');url.hash='';window.history.replaceState(null,'',url)
@@ -51,19 +54,20 @@ export function App(){
   function begin(skip=false){
     setPractice(p=>({...p,onboarded:true}));setScreen('workspace');window.location.hash=skip?'today':intent==='calculate'?'tools':'calendar';setInitialAction(skip?'':intent==='calculate'?'calculate':'appointment')
   }
-  return <ModuleScopeContext.Provider key={account} value={accountModuleScope(account)}><div className="ep-root" data-theme={theme}>
+  return <ModuleScopeContext.Provider key={account} value={accountModuleScope(account)}><div className="ep-root" data-theme={theme} lang={locale} onInvalidCapture={localizeInvalidControl} onInputCapture={clearLocalizedValidity} onChangeCapture={clearLocalizedValidity}>
+    {(screen==='client'||screen==='admin')&&<div className="ep-surface-language"><LanguageControl/></div>}
     {screen==='client'?<ClientPortal practice={account==='member'?practice:load('example')??createExamplePractice()} onReturn={()=>surface('workspace')}/>:screen==='admin'?<Admin onReturn={()=>surface('workspace')}/>:screen==='auth'?<AuthPage key={authKey} onAuthenticated={authenticated}/>:screen==='start'?<main className="ep-start">
-      <header><img src={logo} alt="ElevenHouse" width="104"/><button className="ep-text-button" onClick={()=>auth('login')}>Выйти</button></header>
-      <div className="ep-start-content"><h1>С чего начнём{practice.profile.name!=='Моя практика'?`, ${givenName(practice.profile.name)}`:''}?</h1><p className="ep-lead">Выберите первую задачу. Остальное можно настроить, когда понадобится.</p>
-        <fieldset className="ep-start-options"><legend className="ep-sr-only">Первая задача</legend>{[
-          ['calendar','calendar','Записать клиента на консультацию','Добавим клиента и выберем время. Услуги можно настроить позже.'],
-          ['calculate','chart','Подготовить расчёт','Введите данные рождения или выберите клиента. Остальное можно заполнить позже.'],
+      <header><img src={logo} alt="ElevenHouse" width="104"/><LanguageControl/><button className="ep-text-button" onClick={()=>auth('login')}>{tr("Выйти","Sign out")}</button></header>
+      <div className="ep-start-content"><h1>{tr("С чего начнём","Where shall we start")}{practice.profile.name!=='Моя практика'?`, ${givenName(practice.profile.name)}`:''}?</h1><p className="ep-lead">{tr("Выберите первую задачу. Остальное можно настроить, когда понадобится.","Choose your first task. You can set up everything else when you need it.")}</p>
+        <fieldset className="ep-start-options"><legend className="ep-sr-only">{tr("Первая задача","First task")}</legend>{[
+          ['calendar','calendar',tr("Записать клиента на консультацию","Book a client consultation"),tr("Добавим клиента и выберем время. Услуги можно настроить позже.","Add a client and choose a time. You can set up services later.")],
+          ['calculate','chart',tr("Подготовить расчёт","Prepare a calculation"),tr("Введите данные рождения или выберите клиента. Остальное можно заполнить позже.","Enter birth details or choose a client. You can add the rest later.")],
         ].map(([value,icon,title,description])=><label key={value} className={intent===value?'is-selected':''}><input type="radio" name="intent" value={value} checked={intent===value} onChange={()=>setIntent(value as typeof intent)}/><span className="ep-choice-icon"><Icon name={icon}/></span><span><strong>{title}</strong><small>{description}</small></span><span className="ep-radio" aria-hidden="true"/></label>)}</fieldset>
-        <div className="ep-start-actions"><button className="ep-button ep-button--primary" onClick={()=>begin()}>{intent==='calendar'?'Записать первого клиента':'Перейти к данным рождения'} <Icon name="arrow"/></button><button className="ep-text-button" onClick={()=>begin(true)}>Начну самостоятельно</button></div>
+        <div className="ep-start-actions"><button className="ep-button ep-button--primary" onClick={()=>begin()}>{intent==='calendar'?tr("Записать первого клиента","Book your first client"):tr("Перейти к данным рождения","Enter birth details")} <Icon name="arrow"/></button><button className="ep-text-button" onClick={()=>begin(true)}>{tr("Начну самостоятельно","Explore on my own")}</button></div>
       </div>
     </main>:<Workspace key={account} theme={theme} onThemeChange={changeTheme} onClientPreview={()=>surface('client')} practice={practice} onChange={setPractice} onLogout={()=>auth('login')} initialAction={initialAction} clearInitialAction={()=>setInitialAction('')}/>}
-    {unreadable.size>0&&<div className="ep-recovery-notice" role="alert">Не удалось восстановить прошлую практику. Исходные данные сохранены для восстановления.</div>}
-    {storageWarning&&<div className="ep-storage-warning" role="alert">Не удалось сохранить изменения. Не закрывайте страницу и попробуйте ещё раз.</div>}
+    {unreadable.size>0&&<div className="ep-recovery-notice" role="alert">{tr("Не удалось восстановить прошлую практику. Исходные данные сохранены для восстановления.","We couldn't restore your previous practice. The original data has been kept for recovery.")}</div>}
+    {storageWarning&&<div className="ep-storage-warning" role="alert">{tr("Не удалось сохранить изменения. Не закрывайте страницу и попробуйте ещё раз.","Changes couldn't be saved. Keep this page open and try again.")}</div>}
 
   </div></ModuleScopeContext.Provider>
 }

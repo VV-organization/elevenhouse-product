@@ -1,3 +1,4 @@
+import {tr} from '../i18n'
 import { useEffect, useRef, useId, type ReactNode } from 'react'
 import { Icon } from './Icon'
 
@@ -14,7 +15,7 @@ export function Dialog({title,children,onClose,wide=false}:{title:string,childre
     return ()=>{dialog.close();previous?.focus()}
   },[])
   return <dialog ref={ref} className={`ep-dialog${wide?' ep-dialog--wide':''}`} aria-labelledby={titleId} onCancel={event=>{event.preventDefault();close.current()}} onClick={event=>{if(event.target===event.currentTarget){const r=event.currentTarget.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)close.current()}}}>
-    <div className="ep-dialog-head"><h2 id={titleId}>{title}</h2><button className="ep-icon-button" onClick={onClose} aria-label="Закрыть"><Icon name="close"/></button></div>
+    <div className="ep-dialog-head"><h2 id={titleId}>{title}</h2><button className="ep-icon-button" onClick={onClose} aria-label={tr("Закрыть","Close")}><Icon name="close"/></button></div>
     {children}
   </dialog>
 }

@@ -198,3 +198,14 @@
 @media(max-width:360px){.ep-root .ep-sidebar nav{margin-inline:-12px;padding-inline:4px;gap:3px}.ep-root .ep-sidebar nav>a{font-size:10.5px;letter-spacing:0}}
 .ep-root .ep-form:has(.ep-learning-tip)>.ep-form-footer .ep-button--primary{outline:2px solid #b79d54;outline-offset:3px}
 @media(max-width:360px){.ep-root .ep-sidebar nav>a{flex:1 0 auto;padding-inline:3px;min-width:40px}}
+/* Language is a preference, not a primary workflow. Keep both choices explicit. */
+.ep-language-control{min-width:0;border:0;padding:12px;margin:0}
+.ep-language-control legend{float:left;width:100%;padding:0;margin-bottom:8px;font-size:12px;color:var(--muted);line-height:1.5}
+.ep-language-control>div{clear:both;display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:8px}
+.ep-root .ep-language-control button{flex:1;min-height:44px;justify-content:center;padding:8px 12px;border:0;border-radius:5px;background:transparent;color:inherit;font:inherit;font-size:14px;cursor:pointer}
+.ep-root .ep-language-control button[aria-pressed=true],.ep-root .ep-language-control button[aria-pressed=true]:hover{background:var(--gold);color:#152037}
+.ep-language-control button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ep-surface-language{display:flex;justify-content:flex-end;padding:8px 24px}
+.ep-surface-language .ep-language-control,.ep-start>header .ep-language-control{width:240px}
+.ep-account-panel{max-height:calc(100dvh - 32px);overflow-y:auto}
+@media(max-width:520px){.ep-start>header{flex-wrap:wrap;gap:12px}.ep-start>header .ep-language-control{order:3;width:100%;padding:0}.ep-surface-language{padding:8px 16px}}

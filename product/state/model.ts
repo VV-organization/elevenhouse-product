@@ -1,3 +1,4 @@
+import {tr, localeTag} from '../i18n'
 export type Client = {
   id: string; name: string; birthDate: string; birthTime: string; birthPlace: string;
   unknownTime: boolean; request: string; notes: string; updatedAt: string;
@@ -38,21 +39,21 @@ function minutes(time: string): number {
 }
 
 function validateClient(input: Omit<Client, 'id' | 'updatedAt'>): void {
-  if (!nonempty(input.name)) throw new Error('Укажите имя клиента.');
-  if (typeof input.birthDate !== 'string' || (input.birthDate && !validDate(input.birthDate))) throw new Error('Проверьте дату рождения.');
-  if (typeof input.birthTime !== 'string' || (!input.unknownTime && input.birthTime && !validTime(input.birthTime))) throw new Error('Проверьте время рождения.');
-  if (typeof input.unknownTime !== 'boolean' || [input.birthPlace, input.request, input.notes].some(v => typeof v !== 'string')) throw new Error('Проверьте данные клиента.');
+  if (!nonempty(input.name)) throw new Error(tr("Укажите имя клиента.","Enter the client's name."));
+  if (typeof input.birthDate !== 'string' || (input.birthDate && !validDate(input.birthDate))) throw new Error(tr("Проверьте дату рождения.","Check the birth date."));
+  if (typeof input.birthTime !== 'string' || (!input.unknownTime && input.birthTime && !validTime(input.birthTime))) throw new Error(tr("Проверьте время рождения.","Check the birth time."));
+  if (typeof input.unknownTime !== 'boolean' || [input.birthPlace, input.request, input.notes].some(v => typeof v !== 'string')) throw new Error(tr("Проверьте данные клиента.","Check the client's details."));
 }
 
 function validateAppointment(input: Omit<Appointment, 'id' | 'status'>): void {
-  if (!nonempty(input.clientId)) throw new Error('Выберите клиента.');
-  if (!validDate(input.date)) throw new Error('Укажите корректную дату записи.');
-  if (!validTime(input.time)) throw new Error('Укажите корректное время записи.');
-  if (!Number.isInteger(input.duration) || input.duration <= 0 || minutes(input.time) + input.duration > 1440) throw new Error('Укажите длительность в пределах выбранного дня.');
-  if (!nonempty(input.title)) throw new Error('Укажите название консультации.');
-  if (input.serviceId !== undefined && !nonempty(input.serviceId)) throw new Error('Выберите услугу или консультацию без услуги.');
-  if (input.price !== undefined && (typeof input.price !== 'number' || !Number.isFinite(input.price) || input.price < 0)) throw new Error('Стоимость должна быть числом от нуля.');
-  if (input.outcome !== undefined && typeof input.outcome !== 'string') throw new Error('Введите текст итога встречи.');
+  if (!nonempty(input.clientId)) throw new Error(tr("Выберите клиента.","Choose a client."));
+  if (!validDate(input.date)) throw new Error(tr("Укажите корректную дату записи.","Enter a valid appointment date."));
+  if (!validTime(input.time)) throw new Error(tr("Укажите корректное время записи.","Enter a valid appointment time."));
+  if (!Number.isInteger(input.duration) || input.duration <= 0 || minutes(input.time) + input.duration > 1440) throw new Error(tr("Укажите длительность в пределах выбранного дня.","Choose a duration that fits within the selected day."));
+  if (!nonempty(input.title)) throw new Error(tr("Укажите название консультации.","Enter a consultation title."));
+  if (input.serviceId !== undefined && !nonempty(input.serviceId)) throw new Error(tr("Выберите услугу или консультацию без услуги.","Choose a service or a consultation without a service."));
+  if (input.price !== undefined && (typeof input.price !== 'number' || !Number.isFinite(input.price) || input.price < 0)) throw new Error(tr("Стоимость должна быть числом от нуля.","The price must be a number greater than or equal to zero."));
+  if (input.outcome !== undefined && typeof input.outcome !== 'string') throw new Error(tr("Введите текст итога встречи.","Enter the appointment outcome."));
 }
 
 function validStatus(value: unknown): value is Appointment['status'] {
@@ -66,8 +67,8 @@ function overlaps(a: Pick<Appointment, 'date' | 'time' | 'duration'>, b: Appoint
 function ensureAvailable(practice: Practice, input: Omit<Appointment, 'id' | 'status'>, exceptId?: string): void {
   const conflict = practice.appointments.find(a => a.id !== exceptId && a.status !== 'cancelled' && overlaps(input, a));
   if (conflict) {
-    const name = practice.clients.find(client => client.id === conflict.clientId)?.name || 'Другой клиент';
-    throw new Error(`Это время уже занято: ${name}, ${conflict.time}, ${conflict.duration} мин. Выберите другое время консультации.`);
+    const name = practice.clients.find(client => client.id === conflict.clientId)?.name || tr("Другой клиент","Another client");
+    throw new Error(tr(`Это время уже занято: ${name}, ${conflict.time}, ${conflict.duration} мин. Выберите другое время консультации.`, `This time is already booked: ${name}, ${conflict.time}, ${conflict.duration} min. Choose another appointment time.`));
   }
 }
 
@@ -103,7 +104,7 @@ export function parsePractice(raw: string | null): Practice | null {
     if (!record(value) || value.version !== 1 || !record(value.profile) || !nonempty(value.profile.name) || !nonempty(value.profile.timeZone)
       || typeof value.isExample !== 'boolean' || typeof value.onboarded !== 'boolean' || !Array.isArray(value.clients) || !Array.isArray(value.appointments)) return null;
     // Reject timezone identifiers that cannot be used by date renderers.
-    new Intl.DateTimeFormat('ru-RU', { timeZone: value.profile.timeZone });
+    new Intl.DateTimeFormat(localeTag(), { timeZone: value.profile.timeZone });
     const clientIds = new Set<string>();
     for (const client of value.clients) {
       if (!record(client) || !nonempty(client.id) || clientIds.has(client.id) || typeof client.updatedAt !== 'string' || !Number.isFinite(Date.parse(client.updatedAt))) return null;
@@ -136,22 +137,22 @@ export function addClient(practice: Practice, input: Omit<Client, 'id' | 'update
 
 export function addAppointment(practice: Practice, input: Omit<Appointment, 'id' | 'status'>): Practice {
   validateAppointment(input);
-  if (!practice.clients.some(c => c.id === input.clientId)) throw new Error('Клиент не найден. Выберите клиента из вашей практики.');
+  if (!practice.clients.some(c => c.id === input.clientId)) throw new Error(tr("Клиент не найден. Выберите клиента из вашей практики.","Client not found. Choose a client from your practice."));
   ensureAvailable(practice, input);
   return { ...practice, appointments: [...practice.appointments, { ...input, title: input.title.trim(), id: newId(), status: 'confirmed' }] };
 }
 
 export function updateClientDetails(practice: Practice, id: string, input: Pick<Client, 'name' | 'request'>): Practice {
-  if (!practice.clients.some(c => c.id === id)) throw new Error('Клиент не найден.');
-  if (!nonempty(input.name)) throw new Error('Укажите имя клиента.');
-  if (typeof input.request !== 'string') throw new Error('Введите запрос клиента.');
+  if (!practice.clients.some(c => c.id === id)) throw new Error(tr("Клиент не найден.","Client not found."));
+  if (!nonempty(input.name)) throw new Error(tr("Укажите имя клиента.","Enter the client's name."));
+  if (typeof input.request !== 'string') throw new Error(tr("Введите запрос клиента.","Enter the client's request."));
   return { ...practice, clients: practice.clients.map(c => c.id === id ? { ...c, name: input.name.trim(), request: input.request.trim(), updatedAt: new Date().toISOString() } : c) };
 }
 
 export function rescheduleAppointment(practice: Practice, id: string, input: Omit<Appointment, 'id' | 'status' | 'clientId'>): Practice {
   const appointment = practice.appointments.find(a => a.id === id);
-  if (!appointment) throw new Error('Запись не найдена.');
-  if (appointment.status !== 'confirmed') throw new Error('Перенести можно только запланированную встречу.');
+  if (!appointment) throw new Error(tr("Запись не найдена.","Appointment not found."));
+  if (appointment.status !== 'confirmed') throw new Error(tr("Перенести можно только запланированную встречу.","Only scheduled appointments can be rescheduled."));
   const details = { clientId: appointment.clientId, date: input.date, time: input.time, duration: input.duration, title: input.title,
     ...(Object.prototype.hasOwnProperty.call(input, 'serviceId') ? { serviceId: input.serviceId } : appointment.serviceId ? { serviceId: appointment.serviceId } : {}),
     ...(Object.prototype.hasOwnProperty.call(input, 'price') ? { price: input.price } : appointment.price !== undefined ? { price: appointment.price } : {}) };
@@ -163,22 +164,22 @@ export function rescheduleAppointment(practice: Practice, id: string, input: Omi
 /** Restore the same cancelled record at a new time without losing its payment link. */
 export function restoreAppointmentAt(practice: Practice, id: string, input: Omit<Appointment, 'id' | 'status' | 'clientId'>): Practice {
   const appointment = practice.appointments.find(a => a.id === id);
-  if (!appointment) throw new Error('Запись не найдена.');
-  if (appointment.status !== 'cancelled') throw new Error('Восстановить можно только отменённую встречу.');
+  if (!appointment) throw new Error(tr("Запись не найдена.","Appointment not found."));
+  if (appointment.status !== 'cancelled') throw new Error(tr("Восстановить можно только отменённую встречу.","Only cancelled appointments can be restored."));
   const restored: Practice = { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, status: 'confirmed' } : a) };
   return rescheduleAppointment(restored, id, input);
 }
 
 export function saveClientNotes(practice: Practice, id: string, notes: string): Practice {
-  if (!practice.clients.some(c => c.id === id)) throw new Error('Клиент не найден.');
-  if (typeof notes !== 'string') throw new Error('Введите текст заметки.');
+  if (!practice.clients.some(c => c.id === id)) throw new Error(tr("Клиент не найден.","Client not found."));
+  if (typeof notes !== 'string') throw new Error(tr("Введите текст заметки.","Enter the note text."));
   return { ...practice, clients: practice.clients.map(c => c.id === id ? { ...c, notes, updatedAt: new Date().toISOString() } : c) };
 }
 
 export function setAppointmentStatus(practice: Practice, id: string, status: Appointment['status']): Practice {
   const appointment = practice.appointments.find(a => a.id === id);
-  if (!appointment) throw new Error('Запись не найдена.');
-  if (!validStatus(status)) throw new Error('Выберите корректный статус записи.');
+  if (!appointment) throw new Error(tr("Запись не найдена.","Appointment not found."));
+  if (!validStatus(status)) throw new Error(tr("Выберите корректный статус записи.","Choose a valid appointment status."));
   if (status !== 'cancelled') ensureAvailable(practice, appointment, id);
   return { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, status } : a) };
 }
@@ -187,13 +188,13 @@ export function setAppointmentStatus(practice: Practice, id: string, status: App
 /** An outcome belongs to this consultation, never to the client's unrelated notes. */
 export function completeAppointment(practice: Practice, id: string, outcome: string): Practice {
   const appointment = practice.appointments.find(a => a.id === id);
-  if (!appointment) throw new Error('Встреча не найдена.');
-  if (appointment.status === 'cancelled') throw new Error('Нельзя завершить отменённую встречу. Сначала восстановите запись.');
-  if (typeof outcome !== 'string') throw new Error('Введите текст итога встречи.');
+  if (!appointment) throw new Error(tr("Встреча не найдена.","Appointment not found."));
+  if (appointment.status === 'cancelled') throw new Error(tr("Нельзя завершить отменённую встречу. Сначала восстановите запись.","A cancelled appointment cannot be completed. Restore it first."));
+  if (typeof outcome !== 'string') throw new Error(tr("Введите текст итога встречи.","Enter the appointment outcome."));
   ensureAvailable(practice, appointment, id);
   return { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, status: 'completed', outcome: outcome.trim() } : a) };
 }
 
 export function formatDate(date: string): string {
-  return validDate(date) ? new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`)) : '—';
+  return validDate(date) ? new Intl.DateTimeFormat(localeTag(), { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`)) : '—';
 }

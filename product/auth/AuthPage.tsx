@@ -1,7 +1,8 @@
 import {Icon} from '../components/Icon'
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import wordmark from '../assets/brand/eleven-house-stacked.svg'
-import { AUTH_LOCALE_KEY, resolveLocale, translateAuth, type AuthLocale } from './authCopy'
+import { translateAuth } from './authCopy'
+import {useLocale} from '../i18n'
 import { CODE_LENGTH, countries, maskContact, normalizePhone, secondsLeft, validateCode, validateDetails, type AuthMode, type Channel, type FieldErrors, type Step } from './authFlow'
 import { createPreviewAuthApi, AuthApiError, type AuthChallenge, type AuthIdentity } from './authApi'
 
@@ -24,11 +25,7 @@ export type AuthPageProps = { onAuthenticated: (value: AuthenticatedPreview) => 
 
 export function AuthPage({ onAuthenticated }: AuthPageProps) {
   const [authApi] = useState(createPreviewAuthApi)
-  const [locale, setLocale] = useState<AuthLocale>(() => {
-    let saved: string | null = null
-    try { saved = localStorage.getItem(AUTH_LOCALE_KEY) } catch { /* The page also works with storage disabled. */ }
-    return resolveLocale(new URLSearchParams(window.location.search).get('lang'), saved, navigator.language)
-  })
+  const {locale, setLocale} = useLocale()
   const t = (text: string) => translateAuth(text, locale)
   const [mode, setMode] = useState<AuthMode>(() => new URLSearchParams(window.location.search).get('mode') === 'login' ? 'login' : 'register')
   const [step, setStep] = useState<Step>('details')
@@ -60,11 +57,6 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
   const expiresIn = secondsLeft(expiresAt, now)
   const expired = step === 'code' && expiresAt > 0 && expiresIn === 0
   const isRegister = mode === 'register'
-
-  useEffect(() => {
-    document.documentElement.lang = locale
-    try { localStorage.setItem(AUTH_LOCALE_KEY, locale) } catch { /* Optional preference persistence. */ }
-  }, [locale])
 
   useEffect(() => {
     const deadline = challenge ? Math.max(expiresAt, resendAt) : 0
