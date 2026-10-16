@@ -15,10 +15,10 @@ import {SectionHeader,useModuleState,Notice,type ModuleProps} from './ModuleKit'
 import type {Practice} from '../state/model'
 import {Icon} from '../components/Icon'
 const groups = () => [
- {id:'consultations',title:tr("Для консультаций", "Consultation tools"),items:[['tools','chart',tr("Расчёты", "Calculations")],['journal','note',tr("Заметки и итоги", "Notes and outcomes")],['library','library',tr("Мои материалы", "My materials")]]},
- {id:'income',title:tr("Услуги и оплаты", "Services and payments"),items:[['services','service',tr("Услуги и цены", "Services and prices")],['finance','wallet',tr("Оплаты", "Payments")],['analytics','analytics',tr("Аналитика", "Analytics")]]},
- {id:'reminders',title:tr("Напоминания", "Reminders"),items:[['astro-calendar','reminder',tr("Астрокалендарь и задачи", "Astro calendar and tasks")],['automations','flow',tr("Воронки и автоматизация", "Funnels and automation")]]},
- {id:'promotion',title:tr("Продвижение", "Promotion"),items:[['public-profile','profile',tr('Личная страница','Public profile')],['content','publication',tr("Публикации", "Posts")],['reviews','star',tr("Отзывы", "Reviews")]]},
+ {id:'practice',title:tr('Практика','Practice'),items:[['dashboard','analytics',tr('Дашборд','Dashboard')],['today','today',tr('Сегодня · рабочий день','Today · working day')],['analytics','analytics',tr('Аналитика','Analytics')],['finance','wallet',tr('Финансы','Finance')]]},
+ {id:'calculations',title:tr('Расчёты','Calculations'),items:[['tools','chart',tr('Движок карт · астрология','Chart engine · astrology')],['numbers','menu',tr('Нумерология','Numerology')],['matrix','practice',tr('Матрица судьбы','Destiny matrix')],['hd','profile',tr('Дизайн человека','Human Design')]]},
+ {id:'consultations',title:tr('Для консультаций','Consultation tools'),items:[['astro-calendar','reminder',tr('Астрокалендарь и задачи','Astro calendar and tasks')],['astro-journal','pin',tr('Астродневник','Astro journal')],['journal','note',tr('Заметки и итоги','Notes and outcomes')],['reference','help',tr('Справочник','Reference library')],['library','library',tr('Мои материалы','My materials')]]},
+ {id:'business',title:tr('Продажи и продвижение','Sales and promotion'),items:[['services','service',tr('Продукты и услуги','Products and services')],['automations','flow',tr('Воронки и автоматизация','Funnels and automation')],['content','publication',tr('Контент','Content')],['public-profile','profile',tr('Личная страница','Public profile')],['reviews','star',tr('Отзывы','Reviews')]]},
 ]
 const items = () => [...groups().flatMap(group=>group.items), ['settings','settings',tr("Настройки профиля", "Profile settings")]]
 
@@ -39,13 +39,18 @@ function SectionDirectory() {
   </div>
   <div className="ep-directory-settings">
    <a className="ep-directory-link" href="#settings"><Icon name="settings" size={24}/><span>{tr("Настройки профиля", "Profile settings")}</span><Icon name="arrow" size={18}/></a>
+   <a className="ep-directory-link" href="#plans"><Icon name="lock" size={24}/><span>{tr("Тарифы · Старт, Pro, Studio", "Plans · Start, Pro, Studio")}</span><Icon name="arrow" size={18}/></a>
   </div>
  </div>
 }
 
-export const extendedSections=['practice','services','finance','analytics','messages','content','automations','reviews','tools','journal','astro-calendar','library','settings','public-profile']
+export const extendedSections=['practice','services','finance','analytics','messages','content','automations','reviews','tools','journal','astro-calendar','library','settings','public-profile','numbers','matrix','hd','astro-journal','reference','plans']
 export function ExtendedArea({data,page,practice,onOpenClient,onChange,theme,onThemeChange,onClientPreview}:{data?:ProductData,page:string,onChange:Dispatch<SetStateAction<Practice>>,theme:string,onThemeChange:(theme:'dark'|'light')=>void,onClientPreview:(serviceId?:string)=>void}&ModuleProps){
  if(page==='practice')return <SectionDirectory/>
+ if(page==='plans')return <><a className="ex-section-back" href="#practice">{tr('Все разделы','All sections')}</a><SectionHeader title={tr('Тарифы и доступ','Plans and access')}/><SettingsCapabilities key="plans" initialTab="billing" data={data?.settings} practice={practice} onOpenClient={onOpenClient}/></>
+ const calculationMethod=({numbers:'numbers',matrix:'matrix',hd:'hd'} as const)[page as 'numbers'|'matrix'|'hd']
+ if(calculationMethod)return <><a className="ex-section-back" href="#practice">{tr('Все разделы','All sections')}</a><Tools {...data?.calculations} key={page} method={calculationMethod} section="tools" onChange={onChange} practice={practice} onOpenClient={onOpenClient}/></>
+ if(page==='astro-journal'||page==='reference')return <><a className="ex-section-back" href="#practice">{tr('Все разделы','All sections')}</a><SectionHeader title={page==='astro-journal'?tr('Астродневник','Astro journal'):tr('Справочник','Reference library')}/><Tools {...data?.calculations} key={page} initialView="additional" section={page==='astro-journal'?'journal':'library'} onChange={onChange} practice={practice} onOpenClient={onOpenClient}/></>
  if(page==='public-profile')return <><a className="ex-section-back" href="#practice">{tr('Все разделы','All sections')}</a><PublicProfile ownChartResult={data?.publicOwnChart} practice={practice} onOpenClient={onOpenClient} onBookService={onClientPreview}/></>
  const back=!['messages','tools'].includes(page)&&items().some(i=>i[0]===page)?'practice':''
  return <>{!['tools','journal'].includes(page)&&<LearningTip topic={page}/>} {back&&<a href={`#${back}`} className="ex-section-back"><Icon name="back" size={16}/>{back==='practice'?tr("Все разделы", "All sections"):tr("Все инструменты", "All tools")}</a>}{['services','finance','analytics'].includes(page)?<ServicesFinance key={page} section={page as 'services'} practice={practice} onOpenClient={onOpenClient} onChange={onChange}/>:['messages','content','automations','reviews'].includes(page)?<Communication data={data?.communication} key={page} section={page as 'messages'} practice={practice} onOpenClient={onOpenClient}/>:['tools','journal','astro-calendar','library'].includes(page)?<Tools {...data?.calculations} key={page} section={page as 'tools'} onChange={onChange} practice={practice} onOpenClient={onOpenClient}/>:<Settings data={data?.settings} onOpenClient={onOpenClient} practice={practice} onChange={onChange} theme={theme} onThemeChange={onThemeChange} onClientPreview={onClientPreview}/>}</>
