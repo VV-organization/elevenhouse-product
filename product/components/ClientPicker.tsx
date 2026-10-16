@@ -15,7 +15,7 @@ export function ClientPicker({clients,value,onChange,all=false,label=tr("Кли�
   <span id={labelId} className="ep-client-picker-label">{label}{required&&<span aria-hidden="true"> *</span>}</span>
   {name&&<input type="hidden" name={name} value={value}/>}
   <button ref={trigger} type="button" className="ep-client-picker-trigger" aria-labelledby={`${labelId} ${labelId}-value`} aria-haspopup="dialog" aria-expanded={open} disabled={disabled||(!clients.length&&!all)} onClick={()=>setOpen(true)}>
-   <Icon name="clients" size={19}/><span id={`${labelId}-value`}>{title}</span><Icon name="down" size={18}/>
+   <Icon name="clients" size={19}/><span className="ep-client-picker-value" id={`${labelId}-value`} title={title}>{title}</span><Icon name="down" size={18}/>
   </button>
   {open&&<ClientChooser clients={clients} value={value} all={all} onClose={close} onSelect={id=>{onChange(id);close()}}/>}
  </div>
