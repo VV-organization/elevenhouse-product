@@ -1,0 +1,41 @@
+/* Night palette follows the supplied ElevenHouse identity; auth retains its own approved surface. */
+.ep-root[data-theme=dark]{--navy:#edf0f5;--ivory:#0e1727;--muted:#acb7c8;--line:#2d3b50;--gold:#e2ca79;--surface:#152037;--surface-raised:#1c2a40;--chart-paper:#152037;--chart-ink:#edf0f5;--chart-line:#53617a;background:#0e1727;color:#edf0f5;color-scheme:dark}
+.ep-root[data-theme=dark] .ep-sidebar{background:#101a2b;border-right:1px solid #29364b}
+.ep-root[data-theme=dark] .ep-preview-bar{background:#19253a;border-color:#303c50;color:#bac5d5}
+.ep-root[data-theme=dark] .ep-preview-bar button{color:#d5deea}.ep-root[data-theme=dark] .ep-preview-bar i{background:#e2ca79}
+.ep-root[data-theme=dark] .ep-work-area,.ep-root[data-theme=dark] .ep-start{background:#0e1727}
+.ep-root[data-theme=dark] .ep-topbar{color:#b4bfd0}.ep-root[data-theme=dark] .ep-local-dot{background:#a4bfad}
+.ep-root[data-theme=dark] .ep-example-strip{background:#1c293b;color:#bec8d7;border-bottom:1px solid #303d50}
+.ep-root[data-theme=dark] .ep-example-strip button{color:#e2ca79}
+.ep-root[data-theme=dark] .ep-eyebrow{color:#aebbd0}
+.ep-root[data-theme=dark] .ep-button{background:#1a283d;color:#edf0f5;border-color:#46546a}
+.ep-root[data-theme=dark] .ep-button:hover{background:#25344c;border-color:#73819a}
+.ep-root[data-theme=dark] .ep-button--primary,.ep-root[data-theme=dark] .ep-button--gold{background:#e2ca79;color:#152037;border-color:#e2ca79}
+.ep-root[data-theme=dark] .ep-button--primary:hover,.ep-root[data-theme=dark] .ep-button--gold:hover{background:#edd991;border-color:#edd991}
+.ep-root[data-theme=dark] .ep-button--danger{background:#3b2731;border-color:#986b73;color:#f3bdc3}
+.ep-root[data-theme=dark] .ep-button:disabled{opacity:.5}.ep-root[data-theme=dark] .ep-icon-button:hover{background:#2a3850}
+.ep-root[data-theme=dark] .ep-next{background:#19273c;border:1px solid #384760}
+.ep-root[data-theme=dark] .ep-next-top .ep-eyebrow{color:#c3cde0}.ep-root[data-theme=dark] .ep-next h2{color:#f2f1eb}.ep-root[data-theme=dark] .ep-next-bottom{border-color:#3a4960}
+.ep-root[data-theme=dark] .ep-session-row:hover,.ep-root[data-theme=dark] .ep-client-row:hover{background:#17243a}
+.ep-root[data-theme=dark] .ep-avatar{background:#2c3440;color:#e5d7ac}.ep-root[data-theme=dark] .ep-status{color:#b4caba}
+.ep-root[data-theme=dark] .ep-status--cancelled{color:#e3abae}.ep-root[data-theme=dark] .ep-status--completed{color:#b6c7e6}
+.ep-root[data-theme=dark] .ep-back{color:#bcc6d6}.ep-root[data-theme=dark] .ep-checklist span{border-color:#5c6575;color:#dbccab}
+.ep-root[data-theme=dark] .ep-search,.ep-root[data-theme=dark] .ep-calendar-toolbar input,.ep-root[data-theme=dark] .ep-notes textarea{background:#152137;border-color:#46546a;color:#edf0f5}
+.ep-root[data-theme=dark] .ep-search input{color:#edf0f5}.ep-root[data-theme=dark] .ep-search input::placeholder{color:#9eabc1}
+.ep-root[data-theme=dark] .ep-birth{background:#18253a}.ep-root[data-theme=dark] .ep-birth dl>div{border-color:#344359}
+.ep-root[data-theme=dark] .ep-client-tabs button[aria-pressed=true]{color:#e2ca79;box-shadow:0 2px 0 #e2ca79}
+.ep-root[data-theme=dark] .ep-badge{border-color:#796d46;color:#e1ce96}.ep-root[data-theme=dark] .ep-planet-list button[aria-pressed=true]{background:#26344b}
+.ep-root[data-theme=dark] .ep-work-footer,.ep-root[data-theme=dark] .ep-start>footer{color:#a4afc2}
+.ep-root[data-theme=dark] .ep-dialog{background:#17243a;color:#edf0f5;border-color:#46546a;box-shadow:0 28px 100px #02060ca8}
+.ep-root[data-theme=dark] .ep-dialog::backdrop{background:#050b17c9}
+.ep-root[data-theme=dark] .ep-form input:not([type=checkbox]),.ep-root[data-theme=dark] .ep-form textarea,.ep-root[data-theme=dark] .ep-form select{background:#101b2d;color:#edf0f5;border-color:#536078}
+.ep-root[data-theme=dark] .ep-form input::placeholder,.ep-root[data-theme=dark] .ep-form textarea::placeholder{color:#a4b0c5}
+.ep-root[data-theme=dark] .ep-form input:disabled{background:#243047;color:#8c98ae}
+.ep-root[data-theme=dark] .ep-form-footer{background:#17243a}.ep-root[data-theme=dark] .ep-error{background:#422a32;color:#ffd0d4}
+.ep-root[data-theme=dark] .ep-preview-code{background:#27364c}.ep-root[data-theme=dark] .ep-start-options>label{border-color:#445268}
+.ep-root[data-theme=dark] .ep-start-options>label.is-selected{background:#23314a;border-color:#d0bb78}
+.ep-root[data-theme=dark] .ep-choice-icon{color:#dac890}.ep-root[data-theme=dark] .ep-radio{border-color:#98a3b6}
+.ep-root[data-theme=dark] .is-selected .ep-radio{background:#e2ca79;box-shadow:inset 0 0 0 4px #23314a}
+.ep-root[data-theme=dark] .ep-welcome>img{filter:none}.ep-root[data-theme=dark] .ep-toast{background:#22354e;border-color:#657591;color:#f2f1eb}
+.ep-root[data-theme=dark] :is(button,a,input,select,textarea,summary):focus-visible{outline-color:#e2ca79}
+.ep-root[data-theme=dark] .ep-empty>svg{color:#c6b77f}

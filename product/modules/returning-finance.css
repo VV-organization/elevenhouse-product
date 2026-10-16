@@ -1,0 +1,12 @@
+.ef-receipt-summary{display:grid;gap:8px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.ef-receipt-summary span{color:var(--muted);font-size:14px}.ef-receipt-summary b,.ef-payment-amount{font-size:28px;font-weight:600;font-variant-numeric:tabular-nums}
+.ef-payment-details>p{margin-block:12px}.ef-payment-details>.ef-payment-amount{margin-block:16px}
+.ef-payment-history{margin-block:20px}.ef-payment-history>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:8px}
+.ef-payment-history>summary::before{content:'+';color:var(--muted)}.ef-payment-history[open]>summary::before{content:'−'}
+.ef-undo-payment{margin-top:20px;min-height:44px;text-align:left}.ef-payment-details .ep-actions{margin-top:20px}
+@media(max-width:520px){.ef-record-button{width:100%}.ef-payment-details .ep-actions>.ep-button{flex:1 1 100%}.ef-payment-details .ep-form-footer{display:flex;flex-wrap:wrap;gap:12px}.ef-payment-details .ep-form-footer>.ep-button{flex:1 1 100%}}
+
+.ef-finance-summary{margin:0 0 28px;padding:0 0 20px;border-bottom:1px solid var(--line)}
+.ef-finance-gross{display:flex;align-items:baseline;justify-content:space-between;gap:16px;max-width:480px}.ef-finance-gross>span{font-size:15px;color:var(--muted)}.ef-finance-gross>strong{font-size:32px;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ef-finance-breakdown{max-width:480px}.ef-finance-breakdown>summary{display:flex;align-items:center;gap:8px;min-height:44px;width:fit-content;cursor:pointer;font-size:14px;color:var(--muted)}.ef-finance-breakdown>summary::before{content:'+'}.ef-finance-breakdown[open]>summary::before{content:'−'}.ef-finance-breakdown dl{margin:0}.ef-finance-breakdown dl>div{display:flex;justify-content:space-between;gap:16px;padding-block:8px;font-size:14px}.ef-finance-breakdown dd{margin:0;font-variant-numeric:tabular-nums;white-space:nowrap}.ef-finance-breakdown dt,.ef-finance-breakdown p{color:var(--muted)}.ef-finance-breakdown p{font-size:12px;margin-top:8px;line-height:1.6}
+@media(max-width:520px){.ef-finance-summary{margin-bottom:20px;padding-bottom:12px}.ef-finance-gross>strong{font-size:28px}.ef-finance-gross{gap:12px}}

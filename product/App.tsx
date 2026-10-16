@@ -1,0 +1,69 @@
+import {givenName} from './state/names'
+import { useEffect, useState } from 'react'
+import { AuthPage, type AuthenticatedPreview } from './auth/AuthPage'
+import { ModuleScopeContext } from './modules/ModuleKit'
+import { accountForIdentity, accountPracticeKey, accountModuleScope, storedAccount, createMemberPractice, upgradeSeedClientNames, type AccountKind } from './state/memberAccount'
+import { Icon } from './components/Icon'
+import { Workspace } from './components/Workspace'
+import { createEmptyPractice, createExamplePractice, parsePractice, type Practice } from './state/model'
+import logo from './assets/brand/eleven-house-stacked.svg'
+import {ClientPortal} from './modules/ClientPortal'
+import {Admin} from './modules/Admin'
+
+const keys={session:'eh-product-v1-session'}
+function read(key:string){try{return localStorage.getItem(key)}catch{return null}}
+const unreadable=new Set<string>(), protectedStorage=new Set<string>()
+const memory:Partial<Record<AccountKind,Practice>>={}
+function load(kind:AccountKind){if(memory[kind])return memory[kind]!;const key=accountPracticeKey(kind);const raw=read(key);const restored=parsePractice(raw);const parsed=restored&&(kind==='member'||kind==='example')?upgradeSeedClientNames(restored):restored;if(parsed)memory[kind]=parsed;else if(raw){unreadable.add(kind);try{localStorage.setItem(`${key}-recovery`,raw)}catch{protectedStorage.add(kind)}}return parsed}
+
+export function App(){
+  const [account,setAccount]=useState<AccountKind>(()=>storedAccount(read(keys.session)))
+  const [practice,setPractice]=useState<Practice>(()=>load(storedAccount(read(keys.session)))??createEmptyPractice(''))
+  const [screen,setScreen]=useState<'auth'|'start'|'workspace'|'client'|'admin'>(()=>new URL(window.location.href).searchParams.has('mode')?'auth':new URL(window.location.href).searchParams.get('surface')==='client'?'client':new URL(window.location.href).searchParams.get('surface')==='admin'?'admin':read(keys.session)&&load(storedAccount(read(keys.session)))?(load(storedAccount(read(keys.session)))!.onboarded?'workspace':'start'):'auth')
+  const [theme,setTheme]=useState<'dark'|'light'>(()=>read('eh-product-theme')==='light'?'light':'dark')
+  function changeTheme(value:'dark'|'light'){setTheme(value);try{localStorage.setItem('eh-product-theme',value)}catch{}}
+  function surface(value:'workspace'|'client'|'admin'){const u=new URL(window.location.href);if(value==='workspace')u.searchParams.delete('surface');else u.searchParams.set('surface',value);window.history.replaceState(null,'',u);setScreen(value)}
+  const [intent,setIntent]=useState<'calculate'|'calendar'>('calendar')
+  const [initialAction,setInitialAction]=useState('')
+  const [authKey,setAuthKey]=useState(0)
+  const [storageWarning,setStorageWarning]=useState(false)
+
+  useEffect(()=>{
+    if(screen==='auth'||screen==='client'||screen==='admin')return
+    memory[account]=practice
+    try{if(protectedStorage.has(account))throw new Error('Protected recovery');localStorage.setItem(accountPracticeKey(account),JSON.stringify(practice));localStorage.setItem(keys.session,account);setStorageWarning(false)}catch{setStorageWarning(true)}
+  },[practice,screen,account])
+
+  useEffect(()=>{window.scrollTo({top:0,behavior:'instant'})},[screen])
+  useEffect(()=>{if(screen!=='auth')document.title=screen==='start'?'Первый шаг — ElevenHouse':screen==='client'?'Кабинет клиента — ElevenHouse':screen==='admin'?'Администрирование — ElevenHouse':'Моя практика — ElevenHouse'},[screen])
+
+  function auth(mode:'login'|'register'){
+    const url=new URL(window.location.href);url.searchParams.set('mode',mode);url.searchParams.delete('surface');url.hash='';window.history.replaceState(null,'',url)
+    setAuthKey(k=>k+1);setScreen('auth');try{localStorage.removeItem(keys.session)}catch{}
+  }
+  function authenticated({name,channel,identifier}:AuthenticatedPreview){
+    const kind=accountForIdentity(channel,identifier)
+    const next=load(kind)??(kind==='member'?createMemberPractice():createEmptyPractice(name))
+    setAccount(kind)
+    surface('workspace');const url=new URL(window.location.href);url.searchParams.delete('mode');window.history.replaceState(null,'',url)
+    setPractice(next);setScreen(next.onboarded?'workspace':'start');window.location.hash='today'
+  }
+  function begin(skip=false){
+    setPractice(p=>({...p,onboarded:true}));setScreen('workspace');window.location.hash=skip?'today':intent==='calculate'?'tools':'calendar';setInitialAction(skip?'':intent==='calculate'?'calculate':'appointment')
+  }
+  return <ModuleScopeContext.Provider key={account} value={accountModuleScope(account)}><div className="ep-root" data-theme={theme}>
+    {screen==='client'?<ClientPortal practice={account==='member'?practice:load('example')??createExamplePractice()} onReturn={()=>surface('workspace')}/>:screen==='admin'?<Admin onReturn={()=>surface('workspace')}/>:screen==='auth'?<AuthPage key={authKey} onAuthenticated={authenticated}/>:screen==='start'?<main className="ep-start">
+      <header><img src={logo} alt="ElevenHouse" width="104"/><button className="ep-text-button" onClick={()=>auth('login')}>Выйти</button></header>
+      <div className="ep-start-content"><p className="ep-eyebrow">ВАШЕ ПРОСТРАНСТВО ГОТОВО</p><h1>С чего начнём{practice.profile.name!=='Моя практика'?`, ${givenName(practice.profile.name)}`:''}?</h1><p className="ep-lead">Выберите первую задачу. Остальное можно настроить, когда понадобится.</p>
+        <fieldset className="ep-start-options"><legend className="ep-sr-only">Первая задача</legend>{[
+          ['calendar','calendar','Записать клиента на консультацию','Добавим клиента и выберем время. Услуги можно настроить позже.'],
+          ['calculate','chart','Подготовить расчёт','Введите данные рождения или выберите клиента. Остальное можно заполнить позже.'],
+        ].map(([value,icon,title,description])=><label key={value} className={intent===value?'is-selected':''}><input type="radio" name="intent" value={value} checked={intent===value} onChange={()=>setIntent(value as typeof intent)}/><span className="ep-choice-icon"><Icon name={icon}/></span><span><strong>{title}</strong><small>{description}</small></span><span className="ep-radio" aria-hidden="true"/></label>)}</fieldset>
+        <div className="ep-start-actions"><button className="ep-button ep-button--primary" onClick={()=>begin()}>{intent==='calendar'?'Записать первого клиента':'Перейти к данным рождения'} <Icon name="arrow"/></button><button className="ep-text-button" onClick={()=>begin(true)}>Начну самостоятельно</button></div>
+      </div><footer>Люди. Связи. Своя орбита.</footer>
+    </main>:<Workspace key={account} theme={theme} onThemeChange={changeTheme} onClientPreview={()=>surface('client')} practice={practice} onChange={setPractice} onLogout={()=>auth('login')} initialAction={initialAction} clearInitialAction={()=>setInitialAction('')}/>}
+    {unreadable.size>0&&<div className="ep-recovery-notice" role="alert">Не удалось восстановить прошлую практику. Исходные данные сохранены для восстановления.</div>}
+    {storageWarning&&<div className="ep-storage-warning" role="alert">Не удалось сохранить изменения. Не закрывайте страницу и попробуйте ещё раз.</div>}
+
+  </div></ModuleScopeContext.Provider>
+}
