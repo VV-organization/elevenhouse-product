@@ -7,6 +7,13 @@ import {LearningTip, useLearning} from '../components/Learning'
 import {reminderOrder} from '../state/ordering'
 import {clientJournalEntries, type JournalEntry as Entry} from '../state/journalEntries'
 import { useEffect, useState, type FormEvent } from 'react'
+import type {CalculationDraftAdapter} from '../components/CalculationDraftAssistant'
+import type {AstroCalendarAdapter} from '../state/astroCalendar'
+import type {ResolveAstronomyCalculation} from '../components/AstronomyCalculationHistory'
+import type {CalculationAdapters} from '../components/CalculationWorkspace'
+import type {ComponentProps} from 'react'
+import {initialMaterials,type Material} from '../state/calculationMaterials'
+export {initialMaterials} from '../state/calculationMaterials'
 import { CalculationWorkspace } from '../components/CalculationWorkspace'
 import { Dialog } from '../components/Dialog'
 import { useFormExit } from '../components/useFormExit'
@@ -16,7 +23,6 @@ import { EmptyState, Notice, SectionHeader, countLabel, useModuleState, type Mod
 
 type Section = 'tools' | 'journal' | 'astro-calendar' | 'library'
 type Reminder = { id: string; eventId: string; clientId: string; date: string; time: string; text: string; done: boolean }
-type Material = { id: string; title: string; category: string; text: string; updated: string }
 type CalendarEvent = { id: string; clientId: string; date: string; time: string; title: string; type: 'birthday' | 'appointment' }
 const uid = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`
 const categories = ['Подготовка к встрече', 'Трактовки', 'Практики', 'Другое']
@@ -27,13 +33,14 @@ function validDate(date: string) { return /^\d{4}-\d{2}-\d{2}$/.test(date) && Nu
 function dateStamp() { return new Date().toISOString() }
 function birthdayAfter(birth: string) { if (!birth) return ''; const monthDay = birth.slice(5); let year = Number(TODAY.slice(0, 4)); let result = `${year}-${monthDay}`; if (result < TODAY) result = `${++year}-${monthDay}`; while (!validDate(result)) result = `${++year}-${monthDay}`; return result }
 
-export function Tools({ section, ...props }: ModuleProps & { section: Section; onChange?: (practice: Practice) => void }) {
+export type ToolCalculationAdapters = CalculationAdapters & {loadEvents?:AstroCalendarAdapter;resolveCalculation?:ResolveAstronomyCalculation;requestQuestion?:CalculationDraftAdapter;requestDraft?:CalculationDraftAdapter;journalContext?:ComponentProps<typeof SharedCalculationJournal>['context']}
+export function Tools({ section, ...props }: ModuleProps & ToolCalculationAdapters & { section: Section; onChange?: (practice: Practice) => void }) {
   const [view,setView]=useState('primary')
   const labels=section==='journal'?[tr('Заметки и итоги','Notes and outcomes'),tr('Совместный дневник','Shared journal')]:section==='astro-calendar'?[tr('Личные напоминания','Personal reminders'),tr('Астрокалендарь','Astrological calendar')]:[tr('Мои материалы','My materials'),tr('Справочник трактовок','Interpretation library')]
-  return <div className="ex-module">{section!=='tools'&&<div className="ec-mode" role="group" aria-label={tr('Раздел инструмента','Tool section')}>{labels.map((label,i)=><button key={label} aria-pressed={view===(i?'additional':'primary')} onClick={()=>setView(i?'additional':'primary')}>{label}</button>)}</div>}{section==='tools'?<Calculations {...props}/>:view==='additional'?section==='journal'?<SharedCalculationJournal practice={props.practice}/>:section==='astro-calendar'?<AstroCalculationCalendar practice={props.practice} onOpenClient={props.onOpenClient}/>:<ReferenceCalculations example={props.practice.isExample}/>:section==='journal'?<Journal {...props}/>:section==='astro-calendar'?<PersonalCalendar {...props}/>:<Library {...props}/>}</div>
+  return <div className="ex-module">{section!=='tools'&&<div className="ec-mode" role="group" aria-label={tr('Раздел инструмента','Tool section')}>{labels.map((label,i)=><button key={label} aria-pressed={view===(i?'additional':'primary')} onClick={()=>setView(i?'additional':'primary')}>{label}</button>)}</div>}{section==='tools'?<Calculations {...props}/>:view==='additional'?section==='journal'?<SharedCalculationJournal practice={props.practice} requestQuestion={props.requestQuestion} context={props.journalContext}/>:section==='astro-calendar'?<AstroCalculationCalendar practice={props.practice} onOpenClient={props.onOpenClient} loadEvents={props.loadEvents} resolveCalculation={props.resolveCalculation}/>:<ReferenceCalculations example={props.practice.isExample} requestDraft={props.requestDraft}/>:section==='journal'?<Journal {...props}/>:section==='astro-calendar'?<PersonalCalendar {...props}/>:<Library {...props}/>}</div>
 }
 
-function Calculations(props: ModuleProps & {onChange?: (practice: Practice) => void}) {
+function Calculations(props: ModuleProps & CalculationAdapters & {onChange?: (practice: Practice) => void}) {
   return <><SectionHeader title={tr("Расчёты", "Calculations")}/><CalculationWorkspace {...props}/></>
 }
 
@@ -107,13 +114,6 @@ function ReminderDialog({ event, clientName, timeZone, onClose, onSave }: { even
   return <Dialog title={tr(`Напоминание · ${clientName}`, `Reminder · ${clientName}`)} onClose={exit.close}><form className="ep-form" onSubmit={submit} onInput={exit.changed} onChange={exit.changed}><p className="ex-note">{event.title} · {formatDate(event.date)}{event.time && ` · ${event.time}`}</p><div className="ep-form-pair"><label>{tr("Когда напомнить", "Reminder date")}<input name="date" type="date" value={date} min={TODAY} onInput={e => setDate(e.currentTarget.value)} onChange={e => setDate(e.target.value)} required /></label><label>{tr("Время", "Time")}<input name="time" type="time" value={time} onInput={e => setTime(e.currentTarget.value)} onChange={e => setTime(e.target.value)} required /></label></div><label>{tr("О чём напомнить", "What to remember")}<textarea name="text" rows={4} value={text} onInput={e => setText(e.currentTarget.value)} onChange={e => setText(e.target.value)} required /></label><p className="ep-muted">{tr("Часовой пояс:", "Time zone:")} {timeZone}{tr(". Напоминание появится в вашем списке.", ". The reminder will appear in your list.")}</p>{error && <Notice error>{error}</Notice>}{exit.warning}<footer className="ep-form-footer"><button type="button" className="ep-button" onClick={exit.close}>{tr("Отмена", "Cancel")}</button><button className="ep-button ep-button--primary">{tr("Сохранить напоминание", "Save reminder")}</button></footer></form></Dialog>
 }
 
-export function initialMaterials(example: boolean): Material[] {
-  return example ? [
-    { id: 'm1', title: 'Перед первой встречей', category: 'Подготовка к встрече', text: '1. Уточнить, с каким вопросом приходит клиент.\n2. Проверить дату, место и известность времени рождения.\n3. Согласовать длительность и формат встречи.\n4. В конце выделить одно следующее действие.', updated: '2026-10-14T12:00:00.000Z' },
-    { id: 'm2', title: 'Как подвести итоги месяца', category: 'Практики', text: 'Предложите клиенту вспомнить три значимых события месяца. Что получилось? Что оказалось сложнее ожидаемого?\n\nСформулируйте одну достижимую цель до следующей встречи и договоритесь, как заметить результат.', updated: '2026-10-12T12:00:00.000Z' },
-    { id: 'm3', title: 'Вопросы о профессиональном выборе', category: 'Трактовки', text: 'Вопросы для подготовки к консультации.\n\nЧто клиент хочет изменить в работе? Какие ограничения он видит? Какие варианты уже рассматривает?\n\nСвязывайте наблюдения с реальным запросом и проверяйте каждое утверждение перед обсуждением.', updated: '2026-10-10T12:00:00.000Z' },
-  ] : []
-}
 function Library({ practice }: ModuleProps) {
   const learning=useLearning()
   const [storedMaterials, setMaterials, failed] = useModuleState<Material[]>('library', practice.isExample, () => initialMaterials(practice.isExample))

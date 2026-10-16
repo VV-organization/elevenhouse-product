@@ -7,8 +7,8 @@ import {createEmptyPractice} from '../state/model'
 import {DEFAULT_BOOKING_RULES} from '../state/bookingRules'
 const service:Service={id:'pack',name:'Сопровождение',description:'Пакет консультаций',duration:60,price:12000,includes:['Три встречи'],status:'available',commerce:{...commerceDefaults(4000),sale:'pack',extras:[{id:'record',name:'Запись',kind:'percent',price:10}]}}
 describe('client order semantics',()=>{
- it('does not turn packages, subscriptions, asynchronous or group products into one appointment',()=>{
-  expect(isAppointmentService(service)).toBe(false)
+ it('offers a first time slot for individual live packages while keeping other products as orders',()=>{
+  expect(isAppointmentService(service)).toBe(true)
   for(const patch of [{sale:'subscription' as const},{sale:'free' as const},{sale:'once' as const,timing:'async' as const},{sale:'once' as const,audience:'group' as const}])expect(isAppointmentService({...service,commerce:{...service.commerce!,...patch}})).toBe(false)
   expect(isAppointmentService({...service,commerce:commerceDefaults()})).toBe(true)
  })

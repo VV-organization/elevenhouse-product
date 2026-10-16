@@ -7,7 +7,7 @@ export function acceptPortalRequest(order:PortalOrder,practice:Practice,now=new 
  if(!order.clientId||!practice.clients.some(c=>c.id===order.clientId))throw new Error(tr('Клиент не связан с вашей практикой. Сначала уточните его данные.','This client is not linked to your practice. Check their details first.'))
  let next=practice
  if(order.appointment){
-  if(order.commerce.sale!=='once'||order.commerce.timing!=='live'||order.commerce.audience!=='solo')throw new Error(tr('Для этого типа услуги нельзя создать одиночную встречу.','This service type cannot create a single appointment.'))
+  if(!['once','pack'].includes(order.commerce.sale)||order.commerce.timing!=='live'||order.commerce.audience!=='solo')throw new Error(tr('Для этого типа услуги нельзя создать одиночную встречу.','This service type cannot create a single appointment.'))
   const timestamp=zonedTimestamp(order.appointment.date,order.appointment.time,order.appointment.timeZone)
   if(!Number.isFinite(timestamp)||timestamp<now.getTime())throw new Error(tr('Время встречи уже прошло. Согласуйте новую запись.','This appointment time has passed. Arrange a new booking.'))
   if(practice.appointments.some(a=>a.id===order.appointment!.id))throw new Error(tr('Эта запись уже существует. Проверьте календарь.','This booking already exists. Check the calendar.'))

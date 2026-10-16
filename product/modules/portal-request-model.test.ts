@@ -20,13 +20,27 @@ describe('specialist request review',()=>{
   expect(added).toMatchObject({clientId:'marina',status:'confirmed',price:5000,date:'2026-10-19',time:'12:00'})
   expect(()=>acceptPortalRequest(result.order,result.practice,now)).toThrow();expect(practice.appointments.some(a=>a.id===order.appointment.id)).toBe(false)
  })
+ it('accepts the first package slot without replacing the package terms or claiming all meetings were delivered',()=>{
+  const practice=createExamplePractice(),service={...base,price:12000,commerce:{...base.commerce!,sale:'pack' as const,packCount:3,unitPrice:4000}}
+  const order={...createPortalOrder(service,[],{},'marina'),appointment:liveOrder().appointment}
+  service.price=20000;service.commerce.packCount=5
+  const result=acceptPortalRequest(order,practice,now)
+  expect(result.practice.appointments).toHaveLength(practice.appointments.length+1)
+  expect(result.practice.appointments.at(-1)).toMatchObject({id:order.appointment.id,clientId:'marina',price:12000,status:'confirmed'})
+  expect(result.order).toMatchObject({total:12000,commerce:{sale:'pack',packCount:3},status:'accepted'})
+  expect(result.order).not.toHaveProperty('paid');expect(result.order).not.toHaveProperty('accessUntil')
+  expect(()=>acceptPortalRequest(result.order,result.practice,now)).toThrow()
+  const cancelled=cancelAcceptedRequest({...result.order,status:'cancellation-requested'},result.practice)
+  expect(cancelled.practice.appointments.at(-1)?.status).toBe('cancelled')
+  expect(cancelled.order.commerce.packCount).toBe(3)
+ })
  it('rejects a conflicting or elapsed time without altering the request',()=>{
   const practice=createExamplePractice(),order=liveOrder()
   const busy={...practice,appointments:[...practice.appointments,{id:'busy',clientId:'dmitry',date:order.appointment.date,time:'12:30',duration:60,title:'Other',status:'confirmed' as const}]}
   expect(()=>acceptPortalRequest(order,busy,now)).toThrow();expect(order.status).toBe('requested')
   expect(()=>acceptPortalRequest(order,practice,new Date('2026-10-20T00:00:00Z'))).toThrow()
  })
- it('prevents accepting orders for an unknown client or fabricated package appointment',()=>{
+ it('prevents accepting orders for an unknown client or fabricated subscription appointment',()=>{
   expect(()=>acceptPortalRequest({...liveOrder(),clientId:'unknown'},createExamplePractice(),now)).toThrow()
   const order=liveOrder();order.commerce.sale='subscription';expect(()=>acceptPortalRequest(order,createExamplePractice(),now)).toThrow()
  })

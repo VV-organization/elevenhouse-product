@@ -1,3 +1,5 @@
+import type {CalculateAstronomy} from '../state/calculationPresentation'
+import type {InterpretCalculation} from '../state/calculationDelivery'
 import {tr} from '../i18n'
 import {useState, useEffect, type FormEvent} from 'react'
 import {ClientForm} from './Forms'
@@ -11,7 +13,8 @@ import {formatDate, TODAY, type Practice} from '../state/model'
 import {birthDataError, birthDataOf, emptyBirthData, hasSavedNatalChart, type BirthData, type BirthDraft, resolveBirthDraft} from '../state/calculationData'
 import '../calculation.css'
 
-type Props = {practice: Practice; clientId?: string; onChange?: (practice: Practice) => void; onOpenClient: (id: string) => void}
+export type CalculationAdapters = {calculate?: CalculateAstronomy; interpret?: InterpretCalculation}
+type Props = CalculationAdapters & {practice: Practice; clientId?: string; onChange?: (practice: Practice) => void; onOpenClient: (id: string) => void}
 const getMethods = () => [{id:'natal', name:tr("Астрология", "Astrology")}, {id:'numbers', name:tr("Нумерология", "Numerology")}, {id:'matrix', name:tr("Матрица", "Matrix")}, {id:'hd', name:tr("Дизайн человека", "Human Design")}] as const
 type Method = ReturnType<typeof getMethods>[number]['id']
 export function CalculationWorkspace(props: Props) {
@@ -25,7 +28,7 @@ export function CalculationWorkspace(props: Props) {
     {(effectiveMode === 'quick' || selected) && <CalculationBody key={effectiveMode === 'quick' ? 'quick' : selected} {...props} clientId={effectiveMode === 'client' ? selected : undefined}/>}
   </section>
 }
-function CalculationBody({practice, clientId, onChange, onOpenClient}: Props) {
+function CalculationBody({practice, clientId, onChange, onOpenClient, calculate, interpret}: Props) {
   const learning = useLearning()
   const methods = getMethods()
   const [addingClient,setAddingClient]=useState(false)
@@ -84,7 +87,7 @@ function CalculationBody({practice, clientId, onChange, onOpenClient}: Props) {
     {birthDraftFailed && <Notice error>{tr("Не удалось сохранить незавершённый ввод. Не закрывайте страницу до сохранения данных.", "Could not save the draft. Keep this page open until the details are saved.")}</Notice>}
     {quickFailed && !client && <Notice error>{tr("Не удалось сохранить данные. Не закрывайте страницу, пока не скопируете их.", "Could not save the details. Copy them before closing this page.")}</Notice>}
     {!editing && <><div className="ec-mode ec-methods" role="group" aria-label={tr("Метод работы", "Calculation method")}>{methods.map(item => <button key={item.id} aria-pressed={method === item.id} onClick={() => setMethod(item.id)}>{item.name}</button>)}</div>
-      {method==='numbers'||method==='matrix'?<MethodCalculations key={method} method={method} date={source.birthDate} name={client?.name||''} practice={practice} clientId={clientId}/>:<AstronomyCalculations key={method} method={method} source={source} practice={practice} clientId={clientId} reference={chart}/>}
+      {method==='numbers'||method==='matrix'?<MethodCalculations interpret={interpret} key={method} method={method} date={source.birthDate} name={client?.name||''} practice={practice} clientId={clientId}/>:<AstronomyCalculations calculate={calculate} interpret={interpret} key={method} method={method} source={source} practice={practice} clientId={clientId} reference={chart}/>}
       <section className="ep-form ec-preparation"><label htmlFor="calculation-note">{tr("Заметки к разбору", "Appointment notes")} <span className="ep-muted">{tr("· только вам", "· private")}</span></label><textarea id="calculation-note" rows={4} value={noteText} readOnly={!!client && !onChange} placeholder={tr("На что обратить внимание при подготовке", "What to focus on during preparation")} onChange={event => saveNote(event.target.value)}/><p className="ep-muted">{tr("Сохраняются автоматически", "Saved automatically")}{client ? tr(" в заметках клиента", " to the client's notes") : ''}.</p>{notesFailed && <Notice error>{tr("Не удалось сохранить заметки. Скопируйте текст перед закрытием страницы.", "Could not save the notes. Copy the text before closing this page.")}</Notice>}
       {legacyNote !== undefined && <details className="ec-draft-recovery"><summary>{tr("Ранее сохранённый черновик заметки", "Previously saved note draft")}</summary><p>{tr("Текущие заметки сохранены выше. Этот черновик можно добавить к ним или удалить.", "Your current notes are saved above. You can add this draft to them or delete it.")}</p><p style={{whiteSpace:'pre-wrap'}}>{legacyNote || tr("Пустой черновик", "Empty draft")}</p><div className="ec-actions">{legacyNote.trim() && <button className="ep-button" disabled={!onChange} onClick={() => {saveNote([client?.notes,legacyNote].filter(Boolean).join('\n\n'));discardLegacyNote()}}>{tr("Добавить к текущим заметкам", "Add to current notes")}</button>}<button className="ep-text-button" onClick={discardLegacyNote}>{tr("Удалить черновик", "Delete draft")}</button></div></details>}</section>
     </>}

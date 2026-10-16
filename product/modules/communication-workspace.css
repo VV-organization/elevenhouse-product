@@ -9,3 +9,10 @@
 .ep-root .communication-content-plan .communication-month-grid button[aria-pressed=true]{background:var(--gold);color:#152037;border-color:var(--gold)}.ep-root .communication-workspace>.ex-toolbar>.ep-button[aria-pressed=true]{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}.ep-root .communication-editor .ep-form{padding:0;max-height:none;overflow:visible;max-width:none}.ep-root .communication-editor .ep-form-footer{position:static;margin:24px 0 0;padding:16px 0 0}.ep-root .communication-editor blockquote{margin:0;padding:16px;border-left:2px solid var(--gold);background:var(--surface);line-height:1.6}
 
 .ep-root .communication-ai-fields .communication-fieldset{min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin:0}.ep-root .communication-ai-fields .ep-checkbox{display:flex;flex-direction:row;align-items:center;gap:12px;min-width:0;min-height:44px;overflow-wrap:anywhere}.ep-root .communication-ai-fields .ep-checkbox input[type=checkbox]{width:20px;height:20px;min-height:20px;flex:0 0 20px;margin:0}
+/* Workflow steps are page content, not nested modal scroll containers. */
+.ep-root .communication-workspace .ep-form{max-height:none;overflow:visible;padding:0;min-width:0;width:100%}
+.ep-root .communication-workspace .ep-form .ep-form{padding:0}
+.ep-root .communication-flow-list,.ep-root .communication-flow-step,.ep-root .communication-flow-step fieldset{min-width:0}
+.ep-root .communication-flow-step .ep-form-pair{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ep-root .communication-flow-step .ep-checkbox{overflow-wrap:anywhere}
+@media(max-width:600px){.ep-root .communication-flow-step .ep-form-pair{grid-template-columns:minmax(0,1fr)}}
