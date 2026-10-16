@@ -1,0 +1,32 @@
+/* Product-only refinement. Reference: supplied ElevenHouse identity — ink,
+   ivory, matte gold and a single fine orbit. No landing or auth selectors. */
+.ep-root[data-theme=dark] .ep-workspace{
+ --surface:#142136;--surface-raised:#1c2b40;--line:#2a384b;
+ background:#0d1625;
+}
+.ep-root[data-theme=dark] .ep-workspace .ep-work-area{background:#0d1625}
+.ep-root[data-theme=dark] .ep-workspace .ep-sidebar{
+ background:linear-gradient(165deg,#142035 0%,#0f1929 65%);
+ border-right-color:#c4cdd51a;
+}
+.ep-workspace .ep-sidebar nav a{position:relative}
+.ep-root[data-theme=dark] .ep-workspace .ep-sidebar nav a[aria-current]{background:linear-gradient(105deg,#e2ca791c,#e2ca7908);color:#eedb9c;box-shadow:inset 0 0 0 1px #e2ca7915}
+.ep-workspace .ep-sidebar nav a[aria-current]::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:2px;border-radius:2px;background:#d9c382}
+.ep-workspace .ep-page-heading h1{letter-spacing:-.025em}
+.ep-workspace .ep-eyebrow{letter-spacing:.09em}
+.ep-root[data-theme=dark] .ep-workspace .ep-button--primary,
+.ep-root[data-theme=dark] .ep-workspace .ep-button--gold{background:linear-gradient(115deg,#ead69b,#ddc478);border-color:#e6cf8a;box-shadow:inset 0 1px 0 #fff5ce55,0 3px 8px #03091618;color:#172237}
+.ep-root[data-theme=dark] .ep-workspace .ep-button--primary:hover,
+.ep-root[data-theme=dark] .ep-workspace .ep-button--gold:hover{background:linear-gradient(115deg,#f0dfa9,#e4ce8b);border-color:#f0dea7}
+.ep-root[data-theme=dark] .ep-workspace .ep-next{background:linear-gradient(125deg,#223247,#17243a 75%);border:1px solid #8793a532;box-shadow:inset 0 1px 0 #e8d79c26,0 8px 24px #03091620}
+.ep-root[data-theme=dark] .ep-workspace :is(.ep-cal-month,.ep-birth,.ex-panel){background:linear-gradient(145deg,#19273c,#142034);border-color:#8b9aaf28;box-shadow:inset 0 1px 0 #c5cfdd0a}
+.ep-workspace .ep-next h2{letter-spacing:-.025em}
+.ep-root[data-theme=dark] .ep-workspace .ep-avatar{background:linear-gradient(140deg,#d8c28c22,#d8c28c0c);color:#e7d6a7;border:1px solid #d8c28c28}
+.ep-workspace .ep-account-avatar{background:linear-gradient(145deg,#d8c28c14,transparent)}
+.ep-root[data-theme=dark] .ep-workspace :is(.ep-client-row,.ep-session-row,.ex-row){border-bottom-color:#899bb127}
+.ep-workspace :is(.ep-button,.ep-icon-button):active:not(:disabled){transform:translateY(1px)}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ .ep-workspace :is(.ep-button,.ep-icon-button,.ep-sidebar nav a,.ep-client-row,.ep-session-row,.ex-row){transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease,transform .16s ease}
+}
+@media(max-width:800px){.ep-workspace .ep-sidebar nav a[aria-current]::before{top:auto;bottom:0;left:24%;right:24%;width:auto;height:2px}}
+@media(prefers-reduced-motion:reduce){.ep-workspace :is(.ep-button,.ep-icon-button):active:not(:disabled){transform:none}}

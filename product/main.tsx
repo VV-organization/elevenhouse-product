@@ -5,5 +5,6 @@ import './auth/auth.css'
 import './product.css'
 import './modules.css'
 import './dark.css'
+import './product-polish.css'
 
 createRoot(document.getElementById('product-root')!).render(<StrictMode><App /></StrictMode>)

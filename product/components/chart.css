@@ -1,12 +1,18 @@
 .ep-natal{min-width:0}.ep-natal>h2{margin-bottom:24px}
 .ep-natal-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.85fr);align-items:center;gap:32px;max-width:1040px}
 .ep-natal-wheel{display:block;width:100%;max-width:520px;margin:auto;overflow:visible}
-.ep-natal-paper{fill:var(--chart-paper,#faf9f5);stroke:var(--chart-line,#bbb8ad);stroke-width:1}
-.ep-natal-ring{fill:none;stroke:var(--chart-line,#bbb8ad);stroke-width:1}.ep-natal-inner{fill:none;stroke:var(--line);stroke-width:1}
+.ep-natal-tone-center{stop-color:#faf8ee}.ep-natal-tone-edge{stop-color:#e9e6db}
+.ep-natal-paper{stroke:#b7ac91;stroke-width:.65}
+.ep-root[data-theme=dark] .ep-natal-tone-center{stop-color:#1b2a3d}.ep-root[data-theme=dark] .ep-natal-tone-edge{stop-color:#111e30}
+.ep-root[data-theme=dark] .ep-natal-paper{stroke:#697180;stroke-opacity:.65}
+.ep-natal-selected-arc{fill:none;stroke:#9a782c;stroke-width:2.5;stroke-linecap:round}
+.ep-root[data-theme=dark] .ep-natal-selected-arc{stroke:#e2ca79}
+.ep-natal-tick{fill:none;stroke:var(--chart-line,#aaa38f);stroke-width:.7;opacity:.45}.ep-natal-tick--major{opacity:.75}
+.ep-natal-ring{fill:none;stroke:var(--chart-line,#bbb8ad);stroke-width:.65;opacity:.6}
 .ep-natal-sign{color:var(--muted)}.ep-natal-sign.is-selected{color:var(--navy)}
-.ep-natal-marker{color:var(--navy)}.ep-natal-leader{fill:none;stroke:currentColor;stroke-width:1;opacity:.4}
-.ep-natal-marker-bg{fill:var(--chart-paper,#faf9f5)}.ep-natal-marker.is-selected .ep-natal-marker-bg{fill:var(--gold)}.ep-natal-marker.is-selected>svg{color:#152037}
-.ep-natal-center{color:var(--navy)}.ep-natal-name{fill:var(--navy);font-size:22px;font-weight:600}.ep-natal-position{fill:var(--muted);font-size:16px}
+.ep-natal-marker{color:var(--navy)}.ep-natal-leader{fill:none;stroke:currentColor;stroke-width:.8;opacity:0}.ep-natal-marker.is-selected .ep-natal-leader{opacity:.65}.ep-natal-marker>circle:not(.ep-natal-marker-bg){opacity:.5}.ep-natal-marker.is-selected>circle:not(.ep-natal-marker-bg){opacity:1}
+.ep-natal-marker-bg{fill:transparent}.ep-natal-marker.is-selected .ep-natal-marker-bg{fill:var(--gold)}.ep-natal-marker.is-selected>svg{color:#152037}
+.ep-natal-center{color:#947129}.ep-root[data-theme=dark] .ep-natal-center{color:#e2ca79}.ep-natal-name{fill:var(--navy);font:400 30px 'Auth Vetrino',serif}.ep-natal-position{fill:var(--muted);font-size:16px}
 .ep-natal-columns,.ep-natal-row{display:grid;grid-template-columns:minmax(0,1fr) 56px 96px;gap:12px;align-items:center}
 .ep-natal-columns{padding:0 16px 12px;color:var(--muted);font-size:12px;border-bottom:1px solid var(--line)}
 .ep-natal-columns>span:nth-child(2){text-align:right}
@@ -18,3 +24,17 @@
 @media(max-width:1050px){.ep-natal-layout{gap:24px;grid-template-columns:minmax(0,1fr) minmax(290px,.9fr)}.ep-natal-columns,.ep-natal-row{grid-template-columns:minmax(0,1fr) 44px 84px;gap:8px;padding-inline:12px}}
 @media(max-width:800px){.ep-natal-layout{grid-template-columns:1fr;gap:24px;max-width:520px;margin-inline:auto}.ep-natal-wheel{max-width:440px}.ep-natal-row{min-height:48px}.ep-natal-columns,.ep-natal-row{grid-template-columns:minmax(0,1fr) 48px 88px}.ep-natal-planet{gap:10px}}
 @media(max-width:360px){.ep-natal-columns,.ep-natal-row{padding-inline:8px;grid-template-columns:minmax(0,1fr) 38px 76px;gap:12px}.ep-natal-row{font-size:13px}.ep-natal-zodiac{font-size:12px}.ep-natal-planet{gap:8px}.ep-natal-planet svg{width:20px;height:20px}}
+
+/* The supplied identity's restrained orbit is the sole graphic accent. */
+.ep-natal-wheel{filter:drop-shadow(0 16px 24px #050b1410)}
+.ep-natal-positions{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface,#faf9f5)}
+.ep-natal-columns{padding-top:14px;padding-bottom:14px;background:color-mix(in srgb,var(--surface-raised,#e8e6db) 40%,transparent);font-size:12px}
+.ep-natal-row{border-bottom-color:color-mix(in srgb,var(--line) 70%,transparent)}
+.ep-natal-row:last-child{border-bottom:0}
+.ep-root[data-theme=dark] .ep-natal-row[aria-pressed=true]{background:linear-gradient(90deg,#e2ca7918,#e2ca7905);box-shadow:inset 2px 0 #e2ca79}
+.ep-natal-row[aria-pressed=true] .ep-natal-degree{font-weight:600}
+@media(prefers-reduced-motion:no-preference){.ep-natal-center{animation:ep-natal-detail-in .18s ease-out}.ep-natal-row{transition:background-color .15s ease}.ep-natal-marker-bg,.ep-natal-leader{transition:fill .18s ease,opacity .18s ease}}
+@keyframes ep-natal-detail-in{from{opacity:.45}to{opacity:1}}
+
+.ep-natal-marker.is-selected{color:#92702a}.ep-root[data-theme=dark] .ep-natal-marker.is-selected{color:#e2ca79}
+.ep-natal-row:focus-visible{outline-offset:-4px;border-radius:6px}
