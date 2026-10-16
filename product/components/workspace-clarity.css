@@ -29,3 +29,19 @@
  .ep-root .ep-client-request { padding-bottom: 16px; margin-bottom: 24px; }
  .ep-root .ep-client-grid { gap: 24px; }
 }
+
+/* Utility replaces repeated branding; there is one visible help entry per viewport. */
+.ep-root .ep-sidebar-help {
+ display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px;
+ padding: 12px; margin-bottom: 12px; border: 0; border-radius: 8px;
+ background: transparent; color: #c3cad5; text-align: left; font-size: 14px;
+}
+.ep-root .ep-sidebar-help:hover { background: #ffffff0d; color: #f2f1eb; }
+@media(min-width:801px) {
+ .ep-root .ep-topbar { display: none; }
+ .ep-root .ep-sidebar .ep-brand { margin-bottom: 32px; }
+ .ep-root .ep-sidebar .ep-sidebar-bottom { padding-top: 16px; }
+}
+@media(max-width:800px) {
+ .ep-root .ep-sidebar-help { display: none; }
+}

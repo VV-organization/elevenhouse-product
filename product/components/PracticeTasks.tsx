@@ -13,6 +13,6 @@ export function PracticeTasks({practice,onMeeting,onMessages,onReminders}:{pract
  return <section className="ep-data-tasks ep-work-tasks"><h2>Требуют внимания</h2>
  {awaiting>0&&<button onClick={onMessages}><Icon name="message" size={18}/><span><strong>Ответить клиентам</strong><small>Ждут ответа: {awaiting}</small></span><Icon name="arrow" size={16}/></button>}
  {unfinished.length>0&&<button onClick={()=>onMeeting(unfinished[0].id)}><Icon name="note" size={18}/><span><strong>Подвести итоги встреч</strong><small>Без итога: {unfinished.length}</small></span><Icon name="arrow" size={16}/></button>}
- {due>0&&<button onClick={onReminders}><Icon name="calendar" size={18}/><span><strong>Личные напоминания</strong><small>На сегодня и раньше: {due}</small></span><Icon name="arrow" size={16}/></button>}
+ {due>0&&<button onClick={onReminders}><Icon name="reminder" size={18}/><span><strong>Личные напоминания</strong><small>На сегодня и раньше: {due}</small></span><Icon name="arrow" size={16}/></button>}
  </section>
 }

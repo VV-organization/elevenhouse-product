@@ -54,13 +54,13 @@ export function App(){
   return <ModuleScopeContext.Provider key={account} value={accountModuleScope(account)}><div className="ep-root" data-theme={theme}>
     {screen==='client'?<ClientPortal practice={account==='member'?practice:load('example')??createExamplePractice()} onReturn={()=>surface('workspace')}/>:screen==='admin'?<Admin onReturn={()=>surface('workspace')}/>:screen==='auth'?<AuthPage key={authKey} onAuthenticated={authenticated}/>:screen==='start'?<main className="ep-start">
       <header><img src={logo} alt="ElevenHouse" width="104"/><button className="ep-text-button" onClick={()=>auth('login')}>Выйти</button></header>
-      <div className="ep-start-content"><p className="ep-eyebrow">ВАШЕ ПРОСТРАНСТВО ГОТОВО</p><h1>С чего начнём{practice.profile.name!=='Моя практика'?`, ${givenName(practice.profile.name)}`:''}?</h1><p className="ep-lead">Выберите первую задачу. Остальное можно настроить, когда понадобится.</p>
+      <div className="ep-start-content"><h1>С чего начнём{practice.profile.name!=='Моя практика'?`, ${givenName(practice.profile.name)}`:''}?</h1><p className="ep-lead">Выберите первую задачу. Остальное можно настроить, когда понадобится.</p>
         <fieldset className="ep-start-options"><legend className="ep-sr-only">Первая задача</legend>{[
           ['calendar','calendar','Записать клиента на консультацию','Добавим клиента и выберем время. Услуги можно настроить позже.'],
           ['calculate','chart','Подготовить расчёт','Введите данные рождения или выберите клиента. Остальное можно заполнить позже.'],
         ].map(([value,icon,title,description])=><label key={value} className={intent===value?'is-selected':''}><input type="radio" name="intent" value={value} checked={intent===value} onChange={()=>setIntent(value as typeof intent)}/><span className="ep-choice-icon"><Icon name={icon}/></span><span><strong>{title}</strong><small>{description}</small></span><span className="ep-radio" aria-hidden="true"/></label>)}</fieldset>
         <div className="ep-start-actions"><button className="ep-button ep-button--primary" onClick={()=>begin()}>{intent==='calendar'?'Записать первого клиента':'Перейти к данным рождения'} <Icon name="arrow"/></button><button className="ep-text-button" onClick={()=>begin(true)}>Начну самостоятельно</button></div>
-      </div><footer>Люди. Связи. Своя орбита.</footer>
+      </div>
     </main>:<Workspace key={account} theme={theme} onThemeChange={changeTheme} onClientPreview={()=>surface('client')} practice={practice} onChange={setPractice} onLogout={()=>auth('login')} initialAction={initialAction} clearInitialAction={()=>setInitialAction('')}/>}
     {unreadable.size>0&&<div className="ep-recovery-notice" role="alert">Не удалось восстановить прошлую практику. Исходные данные сохранены для восстановления.</div>}
     {storageWarning&&<div className="ep-storage-warning" role="alert">Не удалось сохранить изменения. Не закрывайте страницу и попробуйте ещё раз.</div>}
