@@ -1,3 +1,5 @@
+import {ReferenceCalculations} from '../components/ReferenceCalculations'
+import {AstroCalculationCalendar,SharedCalculationJournal} from '../components/PracticeCalculationTools'
 import {Select} from '../components/Select'
 import {tr, localeTag} from '../i18n'
 import {ClientPicker} from '../components/ClientPicker'
@@ -26,7 +28,9 @@ function dateStamp() { return new Date().toISOString() }
 function birthdayAfter(birth: string) { if (!birth) return ''; const monthDay = birth.slice(5); let year = Number(TODAY.slice(0, 4)); let result = `${year}-${monthDay}`; if (result < TODAY) result = `${++year}-${monthDay}`; while (!validDate(result)) result = `${++year}-${monthDay}`; return result }
 
 export function Tools({ section, ...props }: ModuleProps & { section: Section; onChange?: (practice: Practice) => void }) {
-  return <div className="ex-module">{section === 'tools' ? <Calculations {...props} /> : section === 'journal' ? <Journal {...props} /> : section === 'astro-calendar' ? <PersonalCalendar {...props} /> : <Library {...props} />}</div>
+  const [view,setView]=useState('primary')
+  const labels=section==='journal'?[tr('Заметки и итоги','Notes and outcomes'),tr('Совместный дневник','Shared journal')]:section==='astro-calendar'?[tr('Личные напоминания','Personal reminders'),tr('Астрокалендарь','Astrological calendar')]:[tr('Мои материалы','My materials'),tr('Справочник трактовок','Interpretation library')]
+  return <div className="ex-module">{section!=='tools'&&<div className="ec-mode" role="group" aria-label={tr('Раздел инструмента','Tool section')}>{labels.map((label,i)=><button key={label} aria-pressed={view===(i?'additional':'primary')} onClick={()=>setView(i?'additional':'primary')}>{label}</button>)}</div>}{section==='tools'?<Calculations {...props}/>:view==='additional'?section==='journal'?<SharedCalculationJournal practice={props.practice}/>:section==='astro-calendar'?<AstroCalculationCalendar practice={props.practice} onOpenClient={props.onOpenClient}/>:<ReferenceCalculations example={props.practice.isExample}/>:section==='journal'?<Journal {...props}/>:section==='astro-calendar'?<PersonalCalendar {...props}/>:<Library {...props}/>}</div>
 }
 
 function Calculations(props: ModuleProps & {onChange?: (practice: Practice) => void}) {

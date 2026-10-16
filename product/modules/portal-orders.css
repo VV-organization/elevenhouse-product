@@ -1,0 +1,3 @@
+.ep-order-form fieldset{border:1px solid var(--ep-line,#334155);border-radius:12px;margin:0;padding:16px;display:grid;gap:16px;min-width:0}
+.ep-order-form legend{padding:0 8px;font-weight:600}.ep-order-inputs{display:grid;gap:24px}.ep-order-row{text-align:left;padding:20px 16px;gap:16px}.ep-order-row>div{min-width:0;flex:1}.ep-order-row strong{white-space:nowrap}.ep-order-form .ep-checkbox{display:flex;align-items:center;gap:12px;min-height:44px}.ep-order-form .ep-checkbox input{width:20px;min-height:20px;height:20px;flex-shrink:0}.ep-order-form .ex-detail dd{overflow-wrap:anywhere}
+@media(max-width:600px){.ep-order-row{padding:16px 12px;flex-wrap:wrap}.ep-order-form fieldset{padding:12px}.ep-order-form .ep-form-pair{grid-template-columns:1fr}}

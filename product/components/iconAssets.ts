@@ -1,4 +1,5 @@
 // Selected Iconity assets supplied by the project owner. Clock is a matching custom drawing.
+import profileStatic from '../assets/icons/iconity/profile.svg?url'
 import todayStatic from '../assets/icons/iconity/today.svg?url'
 import todayAnimation from '../assets/icons/iconity/today.json?url'
 import clientsStatic from '../assets/icons/iconity/clients.svg?url'
@@ -53,6 +54,7 @@ import infoStatic from '../assets/icons/iconity/info.svg?url'
 import lockStatic from '../assets/icons/iconity/lock.svg?url'
 import clockStatic from '../assets/icons/iconity/clock.svg?url'
 export const iconAssets: Record<string,{static:string,animation?:string}> = {
+ profile: {static:profileStatic},
  today: {static:todayStatic,animation:todayAnimation},
  clients: {static:clientsStatic,animation:clientsAnimation},
  calendar: {static:calendarStatic,animation:calendarAnimation},

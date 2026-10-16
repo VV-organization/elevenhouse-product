@@ -1,16 +1,19 @@
 import {tr, localeTag} from '../i18n'
+import {checkBookingRules,type BookingRules} from './bookingRules'
 export type Client = {
   id: string; name: string; birthDate: string; birthTime: string; birthPlace: string;
   unknownTime: boolean; request: string; notes: string; updatedAt: string;
+  email?: string; phone?: string; telegram?: string; tags?: string[]; stage?: string;
 };
 export type Appointment = {
   id: string; clientId: string; date: string; time: string; duration: number; title: string;
   status: 'confirmed' | 'completed' | 'cancelled';
-  serviceId?: string; price?: number; outcome?: string;
+  serviceId?: string; price?: number; outcome?: string; meetingUrl?:string; attendance?:'no-show';
+  cancellation?: {kind:'cancel'|'no-show'; policy:'free'|'partial'|'hold'|'reschedule'; refundPercent:number; reason:string; recordedAt:string};
 };
 export type Practice = {
   version: 1; profile: { name: string; timeZone: string }; clients: Client[];
-  appointments: Appointment[]; isExample: boolean; onboarded: boolean;
+  appointments: Appointment[]; isExample: boolean; onboarded: boolean; bookingRules?:BookingRules; clientStages?:Array<{id:string;label:string}>;
 };
 
 export const TODAY = '2026-10-15';
@@ -40,6 +43,7 @@ function minutes(time: string): number {
 
 function validateClient(input: Omit<Client, 'id' | 'updatedAt'>): void {
   if (!nonempty(input.name)) throw new Error(tr("Укажите имя клиента.","Enter the client's name."));
+  validateContacts(input);
   if (typeof input.birthDate !== 'string' || (input.birthDate && !validDate(input.birthDate))) throw new Error(tr("Проверьте дату рождения.","Check the birth date."));
   if (typeof input.birthTime !== 'string' || (!input.unknownTime && input.birthTime && !validTime(input.birthTime))) throw new Error(tr("Проверьте время рождения.","Check the birth time."));
   if (typeof input.unknownTime !== 'boolean' || [input.birthPlace, input.request, input.notes].some(v => typeof v !== 'string')) throw new Error(tr("Проверьте данные клиента.","Check the client's details."));
@@ -139,14 +143,16 @@ export function addAppointment(practice: Practice, input: Omit<Appointment, 'id'
   validateAppointment(input);
   if (!practice.clients.some(c => c.id === input.clientId)) throw new Error(tr("Клиент не найден. Выберите клиента из вашей практики.","Client not found. Choose a client from your practice."));
   ensureAvailable(practice, input);
+  checkBookingRules(practice,input);
   return { ...practice, appointments: [...practice.appointments, { ...input, title: input.title.trim(), id: newId(), status: 'confirmed' }] };
 }
 
-export function updateClientDetails(practice: Practice, id: string, input: Pick<Client, 'name' | 'request'>): Practice {
+export function updateClientDetails(practice: Practice, id: string, input: Pick<Client, 'name' | 'request' | 'email' | 'phone' | 'telegram' | 'tags' | 'stage'>): Practice {
   if (!practice.clients.some(c => c.id === id)) throw new Error(tr("Клиент не найден.","Client not found."));
   if (!nonempty(input.name)) throw new Error(tr("Укажите имя клиента.","Enter the client's name."));
   if (typeof input.request !== 'string') throw new Error(tr("Введите запрос клиента.","Enter the client's request."));
-  return { ...practice, clients: practice.clients.map(c => c.id === id ? { ...c, name: input.name.trim(), request: input.request.trim(), updatedAt: new Date().toISOString() } : c) };
+  validateContacts(input);
+  return { ...practice, clients: practice.clients.map(c => c.id === id ? { ...c, ...input, name: input.name.trim(), request: input.request.trim(), updatedAt: new Date().toISOString() } : c) };
 }
 
 export function rescheduleAppointment(practice: Practice, id: string, input: Omit<Appointment, 'id' | 'status' | 'clientId'>): Practice {
@@ -158,6 +164,7 @@ export function rescheduleAppointment(practice: Practice, id: string, input: Omi
     ...(Object.prototype.hasOwnProperty.call(input, 'price') ? { price: input.price } : appointment.price !== undefined ? { price: appointment.price } : {}) };
   validateAppointment(details);
   ensureAvailable(practice, details, id);
+  checkBookingRules(practice,details,id);
   return { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, ...details, title: details.title.trim() } : a) };
 }
 
@@ -166,7 +173,7 @@ export function restoreAppointmentAt(practice: Practice, id: string, input: Omit
   const appointment = practice.appointments.find(a => a.id === id);
   if (!appointment) throw new Error(tr("Запись не найдена.","Appointment not found."));
   if (appointment.status !== 'cancelled') throw new Error(tr("Восстановить можно только отменённую встречу.","Only cancelled appointments can be restored."));
-  const restored: Practice = { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, status: 'confirmed' } : a) };
+  const restored: Practice = { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, status: 'confirmed', attendance: undefined } : a) };
   return rescheduleAppointment(restored, id, input);
 }
 
@@ -181,7 +188,8 @@ export function setAppointmentStatus(practice: Practice, id: string, status: App
   if (!appointment) throw new Error(tr("Запись не найдена.","Appointment not found."));
   if (!validStatus(status)) throw new Error(tr("Выберите корректный статус записи.","Choose a valid appointment status."));
   if (status !== 'cancelled') ensureAvailable(practice, appointment, id);
-  return { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, status } : a) };
+  if (status === 'confirmed') checkBookingRules(practice, appointment, id);
+  return { ...practice, appointments: practice.appointments.map(a => a.id === id ? { ...a, status, ...(status === 'confirmed' ? {attendance: undefined} : {}) } : a) };
 }
 
 
@@ -197,4 +205,32 @@ export function completeAppointment(practice: Practice, id: string, outcome: str
 
 export function formatDate(date: string): string {
   return validDate(date) ? new Intl.DateTimeFormat(localeTag(), { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${date}T00:00:00Z`)) : '—';
+}
+
+function validateContacts(input:Partial<Client>){
+ if(input.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email))throw new Error(tr('Проверьте электронную почту.','Check the email address.'));
+ if(input.stage && (typeof input.stage!=='string'||input.stage.length>80))throw new Error(tr('Выберите этап работы.','Choose a client stage.'));
+ if(input.tags && (!Array.isArray(input.tags)||input.tags.some(t=>typeof t!=='string')))throw new Error(tr('Проверьте метки клиента.','Check client tags.'));
+ for(const k of ['email','phone','telegram'] as const)if(input[k]!==undefined&&typeof input[k]!=='string')throw new Error(tr('Проверьте контакты клиента.','Check client contact details.'));
+}
+export function saveMeetingUrl(practice:Practice,id:string,url:string){
+ const value=url.trim();
+ if(value){let parsed:URL;try{parsed=new URL(value)}catch{throw new Error(tr('Введите полную ссылку https://…','Enter a complete https://… link.'))}if(parsed.protocol!=='https:')throw new Error(tr('Ссылка должна начинаться с https://','The link must start with https://'));}
+ if(!practice.appointments.some(a=>a.id===id))throw new Error(tr('Встреча не найдена.','Appointment not found.'));
+ return {...practice,appointments:practice.appointments.map(a=>a.id===id?{...a,meetingUrl:value}:a)};
+}
+export function markNoShow(practice:Practice,id:string){
+ const a=practice.appointments.find(a=>a.id===id);
+ if(!a||a.status!=='confirmed'||a.date>TODAY)throw new Error(tr('Неявку можно отметить у состоявшейся по расписанию встречи.','No-shows can only be recorded for scheduled appointments that are due.'));
+ return {...practice,appointments:practice.appointments.map(a=>a.id===id?{...a,status:'cancelled' as const,attendance:'no-show' as const}:a)};
+}
+export function appointmentStatusLabel(a:Appointment){return a.attendance==='no-show'&&a.status==='cancelled'?tr('Неявка','No-show'):a.status==='completed'?tr('Завершена','Completed'):a.status==='cancelled'?tr('Отменена','Cancelled'):tr('Запланирована','Scheduled')}
+
+/** Records the cancellation agreement only. Payment/refund execution is a separate operation. */
+export function recordCancellation(practice:Practice,id:string,decision:NonNullable<Appointment['cancellation']>):Practice {
+ const a=practice.appointments.find(item=>item.id===id);
+ if(!a||a.status!=='confirmed')throw new Error(tr('Отменить можно только запланированную встречу.','Only scheduled appointments can be cancelled.'));
+ if(!['free','partial','hold','reschedule'].includes(decision.policy)||!Number.isFinite(decision.refundPercent)||decision.refundPercent<0||decision.refundPercent>100||!decision.reason.trim()||!Number.isFinite(Date.parse(decision.recordedAt)))throw new Error(tr('Укажите условия и причину отмены.','Specify the cancellation terms and reason.'));
+ const next=decision.kind==='no-show'?markNoShow(practice,id):setAppointmentStatus(practice,id,'cancelled');
+ return {...next,appointments:next.appointments.map(item=>item.id===id?{...item,cancellation:{...decision,reason:decision.reason.trim()}}:item)};
 }

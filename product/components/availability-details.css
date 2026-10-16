@@ -1,0 +1,12 @@
+.ep-root .ep-weekly-hours {display:grid;gap:0}
+.ep-root .ep-weekday-hours {display:grid;gap:12px;padding:16px 0;border-bottom:1px solid var(--line,#2a3648)}
+.ep-root .ep-weekday-hours:last-child {border-bottom:0}
+.ep-root .ep-weekday-hours>.ep-muted {padding-left:30px}
+.ep-root .ep-blocked-time {display:grid;gap:16px;padding:20px 0;margin-bottom:20px;border-bottom:1px solid var(--line,#2a3648)}
+.ep-root .ep-availability-conflicts {padding:16px;border:1px solid var(--gold,#dec877);border-radius:12px;background:color-mix(in srgb,var(--gold,#dec877) 6%,transparent)}
+.ep-root .ep-availability-conflicts h3 {font-size:16px;margin:0 0 10px}
+.ep-root .ep-availability-conflicts p {margin:0 0 12px}
+.ep-root .ep-availability-conflicts ul {padding:0;list-style:none;display:grid;gap:12px}
+.ep-root .ep-availability-conflicts li {display:grid;gap:5px;font-size:14px}
+.ep-root .ep-availability-conflicts li span {color:var(--muted,#aab4c5)}
+@media(max-width:600px){.ep-root .ep-blocked-time .ep-form-pair,.ep-root .ep-weekday-hours .ep-form-pair {grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.ep-root .ep-blocked-time input,.ep-root .ep-weekday-hours input {min-width:0;max-width:100%}}

@@ -1,0 +1,13 @@
+import {useState,type ReactNode} from 'react'
+import {tr} from '../i18n'
+import {Select} from '../components/Select'
+import type {Attachment,Channel} from '../state/communication-workflows'
+import {Notice} from './ModuleKit'
+export const channelNames=():Record<Channel,string>=>({portal:tr('Кабинет клиента','Client portal'),email:'Email',telegram:'Telegram',whatsapp:'WhatsApp',instagram:'Instagram',vk:'VK'})
+export function ChannelSelect({value,onChange,label=tr('Канал','Channel')}:{value:Channel,onChange:(v:Channel)=>void,label?:string}){return <label>{label}<Select value={value} onChange={e=>onChange(e.target.value as Channel)}>{Object.entries(channelNames()).map(([id,title])=><option key={id} value={id}>{title}</option>)}</Select></label>}
+export function Attachments({value,onChange}:{value:Attachment[],onChange:(v:Attachment[])=>void}){
+ const [error,setError]=useState(''),[busy,setBusy]=useState(false)
+ async function select(files:FileList|null){if(!files)return;setError('');const incoming=Array.from(files);if(incoming.some(f=>f.size>1024*1024)||incoming.reduce((sum,f)=>sum+f.size,0)+value.reduce((sum,f)=>sum+f.size,0)>2*1024*1024){setError(tr('Можно сохранить до 2 МБ вложений, каждый файл — до 1 МБ. Выберите файл меньшего размера.','Attachments may total up to 2 MB, with 1 MB per file. Choose a smaller file.'));return}setBusy(true);try{const added=await Promise.all(incoming.map(file=>new Promise<Attachment>((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve({id:crypto.randomUUID(),name:file.name,type:file.type,size:file.size,data:String(r.result)});r.onerror=()=>reject(new Error('read'));r.readAsDataURL(file)})));onChange([...value,...added])}catch{setError(tr('Не удалось прочитать файл. Попробуйте ещё раз.','Could not read the file. Try again.'))}finally{setBusy(false)}}
+ return <div className="communication-attachments"><label className="ep-button">{busy?tr('Добавляем…','Adding…'):tr('Прикрепить файл','Attach file')}<input type="file" multiple disabled={busy} onChange={e=>{void select(e.target.files);e.target.value=''}}/></label>{value.map(file=><div className="communication-attachment" key={file.id}><span><a href={file.data} download={file.name}>{file.name}</a> <small>· {Math.ceil(file.size/1024)} KB</small></span><button type="button" className="ep-text-button" onClick={()=>onChange(value.filter(f=>f.id!==file.id))} aria-label={tr(`Убрать ${file.name}`,`Remove ${file.name}`)}>{tr('Убрать','Remove')}</button></div>)}{error&&<Notice error>{error}</Notice>}</div>
+}
+export function Field({label,children}:{label:string,children:ReactNode}){return <label className="communication-field">{label}{children}</label>}

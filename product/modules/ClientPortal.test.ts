@@ -35,9 +35,9 @@ describe('client profile before commit', () => {
 describe('linked booking cancellation', () => {
  const original:Booking={id:'original',serviceId:'natal',title:'Консультация',price:4900,duration:60,date:'2026-10-15',time:'11:00',status:'cancelled'}
  const appointment={id:'session-marina',clientId:'marina',title:'Консультация',duration:60,date:'2026-10-15',time:'11:00',status:'confirmed' as const}
- it('replaces the legacy duplicate appointment with cancelled client booking',()=>{
+ it('keeps calendar occupied until the actual appointment is cancelled',()=>{
   const occupied=bookingSchedule([appointment],[original])
-  expect(bookingValidation('2026-10-15','11:00',60,occupied)).toBe('')
+  expect(bookingValidation('2026-10-15','11:00',60,occupied)).toContain('занято')
  })
  it('does not free a different overlapping appointment',()=>{
   const occupied=bookingSchedule([appointment,{...appointment,id:'another',clientId:'olga'}],[original])

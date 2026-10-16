@@ -1,0 +1,10 @@
+import {describe,it,expect} from 'vitest'
+import {calculationAttachment,calculationDraftKey} from './calculationDelivery'
+import {compareHDCharts,hdCentreKeys,type HDResultChart} from './calculationPresentation'
+const chart=(gates:number[]):HDResultChart=>({id:'test',label:{ru:'Клиент',en:'Client'},centres:hdCentreKeys.map(key=>({key,defined:false})),channels:[],activations:gates.map(gate=>({gate,line:1,planet:`gate${gate}`,label:{ru:'Тест',en:'Test'},side:'personality'}))})
+describe('calculation delivery and partnership semantics',()=>{
+ it('freezes the shared result and strips accidental leading whitespace from interpretation',()=>{const source={name:'Анна',life:7,partner:{life:4}};const saved=calculationAttachment('Нумерология',source,'  Проверенная трактовка  ','2026-10-16T10:00:00Z');source.life=9;source.partner.life=8;expect(saved.result).toEqual({name:'Анна',life:7,partner:{life:4}});expect(saved.interpretation).toBe('Проверенная трактовка')})
+ it('keeps interpretation drafts separated by client and changed calculation inputs',()=>{expect(calculationDraftKey('a',{life:7})).not.toBe(calculationDraftKey('b',{life:7}));expect(calculationDraftKey('a',{life:7})).not.toBe(calculationDraftKey('a',{life:8}))})
+ it('distinguishes common, electromagnetic and compromise channels from supplied gates',()=>{expect(compareHDCharts(chart([64,47]),chart([64,47])).common).toContainEqual([64,47]);const electro=compareHDCharts(chart([64]),chart([47]));expect(electro.electro).toContainEqual([64,47]);expect(electro.togetherCentres).toBe(2);expect(compareHDCharts(chart([64,47]),chart([47])).compromise).toContainEqual([64,47]);expect(compareHDCharts(chart([64,47]),chart([])).aOnly).toContainEqual([64,47]);expect(compareHDCharts(chart([]),chart([64,47])).bOnly).toContainEqual([64,47])})
+ it('does not treat transit activations as natal partner contributions',()=>{const b=chart([47]);b.activations[0].side='transit';expect(compareHDCharts(chart([64]),b).electro).toHaveLength(0);expect(compareHDCharts(chart([64]),b).togetherCentres).toBe(0)})
+})

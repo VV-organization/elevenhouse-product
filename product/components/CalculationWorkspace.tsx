@@ -1,9 +1,9 @@
 import {tr} from '../i18n'
-import {useState, type FormEvent} from 'react'
+import {useState, useEffect, type FormEvent} from 'react'
 import {ClientForm} from './Forms'
 import {ClientPicker} from './ClientPicker'
-import {Chart} from './Chart'
-import {marinaNatalReference} from '../state/natalReference'
+import {MethodCalculations} from './MethodCalculations'
+import {AstronomyCalculations} from './AstronomyCalculations'
 import {Icon} from './Icon'
 import {LearningTip, useLearning} from './Learning'
 import {Notice, useModuleState} from '../modules/ModuleKit'
@@ -12,11 +12,12 @@ import {birthDataError, birthDataOf, emptyBirthData, hasSavedNatalChart, type Bi
 import '../calculation.css'
 
 type Props = {practice: Practice; clientId?: string; onChange?: (practice: Practice) => void; onOpenClient: (id: string) => void}
-const getMethods = () => [{id:'natal', name:tr("Натальная карта", "Natal chart")}, {id:'numbers', name:tr("Нумерология", "Numerology")}, {id:'matrix', name:tr("Матрица", "Matrix")}] as const
+const getMethods = () => [{id:'natal', name:tr("Астрология", "Astrology")}, {id:'numbers', name:tr("Нумерология", "Numerology")}, {id:'matrix', name:tr("Матрица", "Matrix")}, {id:'hd', name:tr("Дизайн человека", "Human Design")}] as const
 type Method = ReturnType<typeof getMethods>[number]['id']
 export function CalculationWorkspace(props: Props) {
   const [mode, setMode] = useModuleState<'client'|'quick'>('calculation-mode', props.practice.isExample, () => props.practice.clients.length ? 'client' : 'quick')
   const [selectedId, setSelectedId] = useModuleState<string>('calculations-client', props.practice.isExample, () => props.practice.clients[0]?.id || '')
+  useEffect(()=>{const select=()=>{if(new URLSearchParams(window.location.search).get('savedCalculation')?.startsWith('quick:'))setMode('quick')};select();window.addEventListener('hashchange',select);return()=>window.removeEventListener('hashchange',select)},[])
   const effectiveMode = props.clientId ? 'client' : props.practice.clients.length ? mode : 'quick'
   const selected = props.clientId || (props.practice.clients.some(client => client.id === selectedId) ? selectedId : props.practice.clients[0]?.id)
   return <section className="ec-workspace" aria-label={tr("Расчёт и подготовка", "Calculation and preparation")}>
@@ -39,7 +40,9 @@ function CalculationBody({practice, clientId, onChange, onOpenClient}: Props) {
   const [editing, setEditing] = useState(recovered.restored || !!birthDataError(source))
   function changeDraft(value: BirthData) {setDraft(value);setBirthDrafts(old => ({...old,[draftKey]:{data:value,source}}))}
   function clearBirthDraft() {setBirthDrafts(old => {const next={...old};delete next[draftKey];return next});setRestored(false)}
-  const [method, setMethod] = useState<Method>('natal')
+  const requestedMethod=()=>{const value=new URLSearchParams(window.location.search).get('calculationMethod');return methods.some(m=>m.id===value)?value as Method:'natal'}
+  const [method, setMethod] = useState<Method>(requestedMethod)
+  useEffect(()=>{const select=()=>{if(new URLSearchParams(window.location.search).has('calculationMethod'))setMethod(requestedMethod())};window.addEventListener('hashchange',select);return()=>window.removeEventListener('hashchange',select)},[])
   const [error, setError] = useState(''), [saved, setSaved] = useState('')
   const [notes, setNotes, notesFailed] = useModuleState<Record<string,string>>('calculation-notes', practice.isExample, () => ({}))
   const noteKey = clientId || 'quick'
@@ -52,7 +55,7 @@ function CalculationBody({practice, clientId, onChange, onOpenClient}: Props) {
     learning.complete('notes')
   }
   function discardLegacyNote() {setNotes(old => {const next={...old};delete next[noteKey];return next})}
-  const chart = method === 'natal' && hasSavedNatalChart(client, practice.isExample)
+  const chart = hasSavedNatalChart(client, practice.isExample)
   function saveData(event: FormEvent) {
     event.preventDefault()
     const problem = birthDataError(draft)
@@ -81,7 +84,7 @@ function CalculationBody({practice, clientId, onChange, onOpenClient}: Props) {
     {birthDraftFailed && <Notice error>{tr("Не удалось сохранить незавершённый ввод. Не закрывайте страницу до сохранения данных.", "Could not save the draft. Keep this page open until the details are saved.")}</Notice>}
     {quickFailed && !client && <Notice error>{tr("Не удалось сохранить данные. Не закрывайте страницу, пока не скопируете их.", "Could not save the details. Copy them before closing this page.")}</Notice>}
     {!editing && <><div className="ec-mode ec-methods" role="group" aria-label={tr("Метод работы", "Calculation method")}>{methods.map(item => <button key={item.id} aria-pressed={method === item.id} onClick={() => setMethod(item.id)}>{item.name}</button>)}</div>
-      {chart ? <div className="ec-chart"><Chart data={marinaNatalReference}/></div> : <div className="ec-result"><h2>{method === 'natal' ? tr("Карта ещё не рассчитана", "Chart not calculated yet") : tr(`${methods.find(item => item.id === method)?.name}: материалы к разбору`, `${methods.find(item => item.id === method)?.name}: appointment materials`)}</h2><p>{method === 'natal' ? tr("Для этих данных пока нет готового расчёта. Можно сохранить вопросы и наблюдения к консультации.", "There is no calculation for these details yet. You can save questions and observations for the appointment.") : tr("Сохраните вопросы и наблюдения по своей методике. Ваши памятки доступны в разделе «Мои материалы».", "Save questions and observations for your approach. Your guides are available in “My materials”.")}</p>{source.unknownTime && method === 'natal' && <p className="ep-muted">{tr("Время рождения неизвестно — точные дома и асцендент недоступны.", "Birth time is unknown, so exact houses and ascendant are unavailable.")}</p>}{method !== 'natal' && <a className="ep-text-button" href="#library">{tr("Открыть мои материалы", "Open my materials")} <Icon name="arrow" size={16}/></a>}</div>}
+      {method==='numbers'||method==='matrix'?<MethodCalculations key={method} method={method} date={source.birthDate} name={client?.name||''} practice={practice} clientId={clientId}/>:<AstronomyCalculations key={method} method={method} source={source} practice={practice} clientId={clientId} reference={chart}/>}
       <section className="ep-form ec-preparation"><label htmlFor="calculation-note">{tr("Заметки к разбору", "Appointment notes")} <span className="ep-muted">{tr("· только вам", "· private")}</span></label><textarea id="calculation-note" rows={4} value={noteText} readOnly={!!client && !onChange} placeholder={tr("На что обратить внимание при подготовке", "What to focus on during preparation")} onChange={event => saveNote(event.target.value)}/><p className="ep-muted">{tr("Сохраняются автоматически", "Saved automatically")}{client ? tr(" в заметках клиента", " to the client's notes") : ''}.</p>{notesFailed && <Notice error>{tr("Не удалось сохранить заметки. Скопируйте текст перед закрытием страницы.", "Could not save the notes. Copy the text before closing this page.")}</Notice>}
       {legacyNote !== undefined && <details className="ec-draft-recovery"><summary>{tr("Ранее сохранённый черновик заметки", "Previously saved note draft")}</summary><p>{tr("Текущие заметки сохранены выше. Этот черновик можно добавить к ним или удалить.", "Your current notes are saved above. You can add this draft to them or delete it.")}</p><p style={{whiteSpace:'pre-wrap'}}>{legacyNote || tr("Пустой черновик", "Empty draft")}</p><div className="ec-actions">{legacyNote.trim() && <button className="ep-button" disabled={!onChange} onClick={() => {saveNote([client?.notes,legacyNote].filter(Boolean).join('\n\n'));discardLegacyNote()}}>{tr("Добавить к текущим заметкам", "Add to current notes")}</button>}<button className="ep-text-button" onClick={discardLegacyNote}>{tr("Удалить черновик", "Delete draft")}</button></div></details>}</section>
     </>}

@@ -1,0 +1,8 @@
+import {describe,it,expect} from 'vitest'
+import {calculationHistory,astroPublicationDraft} from './calculationHistory'
+import {matrix,numerology} from './calculationMethods'
+describe('saved calculation snapshots and astro publication handoff',()=>{
+ it('lists only the requested person and method, newest first without recalculating',()=>{const snapshot=matrix('1990-03-14'),records={'m:matrix:portrait:2026:':{at:'2026-10-16T09:00:00Z',result:snapshot},'m:matrix:year:2025:':{at:'2026-10-15T09:00:00Z',result:{cycle:{personalYear:3}}},'m:numbers:portrait:2026:':{at:'2026-10-17T09:00:00Z',result:{}},'marina:matrix:portrait:2026:':{at:'2026-10-18T09:00:00Z',result:{}}};const items=calculationHistory(records,'m','matrix');expect(items).toHaveLength(2);expect(items[0].result).toBe(snapshot);expect(items[0].view).toBe('portrait');expect(items[1].year).toBe(2025)})
+ it('derives different results from different birth data',()=>{expect(matrix('1990-03-14')).not.toEqual(matrix('1987-07-22'));expect(numerology('1990-03-14','Марина Иванова',2026)?.life).toBe(9);expect(numerology('1990-03-15','Марина Иванова',2026)?.life).toBe(1)})
+ it('creates only a draft with event provenance and no publication request',()=>{const event={id:'event1',title:'Новолуние',description:'Мой текст',date:'2026-11-01',time:''},draft=astroPublicationDraft(event,'Europe/Moscow','post1','2026-10-16T09:00:00Z');expect(draft.post).toMatchObject({title:event.title,text:event.description,eventId:event.id,mode:'draft',status:'draft',time:'10:00',zone:'Europe/Moscow'});expect(draft.schedule).toBe(false);expect(draft.post).not.toHaveProperty('request');expect(event.description).toBe('Мой текст')})
+})
