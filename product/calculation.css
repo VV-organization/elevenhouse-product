@@ -5,6 +5,8 @@
 
 /* Page forms follow the page scroll; only dialogs have an inner scrolling area. */
 .ep-root .ec-workspace .ec-birth-form,.ep-root .ec-workspace .ec-preparation{max-height:none;overflow:visible}
+.ep-root .ec-workspace .ec-preparation{padding-inline:0}
+.ep-root .ec-workspace .ec-preparation>.ep-muted{margin:12px 0 0;line-height:1.55}
 
 .ep-root .ec-client>.ep-text-button{min-height:48px;justify-content:flex-start}
 
