@@ -1,0 +1,79 @@
+/* Reference: user-supplied Finpath brand cards (19 Oct, 16:32).
+   Soft directional colour enters from an edge; the reading area stays quiet.
+   ElevenHouse navy / ivory / matte gold. Static CSS only, product opt-in only. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces{
+ --eh-welcome-surface:linear-gradient(112deg,#19283c 0%,#23364c 54%,#414a4b 79%,#665b42 100%);
+ --eh-focus-surface:linear-gradient(118deg,#1c2b3e 0%,#263649 58%,#514d3d 100%);
+ --eh-income-surface:linear-gradient(148deg,#283746 0%,#242f3c 52%,#484533 100%);
+ --eh-panel-surface:linear-gradient(135deg,#ffffff05 0%,#ffffff00 54%,#c4a5660d 100%);
+ --eh-offer-surface:linear-gradient(120deg,#ffffff04 0%,#ffffff00 57%,#d3b87714 100%);
+ --eh-selected-surface:linear-gradient(115deg,#fff1c7 0%,#e5d39a 52%,#cdb577 100%);
+ --eh-edge:rgba(239,222,178,.14);
+ --eh-depth:0 10px 28px rgb(7 14 24 / .13),inset 0 1px 0 var(--eh-edge);
+ --eh-action-gold:linear-gradient(135deg,#f0dfa4,#ceb46b);
+ --eh-button-fill:#e2ca79;
+ --eh-button-image:var(--eh-action-gold);
+ --eh-button-pressed:#d6bd7b;
+}
+.ep-root[data-theme=light] .ep-workspace.eh-surfaces{
+ --eh-button-fill:#ead79b;
+ --eh-button-image:none;
+ --eh-button-pressed:#e2ca89;
+ --eh-welcome-surface:linear-gradient(112deg,#faf8f0 0%,#f0ecdf 52%,#e3d9be 80%,#d5c496 100%);
+ --eh-focus-surface:linear-gradient(118deg,#fbfaf3 0%,#f3f0e4 60%,#e4d8b6 100%);
+ --eh-income-surface:linear-gradient(148deg,#fbfaf4 0%,#eeeadd 55%,#ded0a9 100%);
+ --eh-panel-surface:linear-gradient(135deg,#ffffff88 0%,#ffffff00 54%,#c4a5660e 100%);
+ --eh-offer-surface:linear-gradient(120deg,#ffffff66 0%,#ffffff00 57%,#c6aa651c 100%);
+ --eh-selected-surface:linear-gradient(115deg,#f7ecc9 0%,#e7d8a5 54%,#d9c38b 100%);
+ --eh-edge:rgba(255,255,255,.7);
+ --eh-depth:0 8px 24px rgb(55 46 29 / .045),inset 0 1px 0 var(--eh-edge);
+}
+/* Focal surfaces: gradients follow existing hierarchy, never compete with charts. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces .pw-welcome{background-image:var(--eh-welcome-surface);border-color:color-mix(in srgb,var(--gold) 25%,var(--line));box-shadow:var(--eh-depth)}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .td-focus{background-image:var(--eh-focus-surface);box-shadow:var(--eh-depth)}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .pd-summary-grid>.pd-balance,
+.ep-root[data-theme] .ep-workspace.eh-surfaces .av-workspace .av-income{background-image:var(--eh-income-surface);box-shadow:var(--eh-depth)}
+/* The warm highlight is an actual selected item, leader or primary action. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces .si-row.is-leading{background-image:var(--eh-selected-surface);box-shadow:inset 0 1px 0 #fff7df80}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .si-row.is-leading:hover{background-image:linear-gradient(115deg,#fff3ce,#eddda9 56%,#d8bf80)}
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.cv-week-strip [aria-pressed=true],.ep-cal-day[aria-pressed=true]){background-image:var(--eh-selected-surface)}
+/* Primary actions use the same matte gold as the tool tile symbols. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold){
+ color:#253044;
+ background:var(--eh-button-fill);
+ background-image:var(--eh-button-image);
+ border-color:#ceb46b;
+ box-shadow:none;
+ text-shadow:none;
+ transition:border-color .18s ease;
+}
+@media(hover:hover){
+ .ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold):not(:disabled):not([aria-disabled=true]):hover{
+  color:#253044;
+  background:var(--eh-button-fill);
+  background-image:var(--eh-button-image);
+  border-color:#a98b42;
+  box-shadow:none;
+  text-shadow:none;
+ }
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold):focus-visible{outline:2px solid #b18b3f;outline-offset:4px}
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold):not(:disabled):not([aria-disabled=true]):active{color:#253044;background:var(--eh-button-pressed);border-color:#a98b42;box-shadow:none;text-shadow:none}
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold):is(:disabled,[aria-disabled=true]){box-shadow:none;text-shadow:none}
+@media(prefers-reduced-motion:reduce){
+ .ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold){transition:none}
+}
+/* Quiet material on catalogue / working cards. No overlays or extra decoration. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.sc-service.ex-row,.ep-business-service){background-image:var(--eh-offer-surface);box-shadow:inset 0 1px 0 var(--eh-edge)}
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.td-attention,.pd-work-summary,.pd-attention,.si-panel,.ep-business-entry,.ep-business-flows){background-image:var(--eh-panel-surface);box-shadow:inset 0 1px 0 var(--eh-edge)}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .sc-categories>button[aria-pressed=true]{background-image:var(--eh-offer-surface)}
+/* Context sheets stay understated so rows, fields and long text retain contrast. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.cd-preview,.em-conversation-head,.ep-dialog-head){background-image:var(--eh-panel-surface)}
+@media(forced-colors:active){
+ .ep-root[data-theme] .ep-workspace.eh-surfaces :is(.pw-welcome,.td-focus,.pd-balance,.av-income,.si-row,.cv-week-strip button,.ep-cal-day,.ep-button--primary,.sc-service,.ep-business-service,.td-attention,.pd-work-summary,.pd-attention,.si-panel,.ep-business-entry,.ep-business-flows,.sc-categories>button,.cd-preview,.em-conversation-head,.ep-dialog-head){background-image:none;box-shadow:none}
+ .ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold){background:ButtonFace;color:ButtonText;border-color:ButtonText;box-shadow:none;text-shadow:none}
+}
+/* Small labels keep full opacity across the lighter edge of the welcome panel. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces .pw-welcome{--eh-welcome-caption:#dce0e5}
+.ep-root[data-theme=light] .ep-workspace.eh-surfaces .pw-welcome{--eh-welcome-caption:#48515c}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .pw-welcome :is(.pw-intro>p,.pw-week small,.pw-bar-space.is-empty b){opacity:1;color:var(--eh-welcome-caption)}

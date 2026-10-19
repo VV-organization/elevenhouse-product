@@ -4,6 +4,11 @@ export const AUTH_LOCALE_KEY = 'elevenhouse.auth.locale'
 // Russian messages are stable keys, including messages already stored in form state.
 // Resolve at render time so changing language never resets a challenge or user input.
 export const englishCopy: Record<string, string> = {
+  'Ваш кабинет': 'Your space',
+  'у специалиста': 'with your practitioner',
+  'Встречи, материалы и переписка — рядом.': 'Appointments, materials and messages in one place.',
+  'Создать кабинет клиента': 'Create a client account',
+  'Войти как клиент': 'Client sign in',
   'Укажите имя и подтвердите почту или телефон.': 'Enter your name and verify your email or phone.',
   'Войдите по коду — пароль не нужен.': 'Sign in with a code — no password needed.',
   'Выберите доступный способ входа.': 'Choose an available sign-in method.',

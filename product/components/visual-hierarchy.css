@@ -1,0 +1,96 @@
+/* Finpath Analytics reference: oversized outcomes, restrained labels, selective accent.
+   Product-only opt-in. No landing, Hero, root palette or shared document styles. */
+.ep-root[data-theme] .ep-workspace.eh-hierarchy{--eh-focus-ink:#ebd48b;--eh-caption:14px;--eh-label:12px;--eh-display:clamp(42px,4.3vw,60px);--eh-title:clamp(28px,2.8vw,38px)}
+.ep-root[data-theme=light] .ep-workspace.eh-hierarchy{--eh-focus-ink:#765b20}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-page-heading h1{font-size:var(--eh-title);font-weight:650;line-height:1.18;letter-spacing:-.04em;overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-page-heading{gap:20px}
+/* Dashboard: the revenue figure leads; schedule and supporting counts remain distinct. */
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-income>strong{font-family:'Auth Vetrino',serif;font-size:var(--eh-display);line-height:1.08;letter-spacing:-.025em;color:var(--eh-focus-ink);font-weight:400}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-income{gap:18px;padding-block:22px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-income>span{font-size:14px;font-weight:500}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-income>small{font-size:13px;line-height:1.6}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-today strong{font-size:28px;letter-spacing:-.035em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-next-meeting time{font-size:28px;line-height:1.15;color:var(--eh-focus-ink)}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-next-meeting strong{font-size:15px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-next-meeting small{font-size:13px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-dashboard h2{font-size:18px;letter-spacing:-.02em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pw-welcome .pw-intro h2{font-size:24px;font-weight:550;letter-spacing:-.035em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-small-metrics strong{font-size:24px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy :is(.pd-small-metrics small,.pd-wallet small,.pd-activity time,.pd-activity div>span){font-size:12px;line-height:1.55}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-activity strong{font-size:14px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-activity-amount b{font-size:16px}
+/* Analytics / finance: totals have a different scale from chart cursors and counts. */
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .av-workspace .av-income>.ex-amount{font-family:'Auth Vetrino',serif;font-size:var(--eh-display);line-height:1.1;font-weight:400;color:var(--eh-focus-ink);margin:12px 0 20px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .av-workspace .av-grid>.ex-panel>h2{font-size:18px;line-height:1.4;font-weight:550}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income-counts strong{font-size:28px;color:var(--navy)}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income-counts span{font-size:13px;line-height:1.5}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income>p:not(.ex-amount){font-size:14px;line-height:1.6}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ef-finance-gross>strong{font-size:var(--eh-display);font-weight:600;letter-spacing:-.05em;line-height:1.1;color:var(--eh-focus-ink)}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ex-payment-total>strong{font-size:22px;letter-spacing:-.025em;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ex-payment-info>strong{font-size:16px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ex-payment-info>small{font-size:12px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .si-name>small{font-size:12px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy :is(.si-note,.si-value>span){font-size:12px}
+/* Today: the first meeting's time is the focal point; metrics support it. */
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .td-focus-time strong{font-size:clamp(38px,3.6vw,52px);font-weight:600;letter-spacing:-.045em;color:var(--eh-focus-ink)}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .td-focus-person h2{font-size:clamp(24px,2.3vw,32px);font-weight:600}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .td-focus-person p{font-size:15px;line-height:1.55}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .td-day-metrics dd{font-size:28px;font-weight:600}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .td-day-metrics dt{font-size:13px;line-height:1.5}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .td-focus-request>span{font-size:12px;margin-bottom:8px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .td-row-time strong{font-size:20px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .td-row-person strong{font-size:15px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy :is(.td-row-person small,.td-row-time small){font-size:13px;line-height:1.5}
+/* Calendar: neutral totals, readable time, and the selected date as a single gold surface. */
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .cv-period-stat strong{font-size:28px;font-weight:600;letter-spacing:-.035em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .cv-period-stat span{font-size:13px;line-height:1.5}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-agenda .ep-cal-agenda-head h2{font-size:32px;font-weight:600;letter-spacing:-.035em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-year{font-size:15px;font-weight:400;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-time strong{font-size:26px;letter-spacing:-.03em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-event-heading h3{font-size:18px;line-height:1.4}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-agenda-head .ep-eyebrow{color:var(--eh-focus-ink)}
+/* Clients and conversations: the person leads; descriptions and timestamps are secondary. */
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .cd-open strong{font-size:18px;font-weight:600;line-height:1.45}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .cd-open small{font-size:14px;line-height:1.6}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .cd-preview-heading h2{font-size:26px;line-height:1.25;letter-spacing:-.03em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .cd-preview>section>h3{font-size:13px;font-weight:500;color:var(--muted);margin-bottom:10px}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .em-person h2{font-size:24px;line-height:1.3;letter-spacing:-.025em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .em-person>span{font-size:13px;line-height:1.5}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ex-message-row strong{font-size:15px;line-height:1.4}
+/* Service offers: name then price, with descriptions kept comfortably readable. */
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .sc-service h2{font-size:22px;line-height:1.35;letter-spacing:-.025em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .sc-service-price>strong{font-size:30px;line-height:1.15;letter-spacing:-.04em;font-weight:600}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .sc-service-price>span{font-size:13px;line-height:1.5}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-business-price strong{font-size:24px;line-height:1.2}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-business-service>h3{font-size:18px;line-height:1.4}
+@media(max-width:600px){
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy{--eh-display:clamp(34px,9.5vw,46px);--eh-title:28px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-next-meeting time{font-size:24px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-focus-time strong{font-size:36px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-day-metrics dd{font-size:21px;white-space:normal;overflow-wrap:anywhere}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-day-metrics dt{font-size:12px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-row-time strong{font-size:17px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-row-time small{font-size:12px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-focus-person h2{font-size:24px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income-counts strong{font-size:24px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income-counts span{font-size:12px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .cv-period-stat strong{font-size:24px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .cv-period-stat span{font-size:12px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-agenda .ep-cal-agenda-head h2{font-size:27px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-time strong{font-size:22px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-event-heading h3{font-size:16px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .cd-open strong{font-size:16px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .em-person h2{font-size:20px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .sc-service h2{font-size:20px}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .sc-service-price>strong{font-size:28px}
+}
+
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ef-finance-gross{flex-wrap:wrap;max-width:100%}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy :is(.av-income>.ex-amount,.ef-finance-gross>strong){overflow-wrap:anywhere;white-space:normal;max-width:100%;min-width:0}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-event{grid-template-columns:max-content minmax(0,1fr)}
+/* Keep the decorative financial outcome intact on narrow screens. */
+@media(max-width:600px){
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .av-workspace .av-income{display:block}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income-counts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0 0;padding:20px 0;border-top:1px solid var(--line)}
+ .ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income-counts>div{align-content:start;gap:6px}
+}

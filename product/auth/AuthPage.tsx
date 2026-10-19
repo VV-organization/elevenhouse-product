@@ -23,13 +23,13 @@ const errorNotices = {
 } satisfies Record<string, Notice>
 
 export type AuthenticatedPreview = { name: string; mode: AuthMode; channel: Channel; identifier: string }
-export type AuthPageProps = { onAuthenticated: (value: AuthenticatedPreview) => void }
+export type AuthPageProps = { onAuthenticated: (value: AuthenticatedPreview) => void; initialMode?:AuthMode; audience?:'practitioner'|'client' }
 
-export function AuthPage({ onAuthenticated }: AuthPageProps) {
+export function AuthPage({ onAuthenticated,initialMode,audience='practitioner' }: AuthPageProps) {
   const [authApi] = useState(createPreviewAuthApi)
   const {locale, setLocale} = useLocale()
   const t = (text: string) => translateAuth(text, locale)
-  const [mode, setMode] = useState<AuthMode>(() => new URLSearchParams(window.location.search).get('mode') === 'login' ? 'login' : 'register')
+  const [mode, setMode] = useState<AuthMode>(() => initialMode??(new URLSearchParams(window.location.search).get('mode') === 'login' ? 'login' : 'register'))
   const [step, setStep] = useState<Step>('details')
   const [channel, setChannel] = useState<Channel>('email')
   const [name, setName] = useState('')
@@ -231,9 +231,7 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
 
     <main className="eh-auth__layout">
       <section className="eh-auth__editorial" aria-hidden="true">
-        <h2>{t('Всё начинается')}<br /><em>{t('с')} {t('вас')}</em></h2>
-        <p>{t('Ваши знания становятся системой.')}</p>
-        <p>{t('А у вас появляется пространство для самого важного.')}</p>
+        {audience==='client'?<><h2>{t('Ваш кабинет')}<br /><em>{t('у специалиста')}</em></h2><p>{t('Встречи, материалы и переписка — рядом.')}</p></>:<><h2>{t('Всё начинается')}<br /><em>{t('с')} {t('вас')}</em></h2><p>{t('Ваши знания становятся системой.')}</p><p>{t('А у вас появляется пространство для самого важного.')}</p></>}
       </section>
       <section id="auth-content" className="eh-auth__portal" aria-label={t("Вход и регистрация")}>
         <div className="eh-auth__card">
@@ -244,7 +242,7 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
           {(step === 'code' || step === 'help') && <button type="button" className="eh-auth__back" onClick={step === 'help' ? returnFromHelp : changeContact}>{step === 'code' ? t('Изменить контакт') : challenge ? t('Вернуться к коду') : t('Вернуться ко входу')}</button>}
 
           <div className="eh-auth__screen" key={`${step}-${mode}`}>
-            <h1 ref={heading} tabIndex={-1}>{t(actualTitle)}</h1>
+            <h1 ref={heading} tabIndex={-1}>{audience==='client'&&step==='details'?(isRegister?t('Создать кабинет клиента'):t('Войти как клиент')):t(actualTitle)}</h1>
             <p className="eh-auth__description">{step === 'details' ? isRegister ? t('Укажите имя и подтвердите почту или телефон.') : t('Войдите по коду — пароль не нужен.') : step === 'code' ? <>{t("Код из ")}{CODE_LENGTH} {t(" цифр отправлен ")}{channel === 'email' ? t('на почту') : t('на номер')}<br /><strong className="eh-auth__recipient">{maskedRecipient}</strong></> : t('Выберите доступный способ входа.')}</p>
 
             {notice && <div className={`eh-auth__notice ${notice.tone === 'info' ? 'eh-auth__notice--info' : ''}`} role={notice.tone === 'info' ? 'status' : 'alert'}><Icon name="info" size={18} /><div><strong>{t(notice.title)}</strong><p>{t(notice.text)}</p>{notice.action && <button type="button" onClick={() => notice.action === 'help' ? openHelp() : switchMode(notice.action === 'login' ? 'login' : 'register')}>{notice.action === 'login' ? t('Перейти ко входу') : notice.action === 'register' ? t('Создать кабинет') : t('Помощь со входом')} </button>}</div></div>}

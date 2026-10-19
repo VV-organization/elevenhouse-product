@@ -1,10 +1,11 @@
+import {useEntranceMotion} from '../components/useEntranceMotion'
 import {SectionNavigation} from '../components/SectionNavigation'
 import './public-profile-organization.css'
 import {PublicOwnChart} from '../components/PublicOwnChart'
 import {createOwnChartSnapshot,permittedOwnChartSnapshot,ownChartSnapshotChanged,type PublicOwnChartState,type OwnChartSnapshot} from '../state/publicOwnChart'
 import {defaultSettingsPreferences,type SettingsPreferences} from '../state/settings-capabilities'
 import {serviceSummary} from './commerce-copy'
-import {useContext,useState} from 'react'
+import {useContext,useState,useRef} from 'react'
 import {TODAY} from '../state/model'
 import {tr,localeTag} from '../i18n'
 import {Dialog} from '../components/Dialog'
@@ -45,6 +46,8 @@ export function PublicProfile({practice,onBookService,ownChartResult}:ModuleProp
  </div>
 }
 export function PublicProfilePreview({profile:input,services,onBookService,ownChart,ownerPreview=false}:{profile:PublicProfileData;services:Service[];onBookService?:(id:string)=>void;ownChart?:OwnChartSnapshot;ownerPreview?:boolean}){
+ const motionRef=useRef<HTMLElement>(null)
+ useEntranceMotion(motionRef,'public-profile',!ownerPreview)
  const profile=normalizePublicProfile(input)
  const [selected,setSelected]=useState<Service|null>(null),available=publicServices(services,profile)
  const book=(service:Service)=>{setSelected(null);onBookService?.(service.id)}
@@ -55,5 +58,5 @@ export function PublicProfilePreview({profile:input,services,onBookService,ownCh
   if(id==='links')return profile.links.some(l=>publicUrl(l.url))?<section key={id}><h2>{tr('Связаться со мной','Get in touch')}</h2><div className="public-profile-socials">{profile.links.filter(l=>publicUrl(l.url)).map(l=><a key={l.id} className="ep-button" href={publicUrl(l.url)!} target="_blank" rel="noopener noreferrer">{l.label||l.url} ↗</a>)}</div></section>:null
   const block=profile.blocks!.find(b=>b.id===id);return block&&promotionIsVisible(block,TODAY)?<PublicExtraBlock key={id} block={block}/>:null
  }
- return <article className="public-profile-page"><ProfileImage key={profile.coverUrl} url={profile.coverUrl} alt="" className="public-profile-cover"/><header><ProfileImage key={profile.photoUrl} url={profile.photoUrl} alt={profile.name} className="public-profile-avatar"/><div><h1>{profile.name||tr('Ваше имя','Your name')}</h1>{profile.tagline&&<p className="public-profile-tagline">{profile.tagline}</p>}</div></header><div className="public-profile-body">{profile.specializations.some(s=>s.trim())&&<ul className="public-profile-specializations">{profileList(profile.specializations.join(',')).map(s=><li key={s}>{s}</li>)}</ul>}{visiblePublicBlocks(profile).map(section)}{ownChart&&<PublicOwnChart {...ownChart} ownerPreview={ownerPreview}/>}</div>{selected&&<Dialog title={selected.name} onClose={()=>setSelected(null)}><div className="ep-dialog-body"><p>{selected.description}</p><CommerceSummary config={normalizeCommerce(selected.commerce,selected.price)} price={commercePrice(normalizeCommerce(selected.commerce,selected.price),selected.price)}/>{selected.includes.length>0&&<><h2>{tr('Что входит','Included')}</h2><ul>{selected.includes.map((item,i)=><li key={i}>{item}</li>)}</ul></>}<footer className="ep-form-footer"><button className="ep-button" onClick={()=>setSelected(null)}>{tr('Вернуться к странице','Back to profile')}</button>{onBookService&&<button className="ep-button ep-button--primary" onClick={()=>book(selected)}>{bookingLabel(selected)}</button>}</footer></div></Dialog>}</article>
+ return <article ref={motionRef} className="public-profile-page"><ProfileImage key={profile.coverUrl} url={profile.coverUrl} alt="" className="public-profile-cover"/><header><ProfileImage key={profile.photoUrl} url={profile.photoUrl} alt={profile.name} className="public-profile-avatar"/><div><h1>{profile.name||tr('Ваше имя','Your name')}</h1>{profile.tagline&&<p className="public-profile-tagline">{profile.tagline}</p>}</div></header><div className="public-profile-body">{profile.specializations.some(s=>s.trim())&&<ul className="public-profile-specializations">{profileList(profile.specializations.join(',')).map(s=><li key={s}>{s}</li>)}</ul>}{visiblePublicBlocks(profile).map(section)}{ownChart&&<PublicOwnChart {...ownChart} ownerPreview={ownerPreview}/>}</div>{selected&&<Dialog title={selected.name} onClose={()=>setSelected(null)}><div className="ep-dialog-body"><p>{selected.description}</p><CommerceSummary config={normalizeCommerce(selected.commerce,selected.price)} price={commercePrice(normalizeCommerce(selected.commerce,selected.price),selected.price)}/>{selected.includes.length>0&&<><h2>{tr('Что входит','Included')}</h2><ul>{selected.includes.map((item,i)=><li key={i}>{item}</li>)}</ul></>}<footer className="ep-form-footer"><button className="ep-button" onClick={()=>setSelected(null)}>{tr('Вернуться к странице','Back to profile')}</button>{onBookService&&<button className="ep-button ep-button--primary" onClick={()=>book(selected)}>{bookingLabel(selected)}</button>}</footer></div></Dialog>}</article>
 }

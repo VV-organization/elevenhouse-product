@@ -4,11 +4,23 @@ import {AUTH_LOCALE_KEY, resolveLocale, type AuthLocale} from './auth/authCopy'
 export type Locale = AuthLocale
 let current: Locale | undefined
 const listeners = new Set<() => void>()
+function demoLocaleKey(): string | null {
+  if (typeof window === 'undefined') return null
+  const query = new URLSearchParams(window.location.search)
+  return query.get('demo') === '1' || query.has('demoFrame') ? 'eh-showcase:locale' : null
+}
+function syncDemoLocale(event: StorageEvent) {
+  const key = demoLocaleKey()
+  if (!key || event.key !== key) return
+  current = undefined
+  getLocale()
+  listeners.forEach(listener => listener())
+}
 export function getLocale(): Locale {
   if (current) return current
   if (typeof window === 'undefined') return 'ru'
   let saved: string | null = null
-  try { saved = localStorage.getItem(AUTH_LOCALE_KEY) || localStorage.getItem('eh_lang') } catch { /* Storage is optional. */ }
+  try { saved = (demoLocaleKey() ? localStorage.getItem(demoLocaleKey()!) : null) || localStorage.getItem(AUTH_LOCALE_KEY) || localStorage.getItem('eh_lang') } catch { /* Storage is optional. */ }
   current = resolveLocale(new URLSearchParams(window.location.search).get('lang'), saved, navigator.language)
   document.documentElement.lang = current
   return current
@@ -17,13 +29,20 @@ export function setLocale(locale: Locale) {
   current = locale
   if (typeof window !== 'undefined') {
     document.documentElement.lang = locale
-    try { localStorage.setItem(AUTH_LOCALE_KEY, locale); localStorage.setItem('eh_lang', locale) } catch { /* Keep the in-memory choice. */ }
+    try { const demoKey = demoLocaleKey(); if (demoKey) localStorage.setItem(demoKey, locale); else { localStorage.setItem(AUTH_LOCALE_KEY, locale); localStorage.setItem('eh_lang', locale) } } catch { /* Keep the in-memory choice. */ }
     const url = new URL(window.location.href)
     if (url.searchParams.has('lang')) { url.searchParams.set('lang', locale); window.history.replaceState(null, '', url) }
   }
   listeners.forEach(listener => listener())
 }
-const subscribe = (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener) } }
+const subscribe = (listener: () => void) => {
+  if (!listeners.size && typeof window !== 'undefined') window.addEventListener('storage', syncDemoLocale)
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+    if (!listeners.size && typeof window !== 'undefined') window.removeEventListener('storage', syncDemoLocale)
+  }
+}
 export function useLocale() {
   const locale = useSyncExternalStore(subscribe, getLocale, () => 'ru' as Locale)
   return {locale, setLocale}

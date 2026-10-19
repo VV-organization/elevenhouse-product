@@ -28,12 +28,12 @@ function SectionDirectory({business=false}:{business?:boolean}) {
  return <div className="ep-directory">
   <SectionHeader title={business?tr("Моя практика","My practice"):tr("Все разделы", "All sections")}/>
   <div className="ep-directory-groups">
-   {groups().filter(group=>!business||['practice','business'].includes(group.id)).map(group=><section className="ep-directory-group" key={group.id} aria-labelledby={`directory-${group.id}`}>
-    <h2 id={`directory-${group.id}`}>{group.title}</h2>
+   {groups().filter(group=>!business||['practice','business'].includes(group.id)).map(group=><section className="ep-directory-group" key={group.id} data-directory-group={group.id} aria-labelledby={`directory-${group.id}`}>
+    <h2 id={`directory-${group.id}`}><Icon name={group.items[0][1]} size={26}/><span>{group.title}</span></h2>
     <ul>
-     {group.items.map(([id,icon,title])=><li key={id}>
+     {group.items.map(([id,,title])=><li key={id}>
       <a className="ep-directory-link" href={`#${id}`}>
-       <Icon name={icon} size={24}/><span>{title}</span><Icon name="arrow" size={18}/>
+       <span className="ep-directory-label">{title}</span><span className="ep-directory-arrow"><Icon name="arrow" size={18}/></span>
       </a>
      </li>)}
     </ul>

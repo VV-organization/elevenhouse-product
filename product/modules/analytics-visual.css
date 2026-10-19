@@ -56,11 +56,11 @@
 .ep-root[data-theme] .ep-workspace .av-filterbar>.ex-toolbar>p{font-size:12px}
 .ep-root[data-theme] .ep-workspace .av-filterbar>.ec-report-actions{display:flex;align-items:center;gap:16px;margin:0;flex-wrap:wrap}
 .ep-root[data-theme] .ep-workspace .av-filterbar>.ec-report-actions>.ep-button{order:2}
-.ep-root[data-theme] .ep-workspace .av-filterbar .ep-checkbox{font-size:12px;gap:8px;display:flex;align-items:center;max-width:220px}
+.ep-root[data-theme] .ep-workspace .av-filterbar .ep-checkbox{font-size:12px;gap:8px;display:flex;align-items:center;max-width:none;white-space:nowrap;flex-shrink:0}
 .ep-root[data-theme] .ep-workspace .av-filterbar .ec-range{width:100%;order:3}
 .ep-root[data-theme] .ep-workspace .av-filterbar>.ex-notice{width:100%;order:4}
 @media(max-width:900px){.ep-root[data-theme] .ep-workspace .av-workspace .av-grid--income.av-has-comparison{grid-template-areas:"income" "trend" "compare" "services" "clients"}}
-@media(max-width:600px){.ep-root[data-theme] .ep-workspace .av-filterbar{align-items:stretch;flex-direction:column}.ep-root[data-theme] .ep-workspace .av-filterbar>.ec-report-actions{justify-content:space-between}.ep-root[data-theme] .ep-workspace .av-filterbar .ep-checkbox{max-width:150px}}
+@media(max-width:600px){.ep-root[data-theme] .ep-workspace .av-filterbar{align-items:stretch;flex-direction:column}.ep-root[data-theme] .ep-workspace .av-filterbar>.ec-report-actions{justify-content:space-between}.ep-root[data-theme] .ep-workspace .av-filterbar .ep-checkbox{max-width:100%}}
 .ep-root[data-theme] .ep-workspace .av-grid--practice .ex-detail dd[data-missing=true]{font-size:14px;font-weight:400;color:var(--muted)}
 .ep-root[data-theme] .ep-workspace .av-grid--practice>.ex-panel>label{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:14px}
 

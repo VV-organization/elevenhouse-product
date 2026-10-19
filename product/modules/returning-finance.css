@@ -30,6 +30,7 @@
 .ep-root .ec-analytics-details{grid-column:1/-1;margin-top:24px;min-width:0}
 .ep-root .ec-analytics-details>h3{margin-top:28px}.ep-root .ec-analytics-details progress{width:100%;height:10px;accent-color:var(--gold,#e2ca79)}
 .ep-root .ec-analytics-details .ex-editor{max-width:620px}.ep-root .ec-analytics-details .ex-metric{min-width:0}
+.ep-root .ec-analytics-details>.ex-editor+.ex-panel{margin-top:24px}
 .ep-root .ec-ledger .ex-row{gap:16px}.ep-root .ec-ledger .ex-row>div{min-width:0;overflow-wrap:anywhere}
 .ep-root .ec-ledger-amount{display:flex;flex-direction:column;gap:6px;text-align:right;margin-left:auto;font-variant-numeric:tabular-nums}
 .ep-root .ec-ledger .ex-toolbar{align-items:end}.ep-root .ec-ledger .ex-toolbar label{display:grid;gap:8px;flex:1;min-width:180px}

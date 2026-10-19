@@ -1,0 +1,12 @@
+import {newPublicProfile,type PublicProfileData} from '../state/public-profile'
+import type {AdminServerData} from '../state/admin-workflows'
+
+/** Fictional presentation fixtures, never supplied to the regular product. */
+export const showcasePublicProfile:PublicProfileData={...newPublicProfile('Анна Соколова').draft,slug:'anna-sokolova',visibility:'public',tagline:'Разобраться в себе. Выбрать следующий шаг.',bio:'Помогаю увидеть свои сильные стороны и найти опору в период перемен. На консультациях соединяем карту, ваш жизненный контекст и конкретные вопросы — о работе, отношениях и личном ритме.',experience:'8',school:'Психологическая астрология',specializations:['Личные перемены','Профессиональное направление','Отношения'],methods:['Натальная карта','Транзиты','Соляр'],languages:['Русский'],blocks:[{id:'approach',kind:'steps',title:'Как проходит встреча',text:'До встречи — коротко обсудим ваш запрос.\nНа консультации — разберём карту и возможные решения.\nПосле — сохраняем рекомендации и возвращаемся к ним в кабинете.',visible:true}],order:['about','services','approach','links']}
+export const showcaseAdminData:AdminServerData={role:'admin',records:[
+ {id:'demo-anna',kind:'user',name:'Анна Соколова',email:'anna@elevenhouse.test',role:'practitioner',status:'active',plan:'Практика',joined:'2026-09-01',activity:'15 клиентов'},
+ {id:'demo-marina',kind:'user',name:'Марина Иванова',email:'marina@example.test',role:'client',status:'active',joined:'2026-09-12'},
+ {id:'demo-verification',kind:'verification',name:'Елена Орлова',title:'Проверка профиля специалиста',status:'pending',stage1:'pending',kyc:'none',specialization:'Психологическая астрология',description:'Профиль и описание практики подготовлены к проверке.',history:['Анкета направлена на проверку']},
+ {id:'demo-review',kind:'moderation',name:'Марина Иванова',title:'Отзыв о консультации',contentKind:'review',status:'open',description:'После встречи стало понятнее, на чём сосредоточиться в ближайший месяц.',history:['Отзыв поступил на модерацию']},
+ {id:'demo-dispute',kind:'dispute',name:'Дмитрий Петров',title:'Перенос встречи',status:'open',orderId:'demo-order',description:'Клиент просит перенести консультацию на другую дату.',client:{id:'demo-dmitry',name:'Дмитрий Петров'},practitioner:{id:'demo-anna',name:'Анна Соколова'},clientMessage:'Не успеваю к назначенному времени. Можно перенести встречу?',history:['Обращение создано']},
+]}

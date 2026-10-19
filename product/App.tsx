@@ -1,16 +1,14 @@
+import {PracticeStart,type StartIntent} from './components/PracticeStart'
 import {resolvePortalContext} from './state/portal-context'
 import type {ProductData} from './state/product-data'
 import {localizeInvalidControl, clearLocalizedValidity} from './validationCopy'
 import {tr, useLocale, LanguageControl} from './i18n'
-import {givenName} from './state/names'
 import { useEffect, useState } from 'react'
 import { AuthPage, type AuthenticatedPreview } from './auth/AuthPage'
 import { ModuleScopeContext } from './modules/ModuleKit'
 import { accountForIdentity, accountPracticeKey, accountModuleScope, storedAccount, createMemberPractice, upgradeSeedClientNames, type AccountKind } from './state/memberAccount'
-import { Icon } from './components/Icon'
 import { Workspace } from './components/Workspace'
 import { createEmptyPractice, createExamplePractice, parsePractice, type Practice } from './state/model'
-import logo from './assets/brand/eleven-house-stacked.svg'
 import {ClientPortal} from './modules/ClientPortal'
 import {Admin} from './modules/Admin'
 
@@ -30,7 +28,6 @@ export function App({data={}}:{data?:ProductData}={}){
   function surface(value:'workspace'|'client'|'admin'){const u=new URL(window.location.href);if(value==='workspace'){u.searchParams.delete('surface');u.searchParams.delete('service')}else u.searchParams.set('surface',value);window.history.replaceState(null,'',u);setScreen(value)}
   const [previewServiceId,setPreviewServiceId]=useState<string|undefined>(()=>new URL(window.location.href).searchParams.get('service')||undefined)
   const [clientPreview,setClientPreview]=useState(()=>new URL(window.location.href).searchParams.has('service'))
-  const [intent,setIntent]=useState<'calculate'|'calendar'>('calendar')
   const [initialAction,setInitialAction]=useState('')
   const [authKey,setAuthKey]=useState(0)
   const [storageWarning,setStorageWarning]=useState(false)
@@ -61,23 +58,14 @@ export function App({data={}}:{data?:ProductData}={}){
     if(kind===account)setPractice(next)
     try{if(protectedStorage.has(kind))throw new Error('Protected recovery');localStorage.setItem(accountPracticeKey(kind),JSON.stringify(next));setStorageWarning(false)}catch{setStorageWarning(true)}
   }
-  function begin(skip=false){
-    setPractice(p=>({...p,onboarded:true}));setScreen('workspace');window.location.hash=skip?'today':intent==='calculate'?'tools':'calendar';setInitialAction(skip?'':intent==='calculate'?'calculate':'appointment')
+  function begin(intent:StartIntent){
+    setPractice(p=>({...p,onboarded:true}));setScreen('workspace');window.location.hash=intent===null?'today':intent==='calculate'?'tools':'calendar';setInitialAction(intent===null?'':intent==='calculate'?'calculate':'appointment')
   }
   const suppliedPortal=!!data.portal?.practice||!!data.portal?.clientId||!!data.portal?.moduleScope||!!data.portal?.activeAstrologerId&&data.portal.activeAstrologerId!=='current'
   const portalContext=suppliedPortal?resolvePortalContext(data.portal!,accountModuleScope(account)||account):null
   return <ModuleScopeContext.Provider key={account} value={accountModuleScope(account)}><div className="ep-root" data-theme={theme} lang={locale} onInvalidCapture={localizeInvalidControl} onInputCapture={clearLocalizedValidity} onChangeCapture={clearLocalizedValidity}>
     {(screen==='client'||screen==='admin')&&<div className="ep-surface-language"><LanguageControl/></div>}
-    {screen==='client'?(suppliedPortal&&!portalContext?<main className="ex-role-layout"><p role="status">{tr('Данные выбранного специалиста ещё не загружены.','The selected specialist’s data has not loaded yet.')}</p><button className="ep-button" onClick={()=>surface('workspace')}>{tr('К практике','Back to workspace')}</button></main>:<ModuleScopeContext.Provider key={portalContext?.scope||account} value={portalContext?.scope??accountModuleScope(account)}><ClientPortal {...data.portal} practice={portalContext?.practice??(clientPreview||account==='member'?practice:load('example')??createExamplePractice())} initialServiceId={previewServiceId} onChangePractice={suppliedPortal?data.portal?.onChangePractice:changeClientPractice} onReturn={()=>surface('workspace')}/></ModuleScopeContext.Provider>):screen==='admin'?<Admin data={data.admin} onReturn={()=>surface('workspace')}/>:screen==='auth'?<AuthPage key={authKey} onAuthenticated={authenticated}/>:screen==='start'?<main className="ep-start">
-      <header><img src={logo} alt="ElevenHouse" width="104"/><LanguageControl/><button className="ep-text-button" onClick={()=>auth('login')}>{tr("Выйти","Sign out")}</button></header>
-      <div className="ep-start-content"><h1>{tr("С чего начнём","Where shall we start")}{practice.profile.name!=='Моя практика'?`, ${givenName(practice.profile.name)}`:''}?</h1><p className="ep-lead">{tr("Выберите первую задачу. Остальное можно настроить, когда понадобится.","Choose your first task. You can set up everything else when you need it.")}</p>
-        <fieldset className="ep-start-options"><legend className="ep-sr-only">{tr("Первая задача","First task")}</legend>{[
-          ['calendar','calendar',tr("Записать клиента на консультацию","Book a client consultation"),tr("Добавим клиента и выберем время. Услуги можно настроить позже.","Add a client and choose a time. You can set up services later.")],
-          ['calculate','chart',tr("Подготовить расчёт","Prepare a calculation"),tr("Введите данные рождения или выберите клиента. Остальное можно заполнить позже.","Enter birth details or choose a client. You can add the rest later.")],
-        ].map(([value,icon,title,description])=><label key={value} className={intent===value?'is-selected':''}><input type="radio" name="intent" value={value} checked={intent===value} onChange={()=>setIntent(value as typeof intent)}/><span className="ep-choice-icon"><Icon name={icon}/></span><span><strong>{title}</strong><small>{description}</small></span><span className="ep-radio" aria-hidden="true"/></label>)}</fieldset>
-        <div className="ep-start-actions"><button className="ep-button ep-button--primary" onClick={()=>begin()}>{intent==='calendar'?tr("Записать первого клиента","Book your first client"):tr("Перейти к данным рождения","Enter birth details")} <Icon name="arrow"/></button><button className="ep-text-button" onClick={()=>begin(true)}>{tr("Начну самостоятельно","Explore on my own")}</button></div>
-      </div>
-    </main>:<Workspace data={data} key={account} theme={theme} onThemeChange={changeTheme} onClientPreview={(serviceId)=>{setPreviewServiceId(serviceId);setClientPreview(true);const u=new URL(window.location.href);if(serviceId)u.searchParams.set('service',serviceId);else u.searchParams.delete('service');window.history.replaceState(null,'',u);surface('client')}} practice={practice} onChange={setPractice} onLogout={()=>auth('login')} initialAction={initialAction} clearInitialAction={()=>setInitialAction('')}/>}
+    {screen==='client'?(suppliedPortal&&!portalContext?<main className="ex-role-layout"><p role="status">{tr('Данные выбранного специалиста ещё не загружены.','The selected specialist’s data has not loaded yet.')}</p><button className="ep-button" onClick={()=>surface('workspace')}>{tr('К практике','Back to workspace')}</button></main>:<ModuleScopeContext.Provider key={portalContext?.scope||account} value={portalContext?.scope??accountModuleScope(account)}><ClientPortal {...data.portal} practice={portalContext?.practice??(clientPreview||account==='member'?practice:load('example')??createExamplePractice())} initialServiceId={previewServiceId} onChangePractice={suppliedPortal?data.portal?.onChangePractice:changeClientPractice} onReturn={()=>surface('workspace')}/></ModuleScopeContext.Provider>):screen==='admin'?<Admin data={data.admin} onReturn={()=>surface('workspace')}/>:screen==='auth'?<AuthPage key={authKey} onAuthenticated={authenticated}/>:screen==='start'?<PracticeStart name={practice.profile.name} onBegin={begin} onLogout={()=>auth('login')}/>:<Workspace data={data} key={account} theme={theme} onThemeChange={changeTheme} onClientPreview={(serviceId)=>{setPreviewServiceId(serviceId);setClientPreview(true);const u=new URL(window.location.href);if(serviceId)u.searchParams.set('service',serviceId);else u.searchParams.delete('service');window.history.replaceState(null,'',u);surface('client')}} practice={practice} onChange={setPractice} onLogout={()=>auth('login')} initialAction={initialAction} clearInitialAction={()=>setInitialAction('')}/>}
     {unreadable.size>0&&<div className="ep-recovery-notice" role="alert">{tr("Не удалось восстановить прошлую практику. Исходные данные сохранены для восстановления.","We couldn't restore your previous practice. The original data has been kept for recovery.")}</div>}
     {storageWarning&&<div className="ep-storage-warning" role="alert">{tr("Не удалось сохранить изменения. Не закрывайте страницу и попробуйте ещё раз.","Changes couldn't be saved. Keep this page open and try again.")}</div>}
 

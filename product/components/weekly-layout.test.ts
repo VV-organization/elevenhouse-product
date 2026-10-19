@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest'
-import {appointmentLanes,timeMinutes,weeklyRange,visualDuration,WEEK_MINUTE_HEIGHT} from './weekly-layout'
+import {scheduleSlots,appointmentLanes,timeMinutes,weeklyRange,visualDuration,WEEK_MINUTE_HEIGHT} from './weekly-layout'
 import type {Appointment} from '../state/model'
 const meeting=(id:string,time:string,duration:number):Appointment=>({id,time,duration,date:'2026-10-19',clientId:'client',title:'Consultation',status:'confirmed'})
 describe('weekly schedule positions',()=>{
@@ -21,5 +21,26 @@ describe('weekly schedule positions',()=>{
  })
  it('keeps adjacent appointments at full width',()=>{
   expect(appointmentLanes([meeting('one','09:00',30),meeting('two','09:30',30)]).map(x=>x.lanes)).toEqual([1,1])
+ })
+})
+
+import {createExamplePractice} from '../state/model'
+import {DEFAULT_BOOKING_RULES} from '../state/bookingRules'
+describe('calendar booking entry points',()=>{
+ it('excludes occupied hours, including partial overlaps, but releases cancelled meetings',()=>{
+  const practice=createExamplePractice();practice.bookingRules=undefined
+  practice.appointments=[{...meeting('one','09:30',60),date:'2026-10-19'},{...meeting('cancel','11:00',60),date:'2026-10-19',status:'cancelled'}]
+  expect(scheduleSlots(practice,'2026-10-19',{start:540,end:780})).toEqual([660,720])
+ })
+ it('respects enabled hours, breaks, buffers, capacity and closed exceptions',()=>{
+  const practice=createExamplePractice();practice.appointments=[]
+  practice.bookingRules={...DEFAULT_BOOKING_RULES,enabled:true,start:'10:00',end:'14:00',bufferBefore:0,bufferAfter:0,blockedTimes:[{id:'lunch',date:'2026-10-19',start:'12:00',end:'13:00'}]}
+  expect(scheduleSlots(practice,'2026-10-19',{start:540,end:900})).toEqual([600,660,780])
+  practice.appointments=[{...meeting('one','10:00',60),date:'2026-10-19'}];practice.bookingRules.bufferAfter=15
+  expect(scheduleSlots(practice,'2026-10-19',{start:540,end:900})).toEqual([780])
+  practice.bookingRules.maxPerDay=1
+  expect(scheduleSlots(practice,'2026-10-19',{start:540,end:900})).toEqual([])
+  practice.appointments=[];practice.bookingRules.exceptions=[{date:'2026-10-19',closed:true,start:'09:00',end:'18:00'}]
+  expect(scheduleSlots(practice,'2026-10-19',{start:540,end:900})).toEqual([])
  })
 })

@@ -1,0 +1,56 @@
+/* Supplied Fintech CRM reference: floating notification panel, unread surfaces and event symbols. */
+.ep-root[data-theme] .ep-workspace .ep-main dialog.ep-dialog.ep-dialog--drawer.wu-notification-dialog{inset:84px 24px auto auto;width:min(460px,calc(100vw - 48px));height:min(760px,calc(100dvh - 108px));max-height:none;padding:0;border-radius:22px;background:var(--surface-raised,var(--ivory));overflow:hidden}
+.ep-root[data-theme] .ep-workspace .ep-main dialog.wu-notification-dialog[open]{display:flex;flex-direction:column}
+.ep-root[data-theme] .ep-workspace .ep-main dialog.wu-notification-dialog .ep-dialog-head{position:static;background:transparent;border:0;padding:22px 24px 12px;flex-shrink:0}
+.ep-root[data-theme] .ep-workspace .ep-main dialog.wu-notification-dialog .ep-dialog-head h2{font-size:22px;line-height:1.3}
+.ep-root[data-theme] .ep-workspace .wn-controls{padding:0 24px 12px;flex-shrink:0;border-bottom:1px solid var(--line)}
+.ep-root[data-theme] .ep-workspace .wn-tabs{display:flex;gap:6px;align-items:center}
+.ep-root[data-theme] .ep-workspace .wn-tabs button{display:flex;align-items:center;gap:8px;padding:10px 14px;min-height:44px;border:0;border-radius:24px;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:500}
+.ep-root[data-theme] .ep-workspace .wn-tabs button[aria-pressed=true]{background:var(--surface);color:var(--navy);font-weight:700}
+.ep-root[data-theme] .ep-workspace .wn-tabs button span{font-size:11px;min-width:20px;text-align:center;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .ep-workspace .wn-tabs button:hover{color:var(--navy);font-weight:700}
+.ep-root[data-theme] .ep-workspace .wn-filters{margin-top:6px;font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .wn-filters summary{display:flex;align-items:center;gap:8px;cursor:pointer;min-height:36px;list-style:none}
+.ep-root[data-theme] .ep-workspace .wn-filters summary::-webkit-details-marker{display:none}
+.ep-root[data-theme] .ep-workspace .wn-filters summary:hover{font-weight:600}
+.ep-root[data-theme] .ep-workspace .wn-filters summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.ep-root[data-theme] .ep-workspace .wn-filter-active{margin-left:auto;color:var(--navy);font-weight:600}
+.ep-root[data-theme] .ep-workspace .wn-filters>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:8px 0}
+.ep-root[data-theme] .ep-workspace .wn-filters label{display:grid;gap:6px;min-width:0}
+.ep-root[data-theme] .ep-workspace .wn-filters input{min-width:0;width:100%;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--navy);font:inherit}
+.ep-root[data-theme] .ep-workspace .wn-feed{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:12px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ep-root[data-theme] .ep-workspace .wn-event{padding:16px;margin-bottom:8px;border-radius:14px;background:transparent;transition:background-color .16s}
+.ep-root[data-theme] .ep-workspace .wn-event.is-unread{background:var(--surface)}
+.ep-root[data-theme] .ep-workspace .wn-event:hover,.ep-root[data-theme] .ep-workspace .wn-event:focus-within{background:color-mix(in srgb,var(--gold) 8%,var(--surface))}
+.ep-root[data-theme] .ep-workspace .wn-event-open{display:flex;align-items:flex-start;gap:12px;width:100%;padding:0;text-align:left;border:0;background:transparent;color:var(--navy);font:inherit;min-height:44px}
+.ep-root[data-theme] .ep-workspace .wn-event-icon{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:color-mix(in srgb,var(--data-series-1) 15%,var(--surface-raised));color:var(--navy)}
+.ep-root[data-theme] .ep-workspace .wn-event[data-kind=payments] .wn-event-icon{background:color-mix(in srgb,var(--data-series-3) 20%,var(--surface-raised))}
+.ep-root[data-theme] .ep-workspace .wn-event[data-kind=messages] .wn-event-icon{background:color-mix(in srgb,var(--data-series-4) 20%,var(--surface-raised))}
+.ep-root[data-theme] .ep-workspace .wn-event[data-kind=orders] .wn-event-icon{background:color-mix(in srgb,var(--data-series-2) 20%,var(--surface-raised))}
+.ep-root[data-theme] .ep-workspace .wn-event-copy{display:grid;gap:7px;flex:1;min-width:0}
+.ep-root[data-theme] .ep-workspace .wn-event-meta{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-size:11px;line-height:1.4;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .wn-event-meta>span{font-weight:600;color:var(--navy)}
+.ep-root[data-theme] .ep-workspace .wn-event-copy>strong{font-size:14px;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace .wn-event-open:hover strong{font-weight:700}
+.ep-root[data-theme] .ep-workspace .wn-event-detail{font-size:13px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace .wn-new-dot{width:7px;height:7px;border-radius:50%;flex:0 0 7px;margin-top:4px;background:var(--data-series-2)}
+.ep-root[data-theme] .ep-workspace .wn-mark-read{display:flex;align-items:center;gap:6px;margin:8px 0 -4px 52px;padding:6px 8px;min-height:32px;font-size:11px;color:var(--muted);border-radius:6px}
+.ep-root[data-theme] .ep-workspace .wn-mark-read:hover{font-weight:600;color:var(--navy)}
+.ep-root[data-theme] .ep-workspace .wn-footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 12px;padding:12px 24px max(12px,env(safe-area-inset-bottom));border-top:1px solid var(--line);flex-shrink:0;font-size:11px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .wn-footer button{display:flex;align-items:center;gap:8px;min-height:44px;font-size:11px;white-space:normal;text-align:left}
+.ep-root[data-theme] .ep-workspace .wn-footer button:disabled{opacity:.45;cursor:default}
+.ep-root[data-theme] .ep-workspace .wn-more{display:block;min-height:44px;margin:8px auto;padding:8px 16px}
+.ep-root[data-theme] .ep-workspace .wn-empty{display:grid;justify-items:center;align-content:center;gap:12px;padding:40px 20px;min-height:220px;text-align:center;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .wn-empty h3{font-size:18px;color:var(--navy);margin:0}
+.ep-root[data-theme] .ep-workspace .wn-empty p{font-size:13px;line-height:1.5;margin:0}
+@media(max-width:600px){
+ .ep-root[data-theme] .ep-workspace .ep-main dialog.ep-dialog.ep-dialog--drawer.wu-notification-dialog{inset:0;width:100%;height:100dvh;border-radius:0}
+ .ep-root[data-theme] .ep-workspace .ep-main dialog.wu-notification-dialog .ep-dialog-head{padding:18px 20px 10px}
+ .ep-root[data-theme] .ep-workspace .wn-controls{padding-inline:20px}
+ .ep-root[data-theme] .ep-workspace .wn-feed{padding:8px}
+ .ep-root[data-theme] .ep-workspace .wn-event{padding:16px 12px}
+ .ep-root[data-theme] .ep-workspace .wn-event-open{gap:10px}
+ .ep-root[data-theme] .ep-workspace .wn-mark-read{margin-left:50px;min-height:44px}
+ .ep-root[data-theme] .ep-workspace .wn-footer{padding-inline:20px}
+}
+@media(prefers-reduced-motion:reduce){.ep-root[data-theme] .ep-workspace .wn-event{transition:none}}

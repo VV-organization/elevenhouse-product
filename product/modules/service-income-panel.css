@@ -1,0 +1,53 @@
+/* Finpath Investments reference: inset stacked rows, circular identities, one meaningful gold highlight. */
+.ep-root[data-theme] .ep-workspace .av-workspace .av-grid>.si-panel{padding:20px 12px 16px;background:var(--surface-raised,var(--surface));border-radius:20px}
+.ep-root[data-theme] .ep-workspace .si-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 12px 16px}
+.ep-root[data-theme] .ep-workspace .si-heading h2{font-size:17px;line-height:1.4;margin:0;font-weight:600}
+.ep-root[data-theme] .ep-workspace .si-heading>a{display:grid;place-items:center;flex:0 0 40px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);color:var(--navy);transition:background-color .16s}
+.ep-root[data-theme] .ep-workspace .si-heading>a:hover{background:var(--surface);text-decoration:none}
+.ep-root[data-theme] .ep-workspace .si-list{display:grid;gap:4px;max-height:440px;overflow:auto;scrollbar-width:thin;border-radius:14px;background:var(--surface);padding:4px}
+.ep-root[data-theme] .ep-workspace .si-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:16px;align-items:center;text-align:left;width:100%;min-height:100px;padding:20px 16px;border:0;border-radius:12px;background:transparent;color:var(--navy);font:inherit;transition:background-color .16s}
+.ep-root[data-theme] .ep-workspace .si-row:hover{background:color-mix(in srgb,var(--gold) 9%,var(--surface));text-decoration:none}
+.ep-root[data-theme] .ep-workspace .si-row:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
+.ep-root[data-theme] .ep-workspace .si-symbol{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,var(--data-series-4) 22%,var(--surface-raised));color:var(--navy);font-size:13px;font-weight:600}
+.ep-root[data-theme] .ep-workspace .si-name{display:grid;gap:6px;min-width:0}
+.ep-root[data-theme] .ep-workspace .si-name>strong{font-size:15px;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace .si-row:hover .si-name>strong{font-weight:700}
+.ep-root[data-theme] .ep-workspace .si-name>span{font-size:12px;line-height:1.5;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .si-name>small{font-size:10px;font-weight:600;line-height:1.4}
+.ep-root[data-theme] .ep-workspace .si-value{display:grid;justify-items:end;gap:7px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .ep-workspace .si-value>strong{font-size:18px;font-weight:600;letter-spacing:-.025em}
+.ep-root[data-theme] .ep-workspace .si-value>span{font-size:11px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .si-row.is-leading{background:#e5d39a;color:#182236;border-radius:16px}
+.ep-root[data-theme] .ep-workspace .si-row.is-leading:hover{background:#eddda9}
+.ep-root[data-theme] .ep-workspace .si-row.is-leading .si-name>span,.ep-root[data-theme] .ep-workspace .si-row.is-leading .si-value>span{color:#394255}
+.ep-root[data-theme] .ep-workspace .si-row.is-leading .si-symbol{background:#253044;color:#f2e9cf}
+.ep-root[data-theme] .ep-workspace .si-row.is-leading:focus-visible{outline-color:#182236;outline-offset:-4px}
+.ep-root[data-theme] .ep-workspace .si-note{font-size:11px;line-height:1.6;color:var(--muted);margin:14px 12px 0}
+.ep-root[data-theme] .ep-workspace .si-empty{font-size:14px;line-height:1.6;color:var(--muted);padding:24px 12px;margin:0}
+.ep-root[data-theme] .ep-workspace .si-details .si-period{font-size:13px;color:var(--muted);margin:0 0 20px}
+.ep-root[data-theme] .ep-workspace .si-total{display:grid;gap:10px;padding:24px;background:var(--surface);border-radius:14px;margin-bottom:28px}
+.ep-root[data-theme] .ep-workspace .si-total>span{font-size:13px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .si-total>strong{font-size:32px;letter-spacing:-.035em;font-weight:600;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .ep-workspace .si-details>h3{font-size:16px;margin:0 0 12px}
+.ep-root[data-theme] .ep-workspace .si-payments>button{display:flex;align-items:center;gap:12px;padding:18px 16px;width:100%;border:0;border-bottom:1px solid var(--line);border-radius:8px;background:transparent;color:var(--navy);font:inherit;text-align:left}
+.ep-root[data-theme] .ep-workspace .si-payments>button:hover{background:var(--surface)}
+.ep-root[data-theme] .ep-workspace .si-payments>button>span{display:grid;gap:6px;min-width:0;flex:1}
+.ep-root[data-theme] .ep-workspace .si-payments>button>span:nth-child(2){text-align:right;flex:0 0 auto}
+.ep-root[data-theme] .ep-workspace .si-payments strong{font-size:14px;font-weight:600;overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace .si-payments>button:hover strong{font-weight:700}
+.ep-root[data-theme] .ep-workspace .si-payments>button>span>span{font-size:11px;color:var(--muted);line-height:1.5}
+.ep-root[data-theme] .ep-workspace .si-payments>.ep-icon{flex-shrink:0}
+@media(max-width:600px){
+ .ep-root[data-theme] .ep-workspace .av-workspace .av-grid>.si-panel{padding:16px 8px;border-radius:16px}
+ .ep-root[data-theme] .ep-workspace .si-heading{padding:0 8px 12px}
+ .ep-root[data-theme] .ep-workspace .si-row{grid-template-columns:36px minmax(0,1fr);gap:12px;padding:16px 12px}
+ .ep-root[data-theme] .ep-workspace .si-symbol{width:36px;height:36px;font-size:11px;align-self:start}
+ .ep-root[data-theme] .ep-workspace .si-name>strong{font-size:14px}
+ .ep-root[data-theme] .ep-workspace .si-value{grid-column:2;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;white-space:normal}
+ .ep-root[data-theme] .ep-workspace .si-value>strong{font-size:19px}
+ .ep-root[data-theme] .ep-workspace .si-note{margin-inline:8px}
+ .ep-root[data-theme] .ep-workspace .si-payments>button{padding-inline:12px;flex-wrap:wrap}
+ .ep-root[data-theme] .ep-workspace .si-payments>button>span:first-child{flex:1 1 100%}
+ .ep-root[data-theme] .ep-workspace .si-payments>button>span:nth-child(2){flex:1;text-align:left}
+}
+@media(prefers-reduced-motion:reduce){.ep-root[data-theme] .ep-workspace .si-row,.ep-root[data-theme] .ep-workspace .si-heading>a{transition:none}}
