@@ -1,0 +1,28 @@
+/* Modern CRM Analytics: broad comparison graph, patterned difference, labeled selection. */
+.ep-root[data-theme] .it-chart{margin:0;min-width:0}
+.ep-root[data-theme] .it-chart figcaption{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;min-height:80px;margin-bottom:18px}
+.ep-root[data-theme] .it-legend{display:grid;gap:10px;padding-top:4px;font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .it-legend>span{display:flex;align-items:center;gap:8px}
+.ep-root[data-theme] .it-legend i{width:18px;height:3px;background:var(--data-series-1);display:block;border-radius:2px}
+.ep-root[data-theme] .it-legend i.it-prior-key{height:0;background:none;border-top:2px dashed var(--data-series-4)}
+.ep-root[data-theme] .it-selection{display:grid;gap:6px;text-align:right;max-width:52%;min-height:64px}
+.ep-root[data-theme] .it-selection>strong{font-size:30px;line-height:1.2;letter-spacing:-.04em;font-weight:600;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .it-selection>span{font-size:12px;line-height:1.5;color:var(--muted)}
+.ep-root[data-theme] .it-plot{height:224px;display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px}
+.ep-root[data-theme] .it-axis{display:flex;flex-direction:column;justify-content:space-between;padding:26px 0 20px;font-size:11px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .it-canvas{position:relative;min-width:0}
+.ep-root[data-theme] .it-canvas>svg{display:block;width:100%;height:100%;overflow:visible}
+.ep-root[data-theme] .it-grid{fill:none;stroke:var(--line);stroke-width:1;vector-effect:non-scaling-stroke}
+.ep-root[data-theme] .it-area{fill:color-mix(in srgb,var(--data-series-1) 12%,transparent)}
+.ep-root[data-theme] .it-hatch{stroke:var(--data-series-4);stroke-width:1;opacity:.3}
+.ep-root[data-theme] .it-current-line{fill:none;stroke:var(--data-series-1);stroke-width:2.5;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.ep-root[data-theme] .it-prior-line{fill:none;stroke:var(--data-series-4);stroke-width:2;stroke-dasharray:6 5;vector-effect:non-scaling-stroke}
+.ep-root[data-theme] .it-marker{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 5;opacity:.5;vector-effect:non-scaling-stroke}
+.ep-root[data-theme] .it-point{fill:var(--data-series-1);stroke:var(--surface);stroke-width:2}
+.ep-root[data-theme] .it-targets{position:absolute;inset:0}
+.ep-root[data-theme] .it-targets button{position:absolute;height:100%;top:0;background:transparent;border:0;border-radius:0;padding:0;cursor:crosshair}
+.ep-root[data-theme] .it-targets button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ep-root[data-theme] .it-dates{display:flex;justify-content:space-between;gap:8px;margin:8px 0 0 78px;font-size:11px;color:var(--muted)}
+.ep-root[data-theme] .it-note{font-size:11px;line-height:1.5;color:var(--muted);margin:20px 0 0}
+.ep-root[data-theme] .it-empty{display:grid;place-items:center;min-height:220px;color:var(--muted);font-size:14px;text-align:center;border-block:1px solid var(--line);padding:20px}
+@media(max-width:600px){.ep-root[data-theme] .it-chart figcaption{flex-direction:column;gap:18px;min-height:0}.ep-root[data-theme] .it-legend{display:flex;flex-wrap:wrap;gap:12px}.ep-root[data-theme] .it-selection{max-width:100%;text-align:left;min-height:0}.ep-root[data-theme] .it-selection>strong{font-size:28px}.ep-root[data-theme] .it-plot{height:190px;grid-template-columns:52px minmax(0,1fr);gap:8px}.ep-root[data-theme] .it-dates{margin-left:60px}}

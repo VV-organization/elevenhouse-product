@@ -87,3 +87,58 @@
 @media(min-width:1201px) and (max-width:1400px){.ep-root[data-theme] .ep-week-columns{gap:4px}.ep-root[data-theme] .ep-week-columns>section{padding:4px}}
 @media(max-width:600px){.ep-root[data-theme] .ep-week-meeting{padding:12px}.ep-root[data-theme] .ep-week-meeting>small{display:flex;flex-wrap:wrap;gap:4px 8px}.ep-root[data-theme] .ep-week-meeting>small>span{font-size:12px}}
 @media(min-width:1201px){.ep-root[data-theme] .ep-week-meeting>span{display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}}
+
+/* G-med: period summary, clear selected-day band and client-bearing appointment cards. */
+.ep-root[data-theme] .ep-workspace .cv-period-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:0 0 24px;margin-top:-4px}
+.ep-root[data-theme] .ep-workspace .cv-period-stat{display:flex;align-items:center;gap:12px;padding:12px 16px;border-right:1px solid var(--line);min-width:0}
+.ep-root[data-theme] .ep-workspace .cv-period-stat:last-child{border:0}
+.ep-root[data-theme] .ep-workspace .cv-period-stat>strong{display:grid;place-items:center;min-width:44px;height:44px;padding:0 8px;font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1;background:color-mix(in srgb,var(--gold) 14%,transparent);border-radius:50%}
+.ep-root[data-theme] .ep-workspace .cv-period-stat>span{font-size:12px;line-height:1.5;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .cv-period-stat--1>strong{background:color-mix(in srgb,var(--data-series-2) 16%,transparent)}
+.ep-root[data-theme] .ep-workspace .cv-period-stat--2>strong{background:color-mix(in srgb,var(--data-series-3) 16%,transparent)}
+.ep-root[data-theme] .ep-workspace .cv-period-stat--3>strong{background:color-mix(in srgb,var(--data-series-4) 16%,transparent)}
+.ep-root[data-theme] .ep-workspace .cv-week-strip{display:grid;margin-top:20px;border:0;gap:6px;padding-bottom:0}
+.ep-root[data-theme] .ep-workspace .cv-week-strip button{min-height:88px;border-radius:9px;background:var(--surface-raised);padding:10px 4px}
+.ep-root[data-theme] .ep-workspace .cv-week-strip button[aria-pressed=true]{background:var(--gold);color:#182134}
+.ep-root[data-theme] .ep-workspace .ep-cal-agenda{padding:24px;border-radius:12px}
+.ep-root[data-theme] .ep-workspace .cv-client-initials{flex-shrink:0;display:inline-grid;place-items:center;width:34px;height:34px;font-size:12px;letter-spacing:.04em;font-weight:600;border-radius:50%;background:color-mix(in srgb,var(--data-series-4) 18%,var(--surface));color:var(--navy)}
+.ep-root[data-theme] .ep-workspace .ep-cal-event-heading{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ep-root[data-theme] .ep-workspace .ep-cal-event-heading h3{flex:1;min-width:100px;margin:0}
+.ep-root[data-theme] .ep-workspace .ep-cal-event-body{padding-left:16px}
+.ep-root[data-theme] .ep-workspace .ep-cal-event-actions .ep-text-button{padding:8px 16px;text-decoration:none}
+.ep-root[data-theme] .ep-workspace .ep-cal-event-actions .ep-text-button:hover{text-decoration:none;font-weight:600;padding:8px 16px}
+.ep-root[data-theme] .ep-workspace .ep-week-columns{gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--surface)}
+.ep-root[data-theme] .ep-workspace .ep-week-columns>section{border:0;border-right:1px solid var(--line);border-radius:0;padding:8px;min-height:410px;background:transparent}
+.ep-root[data-theme] .ep-workspace .ep-week-columns>section:last-child{border-right:0}
+.ep-root[data-theme] .ep-workspace .ep-week-columns>section.is-selected{background:color-mix(in srgb,var(--gold) 7%,var(--surface))}
+.ep-root[data-theme] .ep-workspace .ep-week-day{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 4px;margin:0 0 12px;border-radius:8px;border:0;min-height:78px}
+.ep-root[data-theme] .ep-workspace .is-selected>.ep-week-day{background:var(--gold);color:#182134}
+.ep-root[data-theme] .ep-workspace .ep-week-meeting{border:1px solid var(--line);border-left:3px solid var(--data-series-4);padding:12px 16px;background:var(--surface-raised);gap:8px;margin-bottom:10px;width:100%}
+.ep-root[data-theme] .ep-workspace .cv-meeting-identity{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ep-root[data-theme] .ep-workspace .cv-meeting-identity .cv-client-initials{width:28px;height:28px;font-size:10px}
+.ep-root[data-theme] .ep-workspace .cv-meeting-identity time{font-size:13px}
+.ep-root[data-theme] .ep-workspace .ep-week-meeting>strong{font-size:12px;line-height:1.5;white-space:normal}
+.ep-root[data-theme] .ep-workspace .cv-month-day[aria-pressed=true]{outline:2px solid var(--gold);outline-offset:-2px;background:color-mix(in srgb,var(--gold) 9%,var(--surface))}
+@media(max-width:1200px){.ep-root[data-theme] .ep-workspace .ep-week-columns{grid-template-columns:repeat(4,minmax(0,1fr))}.ep-root[data-theme] .ep-workspace .ep-week-columns>section{min-height:270px;border-bottom:1px solid var(--line)}.ep-root[data-theme] .ep-workspace .cv-period-stat{padding:12px 8px;gap:8px}}
+@media(max-width:650px){.ep-root[data-theme] .ep-workspace .cv-period-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding-bottom:20px}.ep-root[data-theme] .ep-workspace .cv-period-stat{padding:10px 12px;border:0}.ep-root[data-theme] .ep-workspace .cv-period-stat>strong{height:38px;min-width:38px;font-size:21px}.ep-root[data-theme] .ep-workspace .ep-cal-agenda{padding:20px 12px}.ep-root[data-theme] .ep-workspace .cv-week-strip{gap:3px}.ep-root[data-theme] .ep-workspace .cv-week-strip button{min-height:78px;padding:8px 2px}.ep-root[data-theme] .ep-workspace .ep-week-columns{grid-template-columns:1fr;border:0;gap:16px;background:transparent}.ep-root[data-theme] .ep-workspace .ep-week-columns>section{padding:12px;min-height:0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}.ep-root[data-theme] .ep-workspace .ep-week-day{flex-direction:row;justify-content:space-between;padding:8px 12px;min-height:44px}.ep-root[data-theme] .ep-workspace .ep-week-meeting{padding:12px}.ep-root[data-theme] .ep-workspace .ep-week-meeting>strong{font-size:15px}.ep-root[data-theme] .ep-workspace .ep-cal-event-body{padding-left:12px}.ep-root[data-theme] .ep-workspace .ep-cal-event-heading .ep-status{margin-left:0}}
+
+/* A shared hour axis explains the actual time and duration of each weekly appointment. */
+.ep-root[data-theme] .ep-workspace .cv-timed-week{grid-template-columns:48px repeat(7,minmax(120px,1fr));overflow-x:auto;align-items:stretch}
+.ep-root[data-theme] .ep-workspace .cv-timed-week>section{padding:0;min-width:0;min-height:0;border-bottom:0}
+.ep-root[data-theme] .ep-workspace .cv-timed-week .ep-week-day{margin:0;border-radius:0;height:78px;width:100%;padding:12px 16px}
+.ep-root[data-theme] .ep-workspace .cv-week-timeline{position:relative;min-width:0;background:repeating-linear-gradient(to bottom,var(--line) 0,var(--line) 1px,transparent 1px,transparent 108px)}
+.ep-root[data-theme] .ep-workspace .cv-time-axis{min-width:0;background:var(--surface)}
+.ep-root[data-theme] .ep-workspace .cv-axis-head{height:78px}
+.ep-root[data-theme] .ep-workspace .cv-axis-hours{position:relative}
+.ep-root[data-theme] .ep-workspace .cv-axis-hours>span{position:absolute;left:4px;font-size:10px;color:var(--muted);line-height:1;transform:translateY(3px)}
+.ep-root[data-theme] .ep-workspace .cv-week-timeline .ep-week-meeting{position:absolute;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;min-height:0;min-width:0;margin:0;padding:10px 16px;gap:5px;overflow:hidden;box-sizing:border-box}
+.ep-root[data-theme] .ep-workspace .cv-week-timeline .ep-week-meeting>strong{overflow-wrap:anywhere;font-size:12px;line-height:1.4;flex-shrink:0}
+.ep-root[data-theme] .ep-workspace .cv-week-timeline .ep-week-meeting>span{display:none}
+.ep-root[data-theme] .ep-workspace .cv-week-timeline .ep-week-meeting>small{font-size:10px;line-height:1.3}
+.ep-root[data-theme] .ep-workspace .cv-week-empty{padding:16px;font-size:11px}
+.ep-root[data-theme] .ep-workspace .cv-week-timeline .cv-meeting-identity{flex-shrink:0;gap:4px}
+.ep-root[data-theme] .ep-workspace .cv-week-timeline .cv-client-initials{width:22px;height:22px;font-size:9px}
+@media(max-width:1050px){.ep-root[data-theme] .ep-workspace .cv-timed-week{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;overflow:visible;border:0;background:transparent}.ep-root[data-theme] .ep-workspace .cv-time-axis{display:none}.ep-root[data-theme] .ep-workspace .cv-timed-week>section{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}.ep-root[data-theme] .ep-workspace .cv-week-timeline{height:auto!important;background:none;padding:12px}.ep-root[data-theme] .ep-workspace .cv-week-timeline .ep-week-meeting{position:static;left:auto!important;top:auto!important;width:100%!important;height:auto!important;padding:12px 16px;margin-bottom:10px;overflow:visible}.ep-root[data-theme] .ep-workspace .cv-week-timeline .ep-week-meeting>span{display:block;white-space:normal}.ep-root[data-theme] .ep-workspace .cv-week-timeline .ep-week-meeting>strong{font-size:14px}}
+@media(max-width:650px){.ep-root[data-theme] .ep-workspace .cv-timed-week{grid-template-columns:1fr}.ep-root[data-theme] .ep-workspace .cv-week-timeline .ep-week-meeting{padding-inline:12px}.ep-root[data-theme] .ep-workspace .ep-cal-event-actions .ep-text-button,.ep-root[data-theme] .ep-workspace .ep-cal-event-actions .ep-text-button:hover{padding-inline:12px}.ep-root[data-theme] .ep-workspace .cv-timed-week .ep-week-day{padding-inline:12px}}
+
+@media(min-width:1051px){.ep-root[data-theme] .ep-workspace .cv-week-timeline .cv-short-meeting{padding-block:5px;gap:2px}.ep-root[data-theme] .ep-workspace .cv-short-meeting .cv-client-initials,.ep-root[data-theme] .ep-workspace .cv-short-meeting>small{display:none}.ep-root[data-theme] .ep-workspace .cv-short-meeting .cv-meeting-identity time{font-size:11px;line-height:1.2}.ep-root[data-theme] .ep-workspace .cv-week-timeline .cv-short-meeting>strong{font-size:11px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}

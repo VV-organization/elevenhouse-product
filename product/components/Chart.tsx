@@ -46,3 +46,5 @@ function NatalWheel({data,selected,showAspects,onSelect}:{data:NatalChartData;se
   {[{name:'ASC',longitude:data.ascendant},{name:'DSC',longitude:norm(data.ascendant+180)},{name:'MC',longitude:data.midheaven},{name:'IC',longitude:norm(data.midheaven+180)}].map(axis=>{const at=p(axis.longitude,292);return <g key={axis.name} className="ep-natal-axis"><path d={line(axis.longitude,269,279)}/><text x={at.x} y={at.y+4} textAnchor="middle">{axis.name}</text></g>})}
  </svg>
 }
+
+export function ChartPreview({data}:{data:NatalChartData}){return <div className="co-chart-preview" aria-hidden="true" inert><NatalWheel data={data} selected={null} showAspects onSelect={()=>{}}/></div>}

@@ -16,7 +16,7 @@
 .ep-root[data-theme=dark] .ep-button:disabled{opacity:.5}.ep-root[data-theme=dark] .ep-icon-button:hover{background:#2a3850}
 .ep-root[data-theme=dark] .ep-next{background:#19273c;border:1px solid #384760}
 .ep-root[data-theme=dark] .ep-next-top .ep-eyebrow{color:#c3cde0}.ep-root[data-theme=dark] .ep-next h2{color:#f2f1eb}.ep-root[data-theme=dark] .ep-next-bottom{border-color:#3a4960}
-.ep-root[data-theme=dark] .ep-session-row:hover,.ep-root[data-theme=dark] .ep-client-row:hover{background:#1c2a40;border-radius:8px}
+.ep-root[data-theme=dark] .ep-session-row:hover,.ep-root[data-theme=dark] .ep-client-row:hover{background:#17243a}
 .ep-root[data-theme=dark] .ep-avatar{background:#2c3440;color:#e5d7ac}.ep-root[data-theme=dark] .ep-status{color:#b4caba}
 .ep-root[data-theme=dark] .ep-status--cancelled{color:#e3abae}.ep-root[data-theme=dark] .ep-status--completed{color:#b6c7e6}
 .ep-root[data-theme=dark] .ep-back{color:#bcc6d6}.ep-root[data-theme=dark] .ep-checklist span{border-color:#5c6575;color:#dbccab}

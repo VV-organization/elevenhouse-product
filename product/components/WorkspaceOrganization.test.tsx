@@ -16,7 +16,7 @@ describe('task-oriented workspace',()=>{
  it('opens daily work at the empty route while keeping the practice overview reachable',()=>{
   setup()
   const html=renderToStaticMarkup(<Workspace practice={createExamplePractice()} onChange={noop} onLogout={noop} initialAction="" clearInitialAction={noop} theme="dark" onThemeChange={noop} onClientPreview={noop}/>)
-  expect(html).toContain('План на сегодня')
+  expect(html).toContain('Расписание на сегодня')
   expect(html).not.toContain('pd-dashboard')
   expect(html).toContain('href="#dashboard"')
  })

@@ -1,0 +1,17 @@
+/* CentralFlow: a contextual side sheet; native dialog retains focus containment. */
+.ep-root[data-theme] .ep-dialog.ep-dialog--drawer{position:fixed;inset:12px 12px 12px auto;margin:0;width:min(540px,calc(100vw - 32px));max-width:none;height:calc(100dvh - 24px);max-height:none;border:1px solid var(--line);border-radius:18px;background:var(--paper,var(--surface));color:var(--navy);box-shadow:-16px 0 60px #0003;padding:0;overflow:auto;overscroll-behavior:contain;animation:eh-drawer-in 220ms cubic-bezier(.2,.7,.2,1)}
+.ep-root[data-theme] .ep-dialog.ep-dialog--drawer::backdrop{background:rgb(5 12 23 / .28)}
+.ep-root[data-theme] .ep-dialog--drawer .ep-dialog-head{position:sticky;top:0;z-index:3;padding:24px;background:var(--paper,var(--surface));border-bottom:1px solid var(--line)}
+.ep-root[data-theme] .ep-dialog--drawer .ep-dialog-body,.ep-root[data-theme] .ep-dialog--drawer>.ep-form{max-height:none;overflow:visible;padding:24px;max-width:none;width:100%;box-sizing:border-box}
+.ep-root[data-theme] .ep-dialog--drawer .ep-form-footer{position:sticky;bottom:-24px;z-index:2;margin-top:28px;padding:20px 0;background:var(--paper,var(--surface));border-top:1px solid var(--line);gap:12px}
+.ep-root[data-theme] .ep-dialog--drawer .ep-form-pair{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ep-root[data-theme] .ep-dialog--drawer .ep-dialog-head h2{font-size:22px;letter-spacing:-.035em}
+.ep-root[data-theme] .ep-dialog--drawer .em-context-person{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;gap:12px;padding:0 0 24px;border-bottom:1px solid var(--line)}
+.ep-root[data-theme] .ep-dialog--drawer .em-context-person .em-avatar{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:var(--surface);color:var(--gold)}
+.ep-root[data-theme] .ep-dialog--drawer .em-context-person button{grid-column:1/-1;justify-content:space-between}
+.ep-root[data-theme] .ep-dialog--drawer .em-context>section{margin-top:28px}
+@keyframes eh-drawer-in{from{opacity:.4;transform:translateX(32px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:600px){.ep-root[data-theme] .ep-dialog.ep-dialog--drawer{inset:0;width:100%;height:100dvh;border-radius:0;border:0}.ep-root[data-theme] .ep-dialog--drawer .ep-dialog-head{padding:16px}.ep-root[data-theme] .ep-dialog--drawer .ep-dialog-body,.ep-root[data-theme] .ep-dialog--drawer>.ep-form{padding:20px 16px}.ep-root[data-theme] .ep-dialog--drawer .ep-form-pair{grid-template-columns:minmax(0,1fr)}.ep-root[data-theme] .ep-dialog--drawer .ep-form-footer{bottom:-20px;flex-wrap:wrap;padding-bottom:max(20px,env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:reduce){.ep-root[data-theme] .ep-dialog.ep-dialog--drawer{animation:none}}
+.ep-root[data-theme] .ep-dialog--drawer .pf-group-title{font-size:14px;font-weight:600;margin:12px 0 0;padding-top:16px;border-top:1px solid var(--line)}.ep-root[data-theme] .ep-dialog--drawer .pf-group-title:first-child{margin:0;padding:0;border:0}
+.ep-root[data-theme] .ep-dialog.ep-dialog--drawer::backdrop{backdrop-filter:none;-webkit-backdrop-filter:none}

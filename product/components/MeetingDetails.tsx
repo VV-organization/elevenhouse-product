@@ -20,7 +20,7 @@ export function MeetingDetails({appointment:a,client,onClose,onNotes,onReschedul
  const canRecordOutcome=a.status==='confirmed'&&a.date<=TODAY
  if(roomOpen)return <MeetingWorkspace key={a.id} appointment={a} client={client} onClose={()=>setRoomOpen(false)} onNotes={onNotes} onChart={onChart} onOutcome={onOutcome} {...workspace}/>
  if(editing&&onOutcome)return <OutcomeForm appointment={a} client={client} onClose={()=>setEditing(false)} onSave={text=>{onOutcome(text);setEditing(false)}}/>
- return <Dialog title={tr("Встреча","Appointment")} onClose={onClose}><div className="ep-dialog-body ep-meeting-detail">
+ return <Dialog placement="drawer" title={tr("Встреча","Appointment")} onClose={onClose}><div className="ep-dialog-body ep-meeting-detail">
   <h3>{a.title}</h3><p>{client.name}</p>
   <dl className="ex-detail"><div><dt>{tr("Когда","When")}</dt><dd>{formatDate(a.date)} · {a.time}</dd></div><div><dt>{tr("Длительность","Duration")}</dt><dd>{a.duration} {tr(" мин"," min")}</dd></div>{a.price!==undefined&&<div><dt>{tr("Стоимость","Price")}</dt><dd>{new Intl.NumberFormat(localeTag(),{maximumFractionDigits:2}).format(a.price)} ₽</dd></div>}<div><dt>{tr("Статус","Status")}</dt><dd>{a.status==='completed'?tr("Завершена","Completed"):a.status==='cancelled'?appointmentStatusLabel(a):needsOutcome?tr("Нужно указать итог","Outcome needed"):tr("Запланирована","Scheduled")}</dd></div></dl>
   {statusError&&<div role="alert"><p className="ep-error">{uiText(statusError)}</p>{onNextMeeting&&<button className="ep-button" onClick={onNextMeeting}>{tr("Записать на другое время","Choose another time")}</button>}</div>}
@@ -58,7 +58,7 @@ export function MeetingDetails({appointment:a,client,onClose,onNotes,onReschedul
 function OutcomeForm({appointment,client,onClose,onSave}:{appointment:Appointment,client:Client,onClose:()=>void,onSave:(text:string)=>void}){
  const exit=useFormExit(onClose),[text,setText]=useState(appointment.outcome||''),[error,setError]=useState('')
  function submit(event:FormEvent<HTMLFormElement>){event.preventDefault();try{onSave(text)}catch(error){setError((error as Error).message)}}
- return <Dialog title={tr("Итог консультации","Consultation outcome")} onClose={exit.close}><form className="ep-form" onSubmit={submit} onInput={exit.changed}>
+ return <Dialog placement="drawer" title={tr("Итог консультации","Consultation outcome")} onClose={exit.close}><form className="ep-form" onSubmit={submit} onInput={exit.changed}>
   <LearningTip topic="outcome" title={tr("Что важно сохранить после встречи?","What would you like to keep from this appointment?")}>{tr("Запишите выводы и договорённости. После сохранения встреча станет завершённой.","Write down the conclusions and agreements. Saving marks the appointment as completed.")}</LearningTip>
   <p>{client.name} · {formatDate(appointment.date)} · {appointment.time}</p>
   <label>{tr("Что обсудили и о чём договорились","What you discussed and agreed")}<textarea autoFocus rows={5} value={text} onChange={event=>setText(event.target.value)} placeholder={tr("Главные выводы, рекомендации и следующий шаг","Key conclusions, recommendations and the next step")}/></label>

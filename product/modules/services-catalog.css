@@ -1,0 +1,36 @@
+/* Direct Mail: visual category selection followed by a legible offer catalogue. */
+.ep-root[data-theme] .ep-workspace .sc-categories{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:24px 0}
+.ep-root[data-theme] .ep-workspace .sc-categories>button{display:grid;grid-template-columns:1fr auto;align-content:start;gap:16px 8px;min-width:0;min-height:130px;text-align:left;padding:18px 16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;color:var(--navy)}
+.ep-root[data-theme] .ep-workspace .sc-categories>button strong{grid-column:1;font-size:13px;font-weight:600;line-height:1.5}
+.ep-root[data-theme] .ep-workspace .sc-categories>button[aria-pressed=true]{background:color-mix(in srgb,var(--gold) 14%,var(--surface));border-color:var(--gold)}
+.ep-root[data-theme] .ep-workspace .sc-categories>button:hover{border-color:var(--gold)}
+.ep-root[data-theme] .ep-workspace .sc-category-symbol{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;font-size:25px;line-height:1;background:color-mix(in srgb,var(--gold) 17%,transparent);color:var(--navy)}
+.ep-root[data-theme] .ep-workspace .sc-category-symbol--pack{background:color-mix(in srgb,var(--data-series-2) 18%,transparent)}
+.ep-root[data-theme] .ep-workspace .sc-category-symbol--subscription{background:color-mix(in srgb,var(--data-series-3) 18%,transparent)}
+.ep-root[data-theme] .ep-workspace .sc-category-symbol--free{background:color-mix(in srgb,var(--data-series-4) 18%,transparent)}
+.ep-root[data-theme] .ep-workspace .sc-category-count{grid-column:2;grid-row:1;font-size:22px;line-height:1.5;font-variant-numeric:tabular-nums;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .sc-catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
+.ep-root[data-theme] .ep-workspace .sc-service.ex-row{display:flex;flex-direction:column;align-items:stretch;gap:20px;padding:24px 20px;border:1px solid var(--line);border-radius:10px;background:var(--surface);min-width:0;margin:0;transition:border-color .15s}
+.ep-root[data-theme] .ep-workspace .sc-service.ex-row:hover{border-color:color-mix(in srgb,var(--gold) 60%,var(--line));background:var(--surface)}
+.ep-root[data-theme] .ep-workspace .sc-service.ex-row>div{width:100%;min-width:0}
+.ep-root[data-theme] .ep-workspace .sc-service.ex-row h2{font-size:20px;line-height:1.4;margin:12px 0 16px;max-width:32ch}
+.ep-root[data-theme] .ep-workspace .sc-service-price{display:flex;align-items:baseline;gap:8px 16px;flex-wrap:wrap;margin-bottom:16px}
+.ep-root[data-theme] .ep-workspace .sc-service-price strong{font-size:27px;line-height:1.3;font-weight:600;letter-spacing:-.6px;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .ep-workspace .sc-service-price>span{font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .sc-service.ex-row p{font-size:13px;line-height:1.7;margin:8px 0 0}
+.ep-root[data-theme] .ep-workspace .sc-service .commerce-row-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:16px;margin-top:auto}
+.ep-root[data-theme] .ep-workspace .sc-service>.ep-actions{display:flex;align-items:flex-start;flex-wrap:wrap;gap:12px;padding-top:0}
+.ep-root[data-theme] .ep-workspace .sc-service .ep-text-button:hover{text-decoration:none;font-weight:600}
+.ep-root[data-theme] .ep-workspace .sc-service .ec-service-actions{max-width:100%}
+@media(max-width:1100px){.ep-root[data-theme] .ep-workspace .sc-categories{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.ep-root[data-theme] .ep-workspace .sc-categories{display:flex;overflow-x:auto;gap:8px;padding-bottom:8px;margin:20px 0}.ep-root[data-theme] .ep-workspace .sc-categories>button{flex:0 0 155px;min-height:122px;padding:16px 12px}.ep-root[data-theme] .ep-workspace .sc-catalog{grid-template-columns:1fr;gap:12px;margin-top:20px}.ep-root[data-theme] .ep-workspace .sc-service.ex-row{padding:20px 12px}.ep-root[data-theme] .ep-workspace .sc-service.ex-row h2{font-size:19px}.ep-root[data-theme] .ep-workspace .sc-service .commerce-row-actions{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.ep-root[data-theme] .ep-workspace .sc-service.ex-row{transition:none}}
+/* Keep every category visible on a phone, without a horizontal carousel. */
+@media(max-width:650px){
+ .ep-root[data-theme] .ep-workspace .sc-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;gap:8px;padding-bottom:0}
+ .ep-root[data-theme] .ep-workspace .sc-categories>button{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;align-content:center;gap:8px;min-height:76px;padding:12px;min-width:0}
+ .ep-root[data-theme] .ep-workspace .sc-categories>button:first-child{grid-column:1/-1;min-height:60px}
+ .ep-root[data-theme] .ep-workspace .sc-categories>button strong{grid-column:2;grid-row:1;font-size:12px;line-height:1.4;overflow-wrap:anywhere}
+ .ep-root[data-theme] .ep-workspace .sc-category-symbol{width:28px;height:28px;font-size:21px;grid-column:1;grid-row:1}
+ .ep-root[data-theme] .ep-workspace .sc-category-count{grid-column:3;grid-row:1;font-size:17px;line-height:1.4}
+}

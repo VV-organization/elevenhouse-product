@@ -1,3 +1,4 @@
+import {BusinessWorkspace} from './BusinessWorkspace'
 import type {ProductData} from '../state/product-data'
 import {SettingsCapabilities} from './SettingsCapabilities'
 import {PublicProfile} from './PublicProfile'
@@ -47,7 +48,8 @@ function SectionDirectory({business=false}:{business?:boolean}) {
 
 export const extendedSections=['business','practice','services','finance','analytics','messages','content','automations','reviews','tools','journal','astro-calendar','library','settings','public-profile','numbers','matrix','hd','astro-journal','reference','plans']
 export function ExtendedArea({data,page,practice,onOpenClient,onChange,theme,onThemeChange,onClientPreview}:{data?:ProductData,page:string,onChange:Dispatch<SetStateAction<Practice>>,theme:string,onThemeChange:(theme:'dark'|'light')=>void,onClientPreview:(serviceId?:string)=>void}&ModuleProps){
- if(page==='practice'||page==='business')return <SectionDirectory business={page==='business'}/>
+ if(page==='business')return <BusinessWorkspace practice={practice}/>
+ if(page==='practice')return <SectionDirectory/>
  if(page==='plans')return <><a className="ex-section-back" href="#practice">{tr('Все разделы','All sections')}</a><SectionHeader title={tr('Тарифы и доступ','Plans and access')}/><SettingsCapabilities key="plans" initialTab="billing" data={data?.settings} practice={practice} onOpenClient={onOpenClient}/></>
  const calculationMethod=({numbers:'numbers',matrix:'matrix',hd:'hd'} as const)[page as 'numbers'|'matrix'|'hd']
  if(calculationMethod)return <><a className="ex-section-back" href="#practice">{tr('Все разделы','All sections')}</a><Tools {...data?.calculations} key={page} method={calculationMethod} section="tools" onChange={onChange} practice={practice} onOpenClient={onOpenClient}/></>

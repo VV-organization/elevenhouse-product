@@ -21,7 +21,7 @@
 .ep-root .ep-nav-group h3{font-family:'Auth Manrope',sans-serif;font-size:13px;color:var(--muted);font-weight:500;margin:0 0 8px;padding:0 12px}
 .ep-root .ep-topbar .ep-help-button{display:flex;align-items:center;gap:8px;min-height:44px;background:none;border:0;color:inherit;font-size:13px}
 .ep-root .ep-page-heading h1{overflow-wrap:anywhere}
-@media(max-width:520px){.ep-root .ep-help-list button{padding-inline:12px}.ep-root .ep-home-results button{padding-inline:12px}.ep-root .ep-learning-tip{padding:12px;gap:8px}.ep-root .ep-learning-tip>.ep-icon{display:none}.ep-root .ep-quick-actions{display:grid;grid-template-columns:1fr 1fr}.ep-root .ep-quick-actions .ep-button{padding:10px 8px;font-size:12px!important}.ep-root .ep-help-list button{padding:12px}.ep-root .ep-home-search{margin-bottom:16px}}
+@media(max-width:520px){.ep-root .ep-learning-tip{padding:12px;gap:8px}.ep-root .ep-learning-tip>.ep-icon{display:none}.ep-root .ep-quick-actions{display:grid;grid-template-columns:1fr 1fr}.ep-root .ep-quick-actions .ep-button{padding:10px 8px;font-size:12px!important}.ep-root .ep-help-list button{padding:12px}.ep-root .ep-home-search{margin-bottom:16px}}
 
 /* Keep guidance and the next action in view on a small phone. */
 @media(max-width:520px){

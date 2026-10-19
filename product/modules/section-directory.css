@@ -46,7 +46,7 @@
   .ep-root .ep-directory-groups { grid-template-columns: 1fr; gap: 28px; }
   .ep-root .ep-directory .ep-page-heading { margin-bottom: 24px; }
   .ep-root .ep-directory-group h2 { padding-inline: 12px; }
-  .ep-root .ep-directory-link { padding: 12px; gap: 12px; }
+  .ep-root .ep-directory-link { padding: 14px 12px; gap: 12px; }
   .ep-root .ep-directory-settings { margin-top: 28px; }
   .ep-root .ep-directory-settings .ep-directory-link { width: 100%; }
 }
