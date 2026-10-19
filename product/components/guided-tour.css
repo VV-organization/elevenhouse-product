@@ -1,0 +1,27 @@
+.ep-root .ep-tour-layer{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--navy);overflow:visible;pointer-events:none;z-index:2147483000}
+.ep-root .ep-tour-layer::backdrop{background:transparent;pointer-events:none}
+.ep-root .ep-tour-spotlight{position:fixed;border:2px solid var(--gold);border-radius:14px;box-shadow:0 0 0 100vmax #050b1470;pointer-events:none;animation:ep-tour-ring 1.2s ease-out 2}
+.ep-root .ep-tour-card{position:fixed;box-sizing:border-box;width:min(376px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow-y:auto;padding:18px 20px 20px;background:var(--surface);color:var(--navy);border:1px solid var(--gold);border-radius:16px;box-shadow:0 16px 56px #0005;pointer-events:auto;animation:ep-tour-enter .24s ease-out;font-size:14px;line-height:1.55;text-align:left}
+.ep-root .ep-tour-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px;font-weight:600}
+.ep-root .ep-tour-top .ep-icon-button{min-width:32px;min-height:32px;width:32px;height:32px;padding:6px}
+.ep-root .ep-tour-progress{height:3px;background:#8998ab33;border-radius:2px;margin:6px 0 18px;overflow:hidden}
+.ep-root .ep-tour-progress span{display:block;height:100%;background:var(--gold)}
+.ep-root .ep-tour-card h2{font-size:22px;line-height:1.22;margin:0 0 12px;letter-spacing:-.025em}
+.ep-root .ep-tour-card p{margin:0 0 18px;font-size:14px;line-height:1.55;color:var(--muted)}
+.ep-root .ep-tour-card .ep-tour-hint{padding:10px 12px;border-left:2px solid var(--gold);color:var(--navy);font-size:13px}
+.ep-root .ep-tour-card footer,.ep-root .ep-tour-card footer>div{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ep-root .ep-tour-card footer{justify-content:space-between;margin-top:20px}
+.ep-root .ep-tour-card footer .ep-button{min-height:42px;padding:9px 12px;font-size:14px;gap:6px}
+.ep-root .ep-tour-card footer .ep-text-button{font-size:13px;padding:8px 0}
+.ep-root .ep-tour-card button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@keyframes ep-tour-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ep-tour-ring{0%,100%{border-color:var(--gold)}50%{border-color:#fff}}
+@media(max-width:699px){.ep-root .ep-tour-card{padding:12px 16px 16px;max-height:55dvh;border-radius:16px}.ep-root .ep-tour-card h2{font-size:20px}.ep-root .ep-tour-card p{font-size:13px;margin-bottom:12px}.ep-root .ep-tour-progress{margin-bottom:12px}.ep-root .ep-tour-card footer{margin-top:12px}.ep-root .ep-tour-top .ep-icon-button{width:36px;height:36px}}
+@media(prefers-reduced-motion:reduce){.ep-root .ep-tour-card,.ep-root .ep-tour-spotlight{animation:none}}
+
+.ep-root .ep-tour-card.is-editing #ep-tour-description,.ep-root .ep-tour-card.is-editing .ep-tour-progress{display:none}
+.ep-root .ep-tour-card.is-editing h2{font-size:17px;margin:6px 0 8px}
+.ep-root .ep-tour-card.is-editing .ep-tour-hint{padding:0;border:0;margin:0}
+@media(max-width:699px){.ep-root[data-theme].ep-tour-active .ep-workspace .ep-main{padding-bottom:55dvh}.ep-root .ep-tour-card.is-editing{max-height:220px}.ep-root .ep-tour-card.is-editing footer{margin-top:8px}}
+
+@media(max-width:699px){.ep-root .ep-tour-card.is-editing h2,.ep-root .ep-tour-card.is-editing footer{display:none}.ep-root .ep-tour-card.is-editing .ep-tour-hint{margin-top:6px;font-size:12px}}

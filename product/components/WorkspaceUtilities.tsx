@@ -1,4 +1,4 @@
-import {useState,type Dispatch,type SetStateAction} from 'react'
+import {useEffect,useState,type Dispatch,type SetStateAction} from 'react'
 import {tr} from '../i18n'
 import {formatDate,type Practice} from '../state/model'
 import {useModuleState,money} from '../modules/ModuleKit'
@@ -14,7 +14,8 @@ type Props={practice:Practice;onClient:(id:string)=>void;onMeeting:(id:string)=>
 type Entry={id:string;kind:string;title:string;detail:string;date:string;open:()=>void}
 type EventData={services:Service[];payments:Payment[];orders:PortalOrder[];messages:ReturnType<typeof initialConversations>;records:Record<string,{at:string}>}
 export function unreadNotificationCount(entries:Pick<Entry,'id'|'kind'>[],read:string[]){return entries.filter(e=>!['clients','services'].includes(e.kind)&&!read.includes(e.id)).length}
-export function NotificationLauncher({count,onClick}:{count:number;onClick:()=>void}){return <button className="ep-text-button wu-notifications" aria-label={count?tr(`Уведомления, непрочитанных: ${count}`,`Notifications, unread: ${count}`):tr('Уведомления','Notifications')} onClick={onClick}><Icon name="reminder" size={18}/>{tr('Уведомления','Notifications')}{count>0&&<span className="wu-unread-count" aria-hidden="true">{count>99?'99+':count}</span>}</button>}
+export function initialNotificationReadIds(entries:Pick<Entry,'id'|'kind'>[]){return entries.filter(e=>!['clients','services'].includes(e.kind)).map(e=>e.id)}
+export function NotificationLauncher({count,onClick}:{count:number;onClick:()=>void}){return <button className="ep-text-button wu-notifications" aria-label={count?tr(`Уведомления, непрочитанных: ${count}`,`Notifications, unread: ${count}`):tr('Уведомления','Notifications')} onClick={onClick}><Icon name="reminder" size={18}/><span className="em-util-label">{tr('Уведомления','Notifications')}</span>{count>0&&<span className="wu-unread-count" aria-hidden="true">{count}</span>}</button>}
 function buildEntries({practice,onClient,onMeeting,onNavigate}:Props,{services,payments,orders,messages,records}:EventData):Entry[]{
  const clientName=(id:string)=>practice.clients.find(c=>c.id===id)?.name||tr('Клиент','Client')
  return [
@@ -28,10 +29,11 @@ function buildEntries({practice,onClient,onMeeting,onNavigate}:Props,{services,p
  ]
 }
 export function WorkspaceUtilities(props:Props){
- const [mode,setMode]=useState<'search'|'events'|null>(null),[read,setRead]=useModuleState<string[]>('notification-read',props.practice.isExample,()=>[])
+ const [mode,setMode]=useState<'search'|'events'|null>(null),[read,setRead]=useModuleState<string[]>('notification-read',props.practice.isExample,()=>[]),[baselineInitialized,setBaselineInitialized]=useModuleState<boolean>('notification-baseline-v1',props.practice.isExample,()=>false)
  const [services]=useModuleState<Service[]>('services',props.practice.isExample,()=>props.practice.isExample?DEFAULT_SERVICES:[]),[payments]=useModuleState<Payment[]>('payments',props.practice.isExample,()=>props.practice.isExample?initialPayments():[]),[orders]=useModuleState<PortalOrder[]>('client-orders',props.practice.isExample,()=>[]),[messages]=useModuleState('conversations',props.practice.isExample,()=>initialConversations(props.practice)),[records]=useModuleState<Record<string,{at:string}>>('saved-method-calculations',props.practice.isExample,()=>({}))
- const data={services,payments,orders,messages,records},entries=buildEntries(props,data),unread=unreadNotificationCount(entries,read)
- return <><nav className="wu-launchers" aria-label={tr('Быстрый доступ','Quick access')}><button className="ep-text-button" onClick={()=>setMode('search')}><Icon name="search" size={18}/>{tr('Поиск по практике','Search practice')}</button><NotificationLauncher count={unread} onClick={()=>setMode('events')}/></nav>{mode&&<UtilityDialog {...props} {...data} entries={entries} read={read} setRead={setRead} mode={mode} onClose={()=>setMode(null)}/>}</>
+ const data={services,payments,orders,messages,records},entries=buildEntries(props,data),unread=baselineInitialized?unreadNotificationCount(entries,read):0
+ useEffect(()=>{if(!baselineInitialized){setRead(initialNotificationReadIds(entries));setBaselineInitialized(true)}},[baselineInitialized])
+ return <><nav className="wu-launchers" aria-label={tr('Быстрый доступ','Quick access')}><button className="ep-text-button" onClick={()=>setMode('search')}><Icon name="search" size={18}/><span className="em-util-label">{tr('Поиск по практике','Search practice')}</span></button><NotificationLauncher count={unread} onClick={()=>setMode('events')}/></nav>{mode&&<UtilityDialog {...props} {...data} entries={entries} read={read} setRead={setRead} mode={mode} onClose={()=>setMode(null)}/>}</>
 }
 function UtilityDialog({entries,read,setRead,mode,onClose}:Props&EventData&{entries:Entry[];read:string[];setRead:Dispatch<SetStateAction<string[]>>;mode:'search'|'events';onClose:()=>void}){
  const [query,setQuery]=useState(''),[kind,setKind]=useState('all'),[onlyUnread,setOnlyUnread]=useState(false),[limit,setLimit]=useState(40)

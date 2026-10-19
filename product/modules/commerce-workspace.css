@@ -1,0 +1,57 @@
+/* Task 4: scoped to commercial editors and the current conversation. */
+.ep-root .commerce-workspace{min-width:0}
+.ep-root .commerce-service-editor .ec-form-section,.ep-root .ec-conditions .ec-form-section{display:grid;gap:16px;min-width:0;padding-block:24px;border-top:1px solid var(--line)}
+.ep-root .commerce-service-editor>.ec-form-section:first-of-type{border-top:0;padding-top:0}
+.ep-root .ec-form-section h3,.ep-root .ec-form-section h4{font-size:18px;line-height:1.4;margin:0 0 4px;font-weight:600}
+.ep-root .ec-conditions{min-width:0}
+.ep-root .ec-form-section fieldset{min-width:0;margin:0;padding:16px;border:1px solid var(--line)}
+.ep-root .ec-form-section .ec-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px}
+.ep-root .ec-form-section .ep-checkbox{min-height:44px;display:flex;align-items:center;gap:12px;flex-direction:row;overflow-wrap:anywhere}
+.ep-root .commerce-workspace .ex-row{padding-inline:16px;flex-wrap:wrap;gap:12px}
+.ep-root .commerce-workspace .ex-row>div:first-child{flex:1;min-width:0}
+.ep-root .commerce-workspace .ex-row>.ep-actions{flex-basis:100%;border-top:1px solid var(--line);padding-top:12px;justify-content:flex-start}
+.ep-root .commerce-workspace .ex-row h2{font-size:18px;line-height:1.4;margin:6px 0}
+.ep-root .commerce-workspace .ex-row p{margin-block:6px;overflow-wrap:anywhere}
+.ep-root .communication-thread-settings{border-top:1px solid var(--line);margin-top:28px;padding-top:20px;min-width:0}
+.ep-root .communication-task-conversation .ex-message-thread{max-height:340px;min-height:120px;margin-top:12px}
+.ep-root .communication-task-conversation .ex-message-composer{margin-top:16px}
+.ep-root .communication-workspace .ex-row,.ep-root .communication-task-conversation .ex-row{padding-inline:16px}
+.ep-root .communication-workspace .ex-row p{overflow-wrap:anywhere}
+.ep-root .communication-editor-section{display:grid;gap:16px;border-top:1px solid var(--line);padding-top:24px;margin-top:8px;min-width:0}
+.ep-root .communication-editor-section h3{margin:0;font-size:18px}
+@media(max-width:600px){
+.ep-root .commerce-workspace .ex-row,.ep-root .communication-workspace .ex-row,.ep-root .communication-task-conversation .ex-row{padding-inline:12px}
+.ep-root .ec-form-section .ec-options,.ep-root .commerce-service-editor .ep-form-pair{grid-template-columns:minmax(0,1fr)}
+.ep-root .commerce-workspace .ep-actions{flex-wrap:wrap}
+.ep-root .commerce-workspace .ex-row>.ep-actions>.ep-button{flex:1 1 auto}
+.ep-root .communication-task-conversation .ex-message-thread{max-height:280px}
+}
+.ep-root .commerce-task-nav{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.ep-root .commerce-task-nav button{min-height:44px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--muted);font:inherit;padding:10px 4px;cursor:pointer}
+.ep-root .commerce-task-nav button[aria-pressed=true]{border-bottom-color:var(--gold);color:var(--text)}
+.ep-root .commerce-task-nav button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:600px){.ep-root .commerce-task-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px}.ep-root .commerce-task-nav button{text-align:left;overflow-wrap:anywhere}}
+/* A single persistent list keeps its filters and scroll position while switching clients. */
+.ep-root .communication-master-detail{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start;min-width:0}
+.ep-root .communication-master-detail.has-conversation{grid-template-columns:minmax(260px,.38fr) minmax(0,1fr)}
+.ep-root .communication-conversation-list,.ep-root .communication-conversation-detail{min-width:0}
+.ep-root .communication-master-detail.has-conversation>.communication-conversation-list{position:sticky;top:24px;max-height:calc(100dvh - 130px);overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.ep-root .communication-conversation-list>.ex-toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.ep-root .communication-conversation-list .ex-message-row{width:100%;min-width:0;display:flex;gap:12px;padding-inline:16px;text-align:left}
+.ep-root .communication-conversation-list .ex-message-row[aria-current=true]{background:var(--surface);box-shadow:inset 3px 0 var(--gold)}
+.ep-root .communication-conversation-list .ex-message-row-body{min-width:0;flex:1}
+.ep-root .communication-master-detail.has-conversation .ex-message-row{flex-wrap:wrap}
+.ep-root .communication-master-detail.has-conversation .ex-message-row-status{font-size:14px}
+.ep-root .communication-master-detail.has-conversation .ex-message-row>.ep-icon{display:none}
+.ep-root .communication-conversation-detail>.ex-toolbar{margin-bottom:12px}
+.ep-root .communication-conversation-detail .ex-conversation-title:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+@media(max-width:1050px){
+.ep-root .communication-master-detail.has-conversation{grid-template-columns:minmax(0,1fr)}
+.ep-root .communication-master-detail.has-conversation>.communication-conversation-list{display:none}
+}
+@media(max-width:600px){.ep-root .communication-conversation-list .ex-message-row{padding-inline:12px}}
+/* Keep the reply and send action within the working viewport. */
+.ep-root[data-theme] .communication-task-conversation .ex-message-thread{height:clamp(140px,24vh,240px);max-height:240px;min-height:0}
+.ep-root[data-theme] .communication-task-conversation .communication-ai-panel:has(>button:only-child){padding:0;border:0;background:none}
+@media(max-width:600px){.ep-root[data-theme] .communication-task-conversation .ex-message-thread{height:200px;max-height:32vh}}
+.ep-root .commerce-row-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}

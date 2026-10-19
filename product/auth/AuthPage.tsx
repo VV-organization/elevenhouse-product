@@ -2,7 +2,6 @@ import {Select} from '../components/Select'
 import {Icon} from '../components/Icon'
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import wordmark from '../assets/brand/eleven-house-stacked.svg'
-import { AuthBackdrop } from './AuthBackdrop'
 import { translateAuth } from './authCopy'
 import {useLocale} from '../i18n'
 import { CODE_LENGTH, countries, maskContact, normalizePhone, secondsLeft, validateCode, validateDetails, type AuthMode, type Channel, type FieldErrors, type Step } from './authFlow'
@@ -216,7 +215,6 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
 
 
   return <div className="eh-auth eh-auth--focused" data-screen={step} lang={locale}>
-    <AuthBackdrop />
     <a className="eh-auth__skip" href="#auth-content">{t("Перейти к форме")}</a>
     <header className="eh-auth__header">
       <div className="eh-auth__brand"><img src={wordmark} width="1131" height="682" alt="ElevenHouse" /></div>
@@ -230,11 +228,6 @@ export function AuthPage({ onAuthenticated }: AuthPageProps) {
     </header>
 
     <main className="eh-auth__layout">
-      <section className="eh-auth__editorial" aria-hidden="true">
-        <h2>{t('Всё начинается')}<br /><em>{t('с')} {t('вас')}</em></h2>
-        <p>{t('Ваши знания становятся системой.')}</p>
-        <p>{t('А у вас появляется пространство для самого важного.')}</p>
-      </section>
       <section id="auth-content" className="eh-auth__portal" aria-label={t("Вход и регистрация")}>
         <div className="eh-auth__card">
           {step === 'details' && <div className="eh-auth__modes" aria-label={t("Выберите действие")}>

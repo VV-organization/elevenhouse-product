@@ -10,3 +10,35 @@
 .ep-root .ep-availability-conflicts li {display:grid;gap:5px;font-size:14px}
 .ep-root .ep-availability-conflicts li span {color:var(--muted,#aab4c5)}
 @media(max-width:600px){.ep-root .ep-blocked-time .ep-form-pair,.ep-root .ep-weekday-hours .ep-form-pair {grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.ep-root .ep-blocked-time input,.ep-root .ep-weekday-hours input {min-width:0;max-width:100%}}
+
+/* Booking rules own their spacing; generic form-label margins must not accumulate. */
+.ep-root .ep-dialog .ep-form.ep-availability{display:flex;flex-direction:column;gap:28px;padding-block:24px;scroll-padding-block:24px 96px}
+.ep-root .ep-dialog .ep-availability>fieldset{flex:none;margin:0;padding:16px 0 0;min-width:0}
+.ep-root .ep-dialog .ep-availability .ep-availability-fields,
+.ep-root .ep-dialog .ep-availability .ep-form-fields{display:grid;gap:16px;min-width:0}
+.ep-root .ep-dialog .ep-availability label,
+.ep-root .ep-dialog .ep-availability p,
+.ep-root .ep-dialog .ep-availability .ep-working-days{margin:0}
+.ep-root .ep-dialog .ep-availability .ep-form-pair{gap:20px 16px;align-items:start;min-width:0}
+.ep-root .ep-dialog .ep-availability .ep-availability-fields>.ep-button{justify-self:start}
+.ep-root .ep-dialog .ep-availability .ep-working-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.ep-root .ep-dialog .ep-availability .ep-working-days label{display:flex;align-items:center;justify-content:center;gap:4px;padding:8px 4px;min-height:44px;font-size:12px}
+.ep-root .ep-dialog .ep-availability .ep-weekday-hours{gap:8px;padding:12px 0}
+.ep-root .ep-dialog .ep-availability .ep-weekday-hours:first-child{padding-top:0}
+.ep-root .ep-dialog .ep-availability .ep-weekday-hours:last-child{padding-bottom:0}
+.ep-root .ep-dialog .ep-availability .ep-blocked-time,
+.ep-root .ep-dialog .ep-availability .ep-exception{display:grid;gap:16px;margin:0;padding:16px 0;border-bottom:1px solid var(--line)}
+.ep-root .ep-dialog .ep-availability>details{flex:none;margin:0;border-bottom:0;border-top:1px solid var(--line)}
+.ep-root .ep-dialog .ep-availability>details>summary{padding:16px 0;min-height:52px}
+.ep-root .ep-dialog .ep-availability>details+details{margin-top:-12px}
+.ep-root .ep-dialog .ep-availability .ep-form-fields{padding:4px 0 0}
+.ep-root .ep-dialog .ep-availability>.ep-form-footer{flex:none;position:static;margin:0;padding:20px 0 0;background:transparent;border-top:1px solid var(--line)}
+@media(max-width:520px){
+ .ep-root .ep-dialog .ep-form.ep-availability{gap:24px;padding:20px 16px 24px}
+ .ep-root .ep-dialog .ep-availability .ep-form-pair{grid-template-columns:minmax(0,1fr);gap:16px}
+ .ep-root .ep-dialog .ep-availability .ep-weekday-hours .ep-form-pair,
+ .ep-root .ep-dialog .ep-availability .ep-blocked-time .ep-form-pair{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+}
+
+.ep-root .ep-dialog .ep-availability .ep-working-days input{width:16px;height:16px;min-height:16px;margin:0}
+@media(max-width:520px){.ep-root .ep-dialog .ep-availability .ep-working-days{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}}

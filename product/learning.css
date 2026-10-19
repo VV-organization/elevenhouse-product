@@ -21,7 +21,7 @@
 .ep-root .ep-nav-group h3{font-family:'Auth Manrope',sans-serif;font-size:13px;color:var(--muted);font-weight:500;margin:0 0 8px;padding:0 12px}
 .ep-root .ep-topbar .ep-help-button{display:flex;align-items:center;gap:8px;min-height:44px;background:none;border:0;color:inherit;font-size:13px}
 .ep-root .ep-page-heading h1{overflow-wrap:anywhere}
-@media(max-width:520px){.ep-root .ep-learning-tip{padding:12px;gap:8px}.ep-root .ep-learning-tip>.ep-icon{display:none}.ep-root .ep-quick-actions{display:grid;grid-template-columns:1fr 1fr}.ep-root .ep-quick-actions .ep-button{padding:10px 8px;font-size:12px!important}.ep-root .ep-help-list button{padding:12px}.ep-root .ep-home-search{margin-bottom:16px}}
+@media(max-width:520px){.ep-root .ep-help-list button{padding-inline:12px}.ep-root .ep-home-results button{padding-inline:12px}.ep-root .ep-learning-tip{padding:12px;gap:8px}.ep-root .ep-learning-tip>.ep-icon{display:none}.ep-root .ep-quick-actions{display:grid;grid-template-columns:1fr 1fr}.ep-root .ep-quick-actions .ep-button{padding:10px 8px;font-size:12px!important}.ep-root .ep-help-list button{padding:12px}.ep-root .ep-home-search{margin-bottom:16px}}
 
 /* Keep guidance and the next action in view on a small phone. */
 @media(max-width:520px){
@@ -33,5 +33,19 @@
  .ep-root .ep-meeting-date-time input{padding-inline:8px}
 }
 @media(max-width:360px){.ep-root .ep-meeting-date-time{grid-template-columns:1fr;gap:0}}
+
+/* Guidance reuses the product's surfaces and never overlays working controls. */
+.ep-root .ep-journey{padding:24px;margin:0 0 28px;border:1px solid var(--line);border-left:3px solid var(--gold,#b79d54);border-radius:8px;background:var(--surface);color:var(--navy);overflow-wrap:anywhere}
+.ep-root .ep-journey-heading{display:flex;gap:12px;align-items:flex-start}
+.ep-root .ep-journey-heading>.ep-icon{flex-shrink:0;margin-top:3px}
+.ep-root .ep-journey-context{margin:0 0 8px;font-size:12px;line-height:1.5;color:var(--muted)}
+.ep-root .ep-journey h2{margin:0;font-family:inherit;font-size:20px;line-height:1.35;font-weight:600}
+.ep-root .ep-journey-body{max-width:66ch;margin:12px 0 18px;font-size:14px;line-height:1.65}
+.ep-root .ep-journey-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 20px}
+.ep-root .ep-journey-actions button{min-height:44px;white-space:normal;text-align:left}
+.ep-root .ep-journey-actions .ep-button{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.ep-root .ep-journey-actions .ep-icon{flex-shrink:0}
+.ep-root[data-theme=dark] .ep-journey{background:#1a283c;color:#f2f1eb;border-color:#3b485b;border-left-color:#e2ca79}
+@media(max-width:520px){.ep-root .ep-journey{padding:16px 12px;margin-bottom:20px}.ep-root .ep-journey h2{font-size:18px}.ep-root .ep-journey-actions{gap:4px 16px}.ep-root .ep-journey-actions .ep-button{width:100%;max-width:100%}.ep-root .ep-journey-heading>.ep-icon{display:none}}
 
 .ep-root .ex-journal-heading{margin:32px 0 16px}

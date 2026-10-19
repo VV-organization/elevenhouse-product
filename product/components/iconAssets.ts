@@ -65,7 +65,10 @@ import infoStatic from '../assets/icons/iconity/info.svg?url'
 import lockAnimation from '../assets/icons/iconity/lock.json?url'
 import lockStatic from '../assets/icons/iconity/lock.svg?url'
 import clockStatic from '../assets/icons/iconity/clock.svg?url'
+import attachmentStatic from '../assets/icons/iconity/attachment.svg?url'
+import attachmentAnimation from '../assets/icons/iconity/attachment.json?url'
 export const iconAssets: Record<string,{static:string,animation?:string,motion?:'profile'|'clock'}> = {
+ attachment: {static:attachmentStatic,animation:attachmentAnimation},
  profile: {static:profileStatic,motion:'profile'},
  today: {static:todayStatic,animation:todayAnimation},
  clients: {static:clientsStatic,animation:clientsAnimation},

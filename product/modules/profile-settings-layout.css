@@ -11,7 +11,7 @@
 .ep-root .ep-profile-settings-grid .ep-language-control>div{height:52px;padding:4px}
 .ep-root .ep-profile-settings-grid .ep-language-control button{min-height:42px;padding:6px 12px}
 .ep-root .ep-profile-settings-form>.ex-note,.ep-root .ep-profile-settings-fields>.ex-note{margin:0;line-height:1.6}
-.ep-root .ep-profile-settings-form>.ex-note+.ex-note{margin-top:-16px}
+.ep-root .ep-profile-settings-form>.ex-note+.ex-note{margin-top:0}
 .ep-root .ep-profile-settings-form>.ex-actions{margin:0}
 .ep-root .ep-profile-settings-links{margin-top:32px;padding-top:24px;border-top:1px solid var(--line)}
 .ep-root .ep-profile-settings-links h2{font-size:18px;margin-bottom:16px}

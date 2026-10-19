@@ -1,0 +1,63 @@
+/* Original analytics: distinguish totals, trends and product contribution. */
+.ep-root[data-theme] .ep-workspace .av-workspace{max-width:1320px;min-width:0}
+.ep-root[data-theme] .av-workspace>.ex-tabs{margin-bottom:20px}
+.ep-root[data-theme] .av-workspace>.ex-toolbar{margin-bottom:12px;align-items:center}
+.ep-root[data-theme] .av-workspace>.ec-report-actions{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin:0 0 24px}
+.ep-root[data-theme] .av-workspace>.ec-report-actions>.ep-button{order:2}
+.ep-root[data-theme] .av-workspace .av-grid{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr);gap:24px;align-items:start}
+.ep-root[data-theme] .av-workspace .av-grid--income{grid-template-areas:"income trend" "services clients"}
+.ep-root[data-theme] .av-workspace .av-grid>.ex-panel{margin:0;padding:24px;min-width:0;border:1px solid var(--line);border-radius:12px}
+.ep-root[data-theme] .av-workspace .av-grid>.ex-panel>h2{font-size:17px;margin:0 0 20px}
+.ep-root[data-theme] .av-workspace .av-income{grid-area:income;align-self:stretch}
+.ep-root[data-theme] .av-workspace .av-income>.ex-amount{font:600 clamp(32px,3.5vw,46px)/1.2 'Auth Manrope',sans-serif;letter-spacing:-.04em;margin:0 0 12px;font-variant-numeric:tabular-nums}
+.ep-root[data-theme=dark] .av-workspace .av-income>.ex-amount{color:#efda99}
+.ep-root[data-theme] .av-income>p:not(.ex-amount){font-size:13px;color:var(--muted)}
+.ep-root[data-theme] .av-income-counts{display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:1px solid var(--line);padding:20px 0;margin-top:20px}
+.ep-root[data-theme] .av-income-counts>div{display:grid;gap:6px}
+.ep-root[data-theme] .av-income-counts strong{font-size:24px;font-weight:600}
+.ep-root[data-theme] .av-income-counts span{font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .av-income>details{font-size:13px;border-top:1px solid var(--line);padding-top:12px}
+.ep-root[data-theme] .av-workspace .av-trend{grid-area:trend;align-self:stretch}
+.ep-root[data-theme] .av-trend .rv-plot{height:190px}
+.ep-root[data-theme] .av-daily-values{margin-top:20px;border-top:1px solid var(--line);padding-top:12px;font-size:13px}
+.ep-root[data-theme] .av-daily-values summary{min-height:32px;cursor:pointer}
+.ep-root[data-theme] .av-workspace .av-services{grid-area:services}
+.ep-root[data-theme] .av-workspace .av-clients{grid-area:clients}
+.ep-root[data-theme] .av-workspace .av-comparison{grid-area:compare;background:var(--surface);padding:20px 24px;border-radius:10px;border:1px solid var(--line)}
+.ep-root[data-theme] .av-comparison>h2{font-size:17px;margin-bottom:16px}
+.ep-root[data-theme] .av-comparison>p{font-size:13px;color:var(--muted);margin-top:12px}
+.ep-root[data-theme] .av-workspace .av-service{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;padding:16px;border:0;border-radius:6px}
+.ep-root[data-theme] .av-service>strong{font-size:15px;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .av-service>div>strong{font-size:14px}
+.ep-root[data-theme] .av-service meter{grid-column:1/-1;width:100%;height:8px;appearance:none;border:0;border-radius:4px;background:var(--line)}
+.ep-root[data-theme] .av-service meter::-webkit-meter-bar{height:8px;border:0;background:var(--line)}
+.ep-root[data-theme] .av-service meter::-webkit-meter-optimum-value{background:var(--data-series-3);border-radius:4px}
+.ep-root[data-theme] .av-service:nth-child(2n) meter::-webkit-meter-optimum-value{background:var(--data-series-4)}
+.ep-root[data-theme] .av-services>.ep-muted{font-size:12px;margin:16px 0 0}
+.ep-root[data-theme] .av-clients .ex-row{flex-wrap:wrap;padding:16px;gap:8px 16px}
+.ep-root[data-theme] .av-clients .ex-row strong{font-size:14px}
+.ep-root[data-theme] .av-clients .ex-row p{font-size:13px}
+.ep-root[data-theme] .av-grid--practice>.ex-panel:first-child .ex-detail{margin-top:0}
+.ep-root[data-theme] .av-grid--practice .ex-detail dd{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .av-grid--practice .ex-panel>p{font-size:13px;line-height:1.65;color:var(--muted)}
+.ep-root[data-theme] .av-grid--practice>.ex-panel:nth-child(3){grid-column:1/-1}
+.ep-root[data-theme] .av-weekdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;align-items:end;min-height:160px;padding:16px 0 0}
+.ep-root[data-theme] .av-weekdays>div{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0}
+.ep-root[data-theme] .av-weekdays svg{width:min(44px,100%);height:90px;fill:var(--gold)}
+.ep-root[data-theme] .av-weekdays span{font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .av-weekdays strong{font-size:16px}
+.ep-root[data-theme] .av-workspace .ec-analytics-details{grid-column:1/-1;padding-top:24px;border-top:1px solid var(--line)}
+@media(max-width:900px){.ep-root[data-theme] .av-workspace .av-grid{grid-template-columns:1fr}.ep-root[data-theme] .av-workspace .av-grid--income{grid-template-areas:"income" "trend" "services" "clients"}.ep-root[data-theme] .av-workspace .av-income{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}.ep-root[data-theme] .av-income>h2,.ep-root[data-theme] .av-income>details{grid-column:1/-1}.ep-root[data-theme] .av-income-counts{grid-row:2/4;grid-column:2;margin:0;padding:0 0 16px;border:0}.ep-root[data-theme] .av-grid--practice>.ex-panel:nth-child(3){grid-column:auto}}
+@media(max-width:600px){.ep-root[data-theme] .av-workspace .av-grid{gap:16px}.ep-root[data-theme] .av-workspace .av-grid>.ex-panel{padding:20px 16px}.ep-root[data-theme] .av-workspace .av-income{display:block}.ep-root[data-theme] .av-income-counts{border-top:1px solid var(--line);margin-top:20px;padding:16px 0}.ep-root[data-theme] .av-trend .rv-plot{height:155px}.ep-root[data-theme] .av-workspace .av-service,.ep-root[data-theme] .av-clients .ex-row{padding-left:12px;padding-right:12px}.ep-root[data-theme] .av-workspace>.ec-report-actions{align-items:flex-start;flex-direction:column}.ep-root[data-theme] .av-workspace>.ec-report-actions>.ep-button{order:0}.ep-root[data-theme] .av-weekdays{gap:6px}}
+
+.ep-root[data-theme] .av-workspace .av-grid--income.av-has-comparison{grid-template-areas:"compare compare" "income trend" "services clients"}
+.ep-root[data-theme] .av-filterbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.ep-root[data-theme] .av-filterbar>.ex-toolbar{margin:0;gap:12px}
+.ep-root[data-theme] .av-filterbar>.ex-toolbar>p{font-size:12px}
+.ep-root[data-theme] .av-filterbar>.ec-report-actions{display:flex;align-items:center;gap:16px;margin:0;flex-wrap:wrap}
+.ep-root[data-theme] .av-filterbar>.ec-report-actions>.ep-button{order:2}
+.ep-root[data-theme] .av-filterbar .ep-checkbox{font-size:12px;gap:8px;display:flex;align-items:center;max-width:220px}
+.ep-root[data-theme] .av-filterbar .ec-range{width:100%;order:3}
+.ep-root[data-theme] .av-filterbar>.ex-notice{width:100%;order:4}
+@media(max-width:900px){.ep-root[data-theme] .av-workspace .av-grid--income.av-has-comparison{grid-template-areas:"compare" "income" "trend" "services" "clients"}}
+@media(max-width:600px){.ep-root[data-theme] .av-filterbar{align-items:stretch;flex-direction:column}.ep-root[data-theme] .av-filterbar>.ec-report-actions{justify-content:space-between}.ep-root[data-theme] .av-filterbar .ep-checkbox{max-width:150px}}

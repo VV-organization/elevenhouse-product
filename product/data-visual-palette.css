@@ -1,0 +1,15 @@
+/* Five distinct data accents derived from the ElevenHouse night-blue, ivory and gold identity. */
+.ep-root[data-theme=dark]{
+  --data-series-1:#e2ca79;
+  --data-series-2:#d08d87;
+  --data-series-3:#94b29c;
+  --data-series-4:#c2a0b0;
+  --data-series-5:#c19a73;
+}
+.ep-root[data-theme=light]{
+  --data-series-1:#82631f;
+  --data-series-2:#904b45;
+  --data-series-3:#4b6955;
+  --data-series-4:#80556d;
+  --data-series-5:#805b3c;
+}

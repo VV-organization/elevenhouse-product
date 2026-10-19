@@ -1,8 +1,10 @@
 import {tr} from '../i18n'
 import {createContext,useContext,useEffect,useId,useState,type ReactNode} from 'react'
-import {useModuleState} from '../modules/ModuleKit'
-import {dismissLearning,finishLearning,initialLearning,showLearning,type LearningState} from '../state/learning'
+import {ModuleScopeContext,useModuleState} from '../modules/ModuleKit'
+import {dismissLearning,finishLearning,initialLearning,showLearning,savedLearningTopics,type LearningState} from '../state/learning'
 import {Icon} from './Icon'
+import {beginTour,moveTour,pauseTour} from '../state/guidedTour'
+import type {JourneyKind} from '../state/learningJourney'
 import '../learning.css'
 function getLessons():Record<string,{title:string,body:string}>{return {
  client:{title:tr("Сначала познакомимся с клиентом","Start with your client"),body:tr("Введите имя и фамилию и нажмите «Добавить клиента». Данные рождения можно заполнить позже — они понадобятся для расчёта.","Enter their first and last name and select “Add client”. You can add birth details later when you need a calculation.")},
@@ -24,16 +26,42 @@ function getLessons():Record<string,{title:string,body:string}>{return {
  analytics:{title:tr("Посмотрите нужный период","Choose the period you need"),body:tr("Выберите период, затем откройте клиента или операцию для подробностей.","Select a period, then open a client or transaction for details.")},
  journal:{title:tr("Личные записи и итоги по клиенту","Private notes and outcomes by client"),body:tr("Выберите клиента, чтобы увидеть его записи. Для ответа клиенту откройте переписку — личная заметка ему не отправляется.","Choose a client to see their records. To reply to them, open Messages. Private notes are never sent to clients.")}
 }}
-type LearningContextValue={visible:(topic:string)=>boolean,isReplay:(topic:string)=>boolean,start:(topic:string)=>void,complete:(topic:string)=>void,dismiss:(topic:string)=>void,stop:()=>void,pause:()=>void}
-const fallback:LearningContextValue={visible:()=>false,isReplay:()=>false,start:()=>{},complete:()=>{},dismiss:()=>{},stop:()=>{},pause:()=>{}}
+type LearningContextValue={state:LearningState,beginTour:(id:string,explicit?:boolean)=>void,moveTour:(direction:1|-1)=>void,pauseTour:()=>void,failed:boolean,replaying:boolean,trackAppointment:(id:string)=>void,resumeJourney:(id?:string)=>void,workOnJourney:(kind:JourneyKind)=>void,deferJourney:()=>void,skipJourney:(kind:JourneyKind)=>void,visible:(topic:string)=>boolean,isReplay:(topic:string)=>boolean,start:(topic:string)=>void,complete:(topic:string)=>void,dismiss:(topic:string)=>void,stop:()=>void,pause:()=>void}
+const fallback:LearningContextValue={state:initialLearning(false),beginTour:()=>{},moveTour:()=>{},pauseTour:()=>{},failed:false,replaying:false,trackAppointment:()=>{},resumeJourney:()=>{},workOnJourney:()=>{},deferJourney:()=>{},skipJourney:()=>{},visible:()=>false,isReplay:()=>false,start:()=>{},complete:()=>{},dismiss:()=>{},stop:()=>{},pause:()=>{}}
 const Context=createContext(fallback)
 export function LearningProvider({children,isNew,example}:{children:ReactNode,isNew:boolean,example:boolean}){
- const [state,setState]=useModuleState<LearningState>('learning-v1',example,()=>initialLearning(isNew))
+ const [state,setState,failed]=useModuleState<LearningState>('learning-v1',example,()=>initialLearning(isNew))
  const [replay,setReplay]=useState<{topic:string,route:string}|null>(null)
  useEffect(()=>{const leave=()=>setReplay(current=>current&&current.route!==window.location.hash?null:current);window.addEventListener('hashchange',leave);return()=>window.removeEventListener('hashchange',leave)},[])
- return <Context.Provider value={{pause:()=>setReplay(null),isReplay:topic=>replay?.topic===topic,visible:topic=>showLearning(state,topic,replay?.topic??null),start:topic=>setReplay({topic,route:window.location.hash}),complete:topic=>{setState(s=>finishLearning(s,topic));setReplay(r=>r?.topic===topic?null:r)},dismiss:topic=>{setState(s=>dismissLearning(s,topic));setReplay(r=>r?.topic===topic?null:r)},stop:()=>{setReplay(null);setState(s=>({...s,enabled:false}))}}}>{children}</Context.Provider>
+ const value:LearningContextValue={
+  state,failed,replaying:!!replay,
+  beginTour:(id,explicit)=>{setReplay(null);setState(s=>beginTour(s,id,explicit))},
+  moveTour:direction=>setState(s=>moveTour(s,direction)),
+  pauseTour:()=>setState(pauseTour),
+  trackAppointment:id=>setState(s=>!s.enabled||s.journey?.appointmentId?s:{...s,journey:{...s.journey,appointmentId:id}}),
+  resumeJourney:id=>{setReplay(null);setState(s=>({...s,enabled:true,journey:{...(id&&s.journey?.appointmentId!==id?{}:s.journey),...(id?{appointmentId:id}:{}),paused:false}}))},
+  workOnJourney:kind=>setState(s=>({...s,journey:{...s.journey,working:kind}})),
+  deferJourney:()=>setState(s=>({...s,journey:{...s.journey,paused:true}})),
+  skipJourney:kind=>setState(s=>({...s,journey:{...s.journey,skipped:[...new Set([...(s.journey?.skipped||[]),kind,...(kind==='birth'?['calculation' as const]:[])])]}})),
+  pause:()=>setReplay(null),
+  isReplay:topic=>replay?.topic===topic,
+  visible:topic=>state.tour?.status==='active'?false:showLearning({...state,enabled:state.enabled&&!state.tour&&!state.journey?.paused},topic,replay?.topic??null),
+  start:topic=>{setState(pauseTour);setReplay({topic,route:window.location.hash})},
+  complete:topic=>{setState(s=>finishLearning(s,topic));setReplay(r=>r?.topic===topic?null:r)},
+  dismiss:topic=>{setState(s=>dismissLearning(s,topic));setReplay(r=>r?.topic===topic?null:r)},
+  stop:()=>{setReplay(null);setState(s=>({...pauseTour(s),enabled:false}))},
+ }
+ return <Context.Provider value={value}>{children}</Context.Provider>
 }
 export function useLearning(){return useContext(Context)}
+/** Runs after useModuleState's write effect and verifies the actual persisted value. */
+export function useSavedLearning<T>(key:string,example:boolean,value:T,topics:(saved:T)=>string[]){
+ const learning=useLearning(),scope=useContext(ModuleScopeContext)
+ const storageKey=`eh-product-v2-${scope??(example?'example':'mine')}-${key}`
+ useEffect(()=>{try{savedLearningTopics(localStorage.getItem(storageKey),value,topics(value)).forEach(learning.complete)}catch{/* The owning form already reports its storage error. */}},[value,storageKey])
+}
+/** Keep one visible instruction while the journey or a dialog owns attention. */
+export function LearningSurface({quiet,children}:{quiet:boolean,children:ReactNode}){const learning=useLearning();return <Context.Provider value={quiet?{...learning,visible:()=>false}:learning}>{children}</Context.Provider>}
 export function LearningTip({topic,title,children}:{topic:string,title?:string,children?:ReactNode}){
  const learning=useLearning(),id=useId(),lesson=getLessons()[topic]
  if(!learning.visible(topic)||(!lesson&&!children))return null

@@ -1,0 +1,5 @@
+/* Give every interactive label the same hover treatment across the product. */
+.ep-root :is(a, button):not(:disabled):hover {
+  font-weight: 700 !important;
+  text-decoration: none !important;
+}

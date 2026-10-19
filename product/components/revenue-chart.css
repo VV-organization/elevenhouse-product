@@ -1,0 +1,18 @@
+.ep-root[data-theme] .rv-chart{margin:0;min-width:0;color:var(--navy);--chart-color:var(--data-series-3);--chart-peak:var(--data-series-1)}
+.ep-root[data-theme] .rv-chart figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;font-size:14px;margin-bottom:20px}
+.ep-root[data-theme] .rv-chart figcaption>span:first-child{font-weight:600}
+.ep-root[data-theme] .rv-chart figcaption>span:last-child{font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .rv-chart figcaption b{color:var(--navy);font-weight:600}
+.ep-root[data-theme] .rv-plot{height:170px;display:grid;grid-template-columns:66px minmax(0,1fr);gap:12px;margin-bottom:60px}
+.ep-root[data-theme] .rv-axis{display:flex;flex-direction:column;justify-content:space-between;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right;line-height:1}
+.ep-root[data-theme] .rv-columns{display:flex;align-items:stretch;min-width:0;border-bottom:1px solid var(--line);background:linear-gradient(var(--line),var(--line)) left center/100% 1px no-repeat,linear-gradient(var(--line),var(--line)) left top/100% 1px no-repeat}
+.ep-root[data-theme] .rv-column{position:relative;display:block;flex:1;min-width:0;border:0;padding:0;background:transparent;color:var(--muted)}
+.ep-root[data-theme] .rv-column svg{display:block;width:100%;height:100%;overflow:visible;fill:var(--chart-color)}
+.ep-root[data-theme] .rv-column.is-peak svg{fill:var(--chart-peak)}
+.ep-root[data-theme] .rv-column:hover,.ep-root[data-theme] .rv-column[aria-pressed=true]{background:color-mix(in srgb,var(--navy) 7%,transparent)}
+.ep-root[data-theme] .rv-column:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ep-root[data-theme] .rv-tick{position:absolute;top:calc(100% + 24px);left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;line-height:1.2}
+.ep-root[data-theme] .rv-column:first-child .rv-tick{left:0;transform:none}
+.ep-root[data-theme] .rv-column:last-child .rv-tick{left:auto;right:0;transform:none}
+.ep-root[data-theme] .rv-empty{height:170px;display:grid;place-items:center;border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}
+@media(max-width:600px){.ep-root[data-theme] .rv-plot{grid-template-columns:56px minmax(0,1fr);gap:8px;height:145px}.ep-root[data-theme] .rv-chart figcaption{margin-bottom:14px}.ep-root[data-theme] .rv-chart figcaption>span:last-child{flex-basis:100%}}

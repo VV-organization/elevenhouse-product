@@ -1,0 +1,141 @@
+/* Product calculations and supporting tools. Scoped to .ep-root; Hero is unaffected. */
+.ep-root .ec-tools-layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:start}
+.ep-root .ec-tool-navigation{display:grid;gap:4px;min-width:0}
+.ep-root .ec-tool-navigation h2{font-size:14px;font-family:inherit;color:var(--muted);font-weight:500;margin:0 0 12px;padding:0 16px}
+.ep-root .ec-tool-navigation button{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;min-height:44px;border:0;border-radius:4px;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.ep-root .ec-tool-navigation button[aria-current=page],.ep-root .ec-tool-navigation button:hover{background:var(--surface-raised);color:var(--navy)}
+.ep-root .ec-tool-navigation .ep-icon{flex-shrink:0}
+.ep-root .ec-tool-content{min-width:0}
+.ep-root .ec-tool-content>.rc-calculation{margin-top:0}
+.ep-root .ec-reference-layout{display:grid;grid-template-columns:minmax(200px,.85fr) minmax(0,1.3fr);gap:24px;align-items:start;margin:16px 0 24px}
+.ep-root .ec-reference-list{display:grid;max-height:540px;overflow:auto;min-width:0;border-right:1px solid var(--line);padding-right:16px}
+.ep-root .ec-reference-list button{display:grid;gap:6px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;color:inherit;padding:16px;min-height:44px;text-align:left;font:inherit;cursor:pointer}
+.ep-root .ec-reference-list button strong{font-weight:500;line-height:1.45}
+.ep-root .ec-reference-list button span{font-size:14px;color:var(--muted)}
+.ep-root .ec-reference-list button[aria-pressed=true],.ep-root .ec-reference-list button:hover{background:var(--surface-raised)}
+.ep-root .ec-reference-detail{min-width:0;padding:16px 0}
+.ep-root .ec-reference-detail h3{margin:8px 0 16px}
+.ep-root .ec-reference-detail p{white-space:pre-wrap;line-height:1.65;overflow-wrap:anywhere;max-width:65ch}
+.ep-root .ec-type-group button:focus-visible,.ep-root .ec-tool-navigation button:focus-visible,.ep-root .ec-reference-list button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(max-width:1200px){
+ .ep-root .ec-astro-result .ar-layout{grid-template-columns:1fr}
+ .ep-root .ec-tools-layout{grid-template-columns:170px minmax(0,1fr);gap:24px}
+}
+@media(max-width:800px){
+ .ep-root .ec-workspace .ec-methods{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ep-root .ec-workspace .ec-birth-summary{flex-direction:row;align-items:center}
+ .ep-root .ec-tools-layout{grid-template-columns:1fr;gap:24px}
+ .ep-root .ec-tool-navigation{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .ep-root .ec-tool-navigation h2{grid-column:1/-1;padding:0;margin-bottom:0}
+ .ep-root .ec-tool-navigation button{padding:10px 12px;font-size:14px}
+ .ep-root .ec-reference-layout{grid-template-columns:1fr;gap:16px}
+ .ep-root .ec-reference-list{max-height:240px;padding-right:0;border-right:0;border-bottom:1px solid var(--line)}
+ .ep-root .ec-reference-list button{padding:12px}
+ .ep-root .ec-reference-detail{padding:0}
+}
+@media(max-width:480px){
+ .ep-root .ec-workspace .ec-birth-summary{align-items:flex-start;gap:8px}
+ .ep-root .ec-workspace .ec-methods button{font-size:14px;padding:10px 8px}
+}
+.ep-root .ec-workspace .rc-name{max-width:480px;margin:16px 0}
+.ep-root .ec-workspace .rc-name small{font-size:14px}
+.ep-root .ec-workspace .rc-metrics{margin:16px 0;gap:8px}
+.ep-root .ec-workspace .rc-metrics button{padding:12px 16px;border-radius:4px;background:transparent;gap:8px}
+.ep-root .ec-workspace .rc-metrics button[aria-pressed=true]{background:var(--surface-raised)}
+.ep-root .ec-workspace .rc-detail{border-left-width:2px;padding:16px;margin:16px 0;background:transparent}
+.ep-root .ec-tool-content .ac-calendar>.rc-reference-filters{grid-template-columns:minmax(150px,1.2fr) minmax(130px,1fr) minmax(220px,1.6fr);align-items:end}
+.ep-root .ec-event-range{border:0;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0}
+.ep-root .ec-event-range legend{font-size:14px;color:var(--muted);margin-bottom:8px;padding:0}
+.ep-root .ec-journal-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.8fr);gap:24px;align-items:start;margin-top:24px}
+.ep-root .ec-journal-thread{min-width:0}
+.ep-root .ec-journal-layout>.rc-shared-form{margin-top:0;padding:0 0 0 24px;border:0;border-left:1px solid var(--line);border-radius:0;min-width:0}
+.ep-root .ec-journal-layout .rc-shared-entry:first-child{padding-top:0}
+.ep-root .ec-journal-layout .rc-shared-meta{font-size:14px}
+.ep-root .ec-tool-content .rc-shared-form .ec-mode{margin-bottom:16px}
+@media(max-width:1100px){
+ .ep-root .ec-tool-content .ac-calendar>.rc-reference-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ep-root .ec-event-range{grid-column:1/-1}
+ .ep-root .ec-journal-layout{grid-template-columns:1fr;gap:24px}
+ .ep-root .ec-journal-layout>.rc-shared-form{border-left:0;border-top:1px solid var(--line);padding:24px 0 0}
+}
+@media(max-width:480px){
+ .ep-root .ec-tool-content .ac-calendar>.rc-reference-filters{grid-template-columns:1fr}
+ .ep-root .ec-event-range{grid-template-columns:1fr}
+ .ep-root .ec-workspace .rc-psycho button{font-size:14px;padding:12px 8px}
+ .ep-root .ec-workspace .rc-psycho button span{overflow-wrap:anywhere}
+}
+/* The selection color must keep contrast in the light theme too. */
+.ep-root .ec-tool-content .ai-switch button[aria-pressed=true],.ep-root .ec-workspace .ai-switch button[aria-pressed=true]{color:var(--navy);border-color:var(--gold);background:var(--surface-raised)}
+.ep-root .ec-astro-result .ep-natal-heading{margin-bottom:16px}
+.ep-root .ec-astro-result .ep-natal-heading h2{font-size:20px}
+.ep-root .ec-astro-result .ep-natal-row,.ep-root .ec-astro-result .ar-table th,.ep-root .ec-astro-result .ar-table td{padding-inline:16px}
+@media(max-width:800px){
+ .ep-root .ec-astro-result .ep-natal-row,.ep-root .ec-astro-result .ar-table th,.ep-root .ec-astro-result .ar-table td{padding-inline:12px}
+}
+
+/* The subject is one aligned toolbar; no inline-formatting baseline or stacked picker label. */
+.ep-root[data-theme] .ec-workspace .ec-subject-bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px 20px;margin:0 0 8px;padding:0}
+.ep-root[data-theme] .ec-workspace .ec-subject-bar .ec-mode{display:flex;align-items:center;gap:4px;flex-wrap:nowrap;margin:0;flex:none}
+.ep-root[data-theme] .ec-workspace .ec-subject-bar .ec-mode button{font-size:14px;min-height:44px;padding:8px 12px;white-space:normal}
+.ep-root[data-theme] .ec-workspace .ec-subject-bar .ec-client{display:flex;align-items:center;flex-direction:row;flex-wrap:nowrap;gap:12px;margin:0;min-width:0;flex:1}
+.ep-root[data-theme] .ec-workspace .ec-subject-bar .ep-client-picker{display:flex;align-items:center;gap:8px;width:auto;min-width:180px;max-width:360px;flex:1}
+.ep-root[data-theme] .ec-workspace .ec-subject-bar .ep-client-picker-label{font-size:14px;margin:0;flex:none}
+.ep-root[data-theme] .ec-workspace .ec-subject-bar .ep-client-picker-trigger{min-width:0;flex:1}
+.ep-root[data-theme] .ec-workspace .ec-subject-bar .ep-text-button{flex:none;min-height:44px;margin:0;padding:8px 0;font-size:14px}
+.ep-root[data-theme] .ec-workspace .ec-methods{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0;padding:0 0 8px;border-bottom:1px solid var(--line)}
+.ep-root[data-theme] .ec-workspace .ec-methods button{min-width:0;min-height:44px;padding:8px 16px;font-size:14px;line-height:1.4;border-color:transparent;border-radius:4px;flex:0 1 auto}
+.ep-root[data-theme] .ec-workspace .ec-methods button[aria-pressed=true]{border-color:var(--line);background:var(--surface-raised)}
+.ep-root[data-theme] .ec-workspace .ec-birth-summary{display:flex;justify-content:space-between;align-items:center;flex-direction:row;gap:16px;border:0;padding:0;margin:0 0 12px;min-height:44px}
+.ep-root[data-theme] .ec-workspace .ec-birth-summary p{margin:0;font-size:14px;line-height:1.5}
+.ep-root[data-theme] .ec-workspace .ec-birth-summary strong{font-size:16px}
+.ep-root[data-theme] .ec-workspace .ec-astronomy{margin:0 0 24px;padding:0;min-width:0}
+/* Types and parameters share a real rail. The result starts level with its first choice. */
+.ep-root[data-theme] .ec-workspace .ec-astro-stage{display:grid;grid-template-columns:180px minmax(0,1fr);gap:24px;align-items:start}
+.ep-root[data-theme] .ec-workspace .ec-astro-rail{min-width:0;display:grid;gap:16px}
+.ep-root[data-theme] .ec-workspace .ec-type-groups{display:grid;grid-template-columns:1fr;gap:16px;margin:0}
+.ep-root[data-theme] .ec-workspace .ec-type-group{min-width:0;margin:0;padding:0;border:0}
+.ep-root[data-theme] .ec-workspace .ec-type-group legend{font-size:14px;color:var(--muted);padding:0;margin:0 0 4px}
+.ep-root[data-theme] .ec-workspace .ec-type-group .ec-mode{display:grid;grid-template-columns:1fr;gap:0;margin:0}
+.ep-root[data-theme] .ec-workspace .ec-type-group button{display:block;width:100%;text-align:left;min-height:44px;margin:0;padding:8px 12px;font-size:14px;line-height:1.4;border:0;border-radius:4px;flex:none}
+.ep-root[data-theme] .ec-workspace .ec-type-group button[aria-pressed=true]{background:var(--surface-raised)}
+.ep-root[data-theme] .ec-workspace .ec-astro-rail>.rc-request{margin:0;padding:0;border:0;min-width:0}
+.ep-root[data-theme] .ec-workspace .ec-astro-rail .rc-request-fields{display:grid;grid-template-columns:1fr;gap:12px}
+.ep-root[data-theme] .ec-workspace .ec-astro-rail .ec-draft-recovery{padding:0;margin:0 0 12px;border:0;border-top:1px solid var(--line);border-radius:0}
+.ep-root[data-theme] .ec-workspace .ec-astro-rail .ec-draft-recovery summary{font-size:14px;min-height:44px;padding:10px 0}
+.ep-root[data-theme] .ec-workspace .ec-astro-result{min-width:0;margin:0;padding:0}
+.ep-root[data-theme] .ec-workspace .ec-astro-result .ar-result{margin-top:0;padding-top:0}
+.ep-root[data-theme] .ec-workspace .ec-astro-result .ar-layout,.ep-root[data-theme] .ec-workspace .ec-astro-result .ep-natal-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,1fr);gap:20px;align-items:start}
+.ep-root[data-theme] .ec-workspace .ec-astro-result .ep-natal-wheel,.ep-root[data-theme] .ec-workspace .ec-astro-result .ar-wheel{max-width:520px;width:100%;max-height:520px;margin:0 auto;display:block}
+.ep-root[data-theme] .ec-workspace .ec-astro-result .ep-natal-heading{margin-bottom:12px;gap:12px}
+.ep-root[data-theme] .ec-workspace .ec-astro-result .ep-natal-heading h2,.ep-root[data-theme] .ec-workspace .ec-astro-result .ar-result>h2{font-size:19px;margin:0}
+.ep-root[data-theme] .ec-workspace .ec-type-group button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(max-width:1150px){
+ .ep-root[data-theme] .ec-workspace .ec-astro-stage{grid-template-columns:160px minmax(0,1fr);gap:16px}
+ .ep-root[data-theme] .ec-workspace .ec-astro-result .ar-layout,.ep-root[data-theme] .ec-workspace .ec-astro-result .ep-natal-layout{grid-template-columns:1fr}
+}
+@media(max-width:800px){
+ .ep-root[data-theme] .ec-workspace .ec-subject-bar{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:8px}
+ .ep-root[data-theme] .ec-workspace .ec-subject-bar .ec-mode{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+ .ep-root[data-theme] .ec-workspace .ec-subject-bar .ec-client{flex-wrap:wrap;gap:4px 12px}
+ .ep-root[data-theme] .ec-workspace .ec-subject-bar .ep-client-picker{max-width:none;width:100%;min-width:0}
+ .ep-root[data-theme] .ec-workspace .ec-subject-bar .ep-text-button{min-height:44px}
+ .ep-root[data-theme] .ec-workspace .ec-methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:8px 0}
+ .ep-root[data-theme] .ec-workspace .ec-methods button{padding:8px 10px}
+ .ep-root[data-theme] .ec-workspace .ec-birth-summary{gap:8px;align-items:flex-start}
+ .ep-root[data-theme] .ec-workspace .ec-astro-stage{display:grid;grid-template-columns:1fr;gap:16px}
+ .ep-root[data-theme] .ec-workspace .ec-astro-rail{gap:8px}
+ .ep-root[data-theme] .ec-workspace .ec-type-groups{gap:8px}
+ .ep-root[data-theme] .ec-workspace .ec-type-group{display:block;position:relative;padding-left:96px}
+ .ep-root[data-theme] .ec-workspace .ec-type-group legend{position:absolute;left:0;top:0;width:88px;font-size:14px;margin:0;padding:12px 0;line-height:1.4}
+ .ep-root[data-theme] .ec-workspace .ec-type-group .ec-mode{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
+ .ep-root[data-theme] .ec-workspace .ec-type-group button{padding:8px;font-size:14px;overflow-wrap:anywhere}
+}
+
+/* A method without a result must still show its next action in the main work area. */
+.ep-root[data-theme] .ec-workspace .ec-astro-result>.rc-request{margin:0 0 12px;padding:0;border:0;max-width:720px}
+.ep-root[data-theme] .ec-workspace .ec-astro-result>h2{font-size:19px;margin:0 0 20px}
+.ep-root[data-theme] .ec-workspace .ec-astro-result>.rc-request>.ep-client-picker{max-width:440px}
+.ep-root[data-theme] .ec-workspace .ec-astro-result .rc-request-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ep-root[data-theme] .ec-workspace .ec-astro-result .ec-draft-recovery{padding:0;border:0;border-top:1px solid var(--line);border-radius:0}
+.ep-root[data-theme] .ec-workspace .ec-astro-result .ec-draft-recovery summary{min-height:44px;padding:12px 0;font-size:14px}
+@media(max-width:600px){.ep-root[data-theme] .ec-workspace .ec-astro-result .rc-request-fields{grid-template-columns:1fr}}

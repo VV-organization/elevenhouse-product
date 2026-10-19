@@ -10,7 +10,7 @@ export function Icon({name,size=22}:{name:string,size?:number}) {
  useEffect(()=>{
   const element=root.current,container=motion.current
   if(!asset||(!asset.animation&&!asset.motion)||!element||!container)return
-  const host=element.closest<HTMLElement>('button,a,summary,[role="button"]')
+  const host=element.closest<HTMLElement>('button,a,summary,[role="button"],label[data-icon-trigger]')
   // A row may contain a leading symbol and trailing arrow: animate only its main symbol.
   if(!host||host.querySelector('.ep-icon')!==element)return
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -42,7 +42,7 @@ export function Icon({name,size=22}:{name:string,size?:number}) {
    }catch{loading=false;stop()}
   }
   const enter=(event:PointerEvent)=>{if(event.pointerType==='mouse'&&pointer.matches)void play()}
-  const focus=()=>{if(host!.matches(':focus-visible')&&pointer.matches)void play()}
+  const focus=()=>{if((host!.matches(':focus-visible')||host!.querySelector(':focus-visible'))&&pointer.matches)void play()}
   const preference=()=>{if(reduce.matches)stop()}
   host.addEventListener('pointerenter',enter);host.addEventListener('pointerleave',stop)
   host.addEventListener('focusin',focus);host.addEventListener('focusout',stop)

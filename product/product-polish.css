@@ -1,32 +1,122 @@
-/* Product-only refinement. Reference: supplied ElevenHouse identity — ink,
-   ivory, matte gold and a single fine orbit. No landing or auth selectors. */
-.ep-root[data-theme=dark] .ep-workspace{
- --surface:#142136;--surface-raised:#1c2b40;--line:#2a384b;
- background:#0d1625;
+/* Workspace hierarchy. Product only: Fluent spacing/proximity and contextual detail.
+   No selectors reach the landing or auth surface. */
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout){font-size:16px;line-height:1.55}
+.ep-root[data-theme=dark] :is(.ep-workspace,.ex-role-layout){--surface:#172131;--surface-raised:#1d2a3b;--line:#334052;--muted:#b1bdcb;--navy:#edf1f7;background:#101823}
+.ep-root[data-theme=light] :is(.ep-workspace,.ex-role-layout){--surface:#eceeea;--surface-raised:#ffffff;--line:#d2d7d9;--muted:#596370;--navy:#202d40;background:#f8f8f4}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) h1{font:600 clamp(26px,2.4vw,32px)/1.2 'Auth Manrope',sans-serif;letter-spacing:-.035em;overflow-wrap:anywhere}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) h2{font:600 19px/1.4 'Auth Manrope',sans-serif;letter-spacing:-.015em}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) h3{font:600 16px/1.45 'Auth Manrope',sans-serif;letter-spacing:0}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ep-muted,.ex-note,.ex-row small){font-size:14px;line-height:1.55}
+.ep-root[data-theme] .ep-workspace .ep-work-area{background:transparent}
+.ep-root[data-theme] .ep-workspace .ep-main{max-width:1600px;padding:24px clamp(24px,3vw,44px) 56px}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-page-heading{margin-bottom:24px;gap:16px;align-items:center}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-eyebrow{font-size:13px;letter-spacing:0;font-weight:400;margin-bottom:6px!important;color:var(--muted)}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-lead{font-size:15px;margin-top:8px!important}
+.ep-root[data-theme] .ep-workspace .ep-sidebar{width:208px;padding:28px 16px 16px;background:#152031;border-right:1px solid #ffffff12}
+.ep-root[data-theme] .ep-workspace .ep-brand{width:80px;margin:0 12px 28px}
+.ep-root[data-theme] .ep-workspace .ep-sidebar nav{gap:4px}
+.ep-root[data-theme] .ep-workspace .ep-sidebar nav a{position:relative;font-size:14px;min-height:44px;padding:10px 12px;border-radius:6px;box-shadow:none}
+.ep-root[data-theme] .ep-workspace .ep-sidebar nav a[aria-current]{background:#e2ca791c;color:#efdc9e}
+.ep-root[data-theme] .ep-workspace .ep-nav-group-label{font-size:12px;color:#acb8c8;padding:18px 12px 6px}
+.ep-root[data-theme] .ep-workspace .ep-sidebar-bottom{padding-top:16px;flex-shrink:0}
+.ep-root[data-theme] .ep-workspace .ep-sidebar-help{font-size:14px;margin-bottom:4px;padding:10px 12px}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-button{border-radius:6px;box-shadow:none;min-height:44px;padding:10px 14px;font-size:14px!important;line-height:1.45}
+.ep-root[data-theme=dark] :is(.ep-workspace,.ex-role-layout) :is(.ep-button--primary,.ep-button--gold){background:#e4d3a0;border-color:#e4d3a0;color:#172237;box-shadow:none}
+.ep-root[data-theme=dark] :is(.ep-workspace,.ex-role-layout) :is(.ep-button--primary,.ep-button--gold):hover{background:#f1e1b3;border-color:#f1e1b3}
+.ep-root[data-theme=light] :is(.ep-workspace,.ex-role-layout) .ep-button--primary{background:#25384b;border-color:#25384b;color:#fff}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ep-cal-month,.ep-birth,.ex-panel){background:var(--surface);box-shadow:none;border-color:var(--line);border-radius:8px}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ex-panel{padding:24px}
+.ep-root[data-theme] .ep-workspace .ep-avatar{background:var(--surface-raised);color:var(--navy);border:1px solid var(--line);font:500 14px 'Auth Manrope',sans-serif}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ex-row,.ep-client-row,.ep-session-row){padding:16px;min-width:0;border-radius:4px;border-bottom-color:var(--line)}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ex-row,.ep-client-row,.ep-session-row):hover{background:var(--surface)}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ex-metrics{gap:24px;margin-bottom:24px;padding-bottom:24px}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ex-metric strong{font-size:28px;line-height:1.3;margin:6px 0;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ex-tabs{gap:4px;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ex-tabs :is(button,a){border-radius:4px;padding:10px 12px;font-size:14px;white-space:normal}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ex-actions{gap:8px 16px;margin-top:16px}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ex-editor,.ep-form) :is(input,textarea,select){font-size:16px;line-height:1.5}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ex-editor,.ep-form) label{font-size:14px;line-height:1.5}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-form:not(.ep-dialog *){max-height:none;overflow:visible;padding:0}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-form-footer{background:var(--surface-raised);gap:12px}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ex-toolbar,.ex-section-back){margin-bottom:16px}
+.ep-root[data-theme] .ep-workspace .wu-launchers{margin-bottom:20px;gap:20px}
+.ep-root[data-theme] .ep-workspace .wu-launchers :is(button,.ep-text-button){font-weight:500!important}
+.ep-root[data-theme] .ep-workspace .ep-home-search{max-width:580px;margin-bottom:24px}
+.ep-root[data-theme] .ep-workspace .ep-home-search input{font-size:16px}
+.ep-root[data-theme] .ep-workspace .ep-spatial-day{gap:32px;grid-template-columns:minmax(0,1.7fr) minmax(250px,1fr)}
+.ep-root[data-theme] .ep-workspace .ep-spatial-day .ep-today-aside{display:grid;grid-template-columns:1fr;gap:24px;border:0;padding:0}
+.ep-root[data-theme] .ep-workspace .ep-practice-overview{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;color:var(--muted);font-size:14px}
+.ep-root[data-theme] .ep-workspace .ep-day-timeline>li{padding:16px 0;grid-template-columns:56px minmax(0,1fr);gap:12px}
+.ep-root[data-theme] .ep-workspace .ep-day-appointment{padding-left:16px}
+.ep-root[data-theme] .ep-workspace .ep-day-time strong{font-size:18px}
+.ep-root[data-theme] .ep-workspace .ep-day-identity h3{font-size:17px}
+.ep-root[data-theme] .ep-workspace .ep-day-request{margin-top:8px}
+.ep-root[data-theme] .ep-workspace .ep-day-note{font-size:14px;margin-top:8px}
+.ep-root[data-theme] .ep-workspace .ep-spatial-day .ep-data-tasks>button{padding:14px 16px}
+.ep-root[data-theme] .ep-workspace .ep-recent{margin-top:0;padding-top:0}
+.ep-root[data-theme] .ep-workspace .ep-recent>button{padding:12px 16px;border-radius:4px}
+.ep-root[data-theme] .ep-workspace .ep-recent>button:hover{background:var(--surface)}
+.ep-root[data-theme] .ep-workspace .tw-pending-action{display:flex;width:100%;align-items:center;justify-content:space-between;gap:16px;padding:16px;margin-bottom:24px;border:0;border-left:3px solid var(--gold);background:var(--surface);color:var(--navy);text-align:left}
+.ep-root[data-theme] .ep-workspace .tw-pending-action>span:first-child{display:grid;gap:4px}
+.ep-root[data-theme] .ep-workspace .tw-pending-action>span>span{font-size:14px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .tw-daily-tools{display:grid;grid-template-columns:1fr 1fr;gap:32px;border-top:1px solid var(--line);padding-top:24px;margin-top:32px}
+.ep-root[data-theme] .ep-workspace .tw-daily-tools h2{font-size:17px;margin-bottom:8px}
+.ep-root[data-theme] .ep-workspace .tw-daily-tools p{color:var(--muted);font-size:14px;margin-bottom:8px}
+.ep-root[data-theme] .ep-workspace .tw-daily-tools .ep-text-button{display:flex;justify-content:flex-start;text-align:left}
+.ep-root[data-theme] .ep-workspace .tw-context-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.ep-root[data-theme] .ep-workspace .tw-context-heading nav{display:flex;flex-wrap:wrap;gap:16px}
+.ep-root[data-theme] .ep-workspace .tw-context-heading nav [aria-pressed=true]{color:var(--gold);text-decoration:underline;text-underline-offset:6px}
+
+.ep-root[data-theme=light] .ep-workspace .tw-context-heading nav [aria-pressed=true]{color:#6d572c}
+.ep-root[data-theme] .ep-workspace .pd-daily-summary{padding-top:16px;border-top:1px solid var(--line)}
+.ep-root[data-theme] .ep-workspace .pd-daily-summary>div{display:flex;gap:12px 24px;flex-wrap:wrap;margin-top:12px}
+.ep-root[data-theme] .ep-workspace .pd-daily-summary a{display:inline-flex;align-items:center;gap:12px;min-height:44px;font-size:14px;padding:8px 12px}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-spatial-client{gap:32px;grid-template-columns:minmax(0,1.7fr) minmax(240px,1fr)}
+.ep-root[data-theme] .ep-workspace .ep-client-header .ep-avatar--large{width:48px;height:48px;font-size:18px}
+.ep-root[data-theme] .ep-workspace .ep-client-context{padding-bottom:12px;margin-bottom:16px}
+.ep-root[data-theme] .ep-workspace .ep-client-tabs{margin-bottom:24px;gap:24px}
+.ep-root[data-theme] .ep-workspace .ep-client-tabs button{font-size:15px;min-height:44px}
+.ep-root[data-theme] .ep-workspace .ep-spatial-client .ep-client-request{margin-bottom:24px}
+.ep-root[data-theme] .ep-workspace .ep-client-request p{font-size:16px;line-height:1.55}
+.ep-root[data-theme] .ep-workspace .ep-meeting-detail>section{margin-top:24px}
+.ep-root[data-theme] .ep-workspace .ep-meeting-detail>.ex-detail{margin-block:16px}
+.ep-root[data-theme] .ep-workspace .ep-meeting-detail>.ex-detail>div{padding-block:10px}
+@media(min-width:801px) and (max-height:760px){.ep-root[data-theme] .ep-workspace .ep-sidebar{padding-top:20px}.ep-root[data-theme] .ep-workspace .ep-brand{margin-bottom:16px}.ep-root[data-theme] .ep-workspace .ep-nav-group-label{padding-top:12px}}
+@media(max-width:1100px){.ep-root[data-theme] .ep-workspace .ep-spatial-day{grid-template-columns:minmax(0,1fr) minmax(220px,.8fr);gap:24px}}
+@media(max-width:900px){.ep-root[data-theme] .ep-workspace .ep-spatial-day{grid-template-columns:1fr}.ep-root[data-theme] .ep-workspace .ep-spatial-day .ep-today-aside{grid-template-columns:1fr 1fr}.ep-root[data-theme] .ep-workspace .ep-practice-overview{grid-column:1/-1}}
+@media(max-width:800px){
+ .ep-root[data-theme] .ep-workspace .ep-sidebar{width:100%;height:auto;padding:16px 20px 0;position:relative;border-right:0}
+ .ep-root[data-theme] .ep-workspace .ep-brand{width:68px;margin:0 0 16px}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav{display:flex;gap:4px;padding:0;margin:0;width:100%}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a{display:none;flex:1 1 0;min-width:0}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a:is([data-section=today],[data-section=clients],[data-section=calendar],[data-section=messages]){display:flex}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav>.ex-mobile-menu{display:flex;flex:1 1 0;min-width:0;min-height:56px;flex-direction:column;align-items:center;justify-content:center;font-size:12px;padding:8px 2px;color:#c3cad5}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a{flex-direction:column;justify-content:center;gap:4px;padding:8px 2px;font-size:12px;min-height:56px}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a small,.ep-root[data-theme] .ep-workspace .ep-nav-group-label{display:none}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar-bottom{padding:0;right:20px;top:12px}
+ .ep-root[data-theme] .ep-workspace .ep-main{padding:20px 24px 40px}
+ .ep-root[data-theme] .ep-workspace .ep-topbar{top:12px}
+ .ep-root[data-theme] .ep-workspace .ep-spatial-client{grid-template-columns:1fr}
+ .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-page-heading{display:flex;flex-wrap:wrap;margin-bottom:20px}
+ .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-page-heading>.ep-button{margin:0}
 }
-.ep-root[data-theme=dark] .ep-workspace .ep-work-area{background:#0d1625}
-.ep-root[data-theme=dark] .ep-workspace .ep-sidebar{
- background:linear-gradient(165deg,#142035 0%,#0f1929 65%);
- border-right-color:#c4cdd51a;
+@media(max-width:520px){
+ .ep-root[data-theme] .ep-workspace .ep-main{padding:16px 16px 32px}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar{padding:12px 12px 0}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a,.ep-root[data-theme] .ep-workspace .ep-sidebar nav>.ex-mobile-menu{font-size:11px}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar-bottom{right:12px;top:8px}
+ .ep-root[data-theme] .ep-workspace .wu-launchers{margin-bottom:16px}
+ .ep-root[data-theme] .ep-workspace .ep-spatial-day .ep-today-aside,.ep-root[data-theme] .ep-workspace .tw-daily-tools{grid-template-columns:1fr;gap:24px}
+ .ep-root[data-theme] .ep-workspace .ep-day-timeline>li{grid-template-columns:44px minmax(0,1fr);gap:10px}
+ .ep-root[data-theme] .ep-workspace .ep-day-appointment{padding-left:12px}
+ .ep-root[data-theme] .ep-workspace .ep-day-actions{flex-direction:row;align-items:center;gap:8px 12px}
+ .ep-root[data-theme] .ep-workspace .ep-day-actions .ep-button{width:auto}
+ .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ex-row,.ep-client-row,.ep-session-row){padding:14px 12px;gap:12px;flex-wrap:wrap}
+ .ep-root[data-theme] .ep-workspace .ep-spatial-day .ep-data-tasks>button,.ep-root[data-theme] .ep-workspace .ep-recent>button{padding-inline:12px}
+ .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ex-panel{padding:20px 16px}
+ .ep-root[data-theme] .ep-workspace .tw-context-heading nav{gap:8px 16px}
+ .ep-root[data-theme] .ep-workspace .tw-pending-action{padding:12px}
+ .ep-root[data-theme] .ep-workspace .ex-nav-menu{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .ep-root[data-theme] .ep-workspace .ex-nav-menu>a{padding:12px;font-size:14px;min-height:56px;gap:8px}
 }
-.ep-workspace .ep-sidebar nav a{position:relative}
-.ep-root[data-theme=dark] .ep-workspace .ep-sidebar nav a[aria-current]{background:linear-gradient(105deg,#e2ca791c,#e2ca7908);color:#eedb9c;box-shadow:inset 0 0 0 1px #e2ca7915}
-.ep-workspace .ep-sidebar nav a[aria-current]::before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:2px;border-radius:2px;background:#d9c382}
-.ep-workspace .ep-page-heading h1{letter-spacing:-.025em}
-.ep-workspace .ep-eyebrow{letter-spacing:.09em}
-.ep-root[data-theme=dark] .ep-workspace .ep-button--primary,
-.ep-root[data-theme=dark] .ep-workspace .ep-button--gold{background:linear-gradient(115deg,#ead69b,#ddc478);border-color:#e6cf8a;box-shadow:inset 0 1px 0 #fff5ce55,0 3px 8px #03091618;color:#172237}
-.ep-root[data-theme=dark] .ep-workspace .ep-button--primary:hover,
-.ep-root[data-theme=dark] .ep-workspace .ep-button--gold:hover{background:linear-gradient(115deg,#f0dfa9,#e4ce8b);border-color:#f0dea7}
-.ep-root[data-theme=dark] .ep-workspace .ep-next{background:linear-gradient(125deg,#223247,#17243a 75%);border:1px solid #8793a532;box-shadow:inset 0 1px 0 #e8d79c26,0 8px 24px #03091620}
-.ep-root[data-theme=dark] .ep-workspace :is(.ep-cal-month,.ep-birth,.ex-panel){background:linear-gradient(145deg,#19273c,#142034);border-color:#8b9aaf28;box-shadow:inset 0 1px 0 #c5cfdd0a}
-.ep-workspace .ep-next h2{letter-spacing:-.025em}
-.ep-root[data-theme=dark] .ep-workspace .ep-avatar{background:linear-gradient(140deg,#d8c28c22,#d8c28c0c);color:#e7d6a7;border:1px solid #d8c28c28}
-.ep-workspace .ep-account-avatar{background:linear-gradient(145deg,#d8c28c14,transparent)}
-.ep-root[data-theme=dark] .ep-workspace :is(.ep-client-row,.ep-session-row,.ex-row){border-bottom-color:#899bb127}
-.ep-workspace :is(.ep-button,.ep-icon-button):active:not(:disabled){transform:translateY(1px)}
-@media(hover:hover) and (prefers-reduced-motion:no-preference){
- .ep-workspace :is(.ep-button,.ep-icon-button,.ep-sidebar nav a,.ep-client-row,.ep-session-row,.ex-row){transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease,transform .16s ease}
-}
-@media(max-width:800px){.ep-workspace .ep-sidebar nav a[aria-current]::before{top:auto;bottom:0;left:24%;right:24%;width:auto;height:2px}}
-@media(prefers-reduced-motion:reduce){.ep-workspace :is(.ep-button,.ep-icon-button):active:not(:disabled){transform:none}}
+@media(prefers-reduced-motion:reduce){.ep-root :is(.ep-workspace,.ex-role-layout) *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}

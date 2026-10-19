@@ -2,7 +2,7 @@ import {tr} from '../i18n'
 import {appointmentStatusLabel,type Appointment,type Practice} from '../state/model'
 import {Icon} from './Icon'
 
-export function TodayAgenda({practice,items,onMeeting,onClient,onNew}:{practice:Practice;items:Appointment[];onMeeting:(id:string)=>void;onClient:(id:string)=>void;onNew:()=>void}){
+export function TodayAgenda({practice,items,onMeeting,onClient,onNew,onPrepare}:{practice:Practice;items:Appointment[];onMeeting:(id:string)=>void;onClient:(id:string)=>void;onNew:()=>void;onPrepare?:(id:string)=>void}){
  const first=items.find(a=>a.status==='confirmed')
  return <section className="ep-day-agenda" aria-labelledby="day-agenda-title">
   <div className="ep-section-heading"><h2 id="day-agenda-title">{tr('План на сегодня',"Today's schedule")}</h2><a href="#calendar">{tr('Весь календарь','Full calendar')} <Icon name="arrow" size={16}/></a></div>
@@ -15,7 +15,7 @@ export function TodayAgenda({practice,items,onMeeting,onClient,onNew}:{practice:
      <p>{a.title}</p>
      {featured&&client?.request&&client.request!==a.title&&<p className="ep-day-request"><span>{tr('Запрос: ','Request: ')}</span>{client.request}</p>}
      {featured&&<span className="ep-day-note"><Icon name="note" size={16}/>{client?.notes?tr('Заметки к встрече готовы','Appointment notes are ready'):tr('Можно добавить заметки','You can add notes')}</span>}
-     <div className="ep-day-actions">{featured&&client&&<button className="ep-button ep-button--primary" onClick={()=>onClient(client.id)}>{tr('Подготовиться','Prepare')} <Icon name="arrow" size={16}/></button>}<button className="ep-text-button" onClick={()=>onMeeting(a.id)}>{tr('Открыть встречу','Open appointment')} <Icon name="arrow" size={16}/></button></div>
+     <div className="ep-day-actions">{featured&&client&&<button className="ep-button ep-button--primary" onClick={()=>onPrepare?onPrepare(a.id):onClient(client.id)}>{tr('Подготовиться','Prepare')} <Icon name="arrow" size={16}/></button>}<button className="ep-text-button" onClick={()=>onMeeting(a.id)}>{tr('Открыть встречу','Open appointment')} <Icon name="arrow" size={16}/></button></div>
     </article>
    </li>
   })}</ol>}
