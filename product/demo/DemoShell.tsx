@@ -37,7 +37,6 @@ export function DemoShell(){
    <iframe ref={frame} key={`${view}:${service??''}`} src={frameUrl(window.location.href,view,service)} title={tr(active.label,active.en)} onLoad={()=>setReady(true)}/>
   </main>
   <footer className="eh-showcase-dock">
-   <div className="eh-showcase-controls"><span>{tr('Демонстрация','Presentation')}<span className="eh-showcase-data-label"> · {tr('тестовые данные','sample data')}</span></span><div>{(view==='register'||view==='register-client')&&<span className="eh-showcase-code">{tr('Код','Code')}: <strong>123456</strong></span>}<button type="button" disabled={!ready} onClick={()=>frame.current?.contentWindow?.postMessage({type:'elevenhouse:showcase-reset'},window.location.origin)}>{tr('Начать заново','Restart screen')}</button><a href={window.location.pathname} aria-label={tr('Закрыть показ','Close presentation')} title={tr('Закрыть показ','Close presentation')}>×</a></div></div>
    <nav ref={navigation} className="eh-showcase-nav" aria-label={tr('Экраны демонстрации','Presentation screens')} onKeyDown={keyboard}>{SHOWCASE_VIEWS.map(item=><button type="button" key={item.id} data-view={item.id} aria-pressed={view===item.id} onClick={()=>{if(item.id!==view)choose(item.id)}}>{tr(item.label,item.en)}</button>)}</nav>
   </footer>
  </div>

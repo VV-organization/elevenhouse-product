@@ -85,26 +85,32 @@
 @media(max-width:1100px){.ep-root[data-theme] .ep-workspace .ep-spatial-day{grid-template-columns:minmax(0,1fr) minmax(220px,.8fr);gap:24px}}
 @media(max-width:900px){.ep-root[data-theme] .ep-workspace .ep-spatial-day{grid-template-columns:1fr}.ep-root[data-theme] .ep-workspace .ep-spatial-day .ep-today-aside{grid-template-columns:1fr 1fr}.ep-root[data-theme] .ep-workspace .ep-practice-overview{grid-column:1/-1}}
 @media(max-width:800px){
- .ep-root[data-theme] .ep-workspace .ep-sidebar{width:100%;height:auto;padding:16px 20px 0;position:relative;border-right:0}
- .ep-root[data-theme] .ep-workspace .ep-brand{width:68px;margin:0 0 16px}
- .ep-root[data-theme] .ep-workspace .ep-sidebar nav{display:flex;gap:4px;padding:0;margin:0;width:100%}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar{display:grid;grid-template-columns:68px minmax(0,1fr);align-items:center;gap:16px 12px;width:100%;height:auto;padding:16px 20px 8px;position:relative;border-right:0}
+ .ep-root[data-theme] .ep-workspace .ep-brand{grid-column:1;grid-row:1;width:68px;height:44px;margin:0;object-fit:contain}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav{grid-column:1/-1;grid-row:2;display:flex;gap:4px;padding:0;margin:0;width:100%}
  .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a{display:none;flex:1 1 0;min-width:0}
  .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a:is([data-section=today],[data-section=clients],[data-section=calendar],[data-section=messages]){display:flex}
  .ep-root[data-theme] .ep-workspace .ep-sidebar nav>.ex-mobile-menu{display:flex;flex:1 1 0;min-width:0;min-height:56px;flex-direction:column;align-items:center;justify-content:center;font-size:12px;padding:8px 2px;color:#c3cad5}
  .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a{flex-direction:column;justify-content:center;gap:4px;padding:8px 2px;font-size:12px;min-height:56px}
  .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a small,.ep-root[data-theme] .ep-workspace .ep-nav-group-label{display:none}
- .ep-root[data-theme] .ep-workspace .ep-sidebar-bottom{padding:0;right:20px;top:12px}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar-bottom{grid-column:2;grid-row:1;position:static;display:flex;align-items:center;justify-content:flex-end;gap:8px;max-width:none;min-width:0;padding:0}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar-help{display:flex;align-items:center;justify-content:center;flex:0 0 44px;width:44px;min-height:44px;margin:0;padding:0}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar-help>span:not(.ep-icon){display:none}
+ .ep-root[data-theme] .ep-workspace .ep-account-wrap{min-width:0}
+ .ep-root[data-theme] .ep-workspace .ep-account{display:flex;align-items:center;gap:8px;min-height:44px;padding:0;border:0}
+ .ep-root[data-theme] .ep-workspace .ep-account-avatar{flex:0 0 36px;width:36px;height:36px}
+ .ep-root[data-theme] .ep-workspace .ep-account>span:not(.ep-account-avatar){min-width:0;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .ep-root[data-theme] .ep-workspace .ep-account>.ep-icon{flex-shrink:0}
  .ep-root[data-theme] .ep-workspace .ep-main{padding:20px 24px 40px}
- .ep-root[data-theme] .ep-workspace .ep-topbar{top:12px}
+ .ep-root[data-theme] .ep-workspace:not(.ep-messages-workspace) .ep-topbar{display:none}
  .ep-root[data-theme] .ep-workspace .ep-spatial-client{grid-template-columns:1fr}
  .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-page-heading{display:flex;flex-wrap:wrap;margin-bottom:20px}
  .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) .ep-page-heading>.ep-button{margin:0}
 }
 @media(max-width:520px){
  .ep-root[data-theme] .ep-workspace .ep-main{padding:16px 16px 32px}
- .ep-root[data-theme] .ep-workspace .ep-sidebar{padding:12px 12px 0}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar{padding:16px 16px 8px}
  .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a,.ep-root[data-theme] .ep-workspace .ep-sidebar nav>.ex-mobile-menu{font-size:11px}
- .ep-root[data-theme] .ep-workspace .ep-sidebar-bottom{right:12px;top:8px}
  .ep-root[data-theme] .ep-workspace .wu-launchers{margin-bottom:16px}
  .ep-root[data-theme] .ep-workspace .ep-spatial-day .ep-today-aside,.ep-root[data-theme] .ep-workspace .tw-daily-tools{grid-template-columns:1fr;gap:24px}
  .ep-root[data-theme] .ep-workspace .ep-day-timeline>li{grid-template-columns:44px minmax(0,1fr);gap:10px}
@@ -121,7 +127,37 @@
 }
 @media(prefers-reduced-motion:reduce){.ep-root :is(.ep-workspace,.ex-role-layout) *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
+@media(max-width:360px){
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav{gap:0}
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav>a,
+ .ep-root[data-theme] .ep-workspace .ep-sidebar nav>.ex-mobile-menu{font-size:10px;padding-inline:0}
+}
+
 /* An action and its feedback are one group with a stable visible gap.
    Reset local paragraph/action margins so existing form spacing cannot stack. */
 .ep-root .ep-action-feedback{display:grid;gap:12px;min-width:0}
 .ep-root .ep-action-feedback>:is(.ec-actions,.ex-actions,p,.rc-request-status){margin:0!important}
+
+/* Shared disclosure rhythm: a highlighted summary always has breathing room.
+   Scope is the product workspace; standalone landing styles are untouched. */
+.ep-root[data-theme] .ep-workspace details:not(.cd-more-actions)>summary:not(.ep-button){
+ padding:12px 16px;min-height:44px;line-height:1.5;box-sizing:border-box;
+}
+.ep-root[data-theme] .ep-workspace details[open]:not(.cd-more-actions)>summary:not(.ep-button){margin-bottom:16px}
+.ep-root[data-theme] .ep-workspace details+:is(.ep-action-feedback,.ec-actions,.ex-actions,.ep-form-footer){margin-top:24px}
+.ep-root[data-theme] .ep-workspace .ec-astro-result form.rc-request{display:grid;gap:24px;margin:0;padding:0;border:0}
+.ep-root[data-theme] .ep-workspace .ec-astro-result form.rc-request>:is(details,.rc-request-fields,.ep-action-feedback,p,label){margin:0}
+.ep-root[data-theme] .ep-workspace .ec-astro-result form.rc-request .rc-request-fields{gap:20px 24px}
+.ep-root[data-theme] .ep-workspace .ec-astro-result form.rc-request .rc-request-fields>label{display:flex;flex-direction:column;gap:8px;margin:0;min-width:0}
+.ep-root[data-theme] .ep-workspace .ec-astro-result form.rc-request .rc-request-fields>label>:is(input,select,.ep-select){margin-top:0}
+.ep-root[data-theme] .ep-workspace .ec-astro-result .ec-draft-recovery>.rc-request-fields{padding:0 16px 16px}
+.ep-root[data-theme] .ep-workspace .ec-astro-result .ep-action-feedback{gap:16px}
+@media(max-width:600px){
+ .ep-root[data-theme] .ep-workspace details:not(.cd-more-actions)>summary:not(.ep-button){padding-inline:12px}
+ .ep-root[data-theme] .ep-workspace .ec-astro-result .ec-draft-recovery>.rc-request-fields{padding:0 12px 16px}
+}
+/* Findings from the cross-section spacing audit (20 Oct). */
+.ep-root[data-theme] .ep-workspace .pd-attention>h2{margin-bottom:16px}
+.ep-root[data-theme] .ep-workspace .public-profile-editor>h2{margin-bottom:20px}
+.ep-root[data-theme] .ep-workspace .ep-settings-content>:is(h2,h3){margin-bottom:16px}
+.ep-root[data-theme] .ep-workspace .settings-capabilities-plans>section>h3{margin-bottom:12px}
