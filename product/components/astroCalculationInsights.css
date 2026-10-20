@@ -1,3 +1,31 @@
 .ep-root .ai-insights{margin-top:24px;border-top:1px solid var(--line);padding-top:20px;min-width:0}.ep-root .ai-switch{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px}.ep-root .ai-switch button,.ep-root .ai-matrix button{font:inherit;color:inherit;min-height:44px;padding:8px 12px;background:transparent;border:1px solid var(--line);border-radius:8px;text-align:left;cursor:pointer}.ep-root .ai-switch button[aria-pressed=true]{border-color:#e2ca79;color:#e2ca79}.ep-root .ai-insights>section>h3{margin:0 0 20px;line-height:1.4}.ep-root .ai-insights>p{margin:0 0 16px;line-height:1.6}.ep-root .ai-insights>[role=status]{margin-top:16px}.ep-root .ai-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 32px}.ep-root .ai-summary>div{min-width:0}.ep-root .ai-summary h4{font-size:16px;line-height:1.4;margin:0 0 8px}.ep-root .ai-summary p{display:flex;justify-content:space-between;gap:16px;margin:0;line-height:1.6}.ep-root .ai-summary p+p{margin-top:4px}.ep-root .ai-summary>div>h4:not(:first-child){margin-top:20px}.ep-root .ai-matrix{max-width:100%;overflow:auto}.ep-root .ai-matrix table{border-collapse:collapse;font-size:14px}.ep-root .ai-matrix th,.ep-root .ai-matrix td{padding:8px;border-bottom:1px solid var(--line);text-align:left;min-width:70px}.ep-root .ai-matrix th:first-child{min-width:140px}.ep-root .ai-matrix button:focus-visible{outline:2px solid #e2ca79;outline-offset:2px}@media(max-width:600px){.ep-root .ai-summary{grid-template-columns:1fr;gap:20px}.ep-root .ai-summary p{margin:0}}
 
 .ep-root .ai-switch button[aria-pressed=true]{background:var(--surface);color:var(--navy);border-color:var(--gold)}
+
+/* Original engine rail: proportions stay visible; a row reveals its planet members. */
+.ep-root[data-theme] .ai-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.ep-root[data-theme] .ai-summary>div{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);min-width:0}
+.ep-root[data-theme] .ai-summary h4{font-size:14px;margin-bottom:16px}
+.ep-root[data-theme] .ai-summary p{font-size:13px;flex-wrap:wrap}
+.ep-root[data-theme] .ai-distribution h4{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.ep-root[data-theme] .ai-distribution h4 small{font-size:12px;font-weight:400;color:var(--muted);white-space:nowrap}
+.ep-root[data-theme] .ai-bars{display:grid;gap:6px}
+.ep-root[data-theme] .ai-bar-row{display:grid;grid-template-columns:minmax(88px,1.2fr) minmax(24px,1fr) 18px 10px;gap:8px;align-items:center;width:100%;min-height:44px;padding:10px 16px;border:0;border-radius:6px;background:transparent;color:var(--navy);font:inherit;font-size:13px;text-align:left;cursor:pointer;box-shadow:none!important}
+.ep-root[data-theme] .ai-bar-row:hover,.ep-root[data-theme] .ai-bar-row[aria-expanded=true]{background:var(--surface-raised)}
+.ep-root[data-theme] .ai-bar-row:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ep-root[data-theme] .ai-bar-row strong{font-size:13px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .ai-bar-track{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.ep-root[data-theme] .ai-bar-track>span{height:100%;display:block;background:#80afd3;border-radius:3px}
+.ep-root[data-theme] .ai-bar-row[aria-expanded=true] .ai-bar-track>span{background:var(--gold)}
+.ep-root[data-theme=light] .ai-bar-track>span{background:#3d729b}
+.ep-root[data-theme=light] .ai-bar-row[aria-expanded=true] .ai-bar-track>span{background:#8c6c24}
+.ep-root[data-theme] .ai-bar-chevron{color:var(--muted)}
+.ep-root[data-theme] .ai-bar-members:not([hidden]){display:grid;gap:8px;margin:12px 0 0;padding:16px;border-top:1px solid var(--line);font-size:13px}
+.ep-root[data-theme] .ai-bar-members p{display:block;line-height:1.7;margin:0;color:var(--muted)}
+
+@media(max-width:800px){.ep-root[data-theme] .ai-summary{grid-template-columns:1fr}.ep-root[data-theme] .ai-summary>div{padding:16px}.ep-root[data-theme] .ai-bar-row{padding:10px 12px;gap:8px;grid-template-columns:minmax(100px,1.2fr) minmax(24px,1fr) 18px 10px}}
+@media(forced-colors:active){.ep-root[data-theme] .ai-bar-track{border:1px solid CanvasText}.ep-root[data-theme] .ai-bar-track>span{background:Highlight}}
+
+.ep-root[data-theme] .ai-facts>div+div{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.ep-root[data-theme] .ai-facts h4:not(:first-child){margin-top:20px}
+@media(min-width:801px) and (max-width:1200px){.ep-root[data-theme] .ai-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.ep-root[data-theme] .ai-facts{grid-row:span 2}}

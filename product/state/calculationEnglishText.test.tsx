@@ -28,7 +28,8 @@ describe('complete English interpretations',()=>{
  it.each(['numbers','matrix'] as const)('renders %s full details in English',method=>{
   setLocale('en');const practice={...createExamplePractice(),clients:[]}
   const html=renderToStaticMarkup(<MethodCalculations method={method} date="1990-05-12" name="Anna" practice={practice}/>)
-  expect(html).toContain(method==='numbers'?'Full interpretation':'Full arcana interpretation')
+  expect(html).toContain(method==='numbers'?'Interpretation':'Full arcana interpretation')
+  if(method==='numbers')expect(html).toContain(englishNumberMeanings[9].t)
   expect(html).not.toContain('· Russian')
   expect(html).not.toMatch(/[А-Яа-яЁё]/)
  })

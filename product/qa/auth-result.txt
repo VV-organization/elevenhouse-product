@@ -1,0 +1,24 @@
+Авторизация product preview — 2026-10-15
+
+Исходная утверждённая форма сохранена в product/auth. src/auth не изменён.
+AuthPage принимает onAuthenticated: (value: { name: string; mode: 'login' | 'register' }) => void.
+Регистрация передаёт trimmed displayName; вход передаёт name: ''. Родитель восстанавливает имя профиля.
+CSS импортировать из product/auth/auth.css. PREVIEW_CODE экспортирован из authApi.ts: 123456.
+
+Adapter локальный, in-memory, без fetch, API, создания аккаунта и отправки сообщений.
+TTL кода 5 минут; повторный запрос через 30 секунд; неверный, просроченный и использованный код отклоняются.
+AbortSignal отменяет ожидающий запрос без создания/потребления challenge. Экземпляр adapter изолирован на время монтирования формы.
+Успех вызывает callback. Демо-панель и объяснение preview родитель размещает вне формы.
+Автоотправка OTP отключена, подтверждение — явной кнопкой.
+Возврат из помощи сохраняет активный challenge и введённый код; таймер идёт в помощи.
+Поля 16px, labels/helper 14px, кнопки от 44px; изменение только scoped CSS авторизации.
+Фон, прозрачность, Vetrino/Manrope, неподвижный hover и логотип без ссылки сохранены.
+
+Проверки:
+1. TDD: 6 новых тестов adapter сначала упали из-за отсутствующего createPreviewAuthApi; затем прошли после реализации.
+2. node_modules/.bin/vitest run product/auth — 3 файла, 29 тестов passed.
+3. node_modules/.bin/tsc --noEmit --jsx react-jsx --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom --skipLibCheck product/auth/AuthPage.tsx product/auth/authApi.ts product/auth/AuthBackdrop.tsx src/vite-env.d.ts — exit 0.
+4. RU/EN покрытие статических текстов проверено тестом, добавлен перевод «Вернуться к коду».
+5. В AuthPage единственный href — локальный skip-link к форме; redirect /dashboard удалён.
+
+Осталось для общей браузерной приёмки: реальный поток callback → workspace, помощь → код, изменение контакта, телефон, RU/EN, мобильная ширина 320px и отсутствие перекрытия внешней preview панелью.

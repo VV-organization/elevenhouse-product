@@ -1,0 +1,92 @@
+[
+  {
+    "route": "today",
+    "height": 1917,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "clients",
+    "height": 2125,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "calendar",
+    "height": 991,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "tools",
+    "height": 1927,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "journal",
+    "height": 1909,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "astro-calendar",
+    "height": 4288,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "library",
+    "height": 2612,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "services",
+    "height": 2350,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "practice",
+    "height": 1277,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "finance",
+    "height": 3409,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "analytics",
+    "height": 3137,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "content",
+    "height": 1249,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "automations",
+    "height": 1780,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "reviews",
+    "height": 1069,
+    "scrollWidth": 305,
+    "width": 305
+  },
+  {
+    "route": "settings",
+    "height": 1773,
+    "scrollWidth": 305,
+    "width": 305
+  }
+]

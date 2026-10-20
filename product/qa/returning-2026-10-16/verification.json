@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-16",
+  "scope": "Returning user, isolated populated Anna account on localhost:8771; main account on 8770 unchanged",
+  "viewports": ["320x740", "390x844", "390x600", "1440x960"],
+  "verified": [
+    "Find a client by surname, reversed name order and extra spaces",
+    "Reschedule: existing context retained, collision rejected, success reveals new calendar slot",
+    "Cancel confirmation identifies client and date; keep returns to meeting",
+    "Cancelled meeting stays in history; restore succeeds when slot is available",
+    "Restore to occupied slot shows named conflict inside dialog with another-time action",
+    "Conversation drafts are retained across client switching and reload",
+    "Local send adds outgoing message, clears draft and awaiting-response state",
+    "Empty conversation search offers full-list reset",
+    "Payment pagination expands from 12 to 24 records",
+    "Payment filters persist across client/meeting navigation",
+    "Received payment date rejects future values",
+    "Mark payment changes 123800 to 128700; undo returns 123800; subsequent mark persists after reload",
+    "Payment opens its exact related meeting; refunded payment retains factual status",
+    "No horizontal overflow at 320px and 1440px; no captured console errors"
+  ],
+  "checks": {"vitest": "149 tests in 21 files passed", "typescript": "passed", "build": "passed; Vite bundle-size warning remains"},
+  "limits": ["Browser viewport checks, not physical mobile devices", "Frontend-local message and payment states; no external messages or money transfers"],
+  "evidence": ["payment-390.png", "reschedule-390.png"]
+}

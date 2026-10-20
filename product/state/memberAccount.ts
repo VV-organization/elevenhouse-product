@@ -1,6 +1,6 @@
 import type {Practice} from './model'
-import { createMemberPractice, memberServices, memberPayments } from './memberCore'
-import { memberWorkspaceModules } from './memberModules'
+import { createMemberPractice } from './memberCore'
+import { populatedModules } from './populatedModules'
 
 export const MEMBER_EMAIL = 'anna@elevenhouse.test'
 export const MEMBER_SCOPE = 'member-anna'
@@ -29,7 +29,7 @@ export function accountModuleScope(account: AccountKind): string | null {
   return account === 'member' ? MEMBER_SCOPE : account.startsWith('local:') ? account : null
 }
 export function memberModuleValue<T>(key: string, initial: () => T): T {
-  const modules: Record<string, unknown> = { ...memberWorkspaceModules, services: memberServices, payments: memberPayments }
+  const modules: Record<string, unknown> = populatedModules
   return Object.prototype.hasOwnProperty.call(modules, key) ? structuredClone(modules[key]) as T : initial()
 }
 export { createMemberPractice }

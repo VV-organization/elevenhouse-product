@@ -1,12 +1,15 @@
-/* Reference: user-supplied Finpath brand cards (19 Oct, 16:32).
-   Soft directional colour enters from an edge; the reading area stays quiet.
-   ElevenHouse navy / ivory / matte gold. Static CSS only, product opt-in only. */
+/* Reference: supplied CentralFlow “Visual design / 84%” panel (20 Oct, 08:25).
+   Broad, overlapping colour fields. User palette revision (20 Oct, 12:30):
+   night blue and soft sky blue only; yellow/gold remains the action accent.
+   No pink, lilac or violet in decorative surfaces (user palette correction).
+   Light mode uses the same hues in milk tints. Static, scoped to product panels;
+   primary actions retain their separately approved gold treatment. */
 .ep-root[data-theme] .ep-workspace.eh-surfaces{
- --eh-welcome-surface:linear-gradient(112deg,#19283c 0%,#23364c 54%,#414a4b 79%,#665b42 100%);
- --eh-focus-surface:linear-gradient(118deg,#1c2b3e 0%,#263649 58%,#514d3d 100%);
- --eh-income-surface:linear-gradient(148deg,#283746 0%,#242f3c 52%,#484533 100%);
- --eh-panel-surface:linear-gradient(135deg,#ffffff05 0%,#ffffff00 54%,#c4a5660d 100%);
- --eh-offer-surface:linear-gradient(120deg,#ffffff04 0%,#ffffff00 57%,#d3b87714 100%);
+ --eh-welcome-surface:radial-gradient(ellipse at 94% 4%,#345474 0%,#34547400 52%),radial-gradient(ellipse at 72% 105%,#365b7b 0%,#365b7b00 63%),linear-gradient(112deg,#1b293e 8%,#273b59 58%,#2b4665 100%);
+ --eh-focus-surface:radial-gradient(ellipse at 100% 0%,#304c69 0%,#304c6900 58%),radial-gradient(ellipse at 88% 100%,#325573 0%,#32557300 65%),linear-gradient(125deg,#1b2a3f 12%,#293954 70%,#293f58);
+ --eh-income-surface:radial-gradient(ellipse at 5% 0%,#30475f 0%,#30475f00 65%),radial-gradient(ellipse at 100% 100%,#314f6b 0%,#314f6b00 70%),linear-gradient(145deg,#223349,#253c54);
+ --eh-panel-surface:radial-gradient(ellipse at 100% 100%,#8fb4d514,transparent 70%);
+ --eh-offer-surface:radial-gradient(ellipse at 100% 0%,#8cabd01a,transparent 66%),radial-gradient(ellipse at 80% 100%,#93b7d518,transparent 72%);
  --eh-selected-surface:linear-gradient(115deg,#fff1c7 0%,#e5d39a 52%,#cdb577 100%);
  --eh-edge:rgba(239,222,178,.14);
  --eh-depth:0 10px 28px rgb(7 14 24 / .13),inset 0 1px 0 var(--eh-edge);
@@ -19,11 +22,11 @@
  --eh-button-fill:#ead79b;
  --eh-button-image:none;
  --eh-button-pressed:#e2ca89;
- --eh-welcome-surface:linear-gradient(112deg,#faf8f0 0%,#f0ecdf 52%,#e3d9be 80%,#d5c496 100%);
- --eh-focus-surface:linear-gradient(118deg,#fbfaf3 0%,#f3f0e4 60%,#e4d8b6 100%);
- --eh-income-surface:linear-gradient(148deg,#fbfaf4 0%,#eeeadd 55%,#ded0a9 100%);
- --eh-panel-surface:linear-gradient(135deg,#ffffff88 0%,#ffffff00 54%,#c4a5660e 100%);
- --eh-offer-surface:linear-gradient(120deg,#ffffff66 0%,#ffffff00 57%,#c6aa651c 100%);
+ --eh-welcome-surface:radial-gradient(ellipse at 94% 4%,#c4d8e9 0%,#c4d8e900 55%),radial-gradient(ellipse at 72% 105%,#c7ddec 0%,#c7ddec00 64%),linear-gradient(112deg,#f6f7f4 8%,#e1e8f0 58%,#d3e1ed 100%);
+ --eh-focus-surface:radial-gradient(ellipse at 100% 0%,#d0dfea 0%,#d0dfea00 60%),radial-gradient(ellipse at 88% 100%,#cfe0ed 0%,#cfe0ed00 66%),linear-gradient(125deg,#f7f7f2 12%,#e7ecf2 70%,#dbe6ee);
+ --eh-income-surface:radial-gradient(ellipse at 5% 0%,#d8e4ed 0%,#d8e4ed00 65%),radial-gradient(ellipse at 100% 100%,#d2e1ed 0%,#d2e1ed00 70%),linear-gradient(145deg,#f7f7f2,#e8eff4);
+ --eh-panel-surface:radial-gradient(ellipse at 100% 100%,#8fb2ce0d,transparent 70%);
+ --eh-offer-surface:radial-gradient(ellipse at 100% 0%,#8cabcf18,transparent 66%),radial-gradient(ellipse at 80% 100%,#9dbed71c,transparent 72%);
  --eh-selected-surface:linear-gradient(115deg,#f7ecc9 0%,#e7d8a5 54%,#d9c38b 100%);
  --eh-edge:rgba(255,255,255,.7);
  --eh-depth:0 8px 24px rgb(55 46 29 / .045),inset 0 1px 0 var(--eh-edge);
@@ -49,7 +52,6 @@
 }
 @media(hover:hover){
  .ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold):not(:disabled):not([aria-disabled=true]):hover{
-  color:#253044;
   background:var(--eh-button-fill);
   background-image:var(--eh-button-image);
   border-color:#a98b42;
@@ -74,6 +76,12 @@
  .ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-button--primary,.ep-button--gold){background:ButtonFace;color:ButtonText;border-color:ButtonText;box-shadow:none;text-shadow:none}
 }
 /* Small labels keep full opacity across the lighter edge of the welcome panel. */
-.ep-root[data-theme] .ep-workspace.eh-surfaces .pw-welcome{--eh-welcome-caption:#dce0e5}
-.ep-root[data-theme=light] .ep-workspace.eh-surfaces .pw-welcome{--eh-welcome-caption:#48515c}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .pw-welcome{--eh-welcome-caption:#fff7f0}
+.ep-root[data-theme=light] .ep-workspace.eh-surfaces .pw-welcome{--eh-welcome-caption:#3e4a60}
 .ep-root[data-theme] .ep-workspace.eh-surfaces .pw-welcome :is(.pw-intro>p,.pw-week small,.pw-bar-space.is-empty b){opacity:1;color:var(--eh-welcome-caption)}
+
+/* Secondary copy on the tinted financial and appointment panels remains readable. */
+.ep-root[data-theme=dark] .ep-workspace.eh-surfaces :is(.td-focus,.pd-balance,.av-income){--muted:#d6dce6}
+.ep-root[data-theme=light] .ep-workspace.eh-surfaces :is(.td-focus,.pd-balance,.av-income){--muted:#4d596c}
+
+.ep-root[data-theme=dark] .ep-workspace.eh-surfaces .pw-welcome{color:#fff7f0}

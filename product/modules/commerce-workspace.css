@@ -55,3 +55,6 @@
 .ep-root[data-theme] .communication-task-conversation .communication-ai-panel:has(>button:only-child){padding:0;border:0;background:none}
 @media(max-width:600px){.ep-root[data-theme] .communication-task-conversation .ex-message-thread{height:200px;max-height:32vh}}
 .ep-root .commerce-row-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+
+/* Case-review actions are followed by a delivery/refund explanation. */
+.ep-root .ep-dialog-body.ex-editor>.ex-actions+p{margin-top:12px}

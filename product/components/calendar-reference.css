@@ -1,81 +1,203 @@
-/* G-med reference: quiet day bands, separate appointment cards and visible booking gaps. */
-.ep-root[data-theme] .ep-workspace .cv-reference-week{min-width:0;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
-.ep-root[data-theme] .ep-workspace .cv-schedule-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}
-.ep-root[data-theme] .ep-workspace .cv-schedule-heading h2{font-size:20px;line-height:1.4;margin:0;font-weight:600}
-.ep-root[data-theme] .ep-workspace .cv-schedule-heading h2>span{font-size:13px;color:var(--muted);margin-left:6px;font-weight:400}
-.ep-root[data-theme] .ep-workspace .cv-schedule-heading p{font-size:11px;color:var(--muted);margin:5px 0 0}
-.ep-root[data-theme] .ep-workspace .cv-schedule-heading .ep-button{font-size:12px;min-height:38px;padding:8px 12px}
-.ep-root[data-theme] .ep-workspace .cv-schedule-heading .ep-icon-button{width:36px;min-height:38px}
-.ep-root[data-theme] .ep-workspace .cv-schedule-scroll{overflow:auto;max-height:760px;border-radius:10px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week{grid-template-columns:48px repeat(7,minmax(142px,1fr));gap:6px;margin:0;overflow:visible;border:0;border-radius:0;background:transparent}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week>section{padding:0;border:0;min-height:0;min-width:0;border-radius:10px;background:color-mix(in srgb,var(--line) 20%,var(--surface));overflow:visible}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week>section.is-selected{background:color-mix(in srgb,var(--gold) 7%,var(--surface))}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day{position:sticky;top:0;z-index:4;display:flex;flex-direction:row;justify-content:center;gap:8px;height:58px;min-height:58px;margin:0;border:0;border-radius:10px 10px 0 0;padding:12px 16px;background:var(--surface-raised);color:var(--muted)}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day strong{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day>span{font-size:18px;font-weight:600;color:var(--navy)}
+/* G-med appointment board: separate day bands, identity-led cards, quiet open slots.
+   Colors and icons belong to ElevenHouse. No global or landing selectors. */
+.ep-root[data-theme] .ep-workspace :is(.cv-calendar-controls,.cv-reference-week){--cv-band:#eeefeb;--cv-card:#fff;--cv-ink:#293342;--cv-muted:#69727b;--cv-stroke:#d9ded7;--cv-selected:#f1ebd8;--cv-avatar:#e7dec5;--cv-status:#e6d18c}
+.ep-root[data-theme=dark] .ep-workspace :is(.cv-calendar-controls,.cv-reference-week){--cv-band:#172332;--cv-card:#243346;--cv-ink:#f0f1ed;--cv-muted:#b5bfca;--cv-stroke:#344455;--cv-selected:#252c31;--cv-avatar:#4c4839;--cv-status:#e2ca79}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 0 28px;flex-wrap:wrap}
+/* User-directed calendar summary: a label above a light Vetrino numeral,
+   matte-gold values and quiet outline icons from the existing brand system. */
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-period-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;flex:1 1 560px;max-width:640px;margin:0;padding:0;background:none;border:0}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-period-stat{display:grid;grid-template-columns:minmax(0,1fr) 18px;grid-template-rows:auto auto;align-items:center;column-gap:12px;row-gap:8px;padding:14px 16px;border:1px solid var(--cv-stroke);border-radius:12px;background:transparent;min-width:0}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-period-stat>strong{grid-area:2 / 1;display:block;min-width:0;width:auto;height:auto;padding:0;border-radius:0;background:none;color:var(--eh-focus-ink,#765b20);font-family:'Auth Vetrino',serif;font-size:26px;line-height:1.15;font-weight:400;font-variant-numeric:lining-nums;letter-spacing:0;overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-period-stat>span:not(.cv-stat-icon){grid-area:1 / 1 / 2 / -1;font-size:12px;line-height:1.45;max-width:none;color:var(--cv-muted);overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-stat-icon{grid-area:2 / 2;display:grid;place-items:center;width:18px;height:18px;border-radius:0;background:none;color:var(--cv-muted)}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-stat-icon .ep-icon{width:16px;height:16px}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar{display:flex;flex-direction:column;align-items:flex-end;gap:8px;margin:0;padding:0;border:0}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views{padding:3px;border:1px solid var(--cv-stroke);border-radius:12px;background:var(--cv-card)}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views .ep-button{min-height:36px;padding:7px 14px;border:0;border-radius:8px;font-size:13px;background:transparent;color:var(--cv-muted);box-shadow:none}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views [aria-pressed=true]{background:var(--gold);color:#253044;font-weight:600}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar>.ep-text-button{font-size:12px;min-height:32px;padding:4px 8px;color:var(--cv-muted)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week{min-width:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.ep-root[data-theme] .ep-workspace .cv-schedule-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}
+.ep-root[data-theme] .ep-workspace .cv-schedule-heading h2{font-size:22px;line-height:1.4;margin:0;font-weight:500;letter-spacing:-.025em}
+.ep-root[data-theme] .ep-workspace .cv-schedule-heading h2>span{font-size:14px;color:var(--muted);margin-left:6px;font-weight:400}
+.ep-root[data-theme] .ep-workspace .cv-schedule-heading p{font-size:12px;color:var(--muted);margin:4px 0 0}
+.ep-root[data-theme] .ep-workspace .cv-schedule-heading .ep-cal-arrows{gap:6px}
+.ep-root[data-theme] .ep-workspace .cv-schedule-heading .ep-button{font-size:12px;min-height:40px;padding:8px 14px;border-radius:10px;background:var(--cv-card)}
+.ep-root[data-theme] .ep-workspace .cv-schedule-heading .ep-icon-button{width:40px;min-height:40px;border-radius:50%;background:var(--cv-card);border:1px solid var(--cv-stroke)}
+.ep-root[data-theme] .ep-workspace .cv-schedule-scroll{overflow:auto;max-height:760px;border-radius:12px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week{grid-template-columns:42px repeat(7,minmax(142px,1fr));gap:6px;margin:0;overflow:visible;border:0;border-radius:0;background:transparent}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week>section{padding:0;border:0;min-height:0;min-width:0;border-radius:12px;background:var(--cv-band);overflow:visible}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week>section.is-selected{background:var(--cv-selected)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day{position:sticky;top:0;z-index:4;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:6px;height:48px;min-height:48px;margin:0;border:0;border-radius:12px 12px 0 0;padding:10px 16px;background:var(--cv-band);color:var(--cv-muted)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day strong{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.03em}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day>span{font-size:15px;font-weight:600;color:var(--cv-ink)}
 .ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day small{font-size:10px;margin-left:auto}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .is-selected>.ep-week-day{background:var(--gold);color:#182134}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .is-selected>.ep-week-day{background:var(--gold);color:#253044}
 .ep-root[data-theme] .ep-workspace .cv-reference-week .is-selected>.ep-week-day>span{color:inherit}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day[aria-current=date]:not(.is-selected>.ep-week-day){box-shadow:inset 0 -2px var(--gold)}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-time-axis{position:sticky;left:0;z-index:5;background:var(--surface)}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-axis-head{height:58px;display:grid;place-items:center;color:var(--muted);position:sticky;top:0;background:var(--surface);z-index:1}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-axis-hours>span{left:0;right:6px;text-align:right;font-size:10px;transform:translateY(9px)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day[aria-current=date]{box-shadow:inset 0 -2px var(--gold)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-time-axis{position:sticky;left:0;z-index:5;background:var(--ivory)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-axis-head{height:48px;display:grid;place-items:center;color:var(--muted);position:sticky;top:0;background:var(--ivory);z-index:1}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-axis-hours>span{left:0;right:7px;text-align:right;font-size:11px;color:var(--cv-muted);transform:translateY(12px)}
 .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline{position:relative;background:none;padding:0}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot{position:absolute;left:6px;right:6px;border:1px dashed color-mix(in srgb,var(--line) 80%,transparent);border-radius:9px;background:transparent;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--muted);padding:12px 16px;z-index:1;transition:background-color 140ms ease,border-color 140ms ease}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot time{font-size:11px;opacity:0}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot:hover,.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot:focus-visible{background:var(--surface-raised);border-color:var(--gold);color:var(--navy)}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot:is(:hover,:focus-visible) time{opacity:1}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline .ep-week-meeting{z-index:2;display:flex;flex-direction:column;align-items:stretch;gap:3px;padding:10px 16px;border:1px solid var(--line);border-radius:9px;background:var(--surface);box-shadow:0 2px 5px #00000005;overflow:hidden;min-height:0;margin:0}
-.ep-root[data-theme=dark] .ep-workspace .cv-reference-week .cv-week-timeline .ep-week-meeting{background:#233246;border-color:#3b4858}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting:hover{border-color:var(--gold)}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-identity{display:flex;flex-wrap:nowrap;align-items:center;gap:7px;min-width:0;flex-shrink:0}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-identity .cv-client-initials{display:grid;width:25px;height:25px;background:color-mix(in srgb,var(--gold) 20%,var(--surface));font-size:9px;color:var(--navy)}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-identity strong{font-size:11px;font-weight:600;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>time{font-size:10px;font-weight:500;color:var(--muted);line-height:1.5;white-space:nowrap;flex-shrink:0}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>.cv-meeting-service{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.4}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>small{display:block;font-size:9px;line-height:1.4;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-status--completed{border-left:3px solid var(--data-series-3)}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting.is-cancelled{opacity:.65;border-style:dashed}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline .cv-short-meeting{padding-block:4px;gap:1px}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-short-meeting .cv-client-initials,.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-short-meeting>.cv-meeting-service,.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-short-meeting>small{display:none}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-closed-time{position:absolute;left:5px;right:5px;display:flex;align-items:flex-start;justify-content:center;padding:14px 5px;background:repeating-linear-gradient(135deg,transparent 0,transparent 5px,color-mix(in srgb,var(--line) 30%,transparent) 5px,color-mix(in srgb,var(--line) 30%,transparent) 8px);border-radius:8px;overflow:hidden}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-closed-time>span{font-size:10px;color:var(--muted);text-align:center;background:var(--surface);padding:3px 5px;border-radius:4px}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot{position:absolute;left:6px;right:6px;border:1px dashed var(--cv-stroke);border-radius:10px;background:transparent;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--cv-muted);padding:12px 16px;z-index:1;transition:background-color 140ms ease,border-color 140ms ease}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot .ep-icon{opacity:.8}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot time{position:absolute;left:calc(50% + 16px);top:50%;transform:translateY(-50%);font-size:10px;line-height:1;white-space:nowrap;opacity:0}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot:is(:hover,:focus-visible){background:var(--cv-card);border-color:var(--gold)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot:is(:hover,:focus-visible) :is(time,.ep-icon){opacity:1}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline .ep-week-meeting{z-index:2;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:8px;padding:12px 16px;border:1px solid transparent;border-radius:11px;background:var(--cv-card);color:var(--cv-ink);box-shadow:none;overflow:hidden;min-height:0;margin:0;text-align:left;transition:border-color 140ms ease}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline .ep-week-meeting:is(:hover,:focus-visible){border-color:var(--gold);background:var(--cv-card);box-shadow:none}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-identity{display:flex;flex-wrap:nowrap;align-items:center;gap:8px;min-width:0;flex-shrink:0}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-avatar{position:relative;display:block;flex:0 0 28px;height:30px}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-identity .cv-client-initials{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--cv-avatar);font-size:10px;font-weight:600;color:var(--cv-ink)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-badge{position:absolute;bottom:-2px;right:-4px;display:grid;place-items:center;width:16px;height:16px;border:2px solid var(--cv-card);border-radius:50%;background:var(--cv-status);color:#403923}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-status--completed .cv-meeting-badge{background:#c4d9c7;color:#304d38}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-status--cancelled .cv-meeting-badge{background:#e4bfb1;color:#6d382e}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-person{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-person strong{font-size:12px;font-weight:600;line-height:1.3;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;min-width:0}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-person time{font-size:11px;font-weight:400;color:var(--cv-muted);line-height:1.3;white-space:nowrap}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>.cv-meeting-service{display:block;font-size:11px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.5;color:var(--cv-muted)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>small{display:block;font-size:10px;line-height:1.3;color:var(--cv-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:auto}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting.is-cancelled{border-style:dashed;border-color:var(--cv-stroke)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline .cv-short-meeting{padding-block:6px;gap:0}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-short-meeting>.cv-meeting-service,.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-short-meeting>small{display:none}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-overlap-meeting .cv-meeting-avatar{display:none}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-closed-time{position:absolute;left:6px;right:6px;display:flex;align-items:flex-start;justify-content:center;padding:16px 5px;background:repeating-linear-gradient(135deg,transparent 0,transparent 5px,var(--cv-card) 5px,var(--cv-card) 9px);border-radius:10px;overflow:hidden}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-closed-time>span{font-size:11px;color:var(--cv-muted);text-align:center;background:var(--cv-band);padding:4px 6px;border-radius:4px}
 .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-mobile-empty{display:none}
-.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-day-book{width:100%;display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:12px 16px;border:0;border-top:1px solid var(--line);background:transparent;color:var(--muted);font-size:11px;border-radius:0 0 10px 10px}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-day-book{width:100%;display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:12px 16px;border:0;background:transparent;color:var(--cv-muted);font-size:12px;border-radius:0 0 12px 12px}
 .ep-root[data-theme] .ep-workspace .cv-reference-week :is(button,.cv-schedule-scroll):focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
-/* The same quiet surfaces tie day/month to the weekly board. */
-.ep-root[data-theme] .ep-workspace .cv-period-stats{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px;padding:0}
-.ep-root[data-theme] .ep-workspace .cv-period-stat{gap:10px;padding:10px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface);flex:0 1 190px}
-.ep-root[data-theme] .ep-workspace .cv-period-stat:last-child{border:1px solid var(--line)}
-.ep-root[data-theme] .ep-workspace .cv-period-stat>strong{height:34px;min-width:34px;font-size:20px;border-radius:50%;background:color-mix(in srgb,var(--gold) 14%,transparent)}
-.ep-root[data-theme] .ep-workspace .cv-period-stat>span{font-size:11px}
-.ep-root[data-theme] .ep-workspace .ep-calendar-toolbar{border:0;margin-bottom:20px;padding-bottom:0}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>small{display:none}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-short-meeting .cv-meeting-person strong{-webkit-line-clamp:1}
+/* Day and month keep the same visual vocabulary without altering their actions. */
 .ep-root[data-theme] .ep-workspace .ep-cal-event{border-radius:12px;background:var(--surface);padding:20px 16px}
 .ep-root[data-theme] .ep-workspace .ep-cal-event-body{border-color:var(--gold)}
 .ep-root[data-theme] .ep-workspace .cv-month{border-radius:16px}
 .ep-root[data-theme] .ep-workspace .cv-month-grid{gap:5px;border:0}
 .ep-root[data-theme] .ep-workspace .cv-month-day{border:1px solid var(--line);border-radius:9px;background:color-mix(in srgb,var(--line) 12%,var(--surface))}
 .ep-root[data-theme] .ep-workspace .cv-month-entry{border:0;border-radius:5px;background:var(--surface-raised);padding:6px}
+@media(max-width:1100px){
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls{gap:16px}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar{width:100%;flex-direction:row;align-items:center;justify-content:space-between}
+}
 @media(max-width:650px){
- .ep-root[data-theme] .ep-workspace .cv-reference-week{padding:16px 12px}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls{gap:16px;margin-bottom:22px}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-period-stats{grid-template-columns:1fr 1fr;gap:8px;width:100%;flex-basis:100%;max-width:none}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-period-stat{padding:12px;column-gap:12px;row-gap:8px}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .cv-period-stat>strong{font-size:25px}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar{flex-direction:column;align-items:stretch;gap:8px}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views{display:grid;grid-template-columns:repeat(3,1fr)}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views .ep-button{min-height:44px}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar>.ep-text-button{align-self:flex-start;min-height:44px;padding:8px 0}
  .ep-root[data-theme] .ep-workspace .cv-schedule-heading{flex-wrap:wrap;gap:12px;margin-bottom:16px}
- .ep-root[data-theme] .ep-workspace .cv-schedule-heading h2{font-size:17px}
+ .ep-root[data-theme] .ep-workspace .cv-schedule-heading h2{font-size:20px}
  .ep-root[data-theme] .ep-workspace .cv-schedule-heading .ep-cal-arrows{width:100%;justify-content:space-between}
  .ep-root[data-theme] .ep-workspace .cv-schedule-scroll{max-height:none;overflow:visible}
- .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week{grid-template-columns:minmax(0,1fr);gap:12px}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week{grid-template-columns:minmax(0,1fr);gap:16px}
  .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-time-axis{display:none}
- .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week>section{border:1px solid var(--line)}
- .ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day{position:static;height:50px;min-height:50px;padding:10px 12px;justify-content:flex-start}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-day{position:static;height:48px;min-height:48px;padding:10px 12px;justify-content:flex-start}
  .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline{height:auto!important;padding:8px}
- .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline .ep-week-meeting{position:static;left:auto!important;top:auto!important;width:100%!important;height:auto!important;min-height:80px;padding:12px;margin-bottom:8px;gap:5px}
- .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-identity strong{font-size:14px;white-space:normal}
- .ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>time{font-size:12px}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-timeline .ep-week-meeting{position:static;left:auto!important;top:auto!important;width:100%!important;height:auto!important;min-height:80px;padding:16px 12px;margin-bottom:8px;gap:8px}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-person strong{font-size:14px;white-space:normal}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-person time{font-size:12px}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-overlap-meeting .cv-meeting-avatar{display:block}
  .ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>.cv-meeting-service,.ep-root[data-theme] .ep-workspace .cv-reference-week .ep-week-meeting>small{display:block;font-size:12px;white-space:normal}
  .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot,.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-closed-time{display:none}
- .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-mobile-empty{display:block;font-size:12px;color:var(--muted);padding:12px;margin:0}
- .ep-root[data-theme] .ep-workspace .cv-period-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
- .ep-root[data-theme] .ep-workspace .cv-period-stat{padding:10px 12px;gap:8px}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-week-mobile-empty{display:block;font-size:12px;color:var(--cv-muted);padding:12px;margin:0}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .cv-timed-week>section.is-empty{display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:center;min-height:80px}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .is-empty .ep-week-day{border-radius:12px;background:transparent}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .is-empty .ep-week-day small{display:none}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .is-empty .cv-week-timeline{padding:0}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .is-empty .cv-week-mobile-empty{padding:12px 0}
+ .ep-root[data-theme] .ep-workspace .cv-reference-week .is-empty .cv-day-book{padding:12px;min-height:44px}
  .ep-root[data-theme] .ep-workspace .ep-cal-event{padding:16px 12px}
  .ep-root[data-theme] .ep-workspace .cv-month-grid{gap:3px}
 }
-@media(prefers-reduced-motion:reduce){.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot{transition:none}}
+@media(prefers-reduced-motion:reduce){.ep-root[data-theme] .ep-workspace .cv-reference-week :is(.cv-open-slot,.ep-week-meeting){transition:none}}
+/* Every real gap remains a booking target, including short gaps at interval boundaries. */
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot{min-height:0;padding-block:0}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-open-slot--short time{display:none}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-closed-time{padding:2px 5px;align-items:center}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-closed-time>span{padding:0 4px;line-height:1.15}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-cancelled-meetings{padding:8px 12px;font-size:11px;color:var(--cv-muted)}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-cancelled-meetings summary{cursor:pointer}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-cancelled-meetings button{display:block;width:100%;background:transparent;border:0;border-radius:8px;padding:12px 16px;color:inherit;text-align:left}
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-cancelled-meetings button:hover{background:var(--cv-card)}
+@media(max-width:650px){.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-cancelled-meetings button{padding-inline:12px}}
+
+/* Separate day headers from the clock grid without changing time-to-position mapping. */
+@media(min-width:651px){
+ .ep-root[data-theme] .ep-workspace .cv-reference-week :is(.cv-week-timeline,.cv-axis-hours){margin-top:10px}
+}
+
+/* Keep status symbols on the badge's contrast color, not the muted meeting text. */
+.ep-root[data-theme] .ep-workspace .cv-reference-week .cv-meeting-badge :is(.ep-icon,.ep-icon-static,.ep-icon-motion){color:inherit}
+
+/* Compact date picker: fixed date circles, event dots, one quiet footer. */
+.ep-root[data-theme] :is(.ep-workspace,.ep-calendar-date-dialog) section.ep-cal-month{padding:20px 16px 16px;border-radius:12px;background:var(--surface);box-shadow:none;align-self:start}
+.ep-root[data-theme] .ep-cal-month .ep-cal-month-head{flex-wrap:nowrap;gap:8px;margin:0 0 20px}
+.ep-root[data-theme] .ep-cal-month .ep-cal-month-head h2{margin:0;font-size:17px;font-weight:600;line-height:1.4;letter-spacing:-.02em;text-transform:none}
+.ep-root[data-theme] .ep-cal-month .ep-cal-month-head h2::first-letter{text-transform:uppercase}
+.ep-root[data-theme] .ep-cal-month .ep-cal-month-head h2>span{font-size:13px;font-weight:400;color:var(--muted);margin-left:3px}
+.ep-root[data-theme] .ep-cal-month .ep-cal-arrows{gap:0;flex-shrink:0}
+.ep-root[data-theme] .ep-cal-month .ep-cal-arrows .ep-icon-button{display:grid;place-items:center;width:32px;min-width:32px;height:40px;min-height:40px;padding:7px;border:0;border-radius:8px;background:transparent;color:var(--muted)}
+.ep-root[data-theme] .ep-cal-month .ep-cal-arrows .ep-icon-button:hover{background:var(--surface-raised);color:var(--navy)}
+.ep-root[data-theme] .ep-cal-month .ep-cal-week{gap:0;margin:0 0 8px;font-size:11px;line-height:24px;text-align:center;color:var(--muted)}
+.ep-root[data-theme] .ep-cal-month .ep-cal-days{gap:0;grid-auto-rows:44px}
+.ep-root[data-theme] .ep-cal-month .ep-cal-days button.ep-cal-day{position:relative;display:flex;align-items:center;justify-content:flex-start;flex-direction:column;width:100%;height:44px;min-height:44px;padding:0;gap:0;border:0;border-radius:0;font-size:13px;font-weight:500;line-height:32px;box-shadow:none;background:transparent;background-image:none;color:var(--navy);opacity:1}
+.ep-root[data-theme] .ep-cal-month .ep-cal-days button.ep-cal-day:is(:hover,[aria-pressed=true]){background:transparent;background-image:none;box-shadow:none!important}
+.ep-root[data-theme] .ep-cal-month .ep-cal-date-number{display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;border:1px solid transparent;border-radius:50%;line-height:1;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .ep-cal-month .ep-cal-days button.is-adjacent{color:var(--muted)}
+.ep-root[data-theme] .ep-cal-month .ep-cal-days button.is-adjacent .ep-cal-date-number{opacity:.55}
+.ep-root[data-theme] .ep-cal-month .ep-cal-day:hover .ep-cal-date-number{background:var(--surface-raised);font-weight:700}
+.ep-root[data-theme] .ep-cal-month .ep-cal-day[aria-current=date] .ep-cal-date-number{border-color:var(--gold);color:var(--navy)}
+.ep-root[data-theme] .ep-cal-month .ep-cal-day[aria-pressed=true] .ep-cal-date-number{background:var(--gold);color:#182134;border-color:var(--gold);font-weight:700;opacity:1}
+.ep-root[data-theme] .ep-cal-month .ep-cal-count-space{position:static;display:flex;align-items:center;justify-content:center;width:100%;height:8px;line-height:1}
+.ep-root[data-theme] .ep-cal-month .ep-cal-meeting-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--eh-focus-ink,#80631f);flex-shrink:0}
+.ep-root[data-theme] .ep-cal-month .ep-cal-month-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:nowrap}
+.ep-root[data-theme] .ep-cal-month .ep-cal-month-foot>span{display:flex;align-items:center;gap:8px;font-size:11px;line-height:1.5;color:var(--muted)}
+.ep-root[data-theme] .ep-cal-month .ep-cal-month-foot>.ep-cal-today{width:auto;margin:0;min-height:36px;padding:8px 12px;border:0;border-radius:6px;background:transparent;color:var(--navy);font-size:12px!important;box-shadow:none}
+.ep-root[data-theme] .ep-cal-month .ep-cal-month-foot>.ep-cal-today:hover{background:var(--surface-raised)}
+.ep-root[data-theme] .ep-cal-month .ep-cal-zone{margin:8px 0 0;padding:0;font-size:10px;line-height:1.5;overflow-wrap:anywhere;color:var(--muted)}
+.ep-root[data-theme] .ep-cal-month button:focus-visible{outline:2px solid var(--gold);outline-offset:0;border-radius:6px}
+.ep-root[data-theme] .ep-calendar-date-dialog>section.ep-cal-month{padding:0;border:0;background:transparent}
+@media(max-width:650px){.ep-root[data-theme] .ep-cal-month .ep-cal-date-number{width:30px;height:30px;flex-basis:30px}.ep-root[data-theme] .ep-cal-month .ep-cal-arrows .ep-icon-button{width:36px;min-width:36px;height:44px;min-height:44px}}
+
+/* Month overview: original ElevenHouse inline entries + G-med's quiet schedule surfaces. */
+.ep-root[data-theme] .ep-workspace .cv-month{padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.ep-root[data-theme] .ep-workspace .cv-month-heading{margin:0 0 20px;gap:16px}
+.ep-root[data-theme] .ep-workspace .cv-month-heading h2{margin:0;font-size:24px;font-weight:500;letter-spacing:-.035em;line-height:1.35}
+.ep-root[data-theme] .ep-workspace .cv-month-heading .ep-cal-arrows{gap:6px}
+.ep-root[data-theme] .ep-workspace .cv-month-heading .ep-icon-button{width:40px;min-height:40px;padding:10px;border-radius:50%;background:var(--surface);border:1px solid var(--line)}
+.ep-root[data-theme] .ep-workspace .cv-month-heading .ep-button{min-height:40px;padding:8px 16px;border-radius:10px;background:var(--surface);font-size:12px}
+.ep-root[data-theme] .ep-workspace .cv-month-weekdays{padding:0 0 10px;gap:6px;font-size:12px;text-align:left}
+.ep-root[data-theme] .ep-workspace .cv-month-weekdays>span{padding-left:16px}
+.ep-root[data-theme] .ep-workspace .cv-month-grid{gap:6px;border:0;grid-auto-rows:minmax(148px,1fr)}
+.ep-root[data-theme] .ep-workspace .cv-month-day{min-height:148px;padding:12px 16px;gap:4px;border:1px solid transparent;border-radius:12px;background:var(--surface);overflow:hidden;box-shadow:none;transition:background-color 140ms ease,border-color 140ms ease}
+.ep-root[data-theme] .ep-workspace .cv-month-day.is-adjacent{background:color-mix(in srgb,var(--surface) 45%,transparent)}
+.ep-root[data-theme] .ep-workspace .cv-month-day:nth-child(7n),.ep-root[data-theme] .ep-workspace .cv-month-day:nth-child(7n - 1){background:color-mix(in srgb,var(--surface) 70%,transparent)}
+.ep-root[data-theme] .ep-workspace .cv-month-day[aria-pressed=true]{background:color-mix(in srgb,var(--gold) 12%,var(--surface));border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}
+.ep-root[data-theme] .ep-workspace .cv-month-day:hover{background:var(--surface-raised);border-color:var(--gold)}
+.ep-root[data-theme] .ep-workspace .cv-month-day:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.ep-root[data-theme] .ep-workspace .cv-month-number{display:grid;place-items:center;width:28px;height:28px;flex-shrink:0;margin-bottom:4px;font-size:13px;font-weight:600;line-height:1;color:var(--navy)}
+.ep-root[data-theme] .ep-workspace .cv-month-day[aria-current=date] .cv-month-number{background:var(--gold);color:#182134;border-radius:50%}
+.ep-root[data-theme] .ep-workspace .cv-month-entry{display:flex;align-items:center;gap:5px;min-width:0;min-height:20px;padding:0;border:0;border-radius:0;background:transparent;color:var(--navy);font-size:11px;line-height:20px}
+.ep-root[data-theme] .ep-workspace .cv-month-entry::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--data-series-1);flex-shrink:0}
+.ep-root[data-theme] .ep-workspace .cv-month-entry.cv-status--completed::before{background:var(--data-series-3)}
+.ep-root[data-theme] .ep-workspace .cv-month-entry.cv-status--cancelled::before{background:var(--data-series-2)}
+.ep-root[data-theme] .ep-workspace .cv-month-entry.cv-status--no_show::before{background:var(--data-series-4)}
+.ep-root[data-theme] .ep-workspace .cv-month-entry>b{font-size:10px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums;flex-shrink:0}
+.ep-root[data-theme] .ep-workspace .cv-month-entry>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.ep-root[data-theme] .ep-workspace .cv-month-more{font-size:10px;color:var(--muted);padding-left:10px}
+.ep-root[data-theme] .ep-workspace .cv-month>.ep-cal-zone{margin:12px 0 0;padding:0;font-size:11px}
+@media(max-width:650px){
+ .ep-root[data-theme] .ep-workspace .cv-month-heading h2{font-size:21px}
+ .ep-root[data-theme] .ep-workspace .cv-month-grid{gap:3px;grid-auto-rows:76px}
+ .ep-root[data-theme] .ep-workspace .cv-month-day{min-height:76px;padding:8px 2px;border-radius:9px;align-items:center}
+ .ep-root[data-theme] .ep-workspace .cv-month-number{align-self:center;margin:0}
+ .ep-root[data-theme] .ep-workspace .cv-month-weekdays{gap:3px;text-align:center;font-size:11px}
+ .ep-root[data-theme] .ep-workspace .cv-month-weekdays>span{padding:0}
+ .ep-root[data-theme] .ep-workspace .cv-month-entry,.ep-root[data-theme] .ep-workspace .cv-month-more{display:none}
+ .ep-root[data-theme] .ep-workspace .cv-month-mobile-count{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted)}
+ .ep-root[data-theme] .ep-workspace .cv-month-mobile-count::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--data-series-1)}
+}
+@media(prefers-reduced-motion:reduce){.ep-root[data-theme] .ep-workspace .cv-month-day{transition:none}}

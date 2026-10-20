@@ -1,7 +1,7 @@
 /* Direct Mail: saved objects above a distinct, illustrated destination catalog. */
 .ep-business{--business-panel:#faf9f4;--business-hover:#eeede5;--business-gold:#85682d;--business-sage:#4f715c;--business-terra:#a85b49;--business-plum:#805e7d;--business-copper:#93633f;--business-soft:#ece5d2;min-width:0}
 .ep-business .ep-page-heading{margin-bottom:28px}
-.ep-business :is(a:hover,a:focus-visible){text-decoration:none;font-weight:650}
+.ep-business :is(a:hover,a:focus-visible){text-decoration:none}
 .ep-business a:focus-visible{outline:2px solid var(--business-gold);outline-offset:4px}
 .ep-business-section-heading,.ep-business-subheading{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .ep-business-section-heading{margin-bottom:20px}
@@ -60,6 +60,11 @@
 .ep-root[data-theme=dark] .ep-business [data-tone=terra]{--business-soft:#46332f}
 .ep-root[data-theme=dark] .ep-business [data-tone=plum]{--business-soft:#3d3249}
 .ep-root[data-theme=dark] .ep-business [data-tone=copper]{--business-soft:#42362b}
+@media(min-width:1201px){
+ .ep-business-services{display:flex;flex-direction:column}
+ .ep-business-service-grid,.ep-business-empty{flex:1}
+ .ep-business-flows{flex:1}
+}
 @media(max-width:1200px){.ep-business-current-grid{grid-template-columns:minmax(0,1fr)}.ep-business-activity{padding-top:0;display:grid;grid-template-columns:1fr 1fr;align-items:start}.ep-business-categories{gap:14px}.ep-business-entry{gap:9px}}
 @media(max-width:900px){.ep-business-categories{grid-template-columns:1fr 1fr}.ep-business-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ep-business-service:last-child:nth-child(3){grid-column:1/-1}.ep-business-section-heading>span{display:none}}
 @media(max-width:560px){.ep-business .ep-page-heading{align-items:flex-start;gap:14px;flex-direction:column;margin-bottom:28px}.ep-business-service-grid,.ep-business-categories,.ep-business-activity{grid-template-columns:1fr}.ep-business-service:last-child:nth-child(3){grid-column:auto}.ep-business-section-heading{gap:10px;align-items:baseline}.ep-business-section-heading h2{font-size:20px}.ep-business-section-heading>a{font-size:12px}.ep-business-service{padding:18px 12px 0}.ep-business-service>p{margin-bottom:16px}.ep-business-service-link{padding:12px;margin:0 -12px;font-size:13px}.ep-business-subheading{gap:10px}.ep-business-subheading>a{font-size:12px}.ep-business-entry,.ep-business-orders{padding:14px 12px}.ep-business-inline-link{padding-inline:12px;margin-inline:-12px}.ep-business-flows{padding-inline:12px}.ep-business-category>h3{margin-bottom:10px}.ep-business-categories{gap:26px}.ep-business-entry{min-height:76px}.ep-business-catalog{margin-top:32px;padding-top:24px}.ep-business-empty{padding:20px 12px}}

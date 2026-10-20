@@ -1,5 +1,5 @@
 /* Supplied Fintech CRM reference: a compact message preview above the current page. */
-.ep-root[data-theme] .ep-workspace .ep-main dialog.ep-dialog.ep-dialog--drawer.wu-message-dialog{inset:12px 12px 12px auto;width:min(420px,calc(100vw - 32px));height:calc(100dvh - 24px);max-height:none;border-radius:20px;padding:0;overflow:hidden;background:var(--surface-raised,var(--ivory))}
+.ep-root[data-theme] .ep-workspace .ep-main dialog.ep-dialog.ep-dialog--drawer.wu-message-dialog{inset:12px 12px 12px auto;width:min(420px,calc(100vw - 32px));height:calc(100dvh - 24px);max-height:none;border-radius:20px;padding:0;overflow:hidden;background:var(--eh-drawer-surface,var(--surface-raised,var(--ivory)))}
 .ep-root[data-theme] .ep-workspace .ep-main dialog.wu-message-dialog[open]{display:flex;flex-direction:column}
 .ep-root[data-theme] .ep-workspace .ep-main dialog.wu-message-dialog .ep-dialog-head{position:static;flex-shrink:0;padding:20px 24px 16px;background:transparent;border-bottom:1px solid var(--line)}
 .ep-root[data-theme] .ep-workspace .ep-main dialog.wu-message-dialog .ep-dialog-head h2{font-size:22px;line-height:1.3}
@@ -7,7 +7,6 @@
 .ep-root[data-theme] .ep-workspace .wu-message-list{min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;padding:12px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .ep-root[data-theme] .ep-workspace .wu-message-item{display:flex;align-items:flex-start;gap:12px;width:100%;padding:16px;margin:0 0 6px;border:0;border-radius:12px;background:transparent;color:var(--navy);text-align:left;transition:background-color .16s}
 .ep-root[data-theme] .ep-workspace .wu-message-item:hover,.ep-root[data-theme] .ep-workspace .wu-message-item:focus-visible{background:var(--surface);text-decoration:none}
-.ep-root[data-theme] .ep-workspace .wu-message-item:hover strong{font-weight:700}
 .ep-root[data-theme] .ep-workspace .wu-preview-avatar{display:grid;place-items:center;width:38px;height:38px;flex:0 0 38px;border-radius:50%;font-size:12px;font-weight:600;background:color-mix(in srgb,var(--data-series-1) 18%,var(--surface));color:var(--navy)}
 .ep-root[data-theme] .ep-workspace .wu-message-item:nth-child(3n+2) .wu-preview-avatar{background:color-mix(in srgb,var(--data-series-3) 18%,var(--surface))}
 .ep-root[data-theme] .ep-workspace .wu-message-item:nth-child(3n) .wu-preview-avatar{background:color-mix(in srgb,var(--data-series-4) 18%,var(--surface))}

@@ -3,7 +3,7 @@
 .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout){font-size:16px;line-height:1.55}
 .ep-root[data-theme=dark] :is(.ep-workspace,.ex-role-layout){--surface:#172131;--surface-raised:#1d2a3b;--line:#334052;--muted:#b1bdcb;--navy:#edf1f7;background:#101823}
 .ep-root[data-theme=light] :is(.ep-workspace,.ex-role-layout){--surface:#eceeea;--surface-raised:#ffffff;--line:#d2d7d9;--muted:#596370;--navy:#202d40;background:#f8f8f4}
-.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) h1{font:600 clamp(26px,2.4vw,32px)/1.2 'Auth Manrope',sans-serif;letter-spacing:-.035em;overflow-wrap:anywhere}
+.ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) h1{font:400 clamp(26px,2.4vw,32px)/1.2 'Auth Vetrino',serif;letter-spacing:-.02em;overflow-wrap:anywhere}
 .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) h2{font:600 19px/1.4 'Auth Manrope',sans-serif;letter-spacing:-.015em}
 .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) h3{font:600 16px/1.45 'Auth Manrope',sans-serif;letter-spacing:0}
 .ep-root[data-theme] :is(.ep-workspace,.ex-role-layout) :is(.ep-muted,.ex-note,.ex-row small){font-size:14px;line-height:1.55}
@@ -120,3 +120,8 @@
  .ep-root[data-theme] .ep-workspace .ex-nav-menu>a{padding:12px;font-size:14px;min-height:56px;gap:8px}
 }
 @media(prefers-reduced-motion:reduce){.ep-root :is(.ep-workspace,.ex-role-layout) *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* An action and its feedback are one group with a stable visible gap.
+   Reset local paragraph/action margins so existing form spacing cannot stack. */
+.ep-root .ep-action-feedback{display:grid;gap:12px;min-width:0}
+.ep-root .ep-action-feedback>:is(.ec-actions,.ex-actions,p,.rc-request-status){margin:0!important}

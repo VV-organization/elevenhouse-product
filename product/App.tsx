@@ -1,3 +1,5 @@
+import {useInterfaceTheme} from './state/interface-theme'
+import {populateSavedAccount} from './state/populatedAccount'
 import {PracticeStart,type StartIntent} from './components/PracticeStart'
 import {resolvePortalContext} from './state/portal-context'
 import type {ProductData} from './state/product-data'
@@ -16,15 +18,14 @@ const keys={session:'eh-product-v1-session'}
 function read(key:string){try{return localStorage.getItem(key)}catch{return null}}
 const unreadable=new Set<string>(), protectedStorage=new Set<string>()
 const memory:Partial<Record<AccountKind,Practice>>={}
-function load(kind:AccountKind){if(memory[kind])return memory[kind]!;const key=accountPracticeKey(kind);const raw=read(key);const restored=parsePractice(raw);const parsed=restored&&(kind==='member'||kind==='example')?upgradeSeedClientNames(restored):restored;if(parsed)memory[kind]=parsed;else if(raw){unreadable.add(kind);try{localStorage.setItem(`${key}-recovery`,raw)}catch{protectedStorage.add(kind)}}return parsed}
+function load(kind:AccountKind){if(memory[kind])return memory[kind]!;const key=accountPracticeKey(kind);const raw=read(key);const restored=parsePractice(raw);let parsed=restored&&(kind==='member'||kind==='example')?upgradeSeedClientNames(restored):restored;if(parsed){try{parsed=populateSavedAccount(localStorage,kind,parsed)}catch{/* Keep readable account data when browser storage is unavailable. */}}if(parsed)memory[kind]=parsed;else if(raw){unreadable.add(kind);try{localStorage.setItem(`${key}-recovery`,raw)}catch{protectedStorage.add(kind)}}return parsed}
 
 export function App({data={}}:{data?:ProductData}={}){
   const {locale}=useLocale()
   const [account,setAccount]=useState<AccountKind>(()=>storedAccount(read(keys.session)))
   const [practice,setPractice]=useState<Practice>(()=>load(storedAccount(read(keys.session)))??createEmptyPractice(''))
   const [screen,setScreen]=useState<'auth'|'start'|'workspace'|'client'|'admin'>(()=>new URL(window.location.href).searchParams.has('mode')?'auth':new URL(window.location.href).searchParams.get('surface')==='client'?'client':new URL(window.location.href).searchParams.get('surface')==='admin'?'admin':read(keys.session)&&load(storedAccount(read(keys.session)))?(load(storedAccount(read(keys.session)))!.onboarded?'workspace':'start'):'auth')
-  const [theme,setTheme]=useState<'dark'|'light'>(()=>read('eh-product-theme')==='light'?'light':'dark')
-  function changeTheme(value:'dark'|'light'){setTheme(value);try{localStorage.setItem('eh-product-theme',value)}catch{}}
+  const [theme,changeTheme]=useInterfaceTheme('eh-product-theme')
   function surface(value:'workspace'|'client'|'admin'){const u=new URL(window.location.href);if(value==='workspace'){u.searchParams.delete('surface');u.searchParams.delete('service')}else u.searchParams.set('surface',value);window.history.replaceState(null,'',u);setScreen(value)}
   const [previewServiceId,setPreviewServiceId]=useState<string|undefined>(()=>new URL(window.location.href).searchParams.get('service')||undefined)
   const [clientPreview,setClientPreview]=useState(()=>new URL(window.location.href).searchParams.has('service'))

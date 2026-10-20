@@ -2,19 +2,21 @@
    Product-only opt-in. No landing, Hero, root palette or shared document styles. */
 .ep-root[data-theme] .ep-workspace.eh-hierarchy{--eh-focus-ink:#ebd48b;--eh-caption:14px;--eh-label:12px;--eh-display:clamp(42px,4.3vw,60px);--eh-title:clamp(28px,2.8vw,38px)}
 .ep-root[data-theme=light] .ep-workspace.eh-hierarchy{--eh-focus-ink:#765b20}
-.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-page-heading h1{font-size:var(--eh-title);font-weight:650;line-height:1.18;letter-spacing:-.04em;overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-page-heading h1{font-family:'Auth Vetrino',serif;font-size:var(--eh-title);font-weight:400;line-height:1.2;letter-spacing:-.02em;overflow-wrap:anywhere}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-page-heading{gap:20px}
+/* Dates and reporting periods are the same secondary heading level. */
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-page-heading .ep-page-period{margin:8px 0 0;font:400 14px/1.5 'Auth Manrope',sans-serif;letter-spacing:0;text-transform:none;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-page-period::first-letter{text-transform:uppercase}
 /* Dashboard: the revenue figure leads; schedule and supporting counts remain distinct. */
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-income>strong{font-family:'Auth Vetrino',serif;font-size:var(--eh-display);line-height:1.08;letter-spacing:-.025em;color:var(--eh-focus-ink);font-weight:400}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-income{gap:18px;padding-block:22px}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-income>span{font-size:14px;font-weight:500}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-income>small{font-size:13px;line-height:1.6}
-.ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-today strong{font-size:28px;letter-spacing:-.035em}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-next-meeting time{font-size:28px;line-height:1.15;color:var(--eh-focus-ink)}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-next-meeting strong{font-size:15px}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-next-meeting small{font-size:13px}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-dashboard h2{font-size:18px;letter-spacing:-.02em}
-.ep-root[data-theme] .ep-workspace.eh-hierarchy .pw-welcome .pw-intro h2{font-size:24px;font-weight:550;letter-spacing:-.035em}
+.ep-root[data-theme] .ep-workspace.eh-hierarchy .pw-welcome .pw-intro h2{font-size:20px;font-weight:500;letter-spacing:normal}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-small-metrics strong{font-size:24px}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy :is(.pd-small-metrics small,.pd-wallet small,.pd-activity time,.pd-activity div>span){font-size:12px;line-height:1.55}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .pd-activity strong{font-size:14px}
@@ -41,9 +43,7 @@
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-row-time strong{font-size:20px}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-row-person strong{font-size:15px}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy :is(.td-row-person small,.td-row-time small){font-size:13px;line-height:1.5}
-/* Calendar: neutral totals, readable time, and the selected date as a single gold surface. */
-.ep-root[data-theme] .ep-workspace.eh-hierarchy .cv-period-stat strong{font-size:28px;font-weight:600;letter-spacing:-.035em}
-.ep-root[data-theme] .ep-workspace.eh-hierarchy .cv-period-stat span{font-size:13px;line-height:1.5}
+/* Calendar summary typography lives with its composition in calendar-reference.css. */
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-agenda .ep-cal-agenda-head h2{font-size:32px;font-weight:600;letter-spacing:-.035em}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-year{font-size:15px;font-weight:400;color:var(--muted)}
 .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-time strong{font-size:26px;letter-spacing:-.03em}
@@ -74,8 +74,6 @@
  .ep-root[data-theme] .ep-workspace.eh-hierarchy .td-focus-person h2{font-size:24px}
  .ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income-counts strong{font-size:24px}
  .ep-root[data-theme] .ep-workspace.eh-hierarchy .av-income-counts span{font-size:12px}
- .ep-root[data-theme] .ep-workspace.eh-hierarchy .cv-period-stat strong{font-size:24px}
- .ep-root[data-theme] .ep-workspace.eh-hierarchy .cv-period-stat span{font-size:12px}
  .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-agenda .ep-cal-agenda-head h2{font-size:27px}
  .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-time strong{font-size:22px}
  .ep-root[data-theme] .ep-workspace.eh-hierarchy .ep-cal-event-heading h3{font-size:16px}

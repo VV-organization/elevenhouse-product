@@ -1,5 +1,69 @@
-/* Give every interactive label the same hover treatment across the product. */
-.ep-root :is(a, button):not(:disabled):hover {
-  font-weight: 700 !important;
+/* User's Neon Signage reference: a fine edge and soft light inside the surface,
+   translated to ElevenHouse matte gold. Paint-only feedback: no font or
+   geometry changes. Shared by product, demo chrome and standalone auth.
+   Important paint declarations intentionally beat component hover shadows. */
+:is(.ep-root,.eh-auth,.eh-showcase-shell) {
+  --eh-hover-edge: rgb(226 202 121 / .72);
+  --eh-hover-glow: rgb(226 202 121 / .28);
+  --eh-hover-shine: rgb(255 237 178 / .52);
+  --eh-focus-ring: #e2ca79;
+}
+.ep-root[data-theme=light] {
+  --eh-hover-edge: rgb(144 109 39 / .66);
+  --eh-hover-glow: rgb(181 137 43 / .22);
+  --eh-hover-shine: rgb(255 246 212 / .9);
+  --eh-focus-ring: #896720;
+}
+/* The sidebar and auth keep their navy surfaces in the light workspace. */
+:is(.ep-root .ep-sidebar,.ep-root .eh-auth) {
+  --eh-hover-edge: rgb(226 202 121 / .72);
+  --eh-hover-glow: rgb(226 202 121 / .28);
+  --eh-hover-shine: rgb(255 237 178 / .52);
+  --eh-focus-ring: #e2ca79;
+}
+/* Glow is opt-in for actual surfaces, never inferred from button/link semantics. */
+@media(hover:hover) and (pointer:fine) {
+  :is(.ep-root,.eh-auth,.eh-showcase-shell) :is(a[href],button,summary,[role=button],[role=tab]):not(:disabled):not([aria-disabled=true]) {
+    transition: box-shadow 220ms ease, background-color 160ms ease, border-color 160ms ease;
+  }
+  :is(.ep-root,.eh-auth,.eh-showcase-shell) :is(a[href],button,summary,[role=button],[role=tab]):not(:disabled):not([aria-disabled=true]):hover {
+    text-decoration: none !important;
+  }
+  :is(.ep-root,.eh-auth,.eh-showcase-shell) :is(.ep-button,.ep-icon-button,.eh-auth__primary,.cv-open-slot,.ep-week-meeting,.ep-week-day,.ep-cal-day,.cv-month-day,.cv-week-strip button,.ep-sidebar nav a,.cd-row-actions button,.sc-categories>button,.pd-tools a,[data-hover-surface]):not(:disabled):not([aria-disabled=true]):hover {
+    box-shadow: inset 0 0 0 1px var(--eh-hover-edge), inset 0 1px 3px var(--eh-hover-shine), inset 0 0 16px 2px var(--eh-hover-glow) !important;
+  }
+  /* Text actions get a quiet wash, without an illuminated rectangle. */
+  :is(.ep-root,.eh-auth,.eh-showcase-shell) :is(.ep-text-button,summary,.eh-auth__back,.eh-auth__card-bottom>button):not(:disabled):not([aria-disabled=true]):hover {
+    background-color: color-mix(in srgb,var(--gold,#e2ca79) 8%,transparent);
+    box-shadow: none !important;
+  }
+  /* In lists the row is the surface; names, contacts and dates stay unboxed. */
+  .ep-root :is(.ex-row,.wn-event,.sc-service,.ep-business-service):has(a[href],button):hover {
+    background-color: color-mix(in srgb,var(--gold) 5%,var(--surface));
+  }
+  .ep-root .cd-table :is(.cd-person-button,.cd-appointment,.cd-table-stage,.cd-cell-contacts a):hover {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+:is(.ep-root,.eh-auth,.eh-showcase-shell) :is(a[href],button,summary,[role=button],[role=tab]):not(:disabled):not([aria-disabled=true]):focus-visible {
+  outline: 2px solid var(--eh-focus-ring) !important;
+  outline-offset: 3px !important;
   text-decoration: none !important;
 }
+@media(prefers-reduced-motion:reduce) {
+  :is(.ep-root,.eh-auth,.eh-showcase-shell) :is(a[href],button,summary,[role=button],[role=tab]) {
+    transition: none !important;
+  }
+}
+@media(forced-colors:active) {
+  :is(.ep-root,.eh-auth,.eh-showcase-shell) :is(a[href],button,summary,[role=button],[role=tab]):not(:disabled):not([aria-disabled=true]):is(:hover,:focus-visible) {
+    outline: 2px solid Highlight !important;
+    outline-offset: 3px !important;
+  }
+}
+
+/* Scroll regions retain keyboard focus, but never frame the entire table on a pointer click. */
+.ep-root[data-theme] .ep-workspace .cd-table-scroll:focus:not(:focus-visible),
+.ep-root[data-theme] .ep-workspace .cd-table-scroll:has(:focus-visible) {outline:none}

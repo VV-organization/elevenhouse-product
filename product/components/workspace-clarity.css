@@ -36,7 +36,7 @@
  padding: 12px; margin-bottom: 12px; border: 0; border-radius: 8px;
  background: transparent; color: #c3cad5; text-align: left; font-size: 14px;
 }
-.ep-root .ep-sidebar-help:hover { background: #ffffff0d; color: #f2f1eb; }
+.ep-root .ep-sidebar-help:hover { background: #ffffff0d; }
 @media(min-width:801px) {
  .ep-root .ep-topbar { display: none; }
  .ep-root .ep-sidebar .ep-brand { margin-bottom: 32px; }

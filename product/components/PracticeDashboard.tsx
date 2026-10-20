@@ -15,6 +15,8 @@ import {MEMBER_SCOPE} from '../state/memberAccount'
 import {memberPayments} from '../state/memberCore'
 import {Icon} from './Icon'
 import './practice-dashboard.css'
+import './dashboard-light-material.css'
+import {ConsultationActivity} from './ConsultationActivity'
 
 function dashboardHref(page:string,params:Record<string,string>={}){const url=new URL(window.location.href);url.hash=page;Object.entries(params).forEach(([key,value])=>url.searchParams.set(key,value));return url.toString()}
 
@@ -34,12 +36,11 @@ export function PracticeDashboard({practice,onNew,onMeeting}:Props){
  const requests=orders.filter(o=>o.status==='requested'||o.status==='cancellation-requested')
  const disputes=cases.filter(c=>c.status==='prepared'||c.status==='reviewing')
  const agenda=practice.appointments.filter(a=>a.date===TODAY).sort((a,b)=>a.time.localeCompare(b.time))
- const monthLabel=new Intl.DateTimeFormat(localeTag(),{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(TODAY+'T12:00:00Z'))
  const activity=[...payments.filter(p=>p.status!=='pending').map(p=>({id:'payment-'+p.id,date:paymentDate(p),amount:money(p.amount),kind:p.status,title:(practice.clients.find(c=>c.id===p.clientId)?.name||tr('Клиент','Client')),detail:p.status==='paid'?tr('Оплата отмечена','Payment recorded'):tr('Возврат отмечен','Refund recorded'),page:'finance'})),...orders.map(o=>({id:'order-'+o.id,date:o.reviewedAt||o.createdAt,amount:'',kind:'request',title:o.title,detail:tr('Заявка клиента','Client request'),page:'services'}))].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5)
  const appointmentLabel=tr(agenda.length%10===1&&agenda.length%100!==11?'встреча':agenda.length%10>=2&&agenda.length%10<=4&&(agenda.length%100<12||agenda.length%100>14)?'встречи':'встреч',agenda.length===1?'appointment':'appointments')
  const next=agenda.find(a=>a.status==='confirmed')
  return <div className="pd-dashboard">
-  <header className="ep-page-heading"><div><h1>{tr('Дашборд','Dashboard')}</h1><p className="pd-period">{monthLabel}</p></div><button className="ep-button ep-button--primary" onClick={onNew}><Icon name="plus"/>{tr('Записать на встречу','Book an appointment')}</button></header>
+  <header className="ep-page-heading"><h1>{tr('Дашборд','Dashboard')}</h1><button className="ep-button ep-button--primary" onClick={onNew}><Icon name="plus"/>{tr('Записать на встречу','Book an appointment')}</button></header>
   {(paymentsFailed||walletFailed||reviewsFailed)&&<Notice error>{tr('Не удалось сохранить часть данных обзора. Проверьте соответствующий раздел.','Some overview data could not be saved. Check the relevant section.')}</Notice>}
   <PracticeWelcome practice={practice}/>
   <div className="pd-summary-grid">
@@ -49,12 +50,12 @@ export function PracticeDashboard({practice,onNew,onMeeting}:Props){
    </section>
    <section className="pd-work-summary" aria-label={tr('Работа с клиентами','Client work')}>
     <a className="pd-today" href="#today"><span>{tr('Сегодня','Today')}<strong>{agenda.length} {appointmentLabel}</strong></span><Icon name="arrow" size={18}/></a>
-    {next?<button className="pd-next-meeting" onClick={()=>onMeeting(next.id)}><time>{next.time}</time><span><strong>{practice.clients.find(c=>c.id===next.clientId)?.name||tr('Клиент','Client')}</strong><small>{next.title}</small></span><Icon name="arrow" size={16}/></button>:<p className="pd-empty-day">{tr('Нет запланированных встреч на сегодня','No appointments scheduled today')}</p>}
+    {next?<button className="pd-next-meeting" onClick={()=>onMeeting(next.id)}><span className="pd-meeting-time"><time dateTime={`${next.date}T${next.time}`}>{next.time}</time><small>{next.duration} {tr('мин','min')}</small></span><span className="pd-meeting-person"><strong>{practice.clients.find(c=>c.id===next.clientId)?.name||tr('Клиент','Client')}</strong><small>{next.title}</small></span><Icon name="arrow" size={16}/></button>:<p className="pd-empty-day">{tr('Нет запланированных встреч на сегодня','No appointments scheduled today')}</p>}
     <a className="pd-client-count" href="#clients"><Icon name="clients" size={18}/><span>{tr('Клиенты','Clients')}</span><strong>{practice.clients.length}</strong><Icon name="arrow" size={16}/></a>
    </section>
    <section className="pd-attention" aria-labelledby="dashboard-attention"><h2 id="dashboard-attention">{tr('Требуют внимания','Needs attention')}<span>{requests.length+disputes.length}</span></h2>
     <div className="pd-decisions">{requests.length>0&&<a href={dashboardHref('services',{requests:'all'})}><span>{tr('Заявки клиентов','Client requests')}<b>{requests.length}</b></span><Icon name="arrow" size={16}/></a>}{disputes.length>0&&<a href={dashboardHref('finance',{financeView:'refunds'})}><span>{tr('Споры и возвраты','Disputes and refunds')}<b>{disputes.length}</b></span><Icon name="arrow" size={16}/></a>}{!requests.length&&!disputes.length&&<p><Icon name="check" size={18}/>{tr('Новых заявок и споров нет','No new requests or disputes')}</p>}</div>
-    <div className="pd-small-metrics"><a href="#analytics"><span>{tr('Проведено консультаций','Consultations completed')}<small>{tr('За этот месяц','This month')}</small></span><strong>{completed}</strong></a><a href="#reviews"><span>{tr('Рейтинг','Rating')}<small>{ratingCount?`${ratingCount} ${tr('опубликованных оценок','published ratings')}`:tr('Пока нет оценок','No ratings yet')}</small></span><strong>{average===null?'—':average.toLocaleString(localeTag(),{maximumFractionDigits:1})+' / 5'}</strong></a></div>
+    <div className="pd-small-metrics"><a className="pd-consultation-summary" href="#analytics"><span>{tr('Проведено консультаций','Consultations completed')}<small>{tr('За этот месяц','This month')}</small></span><strong>{completed}</strong><ConsultationActivity appointments={practice.appointments} today={TODAY}/></a><a href="#reviews"><span>{tr('Рейтинг','Rating')}<small>{ratingCount?`${ratingCount} ${tr('опубликованных оценок','published ratings')}`:tr('Пока нет оценок','No ratings yet')}</small></span><strong>{average===null?'—':average.toLocaleString(localeTag(),{maximumFractionDigits:1})+' / 5'}</strong></a></div>
    </section>
   </div>
   <div className="pd-details-grid">

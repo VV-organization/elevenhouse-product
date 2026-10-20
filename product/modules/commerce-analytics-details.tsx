@@ -8,10 +8,10 @@ import {goalError,goalProgress,detailedAnalytics,type AnalyticsGoal,type Analyti
 import type {Practice} from '../state/model'
 import type {Payment} from './ServicesFinance'
 import {practiceAnalytics,type AnalyticsEvidence} from './commerce-analytics-model'
-export function AnalyticsDetails({payments,practice,range,evidence}:{payments:Payment[];practice:Practice;range:{from:string;to:string};evidence:AnalyticsEvidence}){
+export function AnalyticsDetails({payments,practice,range,evidence,initialTab='goals'}:{initialTab?:string;payments:Payment[];practice:Practice;range:{from:string;to:string};evidence:AnalyticsEvidence}){
  const [extra]=useModuleState<AnalyticsExtraEvidence>('analytics-extra-evidence',practice.isExample,()=>({}))
  const [goals,setGoals,failed]=useModuleState<AnalyticsGoal[]>('analytics-goals',practice.isExample,()=>[])
- const [tab,setTab]=useState('goals'),[period,setPeriod]=useState<'month'|'year'>('month'),[month,setMonth]=useState(range.to.slice(0,7)),[target,setTarget]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState('')
+ const [tab,setTab]=useState(initialTab),[period,setPeriod]=useState<'month'|'year'>('month'),[month,setMonth]=useState(range.to.slice(0,7)),[target,setTarget]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState('')
  const start=period==='year'?month.slice(0,4)+'-01-01':month+'-01',goal=goals.find(g=>g.period===period&&g.start===start),progress=goal?goalProgress(goal,payments):null
  const data=detailedAnalytics(payments,practice,range,evidence,extra),base=practiceAnalytics(payments,practice,range,evidence)
  const previous=previousRange(range),prior=detailedAnalytics(payments,practice,previous,evidence,extra),priorBase=practiceAnalytics(payments,practice,previous,evidence)

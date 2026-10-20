@@ -9,8 +9,13 @@
 .ep-root[data-theme] .rv-column{position:relative;display:block;flex:1;min-width:0;border:0;padding:0;background:transparent;color:var(--muted)}
 .ep-root[data-theme] .rv-column svg{display:block;width:100%;height:100%;overflow:visible;fill:var(--chart-color)}
 .ep-root[data-theme] .rv-column.is-peak svg{fill:var(--chart-peak)}
-.ep-root[data-theme] .rv-column:hover,.ep-root[data-theme] .rv-column[aria-pressed=true]{background:color-mix(in srgb,var(--navy) 7%,transparent)}
-.ep-root[data-theme] .rv-column:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* Chart feedback belongs to the bar, not the full-height hit target. */
+.ep-root[data-theme] .rv-chart .rv-columns .rv-column:is(:hover,:focus-visible,[aria-pressed=true]){background:transparent;box-shadow:none!important;outline:none!important}
+.ep-root[data-theme] .rv-chart .rv-column:is(:hover,:focus-visible,[aria-pressed=true]) svg{fill:var(--chart-peak)}
+.ep-root[data-theme] .rv-chart .rv-column.is-peak:is(:hover,:focus-visible,[aria-pressed=true]) svg{fill:color-mix(in srgb,var(--chart-peak) 75%,var(--navy))}
+.ep-root[data-theme] .rv-chart .rv-column:focus-visible rect{stroke:var(--navy);stroke-width:2px;vector-effect:non-scaling-stroke}
+.ep-root[data-theme] .rv-chart .rv-column[data-empty=true]:is(:hover,:focus-visible,[aria-pressed=true]) rect{y:118px;height:2px}
+@media(forced-colors:active){.ep-root[data-theme] .rv-chart .rv-column:focus-visible rect{fill:Highlight;stroke:CanvasText}}
 .ep-root[data-theme] .rv-tick{position:absolute;top:calc(100% + 24px);left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;line-height:1.2}
 .ep-root[data-theme] .rv-column:first-child .rv-tick{left:0;transform:none}
 .ep-root[data-theme] .rv-column:last-child .rv-tick{left:auto;right:0;transform:none}

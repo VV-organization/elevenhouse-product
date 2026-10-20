@@ -1,5 +1,5 @@
 /* Supplied Fintech CRM reference: floating notification panel, unread surfaces and event symbols. */
-.ep-root[data-theme] .ep-workspace .ep-main dialog.ep-dialog.ep-dialog--drawer.wu-notification-dialog{inset:84px 24px auto auto;width:min(460px,calc(100vw - 48px));height:min(760px,calc(100dvh - 108px));max-height:none;padding:0;border-radius:22px;background:var(--surface-raised,var(--ivory));overflow:hidden}
+.ep-root[data-theme] .ep-workspace .ep-main dialog.ep-dialog.ep-dialog--drawer.wu-notification-dialog{inset:84px 24px auto auto;width:min(460px,calc(100vw - 48px));height:min(760px,calc(100dvh - 108px));max-height:none;padding:0;border-radius:22px;background:var(--eh-drawer-surface,var(--surface-raised,var(--ivory)));overflow:hidden}
 .ep-root[data-theme] .ep-workspace .ep-main dialog.wu-notification-dialog[open]{display:flex;flex-direction:column}
 .ep-root[data-theme] .ep-workspace .ep-main dialog.wu-notification-dialog .ep-dialog-head{position:static;background:transparent;border:0;padding:22px 24px 12px;flex-shrink:0}
 .ep-root[data-theme] .ep-workspace .ep-main dialog.wu-notification-dialog .ep-dialog-head h2{font-size:22px;line-height:1.3}
@@ -8,11 +8,9 @@
 .ep-root[data-theme] .ep-workspace .wn-tabs button{display:flex;align-items:center;gap:8px;padding:10px 14px;min-height:44px;border:0;border-radius:24px;background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:500}
 .ep-root[data-theme] .ep-workspace .wn-tabs button[aria-pressed=true]{background:var(--surface);color:var(--navy);font-weight:700}
 .ep-root[data-theme] .ep-workspace .wn-tabs button span{font-size:11px;min-width:20px;text-align:center;font-variant-numeric:tabular-nums}
-.ep-root[data-theme] .ep-workspace .wn-tabs button:hover{color:var(--navy);font-weight:700}
 .ep-root[data-theme] .ep-workspace .wn-filters{margin-top:6px;font-size:12px;color:var(--muted)}
 .ep-root[data-theme] .ep-workspace .wn-filters summary{display:flex;align-items:center;gap:8px;cursor:pointer;min-height:36px;list-style:none}
 .ep-root[data-theme] .ep-workspace .wn-filters summary::-webkit-details-marker{display:none}
-.ep-root[data-theme] .ep-workspace .wn-filters summary:hover{font-weight:600}
 .ep-root[data-theme] .ep-workspace .wn-filters summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 .ep-root[data-theme] .ep-workspace .wn-filter-active{margin-left:auto;color:var(--navy);font-weight:600}
 .ep-root[data-theme] .ep-workspace .wn-filters>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:8px 0}
@@ -31,12 +29,10 @@
 .ep-root[data-theme] .ep-workspace .wn-event-meta{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-size:11px;line-height:1.4;color:var(--muted)}
 .ep-root[data-theme] .ep-workspace .wn-event-meta>span{font-weight:600;color:var(--navy)}
 .ep-root[data-theme] .ep-workspace .wn-event-copy>strong{font-size:14px;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
-.ep-root[data-theme] .ep-workspace .wn-event-open:hover strong{font-weight:700}
 .ep-root[data-theme] .ep-workspace .wn-event-detail{font-size:13px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
 .ep-root[data-theme] .ep-workspace .wn-new-dot{width:7px;height:7px;border-radius:50%;flex:0 0 7px;margin-top:4px;background:var(--data-series-2)}
 .ep-root[data-theme] .ep-workspace .wn-mark-read{display:flex;align-items:center;gap:6px;margin:8px 0 -4px 52px;padding:6px 8px;min-height:32px;font-size:11px;color:var(--muted);border-radius:6px}
-.ep-root[data-theme] .ep-workspace .wn-mark-read:hover{font-weight:600;color:var(--navy)}
-.ep-root[data-theme] .ep-workspace .wn-footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 12px;padding:12px 24px max(12px,env(safe-area-inset-bottom));border-top:1px solid var(--line);flex-shrink:0;font-size:11px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .wn-footer{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 12px;padding:12px 24px max(12px,env(safe-area-inset-bottom));border-top:1px solid var(--line);flex-shrink:0;font-size:11px;color:var(--muted)}
 .ep-root[data-theme] .ep-workspace .wn-footer button{display:flex;align-items:center;gap:8px;min-height:44px;font-size:11px;white-space:normal;text-align:left}
 .ep-root[data-theme] .ep-workspace .wn-footer button:disabled{opacity:.45;cursor:default}
 .ep-root[data-theme] .ep-workspace .wn-more{display:block;min-height:44px;margin:8px auto;padding:8px 16px}
@@ -54,3 +50,19 @@
  .ep-root[data-theme] .ep-workspace .wn-footer{padding-inline:20px}
 }
 @media(prefers-reduced-motion:reduce){.ep-root[data-theme] .ep-workspace .wn-event{transition:none}}
+
+/* Notification rows share the common frosted drawer material. */
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .ep-root[data-theme] .ep-workspace .wu-notification-dialog .wn-event.is-unread{
+  background:color-mix(in srgb,var(--surface) 58%,transparent);
+ }
+ .ep-root[data-theme] .ep-workspace .wu-notification-dialog .wn-event:hover,
+ .ep-root[data-theme] .ep-workspace .wu-notification-dialog .wn-event:focus-within{
+  background:color-mix(in srgb,var(--surface) 76%,transparent);
+ }
+}
+@media(prefers-reduced-transparency:reduce){
+ .ep-root[data-theme] .ep-workspace .wu-notification-dialog .wn-event.is-unread,
+ .ep-root[data-theme] .ep-workspace .wu-notification-dialog .wn-event:hover,
+ .ep-root[data-theme] .ep-workspace .wu-notification-dialog .wn-event:focus-within{background:var(--surface)}
+}

@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-16",
+  "scope": "New account registration through first completed consultation; isolated localhost:8771 browser profiles",
+  "viewports": ["390x844", "320px width", "390x600"],
+  "verified": [
+    "Registration validation, invalid OTP and successful sign-in",
+    "Both entry paths: booking first and entering birth data first",
+    "Required client surname; client carried into appointment",
+    "Birth data and preparation notes retained",
+    "Consultation outcome saved and meeting completed",
+    "Follow-up requires explicit date and time",
+    "Saved meeting revealed in calendar",
+    "Pristine cancellation has no warning; changed forms retain discard protection",
+    "Learning dismissal, replay and nested-form continuity",
+    "Reload and repeat login persistence",
+    "Separate email accounts retain separate local workspaces",
+    "Invalid collapsed birth field expands and receives focus",
+    "Existing Anna profile remains populated with 15 clients"
+  ],
+  "checks": {
+    "build": "passed; existing Vite warning for JavaScript chunk above 500 kB",
+    "typescript": "passed",
+    "vitest": "145 tests in 21 files passed",
+    "browserConsoleErrors": []
+  },
+  "limits": [
+    "Browser viewport checks, not physical mobile devices",
+    "Backend, actual OTP delivery and calculation engine are outside this frontend audit",
+    "Legacy mine storage remains intact but cannot be assigned automatically to an email because it did not retain an identity. Anna keeps her original storage key."
+  ],
+  "evidence": ["completed-390.png", "booking-result-320.png"]
+}

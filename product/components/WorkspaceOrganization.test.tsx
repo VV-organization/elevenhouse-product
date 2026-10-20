@@ -46,7 +46,11 @@ describe('context and role organization',()=>{
   setup('?clientPreview=marina#clients')
   const practice=createExamplePractice(),client=practice.clients.find(c=>c.id==='marina')!
   const html=renderToStaticMarkup(<ClientDirectory practice={practice} onChange={noop} onOpen={noop} onNew={noop}/>)
-  for(const value of [client.notes,client.request,client.birthPlace,'Открыть карточку клиента','Карта и расчёты','Заметки и итоги','К списку клиентов'])expect(html).toContain(value)
+  for(const value of [client.notes,client.request,client.birthPlace,'Открыть карточку клиента','Карта и расчёты','Заметки и итоги'])expect(html).toContain(value)
+  expect(html).toContain('ep-dialog--drawer')
+  expect(html).toContain('aria-label="Закрыть"')
+  expect(html).toContain('class="cd-workbench"')
+  expect(html).not.toContain('has-detail')
   expect(html).toContain('aria-label="Изменить этап: Марина Иванова"')
  })
  it('makes account capabilities discoverable while showing only the chosen work area',()=>{

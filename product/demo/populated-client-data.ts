@@ -1,0 +1,16 @@
+import type {PortalContentData} from '../modules/portal-content-model'
+import type {PortalBillingData} from '../modules/portal-billing-model'
+/** Fictional presentation data, supplied only to the isolated demo client screen. */
+export const populatedClientContent:PortalContentData={clientId:'marina',specialistId:'current',posts:[
+ {id:'demo-post-1',title:'Один главный вопрос перед встречей',summary:'Как выбрать тему, которая сейчас важнее всего.',body:'Запишите все вопросы, с которыми хотите прийти. Затем выберите один: ответ на какой из них поможет вам сделать ближайший шаг? Остальные сохраним для следующих встреч.',kind:'tip',publishedAt:'2026-10-10T09:00:00.000Z',status:'published',audience:'public'},
+ {id:'demo-post-2',title:'Наблюдения за рабочим ритмом',summary:'Небольшая практика для участников клуба.',body:'В течение трёх дней отметьте одну задачу, после которой осталось больше энергии, и одну, после которой понадобилась пауза. Сравните не количество выполненного, а условия работы: время, окружение и степень самостоятельности.',kind:'note',publishedAt:'2026-10-12T09:00:00.000Z',status:'published',audience:'subscribers'},
+ {id:'demo-post-3',title:'Подведение итогов октября',summary:'Вопросы для следующей встречи участников.',body:'Что стало понятнее за этот месяц? Что хочется сохранить? Какой один эксперимент вы готовы продолжить в ноябре? Запишите ответы в дневник, чтобы вернуться к ним на встрече.',kind:'announcement',publishedAt:'2026-10-14T09:00:00.000Z',status:'published',audience:'subscribers'},
+ ],materials:[
+ {id:'demo-material-1',title:'После консультации: профессиональные приоритеты',kind:'text',createdAt:'2026-09-24T14:00:00.000Z',description:'Личное резюме встречи',body:'Важно сохранить команду и проверить интерес к обучению коллег. Первый шаг — обсудить с руководителем пробный месяц и заранее обозначить границы нагрузки. Открытый вопрос: какие текущие задачи можно передать?'},
+ {id:'demo-material-2',title:'Три вопроса к пробному месяцу',kind:'text',createdAt:'2026-10-12T14:00:00.000Z',description:'Для подготовки к следующей встрече',body:'1. Какие обязанности входят в пробный проект?\n2. Что поможет заметить перегрузку до того, как она станет привычной?\n3. Когда и по каким признакам будем оценивать результат?'},
+ {id:'demo-material-3',title:'Итоги месяца без списка достижений',kind:'text',createdAt:'2026-10-14T14:00:00.000Z',description:'Практика для самостоятельной работы',body:'Выберите приятное, трудное и неожиданное событие. Для каждого запишите факты, свою реакцию и то, что стало понятнее о ваших потребностях. Завершите одной реалистичной договорённостью с собой.'},
+ ],access:[
+ ...['demo-post-2','demo-post-3'].map(id=>({id:`access-${id}`,target:'post' as const,contentId:id,status:'granted' as const})),
+ ...['demo-material-1','demo-material-2','demo-material-3'].map(id=>({id:`access-${id}`,target:'material' as const,contentId:id,status:'granted' as const})),
+ ]}
+export const populatedClientBilling:PortalBillingData={clientId:'marina',specialistId:'current',subscriptions:[{id:'demo-subscription-marina',serviceId:'monthly',title:'Клуб наблюдений на месяц',amount:3900,period:'month',status:'active',autoRenew:false,renewsAt:'2026-11-10',plans:[{id:'monthly',title:'Месяц участия',amount:3900,period:'month'},{id:'yearly',title:'Год участия',amount:39000,period:'year'}]}]}

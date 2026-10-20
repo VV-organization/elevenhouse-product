@@ -11,7 +11,6 @@
 .ep-root[data-theme] .ep-workspace .si-symbol{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,var(--data-series-4) 22%,var(--surface-raised));color:var(--navy);font-size:13px;font-weight:600}
 .ep-root[data-theme] .ep-workspace .si-name{display:grid;gap:6px;min-width:0}
 .ep-root[data-theme] .ep-workspace .si-name>strong{font-size:15px;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
-.ep-root[data-theme] .ep-workspace .si-row:hover .si-name>strong{font-weight:700}
 .ep-root[data-theme] .ep-workspace .si-name>span{font-size:12px;line-height:1.5;color:var(--muted)}
 .ep-root[data-theme] .ep-workspace .si-name>small{font-size:10px;font-weight:600;line-height:1.4}
 .ep-root[data-theme] .ep-workspace .si-value{display:grid;justify-items:end;gap:7px;white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -34,7 +33,6 @@
 .ep-root[data-theme] .ep-workspace .si-payments>button>span{display:grid;gap:6px;min-width:0;flex:1}
 .ep-root[data-theme] .ep-workspace .si-payments>button>span:nth-child(2){text-align:right;flex:0 0 auto}
 .ep-root[data-theme] .ep-workspace .si-payments strong{font-size:14px;font-weight:600;overflow-wrap:anywhere}
-.ep-root[data-theme] .ep-workspace .si-payments>button:hover strong{font-weight:700}
 .ep-root[data-theme] .ep-workspace .si-payments>button>span>span{font-size:11px;color:var(--muted);line-height:1.5}
 .ep-root[data-theme] .ep-workspace .si-payments>.ep-icon{flex-shrink:0}
 @media(max-width:600px){

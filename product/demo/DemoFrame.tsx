@@ -1,3 +1,6 @@
+import {populatedClientContent,populatedClientBilling} from './populated-client-data'
+import {populateShowcaseAccount} from '../state/populatedAccount'
+import {useInterfaceTheme} from '../state/interface-theme'
 import {useEffect,useState} from 'react'
 import {AuthPage} from '../auth/AuthPage'
 import {PracticeStart,type StartIntent} from '../components/PracticeStart'
@@ -34,11 +37,11 @@ export function DemoFrame({view}:{view:ShowcaseView}){
 function DemoScreen({view}:{view:ShowcaseView}){
  useLocale()
  const fresh=view==='onboarding'||view==='register'
- const [practice,setPractice]=useState<Practice>(()=>parsePractice(read(showcaseKey(view,'practice')))??(fresh?createEmptyPractice('Анна'):createMemberPractice()))
- const [theme,setTheme]=useState<'dark'|'light'>(()=>read(showcaseKey(view,'theme'))==='light'?'light':'dark')
+ const [practice,setPractice]=useState<Practice>(()=>{const saved=parsePractice(read(showcaseKey(view,'practice')))??(fresh?createEmptyPractice('Анна'):createMemberPractice());try{return populateShowcaseAccount(localStorage,view,saved)}catch{return saved}})
+ const [theme,setTheme]=useInterfaceTheme(showcaseKey(view,'theme'))
  const [action,setAction]=useState(''),[failed,setFailed]=useState(false)
  const [stage,setStage]=useState<'start'|'workspace'>(()=>practice.onboarded?'workspace':'start')
- useEffect(()=>{try{localStorage.setItem(showcaseKey(view,'practice'),JSON.stringify(practice));localStorage.setItem(showcaseKey(view,'theme'),theme);setFailed(false)}catch{setFailed(true)}},[practice,theme,view])
+ useEffect(()=>{try{localStorage.setItem(showcaseKey(view,'practice'),JSON.stringify(practice));setFailed(false)}catch{setFailed(true)}},[practice,view])
  useEffect(()=>{document.title=tr('Демонстрация — ElevenHouse','Presentation — ElevenHouse')},[])
  function begin(intent:StartIntent){setPractice(p=>({...p,onboarded:true}));setStage('workspace');window.location.hash=intent===null?'today':intent==='calculate'?'tools':'calendar';setAction(intent===null?'':intent==='calculate'?'calculate':'appointment')}
  function registrationDone(name:string,client:boolean,mode:'register'|'login'){
@@ -49,6 +52,6 @@ function DemoScreen({view}:{view:ShowcaseView}){
  }
  return <ModuleScopeContext.Provider value={showcaseScope(view)}><ModuleSeedContext.Provider value={fresh?null:'member'}><div className="ep-root eh-demo-screen" data-theme={theme} onInvalidCapture={localizeInvalidControl} onInputCapture={clearLocalizedValidity} onChangeCapture={clearLocalizedValidity}>
  {failed&&<p role="alert" className="ep-storage-warning">{tr('Демоизменения не сохранены. Проверьте доступ к хранилищу браузера.','Demo changes were not saved. Check browser storage access.')}</p>}
- {view==='register'||view==='register-client'?<AuthPage initialMode="register" audience={view==='register-client'?'client':'practitioner'} onAuthenticated={identity=>registrationDone(identity.name,view==='register-client',identity.mode)}/>:view==='onboarding'&&stage==='start'?<PracticeStart name={practice.profile.name} onBegin={begin} onLogout={()=>showScreen('register')}/>:view==='client'?<><div className="ep-surface-language"><LanguageControl/></div><ClientPortal practice={practice} clientId="marina" initialServiceId={new URLSearchParams(window.location.search).get('service')||undefined} onChangePractice={setPractice} onReturn={()=>showScreen('workspace')}/></>:view==='admin'?<><div className="ep-surface-language"><LanguageControl/></div><Admin data={showcaseAdminData} onReturn={()=>showScreen('workspace')}/></>:view==='page'?<PresentationPage/>:<Workspace data={{}} practice={practice} onChange={setPractice} theme={theme} onThemeChange={setTheme} onLogout={()=>showScreen('register')} onClientPreview={id=>showScreen('client',id)} initialAction={action} clearInitialAction={()=>setAction('')}/>}
+ {view==='register'||view==='register-client'?<AuthPage initialMode="register" audience={view==='register-client'?'client':'practitioner'} onAuthenticated={identity=>registrationDone(identity.name,view==='register-client',identity.mode)}/>:view==='onboarding'&&stage==='start'?<PracticeStart name={practice.profile.name} onBegin={begin} onLogout={()=>showScreen('register')}/>:view==='client'?<><div className="ep-surface-language"><LanguageControl/></div><ClientPortal contentData={populatedClientContent} billingData={populatedClientBilling} practice={practice} clientId="marina" initialServiceId={new URLSearchParams(window.location.search).get('service')||undefined} onChangePractice={setPractice} onReturn={()=>showScreen('workspace')}/></>:view==='admin'?<><div className="ep-surface-language"><LanguageControl/></div><Admin data={showcaseAdminData} onReturn={()=>showScreen('workspace')}/></>:view==='page'?<PresentationPage/>:<Workspace data={{}} practice={practice} onChange={setPractice} theme={theme} onThemeChange={setTheme} onLogout={()=>showScreen('register')} onClientPreview={id=>showScreen('client',id)} initialAction={action} clearInitialAction={()=>setAction('')}/>}
  </div></ModuleSeedContext.Provider></ModuleScopeContext.Provider>
 }

@@ -1,4 +1,5 @@
 import type { Appointment, Client, Practice } from './model'
+import {commerceDefaults} from './commerce-model'
 import type { Payment, Service } from '../modules/ServicesFinance'
 
 export const memberServices: Service[] = [
@@ -8,6 +9,11 @@ export const memberServices: Service[] = [
   { id: 'solar', name: 'Личный год', description: 'Обсудим приоритеты нового личного года и распределим внимание между работой, отношениями и восстановлением.', price: 7900, duration: 90, includes: ['Подготовка карты года', 'Онлайн-встреча', 'Календарь тем и вопросов на год', 'Письменное резюме'], status: 'available' },
   { id: 'career', name: 'Профессиональное направление', description: 'Исследуем подходящий ритм работы, профессиональные интересы и условия, в которых вам легче проявлять свои способности.', price: 6500, duration: 60, includes: ['Предварительная анкета', 'Онлайн-встреча', 'Карта профессиональных приоритетов', 'План первых шагов'], status: 'available' },
   { id: 'relocation', name: 'Переезд и новая среда', description: 'Сравним ваши ожидания от переезда и обсудим, как поддержать себя в период смены города и привычного окружения.', price: 6900, duration: 75, includes: ['Разбор двух выбранных городов', 'Онлайн-встреча', 'Список вопросов для принятия решения', 'Письменное резюме'], status: 'available' },
+  {id:'support-pack',name:'Три встречи для нового этапа',description:'Последовательная работа с одним запросом: выбор направления, первые действия и разбор результата.',price:13230,duration:60,includes:['Три встречи по 60 минут','Заметки после каждой встречи','Практики между встречами'],status:'available',commerce:{...commerceDefaults(4900),sale:'pack',packCount:3,unitPrice:4900,packDiscount:10}},
+  {id:'monthly',name:'Клуб наблюдений на месяц',description:'Тематические материалы и письменные ответы на вопросы в течение месяца.',price:3900,duration:0,includes:['Четыре тематических материала','Обсуждение в кабинете','Итоги месяца'],status:'available',commerce:{...commerceDefaults(3900),sale:'subscription',formats:['text','channel'],timing:'instant',access:['journal','materials'],scope:'Материалы и обсуждение на один месяц'}},
+  {id:'intro',name:'Знакомство и выбор формата',description:'Коротко обсудим запрос и подберём подходящий формат работы.',price:0,duration:20,includes:['Знакомство','Согласование запроса'],status:'available',commerce:{...commerceDefaults(0),sale:'free'}},
+  {id:'year-workbook',name:'Рабочая тетрадь «Мой следующий год»',description:'Вопросы для подведения итогов и выбора личных приоритетов.',price:1900,duration:0,includes:['Тетрадь для самостоятельной работы','Примеры заполнения'],status:'draft',commerce:{...commerceDefaults(1900),formats:['file'],timing:'instant'}},
+  {id:'summer-review',name:'Итоги лета',description:'Сезонная встреча о результатах и дальнейших планах.',price:3900,duration:45,includes:['Встреча','Краткое резюме'],status:'draft',archived:true},
 ]
 
 const clients: Client[] = [
@@ -26,6 +32,15 @@ const clients: Client[] = [
   { id: 'victor', name: 'Виктор Кузнецов', birthDate: '1977-03-08', birthTime: '', birthPlace: 'Уфа', unknownTime: true, request: 'Переход от управления командой к собственной экспертной работе', notes: 'Хочет сократить административную нагрузку и больше работать с содержательными задачами. Время рождения неизвестно; заранее обсудили ограничения разбора и сосредоточились на запросе клиента.\n\nВ сентябре договорился о передаче части задач заместителю. Сейчас собирает обратную связь и проверяет, сколько времени действительно освободилось. Предпочитает встречи раз в месяц и конкретное письменное резюме.', updatedAt: '2026-10-02T14:00:00.000Z' },
   { id: 'alina', name: 'Алина Фёдорова', birthDate: '1998-07-04', birthTime: '09:55', birthPlace: 'Краснодар', unknownTime: false, request: 'Адаптация к самостоятельной жизни в новом городе', notes: 'Переехала в Санкт-Петербург летом. Основной запрос связан с поиском своего окружения и устойчивого распорядка. На консультациях отделяем нормальную неопределённость перемен от необходимости срочно всё решить.\n\nЗа сентябрь нашла удобное место для работы и вернулась к занятиям танцами. В дневнике отмечает, какие контакты дают чувство принадлежности. На следующей встрече обсудить, что уже стало привычным и чего пока не хватает.', updatedAt: '2026-10-12T17:00:00.000Z' },
   { id: 'roman', name: 'Роман Захаров', birthDate: '1993-11-19', birthTime: '13:25', birthPlace: 'Томск', unknownTime: false, request: 'Развитие личного проекта без постоянного сравнения с другими', notes: 'Развивает образовательный блог параллельно основной работе. Важный повторяющийся мотив — обесценивание небольших результатов на фоне чужих достижений.\n\nДоговорились ограничить число задач на неделю и вести список завершённого. В октябре подготовил первый открытый материал и получил обратную связь. Следующая встреча посвящена выбору устойчивого формата публикаций и личным критериям успеха.', updatedAt: '2026-10-14T08:50:00.000Z' },
+  {"id": "vera", "name": "Вера Никитина", "birthDate": "1986-04-12", "birthTime": "08:15", "birthPlace": "Москва", "unknownTime": false, "request": "Возвращение к творческому проекту", "notes": "Хочет выделить два вечера в неделю для авторского проекта.", "updatedAt": "2026-10-14T12:00:00.000Z"},
+  {"id": "mikhail", "name": "Михаил Андреев", "birthDate": "1980-08-03", "birthTime": "11:20", "birthPlace": "Казань", "unknownTime": false, "request": "Запуск небольшого семейного дела", "notes": "Собрал первые вопросы для обсуждения распределения ролей.", "updatedAt": "2026-10-14T12:00:00.000Z"},
+  {"id": "daria", "name": "Дарья Попова", "birthDate": "1995-12-08", "birthTime": "17:40", "birthPlace": "Пермь", "unknownTime": false, "request": "Смена рабочего графика и обучение", "notes": "Выбрала вечернюю программу. Важно оценить нагрузку до начала занятий.", "updatedAt": "2026-10-14T12:00:00.000Z"},
+  {"id": "polina", "name": "Полина Сергеева", "birthDate": "1997-06-16", "birthTime": "", "birthPlace": "Тюмень", "unknownTime": true, "request": "Первая самостоятельная работа", "notes": "Время рождения неизвестно. До встречи уточнить ожидания от нового места.", "updatedAt": "2026-10-14T12:00:00.000Z"},
+  {"id": "anton", "name": "Антон Егоров", "birthDate": "1988-02-24", "birthTime": "06:10", "birthPlace": "Омск", "unknownTime": false, "request": "Рабочие границы в новой команде", "notes": "Предпочитает короткое резюме и один практический шаг.", "updatedAt": "2026-10-14T12:00:00.000Z"},
+  {"id": "kira", "name": "Кира Павлова", "birthDate": "1993-10-28", "birthTime": "14:30", "birthPlace": "Уфа", "unknownTime": false, "request": "Подготовка к дню рождения", "notes": "Запросила консультацию о личных приоритетах на год.", "updatedAt": "2026-10-14T12:00:00.000Z"},
+  {"id": "tatyana", "name": "Татьяна Васильева", "birthDate": "1975-09-06", "birthTime": "09:05", "birthPlace": "Тверь", "unknownTime": false, "request": "Итоги первого месяца сопровождения", "notes": "Ведёт дневник наблюдений. Хочет продолжить работу в спокойном темпе.", "updatedAt": "2026-10-14T12:00:00.000Z"},
+  {"id": "denis", "name": "Денис Макаров", "birthDate": "1990-05-11", "birthTime": "20:45", "birthPlace": "Самара", "unknownTime": false, "request": "Выбор формата самостоятельной работы", "notes": "Сравнивает проектную занятость и небольшой собственный продукт.", "updatedAt": "2026-10-14T12:00:00.000Z"},
+  {"id": "sofia", "name": "Софья Алексеева", "birthDate": "1999-01-19", "birthTime": "13:10", "birthPlace": "Краснодар", "unknownTime": false, "request": "Переезд и новый круг общения", "notes": "Сохранила вопросы к первой встрече. Нужны понятные ориентиры на месяц.", "updatedAt": "2026-10-14T12:00:00.000Z"},
 ]
 
 type Scheduled = { appointment: Appointment; service: Service }
@@ -41,11 +56,12 @@ function buildSchedule(): Scheduled[] {
   const times = ['10:00', '13:00', '16:00']
   pastDates.forEach((date, dayIndex) => times.forEach((time, slot) => {
     const index = dayIndex * times.length + slot
-    const client = clients[index % clients.length]
-    const service = memberServices[(Math.floor(index / clients.length) + index) % memberServices.length]
+    const client = clients[index % 15]
+    const service = memberServices[(Math.floor(index / 15) + index) % 6]
     result.push({ service, appointment: {
       id: `session-history-${index + 1}`, clientId: client.id, date, time,
-      duration: service.duration, title: service.name,
+      duration: service.duration, title: service.name, serviceId: service.id, price: service.price,
+      outcome: index === 18 || index === 45 ? undefined : `Обсудили запрос: ${client.request.toLocaleLowerCase()}. Договорились выбрать один посильный шаг и записать наблюдения до следующей встречи.`,
       status: index === 18 || index === 45 ? 'cancelled' : 'completed',
     } })
   }))
@@ -55,16 +71,18 @@ function buildSchedule(): Scheduled[] {
     { id: 'session-olga', clientId: 'olga', time: '16:30', title: 'Встреча сопровождения', serviceId: 'followup' },
   ].forEach(({ serviceId, ...appointment }) => {
     const service = serviceById(serviceId)
-    result.push({ service, appointment: { ...appointment, date: '2026-10-15', duration: service.duration, status: 'confirmed' } })
+    result.push({ service, appointment: { ...appointment, date: '2026-10-15', serviceId, price: service.price, duration: service.duration, status: 'confirmed' } })
   })
   const upcoming = [
     ['2026-10-19', '10:00', 'elena', 'career'], ['2026-10-19', '13:00', 'alexey', 'relocation'], ['2026-10-19', '16:00', 'irina', 'followup'],
     ['2026-10-20', '10:00', 'pavel', 'question'], ['2026-10-20', '13:00', 'natalia', 'followup'], ['2026-10-20', '16:00', 'sergey', 'career'],
     ['2026-10-22', '10:00', 'svetlana', 'solar'], ['2026-10-22', '13:00', 'alina', 'relocation'], ['2026-10-22', '16:00', 'roman', 'question'],
   ]
+  upcoming.push(...clients.slice(15).map((c,index)=>[index<3?'2026-10-23':index<6?'2026-10-26':'2026-10-28',times[index%3],c.id,['natal','career','question'][index%3]]))
+  upcoming.push(...clients.slice(0,9).map((c,index)=>[index<3?'2026-11-02':index<6?'2026-11-04':'2026-11-06',times[index%3],c.id,'followup']))
   upcoming.forEach(([date, time, clientId, serviceId], index) => {
     const service = serviceById(serviceId)
-    result.push({ service, appointment: { id: `session-upcoming-${index + 1}`, clientId, date, time, duration: service.duration, title: service.name, status: 'confirmed' } })
+    result.push({ service, appointment: { id: `session-upcoming-${index + 1}`, clientId, date, time, duration: service.duration, title: service.name, serviceId: service.id, price: service.price, status: 'confirmed' } })
   })
   return result
 }
@@ -72,7 +90,8 @@ function buildSchedule(): Scheduled[] {
 export function createMemberPractice(): Practice {
   return {
     version: 1, profile: { name: 'Анна Соколова', timeZone: 'Europe/Moscow' },
-    clients: clients.map(client => ({ ...client })),
+    clients: clients.map((client,index) => ({ ...client, email:`${client.id}@example.test`, stage:index>=15?'new':index===12?'archived':index===10?'paused':index%4===0?'accompaniment':'active', tags:[index>=15?'Первая встреча':index%4===0?'Сопровождение':'Повторная запись',index%3===0?'Профессиональный выбор':index%3===1?'Личные планы':'Итоги месяца'] })),
+    clientStages:[{id:'accompaniment',label:'Сопровождение'}],
     appointments: buildSchedule().map(({ appointment }) => appointment),
     isExample: true, onboarded: true,
   }

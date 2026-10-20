@@ -41,7 +41,7 @@
 .ep-root[data-theme] .ep-cal-event-body>p{font-size:13px;margin-top:6px}
 .ep-root[data-theme] .ep-cal-event-actions{gap:4px 12px;margin-top:12px}
 .ep-root[data-theme] .ep-cal-event-actions .ep-text-button{font-size:12px!important;padding:8px 0;min-height:36px}
-.ep-root[data-theme] .ep-cal-event-actions .ep-text-button:hover{padding-inline:0;background:transparent;text-decoration:underline}
+.ep-root[data-theme] .ep-cal-event-actions .ep-text-button:hover{padding-inline:0;background:transparent}
 .ep-root[data-theme] .ep-cal-add{margin-top:16px;min-height:44px}
 .ep-root[data-theme] .ep-calendar-date-dialog>.ep-cal-month{position:static;border:0;background:transparent;padding:0;max-width:none}
 .ep-root[data-theme] .ep-week-columns{gap:8px;border:0}
@@ -106,7 +106,7 @@
 .ep-root[data-theme] .ep-workspace .ep-cal-event-heading h3{flex:1;min-width:100px;margin:0}
 .ep-root[data-theme] .ep-workspace .ep-cal-event-body{padding-left:16px}
 .ep-root[data-theme] .ep-workspace .ep-cal-event-actions .ep-text-button{padding:8px 16px;text-decoration:none}
-.ep-root[data-theme] .ep-workspace .ep-cal-event-actions .ep-text-button:hover{text-decoration:none;font-weight:600;padding:8px 16px}
+.ep-root[data-theme] .ep-workspace .ep-cal-event-actions .ep-text-button:hover{text-decoration:none;padding:8px 16px}
 .ep-root[data-theme] .ep-workspace .ep-week-columns{gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--surface)}
 .ep-root[data-theme] .ep-workspace .ep-week-columns>section{border:0;border-right:1px solid var(--line);border-radius:0;padding:8px;min-height:410px;background:transparent}
 .ep-root[data-theme] .ep-workspace .ep-week-columns>section:last-child{border-right:0}

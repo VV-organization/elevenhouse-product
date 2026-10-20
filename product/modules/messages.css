@@ -12,7 +12,7 @@
 .ep-root[data-theme] .ep-workspace.ep-messages-workspace .communication-conversation-list{display:flex;flex-direction:column;min-height:0;padding:0;border-right:1px solid var(--line);background:var(--em-paper)}
 .ep-root[data-theme] .ep-workspace.ep-messages-workspace .communication-master-detail.has-conversation>.communication-conversation-list{position:static;max-height:none;overflow:hidden;scrollbar-gutter:auto}
 .ep-root[data-theme] .ep-workspace.ep-messages-workspace .em-list-heading{display:flex;align-items:center;justify-content:space-between;padding:22px 20px 16px}
-.ep-root[data-theme] .ep-workspace.ep-messages-workspace .em-list-heading h1{font-size:21px;font-weight:650;letter-spacing:-.04em;line-height:1.25;margin:0}
+.ep-root[data-theme] .ep-workspace.ep-messages-workspace .em-list-heading h1{font-size:21px;font-weight:400;letter-spacing:-.02em;line-height:1.25;margin:0}
 .ep-root[data-theme] .ep-workspace.ep-messages-workspace .em-list-heading>span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .ep-root[data-theme] .ep-workspace.ep-messages-workspace .communication-conversation-list>.ex-toolbar{padding:0 16px;margin:0;gap:8px;flex-shrink:0}
 .ep-root[data-theme] .ep-workspace.ep-messages-workspace .communication-conversation-list .ep-search{height:40px;min-height:40px;width:100%;background:transparent;border:1px solid var(--line);border-radius:7px;padding:0 10px;gap:8px}

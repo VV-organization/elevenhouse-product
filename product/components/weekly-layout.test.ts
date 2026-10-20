@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest'
-import {scheduleSlots,appointmentLanes,timeMinutes,weeklyRange,visualDuration,WEEK_MINUTE_HEIGHT} from './weekly-layout'
+import {scheduleSegments,scheduleSlots,appointmentLanes,timeMinutes,weeklyRange,visualDuration,WEEK_MINUTE_HEIGHT} from './weekly-layout'
 import type {Appointment} from '../state/model'
 const meeting=(id:string,time:string,duration:number):Appointment=>({id,time,duration,date:'2026-10-19',clientId:'client',title:'Consultation',status:'confirmed'})
 describe('weekly schedule positions',()=>{
@@ -26,11 +26,51 @@ describe('weekly schedule positions',()=>{
 
 import {createExamplePractice} from '../state/model'
 import {DEFAULT_BOOKING_RULES} from '../state/bookingRules'
+import {checkBookingRules} from '../state/bookingRules'
+describe('complete calendar timeline',()=>{
+ it('covers every minute and offers a fitting draft before meetings and at day end',()=>{
+  const practice=createExamplePractice();practice.bookingRules=undefined
+  practice.appointments=[meeting('one','11:00',60)]
+  const segments=scheduleSegments(practice,'2026-10-19',{start:540,end:1080})
+  expect(segments.find(s=>s.start===630)).toMatchObject({kind:'free',end:660,duration:30})
+  expect(segments.find(s=>s.start===1050)).toMatchObject({kind:'free',end:1080,duration:30})
+  expect(segments[0].start).toBe(540)
+  expect(segments.at(-1)?.end).toBe(1080)
+  segments.slice(1).forEach((s,i)=>expect(s.start).toBe(segments[i].end))
+ })
+ it('labels breaks, buffers and hours and keeps every offered draft bookable',()=>{
+  const practice=createExamplePractice();practice.appointments=[meeting('one','11:00',60)]
+  practice.bookingRules={...DEFAULT_BOOKING_RULES,enabled:true,start:'09:15',end:'15:45',bufferBefore:5,bufferAfter:10,blockedTimes:[{id:'lunch',date:'2026-10-19',start:'13:00',end:'14:00',reason:'Обед'}]}
+  const segments=scheduleSegments(practice,'2026-10-19',{start:540,end:1080})
+  expect(segments.find(s=>s.start===540)).toMatchObject({kind:'closed',end:555})
+  expect(segments.find(s=>s.start===645)).toMatchObject({kind:'closed',end:660})
+  expect(segments.find(s=>s.start===780)).toMatchObject({kind:'closed',end:840,label:'Обед'})
+  expect(segments.find(s=>s.start===945)).toMatchObject({kind:'closed',end:1080})
+  for(const s of segments.filter(s=>s.kind==='free')){
+   expect(()=>checkBookingRules(practice,{date:'2026-10-19',time:`${String(Math.floor(s.start/60)).padStart(2,'0')}:${String(s.start%60).padStart(2,'0')}`,duration:s.duration!})).not.toThrow()
+  }
+  segments.slice(1).forEach((s,i)=>expect(s.start).toBe(segments[i].end))
+ })
+ it('explains a daily limit and releases cancelled time',()=>{
+  const practice=createExamplePractice();practice.appointments=[meeting('one','11:00',60)]
+  practice.bookingRules={...DEFAULT_BOOKING_RULES,enabled:true,maxPerDay:1}
+  const full=scheduleSegments(practice,'2026-10-19',{start:540,end:1080})
+  expect(full.filter(s=>s.kind==='free')).toEqual([])
+  expect(full.find(s=>s.start===540)?.label).toBe('Лимит встреч на день')
+  practice.appointments[0].status='cancelled'
+  expect(scheduleSegments(practice,'2026-10-19',{start:660,end:720}).every(s=>s.kind==='free')).toBe(true)
+ })
+})
 describe('calendar booking entry points',()=>{
  it('excludes occupied hours, including partial overlaps, but releases cancelled meetings',()=>{
   const practice=createExamplePractice();practice.bookingRules=undefined
   practice.appointments=[{...meeting('one','09:30',60),date:'2026-10-19'},{...meeting('cancel','11:00',60),date:'2026-10-19',status:'cancelled'}]
   expect(scheduleSlots(practice,'2026-10-19',{start:540,end:780})).toEqual([660,720])
+ })
+ it('offers half-hour starts only when the entire one-hour booking draft fits',()=>{
+  const practice=createExamplePractice();practice.bookingRules=undefined
+  practice.appointments=[{...meeting('occupied','11:00',60),date:'2026-10-19'}]
+  expect(scheduleSlots(practice,'2026-10-19',{start:540,end:780},30)).toEqual([540,570,600,720])
  })
  it('respects enabled hours, breaks, buffers, capacity and closed exceptions',()=>{
   const practice=createExamplePractice();practice.appointments=[]
