@@ -37,7 +37,7 @@ export function populateShowcaseAccount(storage:StorageAccess,view:string,saved:
 }
 function populateScope(storage:StorageAccess,scope:string,practiceKey:string,saved:Practice):Practice{
  const marker=`eh-product-v2-${scope}-${revision}`
- if(storage.getItem(marker))return saved
+ if(storage.getItem(marker)){populateCalculationExamples(storage,scope,saved);return saved}
  const practice=populatedPractice(saved)
  if(!parsePractice(JSON.stringify(practice)))throw new Error('Invalid populated practice')
  const appointmentIds=new Set(practice.appointments.map(a=>a.id)),clientIds=new Set(practice.clients.map(c=>c.id))
@@ -78,5 +78,24 @@ function populateScope(storage:StorageAccess,scope:string,practiceKey:string,sav
  storage.setItem(practiceKey,JSON.stringify(practice))
  for(const [key,value] of Object.entries(writes))storage.setItem(key,value)
  storage.setItem(marker,'complete')
+ storage.setItem(`eh-product-v2-${scope}-calculation-examples-v1`,'complete')
  return practice
+}
+
+/** Upgrade only calculation examples; never re-create clients or transactions deleted after v2. */
+function populateCalculationExamples(storage:StorageAccess,scope:string,practice:Practice){
+ const marker=`eh-product-v2-${scope}-calculation-examples-v1`
+ if(storage.getItem(marker))return
+ const writes:Record<string,string>={},backup:Record<string,string|null>={}
+ for(const name of ['saved-astronomy-calculations','calculation-child-profiles']){
+  const key=`eh-product-v2-${scope}-${name}`,raw=storage.getItem(key);backup[key]=raw
+  let existing:unknown;try{existing=raw===null?undefined:JSON.parse(raw)}catch{continue}
+  let seed=populatedModules[name]
+  if(Array.isArray(seed))seed=seed.filter(r=>practice.clients.some(c=>c.id===r.clientId))
+  else if(object(seed))seed=Object.fromEntries(Object.entries(seed).filter(([id])=>practice.clients.some(c=>c.id===id)))
+  writes[key]=JSON.stringify(mergePopulation(existing,seed))
+ }
+ if(!storage.getItem(`${marker}-backup`))storage.setItem(`${marker}-backup`,JSON.stringify(backup))
+ for(const [key,value] of Object.entries(writes))storage.setItem(key,value)
+ storage.setItem(marker,'complete')
 }

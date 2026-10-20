@@ -1,6 +1,7 @@
 import {useState,type CSSProperties,type ReactNode} from 'react'
 import {tr,localeTag} from '../i18n'
 import {IncomeTrend} from '../components/IncomeTrend'
+import {ClientStageDistribution} from '../components/ClientStageDistribution'
 import {Icon} from '../components/Icon'
 import {Dialog} from '../components/Dialog'
 import {formatDate} from '../state/model'
@@ -49,8 +50,8 @@ export function AnalyticsOverview({payments,practice,range,comparison,onDetails,
  const net=base.paid.reduce((n,p)=>n+p.amount-p.commission,0),priorNet=prior?.paid.reduce((n,p)=>n+p.amount-p.commission,0)??0
  const services=serviceIncomeSummary(base.paid),highestService=Math.max(1,...services.map(s=>s.amount))
  const goal=goals.find(g=>g.period==='month'&&g.start===range.to.slice(0,7)+'-01'),progress=goal?goalProgress(goal,payments):null
- const stageNames:Record<string,string>={unknown:tr('Без этапа','No stage'),new:tr('Новые','New'),active:tr('В работе','Active'),paused:tr('На паузе','Paused'),archived:tr('В архиве','Archived')}
- const segments=detail.segments.map(s=>({label:stageNames[s.id]??s.label,value:s.clients}))
+ const stageNames:Record<string,string>={unknown:tr('Без этапа','No stage'),new:tr('Новый','New'),active:tr('В работе','Active'),paused:tr('Пауза','Paused'),archived:tr('Архив','Archived')}
+ const segments=detail.segments.map(s=>{const url=new URL(window.location.href);url.hash='clients';url.searchParams.set('clientStage',s.id==='unknown'?'':s.id);return {id:s.id,label:stageNames[s.id]??s.label,count:s.clients,href:url.toString()}})
  const weekdays=[tr('Пн','Mon'),tr('Вт','Tue'),tr('Ср','Wed'),tr('Чт','Thu'),tr('Пт','Fri'),tr('Сб','Sat'),tr('Вс','Sun')]
  const hours=detail.hours.filter(h=>h.bookedMinutes>0)
  const firstHour=Math.min(8,...hours.map(h=>h.hour)),lastHour=Math.max(19,...hours.map(h=>h.hour))
@@ -73,7 +74,7 @@ export function AnalyticsOverview({payments,practice,range,comparison,onDetails,
     <IncomeTrend points={base.paid.map(p=>({date:p.receivedDate??p.date,amount:p.amount-p.commission}))} from={range.from==='2000-01-01'&&base.paid.length?base.paid.map(p=>p.receivedDate??p.date).sort()[0]:range.from} to={range.to} comparison={comparison&&prior?{...comparison,points:prior.paid.map(p=>({date:p.receivedDate??p.date,amount:p.amount-p.commission}))}:undefined}/>
    </Panel>
    <Panel title={tr('Клиенты по этапам','Clients by stage')} note={tr('Текущая клиентская база','Current client base')} className="ao-segments">
-    <AnalyticsRing slices={segments} label={tr('клиентов','clients')}/>{!segments.length&&<p className="ao-note">{tr('Этапы появятся после добавления клиентов.','Stages appear when clients are added.')}</p>}
+    <ClientStageDistribution stages={segments}/>
    </Panel>
    <Panel title={tr('Доход по услугам','Income by service')} note={tr('После комиссии · доля общего дохода','After fees · share of total income')} className="ao-services" action={link(tr('Все услуги','All services'),'income')}>
     {services.length?<div className="ao-horizontal">{services.slice(0,5).map((s,i)=><button key={s.id} onClick={()=>setSelectedService(s.id)} aria-label={`${s.name}: ${money(s.amount)}. ${tr('Показать оплаты услуги','Show service payments')}`}><span><span>{s.name}</span><strong>{money(s.amount)}</strong></span><span className="ao-bar-track" aria-hidden="true"><i style={{width:`${Math.max(0,s.amount)/highestService*100}%`,background:color(i)}}/></span><small>{s.count} {tr('оплат','payments')} · {s.share===null?'—':`${number(s.share)}%`}</small></button>)}</div>:<p className="ao-empty">{tr('За этот период оплаченных услуг нет.','No paid services in this period.')}</p>}

@@ -1,3 +1,4 @@
+import {ActionMenu} from './ActionMenu'
 import {tr,localeTag,uiText} from '../i18n'
 import {appointmentStatusLabel} from '../state/model'
 import './core-parity.css'
@@ -28,7 +29,7 @@ export function MeetingDetails({appointment:a,client,onClose,onNotes,onReschedul
    <h3>{tr('Подготовка и проведение','Prepare and meet')}</h3>
    <div className="ex-actions">
     <button className="ep-button" onClick={()=>setRoomOpen(true)}>{tr('Открыть пространство консультации','Open consultation workspace')}</button>
-    {onChart&&<button className="ep-button" onClick={onChart}>{tr('Карта клиента','Client chart')}</button>}
+    {onChart&&<button className="ep-text-button" onClick={onChart}>{tr('Карта клиента','Client chart')}</button>}
     {a.meetingUrl&&!urlEdit&&<a className="ep-button ep-button--primary" href={a.meetingUrl} target="_blank" rel="noreferrer">{tr('Открыть видеовстречу','Open video meeting')}</a>}
    </div>
    {onMeetingUrl&&<>
@@ -42,16 +43,21 @@ export function MeetingDetails({appointment:a,client,onClose,onNotes,onReschedul
   {a.outcome&&<section className="ep-meeting-outcome"><h3>{tr("Итог встречи","Appointment outcome")}</h3><p className="ep-muted">{tr("Только вам","Only visible to you")}</p><p style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{a.outcome}</p></section>}
   <div className="ex-actions">
    {needsOutcome&&onOutcome?<button className="ep-button ep-button--primary" onClick={()=>setEditing(true)}><Icon name="note"/>{tr("Записать итог и завершить","Record outcome and finish")}</button>:a.status==='completed'&&onNextMeeting?<button className="ep-button ep-button--primary" onClick={onNextMeeting}>{tr("Записать на следующую встречу","Book the next appointment")}</button>:<button className="ep-button ep-button--primary" onClick={onNotes}><Icon name="note"/>{tr("Заметки клиента","Client notes")}</button>}
-   {needsOutcome&&<button className="ep-button" onClick={onNotes}>{tr("Заметки клиента","Client notes")}</button>}
-   {canRecordOutcome&&!needsOutcome&&onOutcome&&<button className="ep-button" onClick={()=>setEditing(true)}>{tr("Записать итог и завершить","Record outcome and finish")}</button>}
-   {a.status==='confirmed'&&!needsOutcome&&<button className="ep-button" onClick={onReschedule}>{tr("Перенести","Reschedule")}</button>}
-   {a.status==='confirmed'&&a.date<=TODAY&&onNoShow&&<button className="ep-text-button" onClick={onNoShow}>{tr('Клиент не пришёл','Client did not attend')}</button>}
-   {a.status==='confirmed'&&<button className="ep-text-button" onClick={onCancel}>{tr("Отменить запись","Cancel appointment")}</button>}
-   {a.status==='completed'&&onOutcome&&<button className="ep-button" onClick={()=>setEditing(true)}>{a.outcome?tr("Изменить итог","Edit outcome"):tr("Добавить итог","Add outcome")}</button>}
+   {needsOutcome&&<button className="ep-text-button" onClick={onNotes}>{tr("Заметки клиента","Client notes")}</button>}
+   {canRecordOutcome&&!needsOutcome&&onOutcome&&<button className="ep-text-button" onClick={()=>setEditing(true)}>{tr("Записать итог и завершить","Record outcome and finish")}</button>}
+   {a.status==='completed'&&onOutcome&&<button className="ep-text-button" onClick={()=>setEditing(true)}>{a.outcome?tr("Изменить итог","Edit outcome"):tr("Добавить итог","Add outcome")}</button>}
+   <ActionMenu label={tr('Другие действия','More actions')}>
+    {a.status==='confirmed'?<>
+     <button onClick={onReschedule}>{tr('Перенести','Reschedule')}</button>
+     {a.date<=TODAY&&onNoShow&&<button onClick={onNoShow}>{tr('Клиент не пришёл','Client did not attend')}</button>}
+     <button onClick={onCancel}>{tr('Отменить запись','Cancel appointment')}</button>
+     {!canRecordOutcome&&(onOutcome?<button onClick={()=>setEditing(true)}>{tr('Записать итог и завершить','Record outcome and finish')}</button>:<button onClick={()=>onStatus('completed')}>{tr('Завершить встречу','Complete appointment')}</button>)}
+    </>:<button onClick={restore}>{a.status==='cancelled'?tr('Восстановить запись','Restore appointment'):tr('Вернуть в план','Mark as scheduled')}</button>}
+   </ActionMenu>
   </div>
 
   {!!a.price&&onPayment&&<div className="ep-meeting-payment"><button className="ep-text-button" onClick={onPayment}><Icon name="wallet" size={18}/>{a.status==='cancelled'?tr("Оплата и возврат","Payment and refund"):tr("Оплата встречи","Appointment payment")}<Icon name="arrow" size={16}/></button></div>}
-  {(a.status!=='confirmed'||needsOutcome||!canRecordOutcome)&&<details className="ep-meeting-extra"><summary>{tr("Другие действия","More actions")}</summary><div className="ex-actions">{a.status==='confirmed'?<>{needsOutcome&&<button className="ep-button" onClick={onReschedule}>{tr("Перенести","Reschedule")}</button>}{!canRecordOutcome&&(onOutcome?<button className="ep-button" onClick={()=>setEditing(true)}>{tr("Записать итог и завершить","Record outcome and finish")}</button>:<button className="ep-button" onClick={()=>onStatus('completed')}>{tr("Завершить встречу","Complete appointment")}</button>)}</>:<button className="ep-button" onClick={restore}>{a.status==='cancelled'?tr("Восстановить запись","Restore appointment"):tr("Вернуть в план","Mark as scheduled")}</button>}</div></details>}
+
  </div></Dialog>
 }
 

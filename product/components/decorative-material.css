@@ -1,0 +1,18 @@
+/* Origin: user-supplied Quarn Pro $15 card, 20 Oct 2026 14:44.
+   Lower-left colour light, an upper softbox reflection and a shaded centre.
+   Static background layers: no overlay over content, no animated blur/filter.
+   Product-only tokens; the landing hero and ordinary controls do not consume them. */
+.ep-root[data-theme]{
+ --eh-material-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 128 128'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' opacity='.045' filter='url(%23g)' d='M0 0h128v128H0z'/%3E%3C/svg%3E");
+ --eh-material-blue:var(--eh-material-grain),radial-gradient(ellipse at 72% -28%,#d8e2d568 0%,#b7c8ce26 32%,#b7c8ce00 59%),radial-gradient(ellipse at -14% 116%,#5684a6 0%,#375f83 28%,#27456366 53%,#27456300 73%),linear-gradient(135deg,#1b2b40 0%,#101c2d 55%,#192e45 100%);
+ --eh-material-wide:var(--eh-material-grain),radial-gradient(ellipse at 77% -55%,#e0e6d87a 0%,#c3d0cf2b 37%,#c3d0cf00 63%),radial-gradient(ellipse at -10% 140%,#567fa0 0%,#355b7e 32%,#2947634d 58%,#29476300 78%),linear-gradient(118deg,#1b3049,#142034 57%,#20374b);
+ --eh-material-edge:#a4b9c24d;
+ --eh-material-depth:inset 0 1px 0 #eef0de40,inset 1px 0 0 #a9c5dd29,inset 0 -1px 0 #08132199,0 16px 30px -18px #020916b3,0 3px 7px #060f1929;
+}
+.ep-root[data-theme=light]{
+ --eh-material-blue:var(--eh-material-grain),radial-gradient(ellipse at 72% -28%,#fffefa 0%,#fffefaad 32%,#fffefa00 62%),radial-gradient(ellipse at -14% 116%,#91afc6 0%,#b3c8d9 30%,#c5d6e266 55%,#c5d6e200 77%),linear-gradient(135deg,#e1e9ec,#cedae2 58%,#e4e9e9);
+ --eh-material-wide:var(--eh-material-grain),radial-gradient(ellipse at 77% -55%,#fffefa 0%,#fffefaad 37%,#fffefa00 66%),radial-gradient(ellipse at -10% 140%,#9bb6cb 0%,#b9ccdc 32%,#c8d8e44d 58%,#c8d8e400 78%),linear-gradient(118deg,#e2e9ed,#cedae3 57%,#e6eae7);
+ --eh-material-edge:#879fb459;
+ --eh-material-depth:inset 0 1px 0 #ffffffed,inset 1px 0 0 #ffffff80,inset 0 -1px 0 #718aa329,0 16px 28px -22px #293e5b70,0 3px 6px #364e690a;
+}
+@media(forced-colors:active){.ep-root[data-theme]{--eh-material-blue:none;--eh-material-wide:none;--eh-material-edge:CanvasText;--eh-material-depth:none}}

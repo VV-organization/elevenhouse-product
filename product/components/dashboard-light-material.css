@@ -1,14 +1,12 @@
 /* Quarn / Rondesignlab, Behance 249921495: directional illumination,
    quiet surrounding surfaces and recessed inner areas. Dashboard trial only. */
 .ep-root[data-theme=dark] .ep-workspace.eh-surfaces .pd-dashboard .pw-welcome{
- background:radial-gradient(ellipse at 92% -40%,#7193b36b,transparent 65%),linear-gradient(118deg,#182436 8%,#253c55 65%,#344c63);
- border-color:#8fa8c333;
- box-shadow:inset 0 1px 0 #d5e6f040,inset 0 -18px 32px #080f1a24,0 12px 24px #060d171c;
+ background-image:var(--eh-material-wide);
+ border-color:var(--eh-material-edge);box-shadow:var(--eh-material-depth);
 }
 .ep-root[data-theme=dark] .ep-workspace.eh-surfaces .pd-dashboard .pd-balance{
- background:radial-gradient(ellipse at 4% -25%,#7695ad40,transparent 68%),linear-gradient(145deg,#293b4e,#172334 85%);
- border-color:#849bb52e;
- box-shadow:inset 0 1px 0 #d5e6f02b,0 8px 24px #080f1920;
+ background-image:var(--eh-material-blue);
+ border-color:var(--eh-material-edge);box-shadow:var(--eh-material-depth);
 }
 .ep-root[data-theme] .ep-workspace.eh-surfaces .pd-dashboard .pd-wallet{
  background:color-mix(in srgb,var(--navy) 5%,transparent);
@@ -19,11 +17,12 @@
  border-color:#ebdba080;box-shadow:inset 0 1px 0 #fff5ccad,inset 0 -2px 3px #80602726,0 4px 10px #060e181c;
 }
 .ep-root[data-theme=light] .ep-workspace.eh-surfaces .pd-dashboard .pw-welcome{
- background:radial-gradient(ellipse at 80% -35%,#ffffffdd,transparent 64%),linear-gradient(118deg,#e0e8ed,#d3dfea 68%,#c2d1de);
- border-color:#aabdc855;box-shadow:inset 0 1px 0 #fff,0 10px 24px #273e5610;
+ background-image:var(--eh-material-wide);
+ border-color:var(--eh-material-edge);box-shadow:var(--eh-material-depth);
 }
 .ep-root[data-theme=light] .ep-workspace.eh-surfaces .pd-dashboard .pd-balance{
- background:linear-gradient(140deg,#f5f7f5,#e3eaee);border-color:#b7c5cf66;box-shadow:inset 0 1px 0 #fff,0 5px 18px #273e560a;
+ background-image:var(--eh-material-blue);
+ border-color:var(--eh-material-edge);box-shadow:var(--eh-material-depth);
 }
 .ep-root[data-theme=light] .ep-workspace.eh-surfaces .pd-dashboard>.ep-page-heading>.ep-button--primary{
  background:radial-gradient(ellipse at 22% -40%,#fff8dfd9,transparent 68%),linear-gradient(120deg,#ecdaa6,#ddc78c);

@@ -1,0 +1,107 @@
+@import '../components/decorative-material.css';
+/* Client portal: original client.jsx task hierarchy, shared ElevenHouse materials.
+   All rules are scoped; practitioner shell and locked landing remain independent. */
+.ep-root[data-theme] .pc-portal{max-width:1440px;margin:auto;padding:24px 40px 64px;display:grid;grid-template-columns:208px minmax(0,1fr);gap:32px 40px;align-content:start;min-height:100dvh;color:var(--navy)}
+.ep-root .pc-header{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line);gap:24px}
+.ep-root .pc-brand{display:flex;align-items:center;gap:20px;text-decoration:none;color:var(--muted);font-size:13px}
+.ep-root .pc-brand img{width:68px;height:44px;object-fit:contain}
+.ep-root .pc-account{display:flex;align-items:center;gap:12px;background:none;border:0;color:var(--navy);font:inherit;font-size:14px;min-height:44px;padding:0 8px;cursor:pointer}
+.ep-root .pc-avatar{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--gold);font-size:12px}
+.ep-root .pc-profile-menu{display:grid;gap:24px}
+.ep-root .pc-navigation nav{position:sticky;top:24px;display:grid;gap:4px}
+.ep-root :is(.pc-navigation,.pc-menu) button{display:flex;align-items:center;gap:12px;min-height:48px;width:100%;padding:12px 16px;border:0;background:none;border-radius:8px;color:var(--muted);font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.ep-root :is(.pc-navigation,.pc-menu) button[aria-current=page]{background:var(--surface-raised,var(--surface));box-shadow:inset 3px 0 var(--gold);color:var(--navy)}
+.ep-root .pc-navigation button:nth-child(5){margin-top:24px}
+.ep-root .pc-navigation button:last-child{margin-top:24px}
+.ep-root .pc-mobile-navigation{display:none}
+.ep-root .pc-main{min-width:0}
+.ep-root .pc-main>.ep-portal-astrologers{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:0 0 20px;margin:0 0 24px;border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}
+.ep-root .pc-overview{display:grid;gap:28px}
+.ep-root .pc-page-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ep-root .pc-page-heading h1{margin:0;font:400 clamp(28px,3vw,40px)/1.2 'Auth Vetrino',serif;letter-spacing:-.025em}
+.ep-root .pc-next-meeting{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px 32px;padding:28px;border-radius:20px;border:1px solid var(--line);background:var(--surface-raised,var(--surface))}
+.ep-root[data-theme] .pc-next-meeting{background-image:var(--eh-material-wide);border-color:var(--eh-material-edge);box-shadow:var(--eh-material-depth)}
+.ep-root .pc-label{font-size:13px;line-height:1.5;color:var(--muted)}
+.ep-root .pc-next-copy h2{font-size:23px;line-height:1.4;margin:12px 0 8px;overflow-wrap:anywhere}
+.ep-root .pc-next-copy p{font-size:14px;margin:0 0 16px;color:var(--muted)}
+.ep-root .pc-status{display:inline-flex;align-items:center;gap:8px;font-size:13px}
+.ep-root .pc-status>span{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.ep-root .pc-meeting-date{display:flex;flex-direction:column;align-items:flex-end;gap:8px;font-size:13px;color:var(--muted);text-align:right}
+.ep-root .pc-meeting-date strong{font:500 38px/1.15 'Auth Manrope',sans-serif;color:var(--gold);font-variant-numeric:tabular-nums}
+.ep-root .pc-next-actions{grid-column:1/-1;display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:20px;border-top:1px solid var(--line)}
+.ep-root .pc-overview-columns{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(240px,1fr);gap:28px}
+.ep-root .pc-section-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}
+.ep-root .pc-section-heading h2,.ep-root .pc-message-preview h2{font-size:18px;line-height:1.4;margin:0}
+.ep-root .pc-section-heading .ep-text-button{font-size:12px;white-space:nowrap;gap:8px}
+.ep-root .pc-material-list{display:grid;gap:8px}
+.ep-root .pc-material{display:flex;gap:16px;align-items:center;border:0;border-radius:12px;padding:16px;background:var(--surface);color:var(--navy);text-align:left;font:inherit;width:100%;cursor:pointer}
+.ep-root .pc-material-icon{display:grid;place-items:center;width:44px;height:48px;flex-shrink:0;background:var(--surface-raised);border-radius:8px;color:var(--gold)}
+.ep-root .pc-material>span:nth-child(2){display:grid;gap:6px;flex:1;min-width:0}
+.ep-root .pc-material strong{font-size:14px;line-height:1.5;font-weight:600}
+.ep-root .pc-material small,.ep-root .pc-material>span>span{font-size:12px;line-height:1.5;color:var(--muted)}
+.ep-root .pc-material>.ep-icon{flex-shrink:0}
+.ep-root .pc-overview-aside{display:grid;align-content:start;gap:24px}
+.ep-root .pc-message-preview{padding:24px;border:1px solid var(--line);border-radius:14px}
+.ep-root .pc-message-preview h2{margin-top:8px}
+.ep-root .pc-message-preview p{font-size:14px;line-height:1.7;margin:16px 0;color:var(--muted);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.ep-root .pc-message-preview button{font-size:13px;gap:8px}
+.ep-root .pc-current-orders>button{display:grid;grid-template-columns:1fr auto;gap:6px 16px;width:100%;padding:16px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--navy);text-align:left;font:inherit;cursor:pointer;border-radius:8px}
+.ep-root .pc-current-orders>button strong{font-size:14px;font-weight:500}
+.ep-root .pc-current-orders>button span{grid-column:1;font-size:12px;color:var(--muted)}
+.ep-root .pc-current-orders>button>.ep-icon{grid-column:2;grid-row:1/3;align-self:center}
+.ep-root :is(.pc-diary-link,.pc-finance-link){display:flex;align-items:center;gap:12px;padding:16px;width:100%;border:0;background:none;text-align:left;color:var(--navy);font:inherit;font-size:14px;cursor:pointer;border-radius:8px}
+.ep-root .pc-diary-link{margin-top:16px;border-top:1px solid var(--line);border-radius:8px}
+.ep-root :is(.pc-diary-link,.pc-finance-link)>span:not(.ep-icon){flex:1}
+.ep-root .pc-diary-link small{display:block;margin-top:4px;color:var(--muted);font-size:12px}
+.ep-root .pc-empty{padding:24px 0;color:var(--muted);font-size:14px;line-height:1.6}
+.ep-root .pc-portal :is(.ex-row,.ex-panel,.ep-section,.ep-section-heading){max-width:100%;min-width:0}
+.ep-root .pc-portal .ep-section-heading{margin-bottom:24px}
+.ep-root .pc-portal .ep-section-heading h1{font:400 clamp(28px,3vw,36px)/1.25 'Auth Vetrino',serif}
+.ep-root .pc-portal .ex-row{padding:20px 16px}
+.ep-root .pc-main>section>h2{margin-bottom:16px}
+.ep-root .pc-portal .ex-editor label{line-height:1.5}
+.ep-root .pc-portal .ex-actions{gap:12px}
+.ep-root .pc-booking-progress{display:flex;gap:8px;margin:0 0 24px;color:var(--muted);font-size:12px;flex-wrap:wrap}
+.ep-root .pc-booking-progress strong{color:var(--navy)}
+.ep-root .pc-quick-dates{display:flex;gap:8px;overflow-x:auto;margin-bottom:20px;padding:4px 2px 8px}
+.ep-root .pc-quick-dates button{display:grid;gap:4px;place-items:center;flex:0 0 68px;min-height:64px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--navy);font:inherit;font-size:12px;cursor:pointer}
+.ep-root .pc-quick-dates button[aria-pressed=true]{border-color:var(--gold);background:var(--surface-raised)}
+.ep-root .pc-quick-dates strong{font-size:18px}
+.ep-root .pc-meeting-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+@media(hover:hover){.ep-root :is(.pc-material,.pc-diary-link,.pc-finance-link,.pc-current-orders>button,.pc-menu button,.pc-navigation button):hover{background:var(--surface-raised,var(--surface))}}
+.ep-root :is(.pc-portal,.pc-menu) :is(button,a):focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:1100px){.ep-root[data-theme] .pc-portal{grid-template-columns:180px minmax(0,1fr);gap:24px;padding-inline:24px}.ep-root .pc-overview-columns{grid-template-columns:minmax(0,1fr)}.ep-root .pc-overview-aside{grid-template-columns:1fr 1fr}.ep-root .pc-finance-link{grid-column:1/-1}}
+@media(max-width:800px){
+ .ep-root[data-theme] .pc-portal{display:block;padding:16px 20px 40px}
+ .ep-root .pc-header{padding-bottom:16px;margin-bottom:12px}
+ .ep-root .pc-brand{gap:12px}.ep-root .pc-brand>span{display:none}
+ .ep-root .pc-navigation{display:none}
+ .ep-root .pc-mobile-navigation{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-bottom:24px;border-bottom:1px solid var(--line)}
+ .ep-root .pc-mobile-navigation button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:10px 0;min-height:60px;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);font:inherit;font-size:12px;cursor:pointer}
+ .ep-root .pc-mobile-navigation button[aria-current=page]{border-bottom-color:var(--gold);color:var(--navy)}
+ .ep-root .pc-main>.ep-portal-astrologers{padding-bottom:12px;margin-bottom:20px;font-size:13px}
+ .ep-root .pc-main>.ep-portal-astrologers button{font-size:12px}
+ .ep-root .pc-page-heading{flex-wrap:wrap}.ep-root .pc-page-heading h1{font-size:32px}
+ .ep-root .pc-overview{gap:24px}
+ .ep-root .pc-next-meeting{padding:24px;gap:20px}
+ .ep-root .pc-next-copy h2{font-size:21px}
+ .ep-root .pc-meeting-date strong{font-size:32px}
+}
+@media(max-width:520px){
+ .ep-root[data-theme] .pc-portal{padding:16px 16px 32px}
+ .ep-root .pc-next-meeting{grid-template-columns:1fr;padding:20px}
+ .ep-root .pc-meeting-date{align-items:flex-start;text-align:left;padding-top:16px;border-top:1px solid var(--line)}
+ .ep-root .pc-next-actions{padding-top:0;border:0;gap:12px}
+ .ep-root .pc-next-actions .ep-button{width:100%}
+ .ep-root .pc-overview-aside{grid-template-columns:1fr}
+ .ep-root .pc-section-heading{gap:8px}.ep-root .pc-section-heading h2{font-size:17px}
+ .ep-root .pc-material{padding:16px 12px;gap:12px}
+ .ep-root .pc-account{gap:8px}
+ .ep-root .pc-material-icon{width:36px}
+ .ep-root .pc-message-preview{padding:20px}
+ .ep-root .pc-portal .ex-row{padding:16px 12px}
+}
+.ep-root[data-theme=light] .pc-brand img{filter:brightness(.24)}
+.ep-root[data-theme=light] :is(.pc-meeting-date strong,.pc-avatar,.pc-material-icon){color:#806124}
+.ep-root[data-theme=light] .pc-status>span{background:#806124}
+.ep-root[data-theme=light] .ex-role-layout.pc-portal .ep-button--primary{background:#e2ca79;border-color:#cfb465;color:#152037}

@@ -22,6 +22,11 @@
   --eh-focus-ring: #e2ca79;
 }
 /* Glow is opt-in for actual surfaces, never inferred from button/link semantics. */
+/* Reserve the wash's breathing room before hover, including auth text actions. */
+.eh-auth :is(.eh-auth__back,.eh-auth__card-bottom>button) {
+  border-radius: 8px;
+  padding-inline: 12px;
+}
 @media(hover:hover) and (pointer:fine) {
   :is(.ep-root,.eh-auth,.eh-showcase-shell) :is(a[href],button,summary,[role=button],[role=tab]):not(:disabled):not([aria-disabled=true]) {
     transition: box-shadow 220ms ease, background-color 160ms ease, border-color 160ms ease;

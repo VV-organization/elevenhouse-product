@@ -1,0 +1,28 @@
+/* G-med: quiet time grid, duration blocks, gold selected appointment.
+   Inline day view keeps the existing meeting card compact. */
+.ep-root[data-theme] .pd-summary-grid>.pd-work-summary{align-self:stretch}
+.ep-root[data-theme] .pd-work-summary .dr-rhythm{margin:4px 16px 0;padding:16px 0 8px;border-top:1px solid var(--line)}
+.ep-root[data-theme] .dr-rhythm>header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:16px}
+.ep-root[data-theme] .dr-rhythm h3{font-size:13px;font-weight:500;line-height:1.5;margin:0}
+.ep-root[data-theme] .dr-rhythm header>span{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ep-root[data-theme] .dr-plot{position:relative;min-height:36px}
+.ep-root[data-theme] .dr-guides{position:absolute;inset:0;pointer-events:none}
+.ep-root[data-theme] .dr-guides>i{position:absolute;top:0;bottom:0;border-left:1px dashed var(--line)}
+.ep-root[data-theme] .pd-dashboard .dr-plot>button{position:absolute;display:block;height:36px;min-width:8px;padding:6px 0;border:0;border-radius:4px;cursor:pointer;background:transparent}
+.ep-root[data-theme] .dr-plot>button>span{display:block;height:100%;width:100%;border-radius:4px;background:#80afd3;box-shadow:inset 0 1px 0 #ffffff40}
+.ep-root[data-theme] .dr-plot>button.is-next>span{background:var(--gold)}
+.ep-root[data-theme] .dr-plot>button.is-completed>span{background:#56768c}
+.ep-root[data-theme] .pd-dashboard .dr-plot>button:hover{background:transparent}
+.ep-root[data-theme] .dr-plot>button:hover>span{box-shadow:inset 0 0 0 1px var(--gold)}
+.ep-root[data-theme] .pd-dashboard .dr-plot>button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ep-root[data-theme] .dr-axis{position:relative;height:16px;margin-top:6px;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .dr-axis>span{position:absolute;transform:translateX(-50%)}
+.ep-root[data-theme] .dr-axis>span:first-child{transform:none}
+.ep-root[data-theme] .dr-axis>span:last-child{transform:translateX(-100%)}
+.ep-root[data-theme] .dr-detail{display:flex;align-items:baseline;gap:10px;margin:14px 0 0;min-height:20px;font-size:11px;line-height:1.6;color:var(--muted)}
+.ep-root[data-theme] .dr-detail>time{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--navy)}
+.ep-root[data-theme] .dr-detail>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ep-root[data-theme] .dr-empty{display:flex;align-items:center;min-height:44px;padding:12px 16px;border-radius:8px;font-size:13px}
+.ep-root[data-theme] .pd-work-summary .pd-client-count{margin-top:auto}
+@media(max-width:600px){.ep-root[data-theme] .pd-work-summary .dr-rhythm{margin-inline:12px;padding-top:12px}.ep-root[data-theme] .dr-detail{flex-wrap:wrap;gap:2px 10px}}
+@media(forced-colors:active){.ep-root[data-theme] .dr-plot>button>span{background:CanvasText}.ep-root[data-theme] .dr-plot>button.is-next>span{background:Highlight}}

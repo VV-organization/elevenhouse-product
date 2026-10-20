@@ -29,3 +29,7 @@
 @media(prefers-reduced-motion:no-preference){.ep-natal-aspect{transition:opacity .16s ease}.ep-natal-row{transition:background-color .15s ease}}
 
 .ep-root .ep-natal-controls label{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;margin:0}.ep-root .ep-natal-controls input[type=checkbox]{width:18px;height:18px;min-height:18px;flex:0 0 18px;margin:0}
+
+/* Legend and table match the shared celestial dial's semantic aspect colours. */
+.ep-root :is(.ep-natal,.ep-natal-expanded){--aspect-soft:#54755e;--aspect-hard:#a15d50;--aspect-neutral:#997c3f}
+.ep-root[data-theme=dark] :is(.ep-natal,.ep-natal-expanded){--aspect-soft:#a4b79a;--aspect-hard:#ce9284;--aspect-neutral:#dbc482}

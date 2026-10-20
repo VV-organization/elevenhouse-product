@@ -50,7 +50,7 @@
 .ep-root[data-theme] .ep-workspace .cw-context .ep-birth dd{overflow-wrap:anywhere;max-width:100%;margin-left:auto}
 .ep-root[data-theme] .ep-workspace .cw-current-work .ep-client-request{padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .ep-root[data-theme] .ep-workspace .cw-frame .ep-meetings-group{border-left:2px solid var(--line);padding-left:16px}
-.ep-root[data-theme] .ep-workspace .cw-context .ep-text-button{padding:8px 12px;margin:0 -12px;border-radius:6px;justify-content:flex-start}
+.ep-root[data-theme] .ep-workspace .cw-context .ep-text-button{padding:8px 12px;margin:0 -12px;border-radius:8px;justify-content:flex-start}
 .ep-root[data-theme] .ep-workspace .cw-context .ep-text-button:hover{background:var(--surface-raised)}
 @media(max-width:600px){.ep-root[data-theme] .ep-workspace .cw-content .ep-client-header{padding:16px 12px}.ep-root[data-theme] .ep-workspace .cw-context>section{padding:16px 12px}.ep-root[data-theme] .ep-workspace .cw-current-work .ep-client-request{padding:16px 12px}}
 

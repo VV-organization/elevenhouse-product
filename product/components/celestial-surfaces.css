@@ -1,0 +1,39 @@
+/* Origin: user-approved generated concept, matte warm lunar material (2026-10-20).
+   Surface: shared Quarn-derived decorative material, same as welcome/income panels.
+   All selectors are confined to product components; the landing Hero is unaffected. */
+.ep-root[data-theme] .eh-lunar{--lunar-line:#829db54a;--lunar-gold:#e2ca79;display:flex;align-items:center;gap:32px;padding:20px 32px;margin:16px 0 24px;border:1px solid var(--line);border-radius:14px;background-color:var(--surface);background-image:var(--eh-material-wide);border-color:var(--eh-material-edge);box-shadow:var(--eh-material-depth);color:#edf0f4;min-width:0}
+.ep-root[data-theme] .eh-lunar-art{display:block;flex:0 0 200px;width:200px;height:200px;overflow:visible}
+.ep-root[data-theme] .eh-lunar-unresolved{fill:none;stroke:var(--lunar-line);stroke-width:1;stroke-dasharray:2 5}
+.ep-root[data-theme] .eh-lunar-copy{display:grid;gap:7px;min-width:0}
+.ep-root[data-theme] .eh-lunar-phase{font:400 clamp(24px,2.5vw,36px)/1.18 'Auth Vetrino',serif;color:var(--lunar-gold);overflow-wrap:anywhere}
+.ep-root[data-theme] .eh-lunar-sign{font-size:15px;line-height:1.5}
+.ep-root[data-theme] .eh-lunar-measure{font-size:13px;color:#becbd7;margin-top:7px}
+.ep-root[data-theme] .eh-lunar-measure b{font-size:22px;font-weight:500;color:#edf0f4;margin-right:4px;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .eh-lunar-source{font-size:12px;line-height:1.5;color:#becbd7;overflow-wrap:anywhere}
+.ep-root[data-theme] .eh-lunar--compact{gap:14px;padding:0;margin:12px 0 16px;border:0;border-radius:0;background:none;box-shadow:none;color:var(--navy)}
+.ep-root[data-theme] .eh-lunar--compact .eh-lunar-art{width:104px;height:104px;flex-basis:104px}
+.ep-root[data-theme] .eh-lunar--compact .eh-lunar-phase{font-size:23px}
+.ep-root[data-theme] .eh-lunar--compact .eh-lunar-sign{font-size:12px}
+.ep-root[data-theme] .eh-lunar--compact .eh-lunar-measure{margin-top:3px}
+.ep-root[data-theme] .eh-lunar--compact .eh-lunar-measure b{font-size:15px}
+.ep-root[data-theme] .eh-lunar--compact .eh-lunar-source{font-size:11px}
+.ep-root[data-theme] .ep-workspace .td-context .tw-daily-tools section.eh-sky-tool:first-child{background-color:var(--surface);background-image:var(--eh-material-blue);box-shadow:var(--eh-material-depth)}
+.ep-root[data-theme] .ep-workspace .eh-sky-tool .eh-lunar--compact{color:#edf0f4}
+.ep-root[data-theme] .ep-workspace .eh-sky-tool .ep-text-button{margin-top:4px}
+.ep-root[data-theme=light] .eh-lunar{--lunar-line:#6d7f8e59;--lunar-gold:#806529;color:#233346}
+.ep-root[data-theme=light] .eh-lunar :is(.eh-lunar-measure,.eh-lunar-source){color:#536478}
+.ep-root[data-theme=light] .eh-lunar-measure b{color:#233346}
+.ep-root[data-theme=light] .eh-lunar--compact{background:none}
+.ep-root[data-theme=light] .ep-workspace .eh-sky-tool .eh-lunar--compact{color:#233346}
+@media(max-width:600px){
+ .ep-root[data-theme] .eh-lunar{gap:14px;padding:16px;margin:12px 0 20px}
+ .ep-root[data-theme] .eh-lunar-art{width:108px;height:108px;flex-basis:108px}
+ .ep-root[data-theme] .eh-lunar-phase{font-size:24px}
+ .ep-root[data-theme] .eh-lunar--compact{padding:0}
+}
+@media(max-width:380px){
+ .ep-root[data-theme] .eh-lunar-art{width:80px;height:80px;flex-basis:80px}
+ .ep-root[data-theme] .eh-lunar-phase{font-size:21px}
+}
+
+.ep-root[data-theme] .ac-moon.eh-moon-section{padding:0;border:0;border-radius:0;margin:24px 0}

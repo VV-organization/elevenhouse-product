@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest'
-import {SHOWCASE_VIEWS,showcaseView,frameUrl,showcaseScope,showcaseStorageKeys} from './showcase-model'
+import {showcaseSection,SHOWCASE_VIEWS,showcaseView,frameUrl,showcaseScope,showcaseStorageKeys} from './showcase-model'
 describe('presentation routing and storage isolation',()=>{
  it('provides every requested view and a safe default',()=>{
   expect(SHOWCASE_VIEWS.map(v=>v.id)).toEqual(['register','register-client','onboarding','workspace','mobile','client','page','admin'])
@@ -18,6 +18,15 @@ describe('presentation routing and storage isolation',()=>{
   const scope=showcaseScope('onboarding')
   const keys=[`eh-product-v2-${scope}-learning-v1`,`eh-showcase:onboarding:practice`,'eh-product-v1-session','eh-product-v1-member-anna','eh-product-v2-member-anna-learning-v1','eh-product-v2-showcase-workspace-services','eh-product-v2-showcase-onboarding-other-learning']
   expect(showcaseStorageKeys(keys,'onboarding')).toEqual(keys.slice(0,2))
+ })
+ it('allows only contextual order, message and sign-in destinations',()=>{
+  expect(showcaseSection('client','orders')).toBe('orders')
+  expect(showcaseSection('client','messages')).toBe('messages')
+  expect(showcaseSection('register-client','login')).toBe('login')
+  expect(showcaseSection('client','login')).toBeUndefined()
+  expect(showcaseSection('page','orders')).toBeUndefined()
+  expect(showcaseSection('client','https://evil.example')).toBeUndefined()
+  expect(new URL(frameUrl('https://example.test/product/','client',undefined,'orders')).searchParams.get('section')).toBe('orders')
  })
  it('carries a public-page service only to the client frame',()=>{
   expect(new URL(frameUrl('https://example.test/product/','client','natal')).searchParams.get('service')).toBe('natal')

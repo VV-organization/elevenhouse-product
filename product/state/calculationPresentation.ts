@@ -3,13 +3,13 @@ export type CalculationLabel={ru:string;en:string}
 export type AstroPosition={key:string;label:CalculationLabel;longitude:number;retrograde?:boolean;house?:number}
 export type AstroLayer={id:string;label:CalculationLabel;utc:string;positions:AstroPosition[];cusps?:number[];ascendant?:number;midheaven?:number}
 export type SuppliedAspect={id:string;from:{layer:string;planet:string};to:{layer:string;planet:string};label:CalculationLabel;angle:number;orb:number;tone:'soft'|'hard'|'neutral';applying?:boolean}
-export type AstrologyResult={kind:'astrology';title:CalculationLabel;zodiac:CalculationLabel;houseSystem:string;layers:[AstroLayer]|[AstroLayer,AstroLayer];aspects:SuppliedAspect[];notes?:CalculationLabel[]}
+export type AstrologyResult={kind:'astrology';provenance?:'demonstration';title:CalculationLabel;zodiac:CalculationLabel;houseSystem:string;layers:[AstroLayer]|[AstroLayer,AstroLayer];aspects:SuppliedAspect[];notes?:CalculationLabel[]}
 export const hdCentreKeys=['head','ajna','throat','g','heart','spleen','solar','sacral','root'] as const
 export type HDCentre=typeof hdCentreKeys[number]
 export type HDActivation={planet:string;label:CalculationLabel;gate:number;line:number;side:'personality'|'design'|'transit'}
 export type HDChannel={gates:[number,number];label:CalculationLabel;defined:boolean;description?:CalculationLabel}
 export type HDResultChart={id:string;label:CalculationLabel;type?:CalculationLabel;profile?:[number,number];authority?:CalculationLabel;strategy?:CalculationLabel;definition?:CalculationLabel;signature?:CalculationLabel;notSelf?:CalculationLabel;centres:Array<{key:HDCentre;defined:boolean}>;channels:HDChannel[];activations:HDActivation[]}
-export type HumanDesignResult={kind:'human-design';title:CalculationLabel;charts:HDResultChart[];comparison?:'partnership';notes?:CalculationLabel[]}
+export type HumanDesignResult={kind:'human-design';provenance?:'demonstration';title:CalculationLabel;charts:HDResultChart[];comparison?:'partnership';notes?:CalculationLabel[]}
 export type AstronomyResult=AstrologyResult|HumanDesignResult
 export type CalculateAstronomy=(request:CalculationRequest)=>CalculationResponse<AstronomyResult>|Promise<CalculationResponse<AstronomyResult>>
 export const hdChannelTopology:number[][]=[[64,47],[61,24],[63,4],[17,62],[43,23],[11,56],[31,7],[8,1],[33,13],[20,10],[45,21],[35,36],[12,22],[16,48],[20,57],[20,34],[2,14],[15,5],[46,29],[10,34],[25,51],[10,57],[40,37],[26,44],[59,6],[34,57],[27,50],[3,60],[42,53],[9,52],[32,54],[28,38],[18,58],[30,41],[55,39],[49,19]]

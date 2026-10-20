@@ -1,9 +1,18 @@
 import {describe,expect,it} from 'vitest'
 import {renderToStaticMarkup} from 'react-dom/server'
-import {ClientProfileDashboard} from './ClientProfileDashboard'
+import {ClientProfileDashboard,ClientProfileWork} from './ClientProfileDashboard'
 import {createExamplePractice} from '../state/model'
 
 describe('client profile overview',()=>{
+ for(const view of ['chart','notes'] as const)it(`shares the profile and contextual actions with the ${view} tab`,()=>{
+  const practice=createExamplePractice(),client=practice.clients[0],noop=()=>{}
+  const html=renderToStaticMarkup(<ClientProfileWork view={view} practice={practice} client={client} onEdit={noop} onBirth={noop} onMessage={noop} onPayments={noop}><section aria-label="Selected workspace">Workspace content</section></ClientProfileWork>)
+  expect(html).toContain(`cp-work--${view}`)
+  expect(html.match(/class="cp-person cp-panel"/g)).toHaveLength(1)
+  expect(html.match(/Workspace content/g)).toHaveLength(1)
+  for(const label of [client.name,'Изменить данные рождения','Переписка','Оплаты клиента'])expect(html).toContain(label)
+  expect(html).not.toContain('class="co-calculations"')
+ })
  it('keeps personal data, activity and contextual actions in the composed overview',()=>{
   const practice=createExamplePractice(),client={...practice.clients[0],phone:'+7 (000) 000-00-01',email:'profile@example.test',telegram:'@profile_qa',tags:['Сопровождение'],notes:'Личная заметка для проверки',request:'Запрос клиента для проверки'}
   practice.appointments=[{...practice.appointments[0],id:'profile-completed',clientId:client.id,date:'2026-10-01',status:'completed',outcome:'Сохранённый итог встречи'}, {...practice.appointments[0],id:'profile-upcoming',clientId:client.id,date:'2026-10-25'}, {...practice.appointments[0],id:'other-client',clientId:'other',status:'completed'}]

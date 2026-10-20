@@ -1,12 +1,14 @@
-import {useId,useState,type ReactNode} from 'react'
+import {ComparisonWheel} from './ComparisonWheel'
+import type {AstrologyResult} from '../state/calculationPresentation'
+import {ContextHelp} from './ContextHelp'
+import {useState,type ReactNode} from 'react'
 import {AstroCalculationInsights} from './AstroCalculationInsights'
 import {tr} from '../i18n'
 import {AstroSymbol} from './AstroSymbol'
 import {Dialog} from './Dialog'
 import {Icon} from './Icon'
-import {chartPoint,chartAspects,houseNumber,labelLongitudes,norm,zodiacPosition,aspectDefinitions,type NatalChartData,type PlanetKey} from '../state/natalChart'
+import {chartAspects,houseNumber,zodiacPosition,aspectDefinitions,type NatalChartData,type PlanetKey} from '../state/natalChart'
 import './chart.css'
-const signKeys=['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']
 const signs=()=>[tr('Овен','Aries'),tr('Телец','Taurus'),tr('Близнецы','Gemini'),tr('Рак','Cancer'),tr('Лев','Leo'),tr('Дева','Virgo'),tr('Весы','Libra'),tr('Скорпион','Scorpio'),tr('Стрелец','Sagittarius'),tr('Козерог','Capricorn'),tr('Водолей','Aquarius'),tr('Рыбы','Pisces')]
 const planetName=(key:PlanetKey)=>({sun:tr('Солнце','Sun'),moon:tr('Луна','Moon'),mercury:tr('Меркурий','Mercury'),venus:tr('Венера','Venus'),mars:tr('Марс','Mars'),jupiter:tr('Юпитер','Jupiter'),saturn:tr('Сатурн','Saturn'),uranus:tr('Уран','Uranus'),neptune:tr('Нептун','Neptune'),pluto:tr('Плутон','Pluto')})[key]
 const aspectName=(key:string)=>({conjunction:tr('Соединение','Conjunction'),sextile:tr('Секстиль','Sextile'),square:tr('Квадрат','Square'),trine:tr('Тригон','Trine'),opposition:tr('Оппозиция','Opposition')})[key]
@@ -26,26 +28,20 @@ export function Chart({data,settings}:{data:NatalChartData;settings?:ReactNode})
    {tab==='planets'&&<><div className="ep-natal-columns" aria-hidden="true"><span>{tr('Планета','Planet')}</span><span>{tr('Положение','Position')}</span><span>{tr('Дом','House')}</span></div>{data.planets.map(p=><button type="button" key={p.key} className="ep-natal-row" aria-pressed={selected===p.key} onClick={()=>select(p.key)}><span className="ep-natal-planet"><AstroSymbol name={p.key} width="22" height="22"/><span>{planetName(p.key)}{p.speed<0&&<abbr title={tr('Ретроградное движение','Retrograde motion')}>R</abbr>}</span></span><Position longitude={p.longitude}/><span className="ep-natal-house-value">{houseNumber(p.longitude,data.cusps)}</span></button>)}</>}
    {tab==='houses'&&<><div className="ep-natal-columns ep-natal-columns--two" aria-hidden="true"><span>{tr('Дом · начало','House · cusp')}</span><span>{tr('Положение','Position')}</span></div>{data.cusps.map((longitude,i)=><div key={i} className="ep-natal-row ep-natal-columns--two"><span><strong>{i+1}</strong>{[0,3,6,9].includes(i)&&<span className="ep-natal-axis-name">{({0:'ASC',3:'IC',6:'DSC',9:'MC'})[i as 0|3|6|9]}</span>}</span><Position longitude={longitude}/></div>)}</>}
    {tab==='aspects'&&<><div className="ep-natal-columns ep-natal-columns--two" aria-hidden="true"><span>{tr('Аспект','Aspect')}</span><span>{tr('Орбис','Orb')}</span></div>{aspects.filter(a=>!selected||a.a===selected||a.b===selected).map(a=><div key={`${a.a}-${a.b}`} className={`ep-natal-aspect-row ep-aspect-${a.definition.tone}`}><span className="ep-natal-aspect-symbol" aria-hidden="true">{a.definition.symbol}</span><span><strong>{planetName(a.a)} · {planetName(a.b)}</strong><small>{aspectName(a.definition.key)}</small></span><span>{zodiacPosition(a.orb).text}</span></div>)}{selected&&!aspects.some(a=>a.a===selected||a.b===selected)&&<p className="ep-natal-empty">{tr('Нет основных аспектов в выбранных орбисах.','No major aspects within the selected orbs.')}</p>}</>}
-   </div><details className="ep-natal-parameters"><summary>{tr('Параметры карты','Chart parameters')}</summary><p>{tr('Момент расчёта:','Calculation time:')} {data.utc.replace('T',' ').replace('Z',' UTC')}<br/>{tr('Координаты:','Coordinates:')} {data.latitude}°, {data.longitude}°</p><p>{tr('Орбисы аспектов:','Aspect orbs:')} {aspectDefinitions.map(a=>`${aspectName(a.key)} ${a.orb}°`).join(' · ')}</p></details>
+   </div><ContextHelp printable title={tr('Параметры карты','Chart parameters')}><p>{tr('Момент расчёта:','Calculation time:')} {data.utc.replace('T',' ').replace('Z',' UTC')}<br/>{tr('Координаты:','Coordinates:')} {data.latitude}°, {data.longitude}°</p><p>{tr('Орбисы аспектов:','Aspect orbs:')} {aspectDefinitions.map(a=>`${aspectName(a.key)} ${a.orb}°`).join(' · ')}</p></ContextHelp>
   </div></div>
   <AstroCalculationInsights layers={[{id:"natal",label:{ru:"Натальная карта",en:"Natal chart"},utc:data.utc,ascendant:data.ascendant,positions:data.planets.map(p=>({key:p.key,label:{ru:planetName(p.key),en:planetName(p.key)},longitude:p.longitude,retrograde:p.speed<0}))}]} aspects={aspects.map(a=>({id:`${a.a}-${a.b}`,from:{layer:"natal",planet:a.a},to:{layer:"natal",planet:a.b},label:{ru:aspectName(a.definition.key)||a.definition.key,en:aspectName(a.definition.key)||a.definition.key},angle:a.definition.angle,orb:a.orb,tone:a.definition.tone}))}/>
   {expanded&&<Dialog title={tr('Натальная карта','Natal chart')} onClose={()=>setExpanded(false)} wide><div className="ep-natal-expanded"><p>{tr('На телефоне карту можно прокручивать в стороны.','On your phone, scroll sideways to inspect the chart.')}</p><div className="ep-natal-zoom-scroll" tabIndex={0} aria-label={tr('Увеличенная карта — прокрутка','Enlarged chart — scrollable')}>{wheel}</div>{selection}</div></Dialog>}
  </section>
 }
-function NatalWheel({data,selected,showAspects,onSelect}:{data:NatalChartData;selected:PlanetKey|null;showAspects:boolean;onSelect:(key:PlanetKey)=>void}){
- const id=useId().replace(/:/g,''),p=(longitude:number,r:number)=>chartPoint(longitude,r,data.ascendant),labels=labelLongitudes(data.planets),aspects=chartAspects(data.planets)
- const line=(longitude:number,r1:number,r2:number)=>{const a=p(longitude,r1),b=p(longitude,r2);return `M${a.x} ${a.y}L${b.x} ${b.y}`}
- return <svg className="ep-natal-wheel" viewBox="0 0 640 640" role="group" aria-label={tr('Натальная карта: планеты, дома и аспекты','Natal chart: planets, houses and aspects')}>
-  <defs><radialGradient id={`${id}-paper`}><stop offset="0" className="ep-natal-tone-center"/><stop offset="1" className="ep-natal-tone-edge"/></radialGradient></defs>
-  <circle cx="320" cy="320" r="268" className="ep-natal-paper" fill={`url(#${id}-paper)`}/>
-  {[226,149,127].map(r=><circle key={r} cx="320" cy="320" r={r} className="ep-natal-ring"/>)}
-  {Array.from({length:360},(_,i)=><path key={i} d={line(i,226,i%30===0?268:i%10===0?236:i%5===0?232:229)} className={i%30===0?'ep-natal-sign-boundary':'ep-natal-tick'}/>)}
-  {signKeys.map((key,i)=>{const at=p(i*30+15,248);return <g key={key} className="ep-natal-sign"><title>{signs()[i]}</title><AstroSymbol name={key} x={at.x-13} y={at.y-13} width="26" height="26"/></g>})}
-  {data.cusps.map((longitude,i)=>{const at=p(longitude+norm(data.cusps[(i+1)%12]-longitude)/2,138);return <g key={i}><path d={line(longitude,127,226)} className={[0,3,6,9].includes(i)?'ep-natal-cusp ep-natal-cusp--angle':'ep-natal-cusp'}/><text x={at.x} y={at.y+3.5} textAnchor="middle" className="ep-natal-house-number">{i+1}</text></g>})}
-  {showAspects&&aspects.map(a=>{const pa=data.planets.find(p=>p.key===a.a)!,pb=data.planets.find(p=>p.key===a.b)!,start=p(pa.longitude,126),end=p(pb.longitude,126);return <path key={`${a.a}-${a.b}`} d={`M${start.x} ${start.y}L${end.x} ${end.y}`} className={`ep-natal-aspect ep-aspect-${a.definition.tone}${selected?(a.a===selected||a.b===selected?' is-highlighted':' is-muted'):''}`}><title>{`${planetName(a.a)} · ${aspectName(a.definition.key)} · ${planetName(a.b)} · ${zodiacPosition(a.orb).text}`}</title></path>})}
-  {data.planets.map(planet=>{const at=p(labels[planet.key],190),edge=p(planet.longitude,224),labelEdge=p(labels[planet.key],211),position=zodiacPosition(planet.longitude);return <g key={planet.key} className={`ep-natal-marker${selected===planet.key?' is-selected':''}`} role="button" tabIndex={0} aria-pressed={selected===planet.key} aria-label={`${planetName(planet.key)} ${position.text} ${signs()[position.sign]}`} onClick={()=>onSelect(planet.key)} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onSelect(planet.key)}}}><title>{`${planetName(planet.key)} ${position.text} ${signs()[position.sign]}`}</title><path d={`M${edge.x} ${edge.y}L${labelEdge.x} ${labelEdge.y}`} className="ep-natal-leader"/><circle cx={edge.x} cy={edge.y} r="2" fill="currentColor"/><rect x={at.x-22} y={at.y-20} width="44" height="44" rx="9" className="ep-natal-marker-bg"/><AstroSymbol name={planet.key} x={at.x-11} y={at.y-17} width="22" height="22"/><text x={at.x} y={at.y+20} textAnchor="middle" className="ep-natal-planet-degree">{position.text}{planet.speed<0?' R':''}</text></g>})}
-  {[{name:'ASC',longitude:data.ascendant},{name:'DSC',longitude:norm(data.ascendant+180)},{name:'MC',longitude:data.midheaven},{name:'IC',longitude:norm(data.midheaven+180)}].map(axis=>{const at=p(axis.longitude,292);return <g key={axis.name} className="ep-natal-axis"><path d={line(axis.longitude,269,279)}/><text x={at.x} y={at.y+4} textAnchor="middle">{axis.name}</text></g>})}
- </svg>
+function NatalWheel({data,selected,showAspects,onSelect,compact=false}:{data:NatalChartData;selected:PlanetKey|null;showAspects:boolean;onSelect:(key:PlanetKey)=>void;compact?:boolean}){
+ const result:AstrologyResult={
+  kind:'astrology',title:{ru:'Натальная карта',en:'Natal chart'},zodiac:{ru:'Тропический зодиак',en:'Tropical zodiac'},houseSystem:data.houseSystem,
+  layers:[{id:'natal',label:{ru:'Натальная карта',en:'Natal chart'},utc:data.utc,ascendant:data.ascendant,midheaven:data.midheaven,cusps:[...data.cusps],
+   positions:data.planets.map(p=>({key:p.key,label:{ru:planetName(p.key),en:planetName(p.key)},longitude:p.longitude,retrograde:p.speed<0,house:houseNumber(p.longitude,data.cusps)??undefined}))}],
+  aspects:chartAspects(data.planets).map(a=>({id:`${a.a}-${a.b}`,from:{layer:'natal',planet:a.a},to:{layer:'natal',planet:a.b},label:{ru:aspectName(a.definition.key)||a.definition.key,en:aspectName(a.definition.key)||a.definition.key},angle:a.definition.angle,orb:a.orb,tone:a.definition.tone})),
+ }
+ return <ComparisonWheel className="ep-natal-wheel" compact={compact} result={result} selected={selected?`natal:${selected}`:''} showAspects={showAspects} onSelect={id=>onSelect(id.slice('natal:'.length) as PlanetKey)}/>
 }
 
-export function ChartPreview({data}:{data:NatalChartData}){return <div className="co-chart-preview" aria-hidden="true" inert><NatalWheel data={data} selected={null} showAspects onSelect={()=>{}}/></div>}
+export function ChartPreview({data}:{data:NatalChartData}){return <div className="co-chart-preview" aria-hidden="true" inert><NatalWheel data={data} selected={null} showAspects compact onSelect={()=>{}}/></div>}

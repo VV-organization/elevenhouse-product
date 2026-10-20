@@ -13,6 +13,7 @@ import {formatDate, TODAY, type Practice} from '../state/model'
 import {birthDataError, birthDataOf, emptyBirthData, hasSavedNatalChart, type BirthData, type BirthDraft, resolveBirthDraft} from '../state/calculationData'
 import '../calculation.css'
 import '../calculation-organization.css'
+import '../calculation-studio.css'
 
 export type CalculationAdapters = {calculate?: CalculateAstronomy; interpret?: InterpretCalculation}
 type Props = CalculationAdapters & {methodRoutes?:boolean;initialMethod?:'natal'|'numbers'|'matrix'|'hd';practice: Practice; clientId?: string; onChange?: (practice: Practice) => void; onOpenClient: (id: string) => void; compactSummary?:boolean}
@@ -25,7 +26,7 @@ export function CalculationWorkspace(props: Props) {
   const effectiveMode = props.clientId ? 'client' : props.practice.clients.length ? mode : 'quick'
   const selected = props.clientId || (props.practice.clients.some(client => client.id === selectedId) ? selectedId : props.practice.clients[0]?.id)
   const subjectControls = !props.clientId && props.practice.clients.length>0 && <div className="ec-subject-bar"><div className="ec-mode" role="group" aria-label={tr("Для кого расчёт", "Who is this calculation for?")}><button aria-pressed={mode === 'client'} onClick={() => setMode('client')}>{tr("Из моих клиентов", "Choose a client")}</button><button aria-pressed={mode === 'quick'} onClick={() => setMode('quick')}>{tr("Без добавления клиента", "Without adding a client")}</button></div>{effectiveMode === 'client' && <div className="ec-client">{props.practice.clients.length ? <><ClientPicker clients={props.practice.clients} value={selected || ''} onChange={setSelectedId}/><button className="ep-text-button" onClick={() => selected && props.onOpenClient(selected)}>{tr("Карточка клиента", "Client profile")} <Icon name="arrow" size={16}/></button></> : <p>{tr("Клиентов пока нет.", "No clients yet.")} <button className="ep-text-button" onClick={() => setMode('quick')}>{tr("Ввести данные рождения", "Enter birth details")}</button></p>}</div>}</div>
-  return <section className="ec-workspace" aria-label={tr("Расчёт и подготовка", "Calculation and preparation")}>
+  return <section className="ec-workspace cs-workspace" aria-label={tr("Расчёт и подготовка", "Calculation and preparation")}>
 
     {(effectiveMode === 'quick' || selected) && <CalculationBody subjectControls={subjectControls} key={effectiveMode === 'quick' ? 'quick' : selected} {...props} clientId={effectiveMode === 'client' ? selected : undefined} compactSummary={!props.clientId && effectiveMode === 'client'}/>}
   </section>

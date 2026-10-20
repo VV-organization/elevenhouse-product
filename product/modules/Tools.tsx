@@ -125,7 +125,7 @@ function Library({ practice }: ModuleProps) {
     const seed = currentSeeds.find(item => item.id === material.id)
     if (!seed) return material
     const legacyText = material.id === 'm1'
-      ? `${seed.text}\n\nЭто редактируемый пример вашей рабочей памятки.`
+      ? `${seed.text}\n\nЭту рабочую памятку можно редактировать.`
       : material.id === 'm3'
         ? seed.text.replace('Вопросы для подготовки к консультации.', 'Авторская заметка для подготовки, не автоматическая интерпретация карты.')
         : null

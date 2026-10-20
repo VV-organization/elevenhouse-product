@@ -12,7 +12,7 @@
 .ep-root[data-theme] .ao-panel>header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:24px}
 .ep-root[data-theme] .ao-panel h2{margin:0;font:600 16px/1.5 'Auth Manrope',sans-serif}
 .ep-root[data-theme] .ao-panel>header p{margin:6px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
-.ep-root[data-theme] .ao-dashboard .ao-detail-link{display:inline-flex;gap:8px;align-items:center;flex-shrink:0;font-size:12px;min-height:32px;padding:4px 8px}
+.ep-root[data-theme] .ao-dashboard .ao-detail-link{display:inline-flex;gap:8px;align-items:center;flex-shrink:0;max-width:100%;font-size:12px;min-height:32px;padding:4px 12px;white-space:normal}
 .ep-root[data-theme] .ao-trend,.ep-root[data-theme] .ao-hours,.ep-root[data-theme] .ao-clients{grid-column:span 8}
 .ep-root[data-theme] .ao-services,.ep-root[data-theme] .ao-weekdays{grid-column:span 6}
 .ep-root[data-theme] .ao-trend .it-plot{height:230px}

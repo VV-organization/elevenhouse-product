@@ -1,0 +1,263 @@
+/* Calculation studio, scoped to product workspace only.
+   Reference principles: Linear Insights (aligned controls/data panels),
+   myBodyGraph (central diagram with paired activation columns).
+   No global/Hero selectors, fonts, dependencies or animation timings changed. */
+.ep-root[data-theme] .cs-workspace {--cs-accent:var(--ec-label);--cs-canvas:color-mix(in srgb,var(--surface) 60%,var(--ivory));font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .cs-workspace .ec-subject-context {padding:16px 20px;border-radius:12px;background:var(--surface)}
+.ep-root[data-theme] .cs-workspace .ec-subject-bar {gap:12px 20px}
+.ep-root[data-theme] .cs-workspace .ec-subject-bar+.ec-birth-summary {margin-top:12px;padding-top:12px}
+.ep-root[data-theme] .cs-workspace .ec-birth-facts {gap:12px 32px}
+.ep-root[data-theme] .cs-workspace .ec-birth-facts>div {display:flex;align-items:baseline;gap:10px}
+.ep-root[data-theme] .cs-workspace .ec-birth-facts dt {margin:0;font-size:12px}
+.ep-root[data-theme] .cs-workspace .ec-methods {margin:12px 0 24px;gap:24px}
+.ep-root[data-theme] .cs-workspace .ec-methods button {min-height:48px;font-size:14px}
+.ep-root[data-theme] .cs-workspace :is(.ec-astro-stage,.cs-method-stage) {width:100%;max-width:none;display:grid;grid-template-columns:160px minmax(0,1fr);gap:24px;align-items:start;margin:0}
+.ep-root[data-theme] .cs-workspace .ec-astro-rail {padding:8px 0;border:0;border-radius:0;background:none;position:sticky;top:20px}
+.ep-root[data-theme] .cs-workspace .ec-type-groups {gap:24px}
+.ep-root[data-theme] .cs-workspace .ec-type-group legend {color:var(--muted);font-size:11px;letter-spacing:.03em;padding:0 12px;margin:0 0 8px}
+.ep-root[data-theme] .cs-workspace .ec-astro-rail button {padding:10px 12px;font-size:13px;min-height:42px;border-radius:8px}
+.ep-root[data-theme] .cs-workspace .ec-astro-rail button[aria-pressed=true] {box-shadow:none;background:var(--surface-raised);color:var(--navy)}
+.ep-root[data-theme] .cs-workspace :is(.ec-astro-result,.cs-method-result) {min-width:0;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.ep-root[data-theme] .cs-workspace .cs-result-heading {display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 20px;min-width:0}
+.ep-root[data-theme] .cs-workspace .cs-result-heading h2 {font:600 22px/1.35 'Auth Manrope',sans-serif;letter-spacing:-.035em;margin:0}
+.ep-root[data-theme] .cs-workspace .ar-demo-label {font-size:11px;line-height:1.4;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:5px 8px;margin:0}
+/* Inputs and recalculation form a single compact toolbar. More fields expand in place. */
+.ep-root[data-theme] .ep-workspace .cs-workspace .ec-astro-result .ar-result>form.rc-request {display:flex;align-items:start;flex-wrap:wrap;gap:12px 20px;margin:0 0 20px;padding:0 0 20px;border:0;border-bottom:1px solid var(--line);max-width:none}
+.ep-root[data-theme] .cs-workspace .rc-request>.ec-draft-recovery {flex:1 1 200px;border:0;padding:0;margin:0}
+.ep-root[data-theme] .cs-workspace .rc-request>.ep-action-feedback {flex:0 1 auto;margin:0 0 0 auto;min-width:0}
+.ep-root[data-theme] .cs-workspace .rc-request .ec-actions {margin:0;gap:12px}
+.ep-root[data-theme] .cs-workspace .rc-request>.ep-client-picker {flex:1 1 300px;max-width:none;margin:0}
+.ep-root[data-theme] .cs-workspace .rc-request>.rc-request-fields {flex-basis:100%;margin:0}
+.ep-root[data-theme] .cs-workspace .rc-request>.ec-draft-recovery[open] {flex-basis:100%}
+.ep-root[data-theme] .cs-workspace .rc-request .ec-draft-recovery summary {padding:12px 0;min-height:44px;font-size:13px}
+.ep-root[data-theme] .cs-workspace .rc-request .ep-button {min-height:40px;padding:9px 16px;font-size:13px}
+.ep-root[data-theme] .cs-workspace .rc-request-fields {gap:16px}
+.ep-root[data-theme] .cs-workspace .rc-request label {font-size:13px}
+.ep-root[data-theme] .cs-workspace .cs-chart-meta {font-size:12px;margin:0 0 8px}
+.ep-root[data-theme] .cs-workspace .ar-layer-legend {margin:0 0 16px;gap:10px 20px;font-size:12px}
+.ep-root[data-theme] .cs-workspace .ec-astro-result .ar-layout {grid-template-columns:minmax(0,1.2fr) minmax(290px,1fr);gap:24px;max-width:none;margin:0;align-items:start}
+.ep-root[data-theme] .cs-workspace .cs-chart-canvas {min-width:0;padding:16px;background:var(--cs-canvas);border:1px solid var(--line);border-radius:12px}
+.ep-root[data-theme] .cs-workspace .ec-astro-result .ar-wheel {max-width:560px;margin:0 auto}
+.ep-root[data-theme] .cs-workspace .ar-wheel-background {fill:var(--cs-canvas)}
+.ep-root[data-theme] .cs-workspace .ar-controls {gap:12px;margin-top:12px;font-size:12px}
+.ep-root[data-theme] .cs-workspace .ar-controls .ep-button,.ep-root[data-theme] .cs-workspace .cs-chart-canvas>.ep-button {font-size:12px;min-height:40px;padding:8px 12px;background:transparent}
+.ep-root[data-theme] .cs-workspace .ar-selection {font-size:12px;color:var(--muted);margin:12px 0 0;min-height:40px;gap:8px}
+.ep-root[data-theme] .cs-workspace .ar-data>.ec-mode {display:flex;gap:4px;flex-wrap:nowrap;padding:4px;margin:0 0 12px;background:var(--cs-canvas);border:1px solid var(--line);border-radius:8px}
+.ep-root[data-theme] .cs-workspace .ar-data>.ec-mode>button {flex:1;min-width:0;min-height:36px;border:0;box-shadow:none;border-radius:5px;padding:8px 6px;background:none;font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .cs-workspace .ar-data>.ec-mode>button[aria-pressed=true] {background:var(--surface-raised);color:var(--navy);box-shadow:none}
+.ep-root[data-theme] .cs-workspace .ar-data>section>h3 {font-size:13px;margin:16px 0 8px;font-weight:500}
+.ep-root[data-theme] .cs-workspace .ar-table {max-height:460px;overflow:auto;scrollbar-width:thin;overscroll-behavior:contain}
+.ep-root[data-theme] .cs-workspace .ar-table table {font-size:13px}
+.ep-root[data-theme] .cs-workspace .ar-table :is(th,td) {padding:9px 8px;line-height:1.5;vertical-align:middle}
+.ep-root[data-theme] .cs-workspace .ar-table thead {position:sticky;top:0;z-index:1;background:var(--surface)}
+.ep-root[data-theme] .cs-workspace .ar-table thead th {font-size:11px}
+.ep-root[data-theme] .cs-workspace .ar-table button {font-size:13px;min-height:30px}
+.ep-root[data-theme] .cs-workspace .ar-table button svg {width:16px;height:16px;flex-shrink:0}
+.ep-root[data-theme] .cs-workspace .ar-parameters {margin:20px 0 0;padding:8px 0;font-size:12px}
+.ep-root[data-theme] .cs-workspace .ar-parameters summary {display:flex;align-items:center;min-height:40px}
+/* Bodygraph: diagram and activations are one visual; properties belong to its inspector. */
+.ep-root[data-theme] .cs-workspace .ar-hd>h3 {font-size:14px;font-weight:500;margin:0 0 16px;color:var(--muted)}
+.ep-root[data-theme] .cs-workspace .cs-bodygraph-board {display:grid;grid-template-columns:54px minmax(0,1fr) 54px;gap:2px;align-items:center;min-width:0}
+.ep-root[data-theme] .cs-workspace .ar-bodygraph {height:auto;max-height:540px;min-width:0;display:block}
+.ep-root[data-theme] .cs-workspace .cs-activations {align-self:stretch;display:flex;flex-direction:column;justify-content:center;gap:8px;color:var(--navy)}
+.ep-root[data-theme] .cs-workspace .cs-activations--design {color:var(--data-series-2)}
+.ep-root[data-theme] .cs-workspace .cs-activations h4 {font-size:10px;line-height:1.4;font-weight:500;margin:0 0 8px}
+.ep-root[data-theme] .cs-workspace .cs-activations>div {display:flex;gap:5px;align-items:center;justify-content:space-between;font-size:12px;line-height:1.2}
+.ep-root[data-theme] .cs-workspace .cs-activations>div>span {display:flex;align-items:center;justify-content:center;width:16px}
+.ep-root[data-theme] .cs-workspace .cs-activations strong {font-weight:600}
+.ep-root[data-theme] .cs-workspace .cs-activations small {font-size:10px;opacity:.75}
+.ep-root[data-theme] .cs-workspace .cs-chart-canvas>.ep-button {display:flex;margin:12px auto}
+.ep-root[data-theme] .cs-workspace .cs-chart-canvas>.ar-layer-legend {padding-top:12px;border-top:1px solid var(--line);justify-content:center;margin-bottom:0;font-size:10px;gap:8px 12px}
+.ep-root[data-theme] .cs-workspace .ar-hd-summary {display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin:0 0 24px;padding:0 0 20px;border-bottom:1px solid var(--line)}
+.ep-root[data-theme] .cs-workspace .ar-hd-summary>div:first-child {grid-column:1/-1}
+.ep-root[data-theme] .cs-workspace .ar-hd-summary dt {font-size:11px;line-height:1.5;color:var(--muted)}
+.ep-root[data-theme] .cs-workspace .ar-hd-summary dd {font-size:13px;font-weight:500;line-height:1.5;margin:3px 0 0}
+.ep-root[data-theme] .cs-workspace .ar-hd-summary>div:first-child dd {font-size:18px;line-height:1.4;font-weight:600;letter-spacing:-.025em}
+.ep-root[data-theme] .cs-workspace .ar-centres>button {min-height:44px;font-size:13px;padding:10px 12px;border-radius:5px;gap:8px}
+.ep-root[data-theme] .cs-workspace .ar-centres strong {font-weight:500}
+.ep-root[data-theme] .cs-workspace .ar-centres span {font-size:11px;white-space:nowrap}
+.ep-root[data-theme] .cs-workspace .cs-defined::before {content:'';display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:6px;background:var(--data-series-3)}
+.ep-root[data-theme] .cs-workspace .ar-channel-row {padding:12px;font-size:13px;margin:0}
+.ep-root[data-theme] .cs-workspace .ar-channel-row p {font-size:12px;margin:6px 0 0;line-height:1.6}
+.ep-root[data-theme] .cs-workspace .ar-hd-comparison {margin:24px 0 0;padding:20px 0;font-size:13px}
+.ep-root[data-theme] .cs-workspace .ar-hd-comparison>h3 {margin:0 0 12px;font-size:17px}
+.ep-root[data-theme] .cs-workspace .ar-hd-comparison details {margin:0;border-bottom:1px solid var(--line)}
+.ep-root[data-theme] .cs-workspace :is(.cs-individual-chart,.cs-result-notes) {border-top:1px solid var(--line);margin-top:16px;font-size:13px}
+.ep-root[data-theme] .cs-workspace :is(.cs-individual-chart,.cs-result-notes)>summary {padding:14px 0;cursor:pointer;min-height:44px}
+.ep-root[data-theme] .cs-workspace .cs-individual-chart[open] {padding-bottom:20px}
+/* Numerical methods share the same mode rail and result surface. */
+.ep-root[data-theme] .cs-workspace .cs-method-parameters {display:flex;flex-wrap:wrap;gap:16px 24px;align-items:start;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:24px}
+.ep-root[data-theme] .cs-workspace .cs-method-parameters:empty {display:none}
+.ep-root[data-theme] .cs-workspace .cs-method-parameters .rc-name {margin:0;max-width:480px;width:100%;font-size:12px;gap:8px}
+.ep-root[data-theme] .cs-workspace .cs-method-parameters .rc-name small {font-size:11px}
+.ep-root[data-theme] .cs-workspace .cs-method-parameters .rc-year {margin:0;font-size:12px}
+.ep-root[data-theme] .cs-workspace .cs-method-content {min-width:0}
+.ep-root[data-theme] .cs-workspace .cs-method-content>h3 {font-size:18px;margin:0 0 20px}
+.ep-root[data-theme] .cs-workspace .rc-number-workspace {grid-template-columns:minmax(190px,.8fr) minmax(0,1.4fr);border:0;border-radius:0;background:none}
+.ep-root[data-theme] .cs-workspace .rc-number-rail {padding:0 20px 0 0}
+.ep-root[data-theme] .cs-workspace .rc-number-rail .rc-metrics {gap:4px;margin:0}
+.ep-root[data-theme] .cs-workspace .rc-number-rail .rc-metrics button {min-height:48px;padding:10px 12px;border:0;border-radius:7px;font-size:13px}
+.ep-root[data-theme] .cs-workspace .rc-number-rail .rc-metrics button[aria-pressed=true] {box-shadow:none;background:var(--surface-raised)}
+.ep-root[data-theme] .cs-workspace .rc-number-rail .rc-metrics strong {font-size:20px;font-weight:500}
+.ep-root[data-theme] .cs-workspace .rc-number-reading {padding:0 0 0 24px}
+.ep-root[data-theme] .cs-workspace .rc-number-reading>header {gap:20px;align-items:center}
+.ep-root[data-theme] .cs-workspace .rc-number-value {font:500 48px/1 'Auth Manrope',sans-serif;color:var(--cs-accent)}
+.ep-root[data-theme] .cs-workspace .rc-number-reading h3 {font-size:20px;margin:0 0 8px}
+.ep-root[data-theme] .cs-workspace .rc-number-reading p {font-size:14px;line-height:1.75}
+.ep-root[data-theme] .cs-workspace .rc-number-formula {padding:16px 0}
+.ep-root[data-theme] .cs-workspace .rc-number-meaning {padding-top:16px}
+.ep-root[data-theme] .cs-workspace .rc-matrix-layout {grid-template-columns:minmax(0,1.2fr) minmax(240px,1fr);align-items:start;gap:24px}
+.ep-root[data-theme] .cs-workspace .rc-matrix {background:var(--cs-canvas);border:1px solid var(--line);border-radius:12px;padding:12px;box-sizing:border-box}
+.ep-root[data-theme] .ec-workspace.cs-workspace .rc-calculation[data-method=matrix] .rc-matrix-layout .rc-detail {display:block;padding:0;margin:0;border:0;font-size:14px}
+.ep-root[data-theme] .cs-workspace .rc-matrix-layout .rc-detail>h3:first-child {font-size:12px;color:var(--muted);font-weight:500;margin-bottom:12px}
+.ep-root[data-theme] .cs-workspace .rc-big-number {display:block;font:500 48px/1.2 'Auth Manrope',sans-serif;color:var(--cs-accent);margin-bottom:12px}
+.ep-root[data-theme] .cs-workspace .rc-matrix-layout .rc-detail label {font-size:12px;padding-top:16px;border-top:1px solid var(--line)}
+.ep-root[data-theme] .cs-workspace .rc-rows {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;margin-top:24px;font-size:13px}
+.ep-root[data-theme] .cs-workspace .rc-rows>div {padding:14px 12px;min-height:48px}
+.ep-root[data-theme] .cs-workspace .rc-rows strong {font-size:18px;font-weight:500}
+.ep-root[data-theme] .cs-workspace .rc-rows details {border-bottom:1px solid var(--line);line-height:1.7;padding:0 12px}
+.ep-root[data-theme] .cs-workspace .rc-rows summary {padding:14px 0;cursor:pointer;min-height:44px}
+.ep-root[data-theme] .cs-workspace .rc-psycho {max-width:none;margin:0 0 20px;gap:12px}
+.ep-root[data-theme] .cs-workspace .rc-psycho button {min-height:120px;padding:16px;border-radius:10px;background:var(--cs-canvas);gap:8px;font-size:13px}
+.ep-root[data-theme] .cs-workspace .rc-psycho strong {font-size:30px;font-weight:500;color:var(--cs-accent)}
+.ep-root[data-theme] .cs-workspace .rc-psycho small {color:var(--muted);font-size:11px}
+.ep-root[data-theme] .cs-workspace .cs-method-content[data-view=psycho]>details {padding:16px 20px;background:var(--cs-canvas);border:1px solid var(--line);border-radius:10px;font-size:14px;line-height:1.7}
+.ep-root[data-theme] .cs-workspace .cs-method-content[data-view=psycho]>h3 {margin-top:24px}
+.ep-root[data-theme] .cs-workspace .cs-method-content>p {font-size:13px;line-height:1.7}
+.ep-root[data-theme] .cs-workspace .rc-months {grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:0}
+.ep-root[data-theme] .cs-workspace .rc-months>div {padding:16px 12px;gap:12px;font-size:12px;background:var(--cs-canvas);border-radius:8px}
+.ep-root[data-theme] .cs-workspace .rc-months strong {font-size:24px;font-weight:500}
+.ep-root[data-theme] .cs-workspace .cs-month-track {display:flex;align-items:end;height:70px;background:var(--surface-raised);border-radius:4px;overflow:hidden}
+.ep-root[data-theme] .cs-workspace .cs-month-track i {display:block;width:100%;background:var(--data-series-3);border-radius:4px 4px 0 0;opacity:.85}
+.ep-root[data-theme] .cs-workspace .rc-months>div:nth-child(3n) .cs-month-track i {background:var(--data-series-1)}
+.ep-root[data-theme] .cs-workspace .rc-table-wrap {margin:0}
+.ep-root[data-theme] .cs-workspace .rc-table-wrap :is(th,td) {padding:14px 16px;font-size:13px}
+.ep-root[data-theme] .cs-workspace .rc-table-wrap thead {background:var(--cs-canvas)}
+.ep-root[data-theme] .cs-workspace .rc-table-wrap caption {margin:0 0 20px;font-size:16px;font-weight:600}
+.ep-root[data-theme] .cs-workspace .cs-table-value {display:flex;align-items:center;gap:12px;min-width:54px}
+.ep-root[data-theme] .cs-workspace .cs-table-value .cs-table-meter {display:block;width:90px;flex:0 1 90px}
+.ep-root[data-theme] .cs-workspace .cs-table-value i {display:block;height:5px;background:var(--data-series-3);border-radius:3px}
+.ep-root[data-theme] .cs-workspace td:nth-child(3) .cs-table-value i {background:var(--data-series-1)}
+.ep-root[data-theme] .cs-workspace td:nth-child(4) .cs-table-value i {background:var(--data-series-2)}
+/* Secondary work is collected below the report, on the same content edge. */
+.ep-root[data-theme] .cs-workspace .cd-actions {margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.ep-root[data-theme] .cs-workspace .cd-toolbar {display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.ep-root[data-theme] .cs-workspace .cd-toolbar :is(.ep-button,.ep-text-button) {font-size:12px;min-height:40px;padding:9px 12px}
+.ep-root[data-theme] .cs-workspace .cd-toolbar .ec-actions {margin:0;gap:8px}
+.ep-root[data-theme] .cs-workspace .cd-interpretation {margin-top:20px;font-size:13px}
+.ep-root[data-theme] .cs-workspace .ec-astronomy>.rc-history {margin:20px 0 0 184px}
+.ep-root[data-theme] section.cs-workspace>.ep-form.ec-preparation {margin:24px 0 0 184px;padding:20px 24px;border-radius:12px}
+.ep-root[data-theme] .cs-workspace :is(.ec-astro-rail button,.ar-data>.ec-mode>button,.ar-centres>button):hover {box-shadow:none!important;outline:none;background:var(--surface-raised)}
+.ep-root[data-theme] .cs-workspace :is(.ec-astro-rail button,.ar-data>.ec-mode>button,.ar-table button,.ar-centres>button):focus-visible {outline:2px solid var(--gold);outline-offset:2px}
+@media(max-width:1300px){
+ .ep-root[data-theme] .cs-workspace :is(.ec-astro-stage,.cs-method-stage) {grid-template-columns:140px minmax(0,1fr);gap:20px}
+ .ep-root[data-theme] .cs-workspace :is(.ec-astro-result,.cs-method-result) {padding:20px}
+ .ep-root[data-theme] .cs-workspace .ec-astro-result .ar-layout {grid-template-columns:minmax(0,1fr) minmax(260px,.95fr);gap:20px}
+ .ep-root[data-theme] .cs-workspace .cs-bodygraph-board {grid-template-columns:44px minmax(0,1fr) 44px}
+ .ep-root[data-theme] .cs-workspace .cs-activations {gap:6px}
+ .ep-root[data-theme] .cs-workspace .cs-chart-canvas {padding:12px}
+ .ep-root[data-theme] .cs-workspace .rc-months {grid-template-columns:repeat(4,minmax(0,1fr))}
+ .ep-root[data-theme] .cs-workspace .ec-astronomy>.rc-history,.ep-root[data-theme] section.cs-workspace>.ep-form.ec-preparation {margin-left:160px}
+}
+@media(max-width:1100px){
+ .ep-root[data-theme] .cs-workspace .ec-astro-result .ar-layout {grid-template-columns:1fr}
+ .ep-root[data-theme] .cs-workspace .ar-bodygraph {max-height:500px}
+ .ep-root[data-theme] .cs-workspace .cs-bodygraph-board {max-width:480px;margin:auto;grid-template-columns:60px minmax(0,1fr) 60px}
+ .ep-root[data-theme] .cs-workspace .cs-activations {gap:10px}
+ .ep-root[data-theme] .cs-workspace .ar-hd-summary {grid-template-columns:repeat(3,minmax(0,1fr))}
+ .ep-root[data-theme] .cs-workspace .ar-hd-summary>div:first-child {grid-column:1/-1}
+ .ep-root[data-theme] .cs-workspace .rc-number-workspace,.ep-root[data-theme] .cs-workspace .rc-matrix-layout {grid-template-columns:1fr}
+ .ep-root[data-theme] .cs-workspace .rc-number-rail {padding:0 0 20px;border-right:0;border-bottom:1px solid var(--line)}
+ .ep-root[data-theme] .cs-workspace .rc-number-rail .rc-metrics {grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ep-root[data-theme] .cs-workspace .rc-number-reading {padding:24px 0 0}
+ .ep-root[data-theme] .cs-workspace .rc-matrix {max-width:520px;margin:auto}
+}
+@media(max-width:800px){
+ .ep-root[data-theme] .cs-workspace .ec-subject-context {padding:16px}
+ .ep-root[data-theme] .cs-workspace .ec-birth-facts {gap:12px 20px}
+ .ep-root[data-theme] .cs-workspace .ec-birth-facts>div {display:block}
+ .ep-root[data-theme] .cs-workspace .ec-birth-facts dt {margin-bottom:4px}
+ .ep-root[data-theme] .cs-workspace .ec-methods {gap:0 12px;margin:12px 0 16px}
+ .ep-root[data-theme] .cs-workspace :is(.ec-astro-stage,.cs-method-stage) {grid-template-columns:1fr;gap:16px}
+ .ep-root[data-theme] .cs-workspace .ec-astro-rail {position:static;padding:0}
+ .ep-root[data-theme] .cs-workspace .ec-type-groups {gap:12px}
+ .ep-root[data-theme] .cs-workspace .ec-type-group legend {padding:0;margin:0 0 4px}
+ .ep-root[data-theme] .cs-workspace .ec-astro-rail .ec-mode {display:flex;flex-wrap:wrap;gap:4px}
+ .ep-root[data-theme] .cs-workspace .ec-astro-rail button {width:auto;min-height:44px;font-size:13px;padding:10px 12px}
+ .ep-root[data-theme] .cs-workspace :is(.ec-astro-result,.cs-method-result) {padding:20px 16px}
+ .ep-root[data-theme] .cs-workspace .cs-result-heading h2 {font-size:20px}
+ .ep-root[data-theme] .cs-workspace .ec-astronomy>.rc-history,.ep-root[data-theme] section.cs-workspace>.ep-form.ec-preparation {margin-left:0}
+ .ep-root[data-theme] section.cs-workspace>.ep-form.ec-preparation {padding:20px 16px}
+ .ep-root[data-theme] .cs-workspace .ar-hd-summary {grid-template-columns:1fr 1fr}
+ .ep-root[data-theme] .cs-workspace .cs-bodygraph-board {grid-template-columns:40px minmax(0,1fr) 40px;gap:0}
+ .ep-root[data-theme] .cs-workspace .cs-activations {gap:6px}
+ .ep-root[data-theme] .cs-workspace .cs-activations>div {font-size:10px;gap:2px}
+ .ep-root[data-theme] .cs-workspace .cs-activations h4 {font-size:9px}
+ .ep-root[data-theme] .cs-workspace .cs-activations svg {width:12px;height:12px}
+ .ep-root[data-theme] .cs-workspace .cs-chart-canvas {padding:10px}
+ .ep-root[data-theme] .cs-workspace .ar-table :is(th,td) {padding:10px 6px}
+ .ep-root[data-theme] .cs-workspace .rc-rows {grid-template-columns:1fr}
+ .ep-root[data-theme] .cs-workspace .rc-months {grid-template-columns:repeat(3,minmax(0,1fr))}
+ .ep-root[data-theme] .cs-workspace .rc-psycho {gap:8px}
+ .ep-root[data-theme] .cs-workspace .rc-psycho button {padding:12px 8px;font-size:11px;min-height:112px}
+ .ep-root[data-theme] .cs-workspace .rc-psycho strong {font-size:24px}
+ .ep-root[data-theme] .cs-workspace .rc-table-wrap :is(th,td) {padding:12px 8px;font-size:12px}
+ .ep-root[data-theme] .cs-workspace .rc-table-wrap .cs-table-value {min-width:32px;gap:4px}
+ .ep-root[data-theme] .cs-workspace .rc-table-wrap .cs-table-value .cs-table-meter {width:30px;flex-basis:30px}
+ .ep-root[data-theme] .cs-workspace .cd-toolbar .ec-actions {display:flex;flex-wrap:wrap}
+ .ep-root[data-theme] .cs-workspace .cd-toolbar .ep-button {width:auto;flex:1 1 auto}
+}
+
+/* Existing matrix-specific selectors used to cap the full workspace width. */
+.ep-root[data-theme] .ec-workspace.cs-workspace .rc-calculation.cs-method-stage {max-width:none;width:100%}
+.ep-root[data-theme] .cs-workspace .ar-hd-centre.is-defined[data-centre="throat"],.ep-root[data-theme] .cs-workspace .ar-hd-centre.is-defined[data-centre="root"] {fill:color-mix(in srgb,var(--data-series-5) 32%,var(--surface));stroke:var(--data-series-5)}
+.ep-root[data-theme] .cs-workspace .ar-hd-centre.is-defined[data-centre="sacral"],.ep-root[data-theme] .cs-workspace .ar-hd-centre.is-defined[data-centre="heart"] {fill:color-mix(in srgb,var(--data-series-2) 32%,var(--surface));stroke:var(--data-series-2)}
+.ep-root[data-theme] .cs-workspace .ar-hd-centre.is-defined[data-centre="spleen"],.ep-root[data-theme] .cs-workspace .ar-hd-centre.is-defined[data-centre="ajna"] {fill:color-mix(in srgb,var(--data-series-3) 32%,var(--surface));stroke:var(--data-series-3)}
+.ep-root[data-theme] .cs-workspace .ar-hd-centre.is-selected,.ep-root[data-theme] .cs-workspace .ar-bodygraph g:focus-visible .ar-hd-centre {stroke:var(--navy);stroke-width:3}
+.ep-root[data-theme] .cs-workspace .ai-insights {margin-top:24px;padding-top:24px}
+.ep-root[data-theme] .cs-workspace .ai-insights h3 {font-size:15px}
+.ep-root[data-theme] .cs-workspace .ai-switch button {font-size:13px;min-height:40px;padding:8px 12px}
+@media print {
+ .ep-root .cs-workspace :is(.ec-astro-stage,.cs-method-stage) {display:block}
+ .ep-root .cs-workspace :is(.ec-astro-rail,.rc-request,.cs-method-parameters) {display:none}
+ .ep-root .cs-workspace .ar-table {max-height:none;overflow:visible}
+ .ep-root .cs-individual-chart::details-content,.ep-root .cs-result-notes::details-content {content-visibility:visible}
+}
+.ep-root[data-theme] .cs-workspace .cs-psycho-layout {display:grid;grid-template-columns:minmax(0,1.1fr) minmax(220px,1fr);gap:24px;align-items:start;margin-bottom:24px}
+.ep-root[data-theme] .cs-workspace .cs-psycho-reading {padding:20px;background:var(--cs-canvas);border:1px solid var(--line);border-radius:12px;font-size:14px;line-height:1.7}
+.ep-root[data-theme] .cs-workspace .cs-psycho-reading>p:first-child {font-weight:600;margin:0 0 16px}
+.ep-root[data-theme] .cs-workspace .cs-psycho-reading>p:last-child {font-size:12px;margin:20px 0 0;padding-top:16px;border-top:1px solid var(--line)}
+.ep-root[data-theme] .cs-workspace .cs-psycho-reading summary {font-size:12px;color:var(--muted);cursor:pointer}
+.ep-root[data-theme] .cs-workspace .cs-year-heading {display:flex;align-items:center;gap:20px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.ep-root[data-theme] .cs-workspace .cs-year-heading>strong {font:500 48px/1 'Auth Manrope',sans-serif;color:var(--cs-accent)}
+.ep-root[data-theme] .cs-workspace .cs-year-heading h3 {font-size:18px;margin:0 0 8px}
+.ep-root[data-theme] .cs-workspace .cs-year-heading p {font-size:13px;color:var(--muted);margin:0}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas>section {padding:20px 0;min-width:0;border-bottom:1px solid var(--line)}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas>section:first-child {grid-row:auto;padding:24px;border:1px solid var(--line);border-radius:12px;background:var(--cs-canvas)}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas>section>span {font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas>section>div {display:flex;align-items:center;gap:16px;margin:16px 0}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas h3 {font-size:18px;margin:0}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas .rc-big-number {margin:0;font-size:36px}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas p {font-size:14px;line-height:1.7}
+.ep-root[data-theme] .cs-workspace .cs-year-arcanas summary {font-size:13px;cursor:pointer;padding:12px 0}
+@media(max-width:1100px){.ep-root[data-theme] .cs-workspace .cs-psycho-layout {grid-template-columns:1fr}}
+@media(max-width:600px){.ep-root[data-theme] .cs-workspace .cs-year-arcanas {grid-template-columns:1fr}.ep-root[data-theme] .cs-workspace .cs-year-arcanas>section:first-child {grid-row:auto;padding:20px}.ep-root[data-theme] .cs-workspace .cs-psycho-reading {padding:16px}}
+
+.ep-root[data-theme] .cs-workspace .cs-heading-actions {display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ep-root[data-theme] .cs-workspace .cs-heading-actions>.ep-button {font-size:13px;min-height:40px;padding:9px 16px}
+.ep-root[data-theme] .cs-workspace .rc-request>.ep-action-feedback:empty {display:none}
+.ep-root[data-theme] .ep-workspace .cs-workspace .ec-astro-result form.rc-request:has(>.ep-action-feedback:only-child:empty) {display:none}
+@media(max-width:800px){
+ .ep-root[data-theme] .cs-workspace .ec-type-groups {display:flex;gap:16px;overflow-x:auto;max-width:100%;padding:0 0 8px;scrollbar-width:thin}
+ .ep-root[data-theme] .cs-workspace .ec-type-group {flex:0 0 auto}
+ .ep-root[data-theme] .cs-workspace .ec-type-group legend {padding-left:12px}
+ .ep-root[data-theme] .cs-workspace .ec-astro-rail .ec-type-group .ec-mode {flex-wrap:nowrap}
+ .ep-root[data-theme] .cs-workspace .ec-astro-rail .ec-type-group button {white-space:nowrap;flex:0 0 auto}
+ .ep-root[data-theme] .cs-workspace .cs-heading-actions {gap:8px}
+ .ep-root[data-theme] .cs-workspace .cs-result-heading {align-items:flex-start}
+}
+
+/* Planet names belong to the table row, not a tight individual hover box. */
+.ep-root[data-theme] .cs-workspace .ar-table button:hover{background:transparent;box-shadow:none!important}
+.ep-root[data-theme] .cs-workspace .ar-table tbody tr:has(button:is(:hover,:focus-visible)){background:var(--surface-raised)}

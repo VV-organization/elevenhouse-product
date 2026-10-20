@@ -67,7 +67,7 @@
 .ep-root[data-theme] .ep-workspace .td-context .tw-daily-tools section+section{border-top:1px solid var(--line)}
 .ep-root[data-theme] .ep-workspace .td-context .tw-daily-tools h2{font-size:16px;line-height:1.4;margin:0 0 8px}
 .ep-root[data-theme] .ep-workspace .td-context .tw-daily-tools p{font-size:14px;line-height:1.6;margin:0 0 8px;color:var(--muted);overflow-wrap:anywhere}
-.ep-root[data-theme] .ep-workspace .td-context .tw-daily-tools .ep-text-button{font-size:12px!important;padding:8px 0;justify-content:flex-start;display:flex;min-height:40px;text-align:left;line-height:1.5}
+.ep-root[data-theme] .ep-workspace .td-context .tw-daily-tools .ep-text-button{font-size:12px!important;padding:8px 12px;justify-content:flex-start;display:flex;min-height:40px;text-align:left;line-height:1.5}
 .ep-root[data-theme] .ep-workspace .td-clients{padding:4px 0 0}
 .ep-root[data-theme] .ep-workspace .td-clients .td-section-head{margin-bottom:12px}
 .ep-root[data-theme] .ep-workspace .td-clients h2{font-size:16px}

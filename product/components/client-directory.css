@@ -166,3 +166,10 @@
 .ep-root .cd-client-summary p{font-size:15px;line-height:1.6;overflow-wrap:anywhere}
 .ep-root .cd-client-summary .cd-note{white-space:pre-wrap}
 .ep-root .cd-client-summary .cd-preview-actions{margin-bottom:24px}
+/* Original CRM reference: visible stage filters with counts, above the working list. */
+.ep-root[data-theme] .cd-directory .cd-stage-counts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.ep-root[data-theme] .cd-stage-counts>button{display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:10px 16px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--muted);font:inherit;font-size:13px;cursor:pointer}
+.ep-root[data-theme] .cd-stage-counts>button>span{font-variant-numeric:tabular-nums;color:var(--navy)}
+.ep-root[data-theme] .cd-stage-counts>button[aria-pressed=true]{color:var(--navy);background:var(--surface-raised);border-color:var(--gold)}
+.ep-root[data-theme] .cd-stage-counts>button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(max-width:600px){.ep-root[data-theme] .cd-stage-counts>button{padding-inline:12px;gap:8px}}

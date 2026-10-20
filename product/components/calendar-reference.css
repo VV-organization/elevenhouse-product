@@ -15,7 +15,7 @@
 .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views{padding:3px;border:1px solid var(--cv-stroke);border-radius:12px;background:var(--cv-card)}
 .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views .ep-button{min-height:36px;padding:7px 14px;border:0;border-radius:8px;font-size:13px;background:transparent;color:var(--cv-muted);box-shadow:none}
 .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views [aria-pressed=true]{background:var(--gold);color:#253044;font-weight:600}
-.ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar>.ep-text-button{font-size:12px;min-height:32px;padding:4px 8px;color:var(--cv-muted)}
+.ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar>.ep-text-button{font-size:12px;min-height:32px;padding:4px 12px;color:var(--cv-muted)}
 .ep-root[data-theme] .ep-workspace .cv-reference-week{min-width:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
 .ep-root[data-theme] .ep-workspace .cv-schedule-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}
 .ep-root[data-theme] .ep-workspace .cv-schedule-heading h2{font-size:22px;line-height:1.4;margin:0;font-weight:500;letter-spacing:-.025em}
@@ -87,7 +87,7 @@
  .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar{flex-direction:column;align-items:stretch;gap:8px}
  .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views{display:grid;grid-template-columns:repeat(3,1fr)}
  .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-views .ep-button{min-height:44px}
- .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar>.ep-text-button{align-self:flex-start;min-height:44px;padding:8px 0}
+ .ep-root[data-theme] .ep-workspace .cv-calendar-controls .ep-calendar-toolbar>.ep-text-button{align-self:flex-start;min-height:44px;padding:8px 12px}
  .ep-root[data-theme] .ep-workspace .cv-schedule-heading{flex-wrap:wrap;gap:12px;margin-bottom:16px}
  .ep-root[data-theme] .ep-workspace .cv-schedule-heading h2{font-size:20px}
  .ep-root[data-theme] .ep-workspace .cv-schedule-heading .ep-cal-arrows{width:100%;justify-content:space-between}

@@ -10,7 +10,7 @@
 .ep-root .ec-tool-content>.rc-calculation{margin-top:0}
 .ep-root .ec-reference-layout{display:grid;grid-template-columns:minmax(200px,.85fr) minmax(0,1.3fr);gap:24px;align-items:start;margin:16px 0 24px}
 .ep-root .ec-reference-list{display:grid;max-height:540px;overflow:auto;min-width:0;border-right:1px solid var(--line);padding-right:16px}
-.ep-root .ec-reference-list button{display:grid;gap:6px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;color:inherit;padding:16px;min-height:44px;text-align:left;font:inherit;cursor:pointer}
+.ep-root .ec-reference-list button{display:grid;gap:6px;border:0;border-bottom:1px solid var(--line);border-radius:8px;background:transparent;color:inherit;padding:16px;min-height:44px;text-align:left;font:inherit;cursor:pointer}
 .ep-root .ec-reference-list button strong{font-weight:500;line-height:1.45}
 .ep-root .ec-reference-list button span{font-size:14px;color:var(--muted)}
 .ep-root .ec-reference-list button[aria-pressed=true],.ep-root .ec-reference-list button:hover{background:var(--surface-raised)}
@@ -31,7 +31,7 @@
  .ep-root .ec-tool-navigation button{padding:10px 12px;font-size:14px}
  .ep-root .ec-reference-layout{grid-template-columns:1fr;gap:16px}
  .ep-root .ec-reference-list{max-height:240px;padding-right:0;border-right:0;border-bottom:1px solid var(--line)}
- .ep-root .ec-reference-list button{padding:12px}
+ .ep-root .ec-reference-list button{padding:12px;border-radius:8px}
  .ep-root .ec-reference-detail{padding:0}
 }
 @media(max-width:480px){
@@ -181,3 +181,9 @@
  .ep-root[data-theme] .ec-workspace .ec-astro-result .rc-request-fields{grid-template-columns:1fr}
  .ep-root[data-theme] .ec-workspace .ec-birth-fields{grid-template-columns:1fr;gap:24px}
 }
+
+/* Filled calculation results keep the same spacing and compact checkbox as the form. */
+.ep-root[data-theme] .ec-workspace .ec-astro-result .rc-request + .ar-result {margin-top:24px}
+.ep-root[data-theme] .ar-result .ar-controls label {display:flex;align-items:center;gap:10px}
+.ep-root[data-theme] .ar-result .ar-controls input[type=checkbox] {width:16px;height:16px;min-height:16px;padding:0;margin:0;flex:0 0 16px;accent-color:var(--gold)}
+.ep-root[data-theme] .ar-result .ar-demo-label {margin:8px 0 16px;font-size:13px;line-height:1.5}

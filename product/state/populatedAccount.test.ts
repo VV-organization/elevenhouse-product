@@ -66,3 +66,16 @@ describe('populated presentation account',()=>{
   const payments=JSON.parse(s.getItem(moduleKey('payments'))!) as Payment[];expect(new Set(payments.map(p=>p.id)).size).toBe(payments.length)
  })
 })
+
+it('upgrades older populated accounts with chart examples without resurrecting deleted clients',()=>{
+ const s=store(),p=createMemberPractice();p.clients=p.clients.filter(c=>c.id!=='vera');p.appointments=p.appointments.filter(a=>a.clientId!=='vera')
+ s.setItem('eh-product-v2-example-populated-2026-10-20-v2','complete')
+ s.setItem(moduleKey('payments'),'[]')
+ s.setItem(moduleKey('saved-astronomy-calculations'),JSON.stringify([{id:'user-chart',clientId:'marina',title:'Мой сохранённый разбор'}]))
+ expect(populateSavedAccount(s,'example',p)).toEqual(p)
+ const records=JSON.parse(s.getItem(moduleKey('saved-astronomy-calculations'))!)
+ expect(records).toHaveLength(47);expect(records[0].title).toBe('Мой сохранённый разбор');expect(records.some((r:{clientId:string})=>r.clientId==='vera')).toBe(false)
+ expect(s.getItem(moduleKey('payments'))).toBe('[]')
+ s.setItem(moduleKey('saved-astronomy-calculations'),'[]');populateSavedAccount(s,'example',p)
+ expect(s.getItem(moduleKey('saved-astronomy-calculations'))).toBe('[]')
+})

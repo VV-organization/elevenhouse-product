@@ -45,8 +45,8 @@ describe('calculation materials',()=>{
   expect(updated.at(-1)).toMatchObject({text:'Revised text',category:'Трактовки'})
   expect(saveCalculationMaterial(updated,'other','Empty','  ','now')).toBe(updated)
  })
- it('exposes private material saving separately from shared journal delivery',()=>{
+ it('separates the private interpretation entry from shared journal delivery',()=>{
   const html=renderToStaticMarkup(<CalculationDeliveryActions practice={createExamplePractice()} title="Chart" result={{life:7}}><p>7</p></CalculationDeliveryActions>)
-  expect(html).toContain('Сохранить в мои материалы');expect(html).toContain('Добавить в дневник клиента')
+  expect(html).toContain('Моя трактовка');expect(html).toContain('Добавить в дневник клиента');expect(html).not.toContain('<textarea')
  })
 })

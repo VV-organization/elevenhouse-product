@@ -1,3 +1,4 @@
+@import './decorative-material.css';
 /* Supplied patient-profile reference: identity, work, and history form three calm columns. */
 .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view]{display:block;container-type:normal;max-width:1500px;background:none}
 .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view]>.cw-queue{display:none}
@@ -21,18 +22,18 @@
 .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-tabs button[aria-pressed=true]{background:var(--surface);border-color:var(--line);color:var(--navy)}
 /* G-med reference: white islands, inset facts, a 2×2 activity block and three task columns.
    Tokens are scoped to this overview, so calculation/notes screens and the landing stay unchanged. */
-.ep-root[data-theme] .ep-workspace .cp-dashboard{--cp-panel:var(--surface);--cp-inset:color-mix(in srgb,var(--surface-raised) 65%,var(--surface));--cp-border:color-mix(in srgb,var(--line) 50%,transparent);display:grid;grid-template-columns:minmax(240px,.9fr) minmax(340px,1.3fr) minmax(280px,1fr);gap:18px;align-items:start}
+.ep-root[data-theme] .ep-workspace .cp-dashboard{--cp-panel:var(--surface);--cp-inset:color-mix(in srgb,var(--surface-raised) 65%,var(--surface));--cp-border:color-mix(in srgb,var(--line) 50%,transparent);display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.28fr) minmax(0,1fr);gap:16px;align-items:start}
 .ep-root[data-theme=light] .ep-workspace .cp-dashboard{--cp-panel:#fff;--cp-inset:#f6f6f2;--cp-border:#efefea}
 .ep-root[data-theme] .ep-workspace .cp-dashboard>*{min-width:0}
-.ep-root[data-theme] .ep-workspace .cp-main-column,.ep-root[data-theme] .ep-workspace .cp-side-column{display:grid;gap:18px;min-width:0}
-.ep-root[data-theme] .ep-workspace .cp-panel,.ep-root[data-theme] .ep-workspace .cp-orders>.ep-section,.ep-root[data-theme] .ep-workspace .cp-calculations .co-calculations{background:var(--cp-panel);border:1px solid var(--cp-border);border-radius:24px;padding:20px;min-width:0;margin:0;box-shadow:none}
+.ep-root[data-theme] .ep-workspace .cp-main-column,.ep-root[data-theme] .ep-workspace .cp-side-column{display:grid;gap:16px;min-width:0}
+.ep-root[data-theme] .ep-workspace .cp-panel,.ep-root[data-theme] .ep-workspace .cp-orders>.ep-section,.ep-root[data-theme] .ep-workspace .cp-calculations .co-calculations{background:var(--cp-panel);border:1px solid var(--cp-border);border-radius:20px;padding:20px;min-width:0;margin:0;box-shadow:none}
 .ep-root[data-theme] .ep-workspace .cp-panel-heading,.ep-root[data-theme] .ep-workspace .cp-calculations .co-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 20px;flex-wrap:wrap}
 .ep-root[data-theme] .ep-workspace .cp-panel-heading h2,.ep-root[data-theme] .ep-workspace .cp-calculations .co-section-head h2{display:flex;align-items:center;gap:10px;font-size:16px;line-height:1.35;font-weight:600;margin:0;letter-spacing:-.025em}
 .ep-root[data-theme] .ep-workspace .cp-symbol{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--cp-inset);color:var(--muted);flex-shrink:0}
 .ep-root[data-theme] .ep-workspace .cp-symbol--plum{background:color-mix(in srgb,var(--data-series-4) 14%,var(--cp-panel));color:var(--data-series-4)}
 .ep-root[data-theme] .ep-workspace .cp-symbol--sage{background:color-mix(in srgb,var(--data-series-3) 16%,var(--cp-panel));color:var(--data-series-3)}
 .ep-root[data-theme] .ep-workspace .cp-symbol--gold{background:color-mix(in srgb,var(--gold) 25%,var(--cp-panel));color:var(--data-series-1)}
-.ep-root[data-theme] .ep-workspace .cp-dashboard .ep-text-button{font-size:12px;min-height:36px;padding:8px;border-radius:9px;flex-shrink:0}
+.ep-root[data-theme] .ep-workspace .cp-dashboard .ep-text-button{font-size:12px;min-height:36px;padding:8px 12px;border-radius:9px;flex-shrink:0}
 .ep-root[data-theme] .ep-workspace .cp-dashboard .ep-text-button:hover{background:var(--cp-inset)}
 .ep-root[data-theme] .ep-workspace .cp-dashboard .ep-icon-button{width:36px;min-height:36px;border:0;background:var(--cp-inset);border-radius:50%;padding:8px;flex-shrink:0;color:var(--muted)}
 .ep-root[data-theme] .ep-workspace .cp-identity{display:flex;gap:12px;align-items:center;margin-bottom:16px}
@@ -61,9 +62,8 @@
 .ep-root[data-theme] .ep-workspace .cp-activity .co-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 0}
 .ep-root[data-theme] .ep-workspace .cp-activity .co-metrics>div{display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:12px;border:1px solid var(--cp-border);border-radius:18px;background:transparent;min-width:0}
 .ep-root[data-theme] .ep-workspace .cp-activity .co-metrics .ep-icon{display:grid;place-items:center;box-sizing:content-box;padding:6px;margin-bottom:2px;border-radius:50%;background:color-mix(in srgb,var(--data-series-4) 14%,var(--cp-panel));color:var(--data-series-4)}
-.ep-root[data-theme] .ep-workspace .cp-activity .co-metrics>div:nth-child(even) .ep-icon{background:color-mix(in srgb,var(--gold) 25%,var(--cp-panel));color:var(--data-series-1)}
 .ep-root[data-theme] .ep-workspace .cp-activity .co-metrics strong{font-size:28px;line-height:1;font-weight:500;letter-spacing:-.04em;color:var(--navy)}
-.ep-root[data-theme] .ep-workspace .cp-activity .co-metrics span{font-size:11px;line-height:1.4;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .cp-activity .co-metrics>div>span:not(.ep-icon){font-size:11px;line-height:1.45;color:var(--muted)}
 .ep-root[data-theme] .ep-workspace .cp-calculations .co-calculation-layout{display:flex;flex-direction:row;align-items:stretch;gap:12px}
 .ep-root[data-theme] .ep-workspace .cp-calculations .co-chart-link{flex:0 1 43%;min-width:100px;width:auto;max-width:210px;align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding:10px;background:var(--cp-inset);border:0;border-radius:16px}
 .ep-root[data-theme] .ep-workspace .cp-calculations .co-chart-link>span{font-size:12px;line-height:1.5;align-items:center;text-align:left}
@@ -112,16 +112,16 @@
 /* Independent from the older persistent queue and its container-based layout. */
 .ep-root[data-theme] .ep-workspace.ep-client-workspace .cw-frame[data-client-view]{background:none}
 .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view]>.cw-queue{position:relative;top:auto;height:auto;min-height:0}
-.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view=overview] .ep-client-title h1{font-size:22px;font-weight:500}
-.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view=overview] .ep-client-tabs button{border-radius:24px;box-shadow:none}
-.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view=overview] .ep-client-tabs button[aria-pressed=true]{background:var(--navy);color:var(--ivory);border-color:transparent}
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-title h1{font-size:22px;font-weight:500}
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-tabs button{border-radius:24px;box-shadow:none}
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-tabs button[aria-pressed=true]{background:var(--navy);color:var(--ivory);border-color:transparent}
 @media(min-width:801px){
  .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .cw-detail{position:relative;display:block}
  .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .cw-content{display:block}
  .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view]:not(.cw-frame--queue-open) .cw-mobile-queue{position:absolute;top:28px;right:32px;margin:0}
  .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .cw-content>.ep-back{margin-right:220px;min-height:32px}
 }
-@media(max-width:1399px){
+@media(max-width:1199px){
  .ep-root[data-theme] .ep-workspace .cp-dashboard{grid-template-columns:minmax(230px,.8fr) minmax(0,1.3fr)}
  .ep-root[data-theme] .ep-workspace .cp-main-column{grid-column:2;grid-row:1}
  .ep-root[data-theme] .ep-workspace .cp-side-column{grid-column:1/-1;grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -144,4 +144,148 @@
  .ep-root[data-theme] .ep-workspace .cp-calculations .co-methods>button>span:not(.ep-icon){flex-basis:100%;order:3}
  .ep-root[data-theme] .ep-workspace .cp-calculations .co-methods>button>.ep-icon:last-child{margin-left:auto}
  .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-title h1{font-size:22px}
+}
+
+/* G-med adaptation: compact navigation, preview beside records, flat appointment ledger.
+   Only the client overview is affected; no global surfaces or landing styles. */
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .cw-content>.ep-back{margin-bottom:8px}
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .cw-content .ep-client-header{margin:0 0 12px;min-height:48px;gap:20px}
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-title h1{font-size:28px;line-height:1.2}
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-tabs{margin:0 0 20px;gap:4px;min-height:40px}
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-tabs button{padding:8px 18px;min-height:40px;background:transparent;border:0;border-radius:24px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-tabs button[aria-pressed=true]{background:var(--surface-raised);color:var(--navy);box-shadow:inset 0 0 0 1px var(--line)}
+.ep-root[data-theme] .ep-workspace .cp-dashboard{--cp-inset:color-mix(in srgb,var(--surface-raised) 42%,var(--surface));--cp-border:color-mix(in srgb,var(--line) 35%,transparent)}
+.ep-root[data-theme=light] .ep-workspace .cp-dashboard{--cp-inset:#f5f5f1;--cp-border:#eaece7}
+.ep-root[data-theme] .ep-workspace .cp-panel-heading,.ep-root[data-theme] .ep-workspace .cp-calculations .co-section-head{margin-bottom:16px;flex-wrap:nowrap}
+.ep-root[data-theme] .ep-workspace .cp-panel-heading h2,.ep-root[data-theme] .ep-workspace .cp-calculations .co-section-head h2{font-size:15px;letter-spacing:-.02em}
+.ep-root[data-theme] .ep-workspace .cp-symbol{width:32px;height:32px}
+.ep-root[data-theme] .ep-workspace .cp-symbol--plum{background:color-mix(in srgb,var(--gold) 12%,var(--cp-panel));color:var(--gold)}
+.ep-root[data-theme] .ep-workspace .cp-identity h2{font-size:17px}
+.ep-root[data-theme] .ep-workspace .cp-stage{padding-bottom:16px;border-bottom:1px solid var(--cp-border);margin-bottom:8px}
+.ep-root[data-theme] .ep-workspace .cp-subheading .ep-icon-button{width:28px;min-height:28px;padding:6px;background:transparent}
+.ep-root[data-theme] .ep-workspace .cp-subheading{margin:16px 0 8px}
+.ep-root[data-theme] .ep-workspace .cp-activity .co-metrics>div{display:grid;grid-template-columns:minmax(0,1fr) 28px;grid-template-rows:32px auto;align-content:start;align-items:start;gap:10px 8px;border-radius:14px;padding:14px;min-height:112px;justify-content:normal}
+.ep-root[data-theme] .ep-workspace .cp-activity .co-metrics>div>.ep-icon{display:block;position:relative;grid-column:2;grid-row:1;align-self:center;justify-self:end;box-sizing:border-box;margin:0;padding:0;width:28px;height:28px;background:var(--cp-inset);color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .cp-activity .co-metrics>div>.ep-icon>:is(.ep-icon-static,.ep-icon-motion){inset:5px;width:18px;height:18px}
+.ep-root[data-theme] .ep-workspace .cp-activity .co-metrics>div>strong{grid-column:1;grid-row:1;align-self:center;font-size:25px;line-height:32px;font-variant-numeric:tabular-nums}
+.ep-root[data-theme] .ep-workspace .cp-activity .co-metrics>div>span:not(.ep-icon){grid-column:1/-1;grid-row:2;align-self:start}
+.ep-root[data-theme] .ep-workspace .cp-person-actions{border-top:1px solid var(--cp-border);padding-top:10px}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-record-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:12px;align-items:start}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-record-workspace--list{grid-template-columns:1fr}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-chart-link{width:100%;max-width:none;min-width:0;align-self:start;padding:12px;border-radius:14px;gap:12px}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-chart-link>span{display:flex;font-size:12px;font-weight:500;gap:8px}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-chart-preview{width:100%;aspect-ratio:1;pointer-events:none}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-chart-preview svg{width:100%;height:100%;display:block}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-saved{margin:0;padding:0;border:0;max-height:none;overflow:visible;gap:0;min-width:0}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-saved h3{display:flex;gap:8px;justify-content:space-between;align-items:center;padding:0 12px 8px;font-size:11px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-saved>button{background:transparent;border-radius:8px;padding:10px 12px;min-height:54px;font-size:12px;gap:8px}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-saved>button strong{font-size:12px;font-weight:500;line-height:1.5}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-saved small{font-size:10px;line-height:1.4;margin-top:3px}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-saved>button.co-saved-toggle{font-size:11px;min-height:36px;margin-top:4px}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-methods{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:16px;padding-top:12px;border-top:1px solid var(--cp-border)}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-section-head+.co-methods{margin-top:0;padding-top:0;border:0}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-methods>button{background:var(--cp-inset);border:0;font-size:12px;padding:12px 16px;min-height:46px;gap:8px;flex-wrap:nowrap;align-content:normal}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-methods>button>span:not(.ep-icon){flex-basis:auto;order:initial}
+.ep-root[data-theme] .ep-workspace .cp-calculations .co-methods>button>.ep-icon:first-child{color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .cp-meeting-tabs{margin-bottom:12px;gap:4px}
+.ep-root[data-theme] .ep-workspace .cp-meeting-tabs button{padding:8px 12px;min-height:36px}
+.ep-root[data-theme] .ep-workspace .cp-meeting-list{gap:4px}
+.ep-root[data-theme] .ep-workspace .cp-meeting-columns{display:grid;grid-template-columns:72px 1fr;gap:14px;padding:8px 16px;color:var(--muted);font-size:11px;border-bottom:1px solid var(--cp-border);margin-bottom:4px}
+.ep-root[data-theme] .ep-workspace .cp-meeting-row{background:transparent;min-height:70px;border:0;padding:12px 16px;border-radius:10px;gap:14px}
+.ep-root[data-theme] .ep-workspace .cp-meeting-row:hover{background:var(--cp-inset);box-shadow:none}
+.ep-root[data-theme] .ep-workspace .cp-meeting-date{flex-basis:72px;gap:3px}
+.ep-root[data-theme] .ep-workspace .cp-meeting-date strong{font-size:12px}
+.ep-root[data-theme] .ep-workspace .cp-meeting-date small{font-size:12px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .cp-meeting-title{gap:4px}
+.ep-root[data-theme] .ep-workspace .cp-meeting-row strong{font-size:12px}
+.ep-root[data-theme] .ep-workspace .cp-copy{font-size:13px;line-height:1.7;padding:14px;border-radius:10px}
+.ep-root[data-theme] .ep-workspace .cp-private-note .cp-excerpt{-webkit-line-clamp:4}
+.ep-root[data-theme] .ep-workspace .cp-note-footer{margin-top:12px}
+.ep-root[data-theme] .ep-workspace .cp-outcome{padding:14px 16px;gap:6px}
+.ep-root[data-theme] .ep-workspace .cp-outcome>span{-webkit-line-clamp:2;font-size:12px}
+.ep-root[data-theme] .ep-workspace .cp-dashboard :is(button,a):focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+/* Profile surface uses the approved Quarn light treatment in ElevenHouse blue. */
+.ep-root[data-theme] .ep-workspace .cp-person.cp-panel{
+ --cp-inset:color-mix(in srgb,var(--surface) 64%,transparent);
+ --cp-border:var(--eh-material-edge);
+ background-image:var(--eh-material-blue);
+ border-color:var(--eh-material-edge);
+ box-shadow:var(--eh-material-depth);
+}
+.ep-root[data-theme] .ep-workspace .cp-person .co-metrics>div{
+ background:color-mix(in srgb,var(--surface) 36%,transparent);
+}
+@media(min-width:801px){
+ .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view]:not(.cw-frame--queue-open) .cw-mobile-queue{top:28px;right:32px;font-size:12px;min-height:32px}
+}
+@media(max-width:600px){
+ .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .cw-content .ep-client-header{display:flex;flex-direction:column;align-items:stretch;gap:16px;margin-bottom:16px}
+ .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view] .ep-client-title h1{font-size:26px}
+ .ep-root[data-theme] .ep-workspace .cp-calculations .co-methods>button{padding-inline:12px}
+ .ep-root[data-theme] .ep-workspace .cp-panel-heading{gap:8px}
+ .ep-root[data-theme] .ep-workspace .cp-meeting-columns,.ep-root[data-theme] .ep-workspace .cp-meeting-row,.ep-root[data-theme] .ep-workspace .cp-outcome{padding-inline:12px}
+ .ep-root[data-theme] .ep-workspace .cp-identity h2{font-size:18px}
+}
+
+/* All client tabs share the profile shell; each right-hand area keeps its own task. */
+.ep-root[data-theme] .ep-workspace .cp-work{grid-template-columns:minmax(240px,.92fr) minmax(0,2.28fr)}
+.ep-root[data-theme] .ep-workspace .cp-work-body{min-width:0;display:grid;gap:16px;align-content:start}
+.ep-root[data-theme] .ep-workspace .cp-work>.cp-person{grid-column:1;grid-row:1}
+.ep-root[data-theme] .ep-workspace .cp-work>.cp-work-body{grid-column:2;grid-row:1}
+.ep-root[data-theme] .ep-workspace .cp-work--notes .cp-work-body{grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);align-items:start}
+.ep-root[data-theme] .ep-workspace .cp-work .cp-work-body :is(.ep-notes,.ex-journal){margin:0;padding:20px;border:1px solid var(--cp-border);border-radius:20px;background:var(--cp-panel);min-width:0;max-width:none}
+.ep-root[data-theme] .ep-workspace .cp-work .ep-notes h2,.ep-root[data-theme] .ep-workspace .cp-work .ex-journal-heading{font-size:16px;line-height:1.4;margin:0 0 12px;letter-spacing:-.02em}
+.ep-root[data-theme] .ep-workspace .cp-work .ep-notes>p{font-size:12px;line-height:1.6;margin:0 0 20px}
+.ep-root[data-theme] .ep-workspace .cp-work .ep-notes textarea{display:block;width:100%;max-width:none;min-height:390px;padding:16px;font-size:14px;line-height:1.8;background:var(--cp-inset);border:1px solid var(--cp-border);border-radius:12px;resize:vertical}
+.ep-root[data-theme] .ep-workspace .cp-work .ep-notes-footer{margin-top:16px;padding:0;font-size:11px;color:var(--muted)}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-journal>.ex-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px;padding:0}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-journal>.ex-toolbar button{font-size:12px;min-height:40px;padding:8px 12px}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-journal-order{font-size:11px;margin:0 0 12px}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-timeline{display:grid;gap:12px;margin:0;padding:0;list-style:none;border:0}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-timeline>li{padding:16px;margin:0;border:1px solid var(--cp-border);border-radius:12px;background:var(--cp-inset)}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-timeline>li::before{display:none}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-timeline .ep-section-heading{display:grid;gap:6px;margin:0 0 12px}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-timeline strong{font-size:12px;line-height:1.5}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-timeline .ep-section-heading>span{font-size:11px}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-timeline p{font-size:13px;line-height:1.75;margin:0 0 12px;overflow-wrap:anywhere}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-timeline .ep-text-button{font-size:12px;margin-top:0;max-width:100%;white-space:normal}
+.ep-root[data-theme] .ep-workspace .cp-work .ex-list-more{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:16px;font-size:11px}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .cs-workspace{margin:0;min-width:0}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-subject-context{margin:0 0 16px;padding:20px;border-radius:20px;background:var(--cp-panel);border:1px solid var(--cp-border)}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-birth-summary{margin:0;padding:0;gap:16px;align-items:center}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-birth-summary>div>strong{display:none}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-birth-facts{display:flex;flex-wrap:wrap;gap:16px 24px;margin:0}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-birth-facts>div{display:grid;gap:6px}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-birth-facts :is(dt,dd){margin:0;font-size:12px;line-height:1.5}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-methods{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 16px;padding:6px;background:var(--cp-panel);border:1px solid var(--cp-border);border-radius:16px}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-methods>button{flex:1 1 auto;padding:10px 12px;min-height:40px;border:0;border-radius:10px;box-shadow:none;font-size:13px;white-space:normal}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-methods>button[aria-pressed=true]{background:var(--cp-inset);box-shadow:inset 0 -2px 0 var(--gold)}
+.ep-root[data-theme] .ep-workspace .cp-work--chart :is(.ec-astro-stage,.cs-method-stage){grid-template-columns:145px minmax(0,1fr);gap:16px}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-astro-rail{padding:12px 8px;border:1px solid var(--cp-border);border-radius:16px;background:var(--cp-panel);position:static}
+.ep-root[data-theme] .ep-workspace .cp-work--chart :is(.ec-astro-result,.cs-method-result){padding:20px;border:1px solid var(--cp-border);border-radius:20px;background:var(--cp-panel)}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-astro-result .ar-layout{grid-template-columns:minmax(0,1fr);gap:20px}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .cs-chart-canvas{padding:16px;border-radius:14px;border-color:var(--cp-border);background:var(--cp-inset)}
+.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-notes{margin:16px 0 0;padding:20px;border:1px solid var(--cp-border);border-radius:20px;background:var(--cp-panel)}
+@media(min-width:801px){
+ .ep-root[data-theme] .ep-workspace .cw-frame[data-client-view]:not(.cw-frame--queue-open) .cw-context-toggle{position:absolute;top:28px;right:260px;padding:0 12px;margin:0;min-height:32px;font-size:12px;border:0;background:transparent;border-radius:8px}
+}
+@media(min-width:1750px){.ep-root[data-theme] .ep-workspace .cp-work--chart .ec-astro-result .ar-layout{grid-template-columns:minmax(0,1.1fr) minmax(230px,1fr)}}
+@media(max-width:1399px){.ep-root[data-theme] .ep-workspace .cp-work--notes .cp-work-body{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:1100px){
+ .ep-root[data-theme] .ep-workspace .cp-work{grid-template-columns:minmax(0,1fr)}
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-work-body{order:1;grid-column:1;grid-row:auto}
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-person{order:2;grid-column:1;grid-row:auto}
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-person{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;align-items:start}
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-person :is(.cp-identity,.cp-person-actions){grid-column:1/-1}
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-person .cp-activity{grid-column:2;grid-row:2/6;margin:0}
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-person :is(.cp-subheading,.cp-facts,.cp-contacts,.cp-tags){grid-column:1;margin:0}
+}
+@media(max-width:600px){
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-person{display:block}
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-person :is(.cp-subheading,.cp-tags,.cp-activity){margin-top:16px}
+ .ep-root[data-theme] .ep-workspace .cp-work>.cp-person .cp-subheading{margin-bottom:8px}
+ .ep-root[data-theme] .ep-workspace .cp-work .cp-work-body :is(.ep-notes,.ex-journal),.ep-root[data-theme] .ep-workspace .cp-work--chart :is(.ec-subject-context,.ec-astro-result,.cs-method-result,.ec-notes){padding:16px;border-radius:20px}
+ .ep-root[data-theme] .ep-workspace .cp-work--chart :is(.ec-astro-stage,.cs-method-stage){grid-template-columns:minmax(0,1fr)}
+ .ep-root[data-theme] .ep-workspace .cp-work .ep-notes textarea{min-height:300px;padding:12px;font-size:16px}
+ .ep-root[data-theme] .ep-workspace .cp-work .ex-timeline>li{padding:12px}
 }

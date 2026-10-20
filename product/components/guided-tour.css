@@ -12,7 +12,7 @@
 .ep-root .ep-tour-card footer,.ep-root .ep-tour-card footer>div{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .ep-root .ep-tour-card footer{justify-content:space-between;margin-top:20px}
 .ep-root .ep-tour-card footer .ep-button{min-height:42px;padding:9px 12px;font-size:14px;gap:6px}
-.ep-root .ep-tour-card footer .ep-text-button{font-size:13px;padding:8px 0}
+.ep-root .ep-tour-card footer .ep-text-button{font-size:13px;padding:8px 12px}
 .ep-root .ep-tour-card button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 @keyframes ep-tour-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ep-tour-ring{0%,100%{border-color:var(--gold)}50%{border-color:#fff}}

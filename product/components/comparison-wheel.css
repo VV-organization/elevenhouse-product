@@ -1,0 +1,91 @@
+/* Natal Dial reference: layered dial, interrupted rim, engraved scales.
+   All styling is confined to the product's interactive astrology SVG. */
+.ep-root .aw-dial {
+ display:block;width:100%;height:auto;overflow:visible;touch-action:pan-x pan-y;
+ --aw-paper:#f8f5eb;
+ --aw-depth:#eeeadc;
+ --aw-metal:#94713b;
+ --aw-metal-light:#c6ad73;
+ --aw-metal-dark:#76603d;
+ --aw-glyph:#5e4c2a;
+ --aw-engraving:#aa9d80;
+ --aw-house:#686553;
+ --aw-planet:#fcf9ee;
+ --aw-soft:#54755e;
+ --aw-hard:#a15d50;
+ --aw-neutral:#997c3f;
+ --aw-core:#e8e3d5;
+ --aw-core-edge:#f7f4eb;
+}
+.ep-root[data-theme=dark] .aw-dial {
+ --aw-paper:#203447;
+ --aw-depth:#101b29;
+ --aw-metal:#bca574;
+ --aw-metal-light:#f3e3ac;
+ --aw-metal-dark:#655f4e;
+ --aw-glyph:#e3d4a3;
+ --aw-engraving:#687572;
+ --aw-house:#b3b7ac;
+ --aw-planet:#1a2b3b;
+ --aw-soft:#a4b79a;
+ --aw-hard:#ce9284;
+ --aw-neutral:#dbc482;
+ --aw-core:#142433;
+ --aw-core-edge:#0f1c2a;
+}
+.ep-root .aw-dial .aw-core-light{stop-color:var(--aw-core)}
+.ep-root .aw-dial .aw-core-dark{stop-color:var(--aw-core-edge)}
+.ep-root .aw-dial .aw-core{stroke:var(--aw-metal);stroke-width:.6;stroke-opacity:.35}
+.ep-root .aw-dial .aw-depth-light{stop-color:var(--aw-paper)}
+.ep-root .aw-dial .aw-depth-dark{stop-color:var(--aw-depth)}
+.ep-root .aw-dial .aw-metal-light{stop-color:var(--aw-metal-light)}
+.ep-root .aw-dial .aw-metal-mid{stop-color:var(--aw-metal)}
+.ep-root .aw-dial .aw-metal-dark{stop-color:var(--aw-metal-dark)}
+.ep-root .aw-dial .aw-bezel{fill:none;stroke-width:1.1}
+.ep-root .aw-dial .aw-bezel-inner{fill:none;stroke:var(--aw-metal);stroke-width:.45;opacity:.28}
+.ep-root .aw-dial .aw-zodiac-band{fill:none;stroke:var(--aw-metal);stroke-opacity:.08;stroke-width:39}
+.ep-root .aw-dial .aw-house-track{fill:none;stroke:var(--aw-metal);stroke-width:.6;opacity:.38}
+.ep-root .aw-dial .aw-house-track--inner{opacity:.12}
+.ep-root .aw-dial .aw-track{fill:none;stroke:var(--aw-metal);stroke-width:.75;opacity:.6}
+.ep-root .aw-dial .aw-inner-track{fill:none;stroke:var(--aw-engraving);stroke-width:.6;opacity:.25}
+.ep-root .aw-dial .aw-sign{color:var(--aw-glyph)}
+.ep-root .aw-dial .aw-sign-arc{fill:none;stroke:var(--aw-metal);stroke-width:1;stroke-linecap:round;opacity:.6}
+.ep-root .aw-dial .aw-sign-divider{stroke:var(--aw-metal);stroke-width:.6;opacity:.3}
+.ep-root .aw-dial .aw-sign.is-active .aw-sign-arc{stroke:var(--aw-metal-light);stroke-width:3;opacity:1}
+.ep-root .aw-dial .aw-degree{fill:none;stroke:var(--aw-engraving);stroke-width:.65;opacity:.5}
+.ep-root .aw-dial .aw-degree--major{stroke:var(--aw-metal);stroke-width:1;opacity:.9}
+.ep-root .aw-dial .aw-house-line{stroke:var(--aw-engraving);stroke-width:.7;opacity:.55}
+.ep-root .aw-dial .aw-house-line--angular{stroke:var(--aw-metal);opacity:.65}
+.ep-root .aw-dial .aw-house-number{fill:var(--aw-house);font:400 14px 'Auth Vetrino',serif;text-anchor:middle;dominant-baseline:central}
+.ep-root .aw-dial .ar-aspect{stroke-width:1;stroke-linecap:round;opacity:.62}
+.ep-root .aw-dial .ar-aspect-soft{stroke:var(--aw-soft)}
+.ep-root .aw-dial .ar-aspect-hard{stroke:var(--aw-hard)}
+.ep-root .aw-dial .ar-aspect-neutral{stroke:var(--aw-neutral);stroke-dasharray:3 4}
+.ep-root .aw-dial.has-selection .ar-aspect{stroke-width:1.5;opacity:.9}
+.ep-root .aw-dial .aw-axes path{stroke:var(--aw-metal);stroke-width:1.1}
+.ep-root .aw-dial .aw-axes text{fill:var(--aw-glyph);font:500 10px 'Auth Manrope',sans-serif;letter-spacing:.8px;dominant-baseline:central}
+.ep-root .aw-dial .aw-planets.ar-layer-0{color:var(--aw-glyph)}
+.ep-root .aw-dial .aw-planets.ar-layer-1{color:var(--data-series-4)}
+.ep-root .aw-dial .aw-leaders{color:var(--aw-metal)}
+.ep-root .aw-dial .aw-leaders.ar-layer-1{color:var(--data-series-4)}
+.ep-root .aw-dial .aw-leader{fill:none;stroke:currentColor;stroke-width:.65;stroke-opacity:.25}
+.ep-root .aw-dial .aw-leader.is-active{stroke-opacity:.85;stroke-width:1}
+.ep-root .aw-dial .aw-planet{cursor:pointer;outline:none}
+.ep-root .aw-dial .ar-planet-target{fill:var(--aw-planet);stroke:currentColor;stroke-opacity:.25;stroke-width:.6}
+.ep-root .aw-dial .aw-planet-rim{fill:none!important;stroke:currentColor;stroke-width:1;stroke-opacity:0;pointer-events:none;transition:stroke-opacity 160ms}
+.ep-root .aw-dial .aw-planet:hover .aw-planet-rim{stroke-opacity:.65}
+.ep-root .aw-dial .aw-planet:is([aria-pressed=true],:focus-visible) .ar-planet-target{stroke:currentColor;stroke-width:1.5;stroke-opacity:1}
+.ep-root .aw-dial .aw-planet:focus-visible .aw-planet-rim{r:21;stroke-opacity:.75;stroke-dasharray:2 3}
+.ep-root .aw-dial .aw-position{fill:currentColor;stroke:var(--aw-depth);stroke-width:.75}
+.ep-root .aw-dial .ar-tick{stroke-width:.7;opacity:.45}
+.ep-root .aw-dial .aw-node{stroke:currentColor;stroke-width:1.45;fill:none}
+.ep-root .aw-dial .aw-planet-degree{fill:var(--aw-house);font:400 10px 'Auth Manrope',sans-serif;text-anchor:middle;pointer-events:none;font-variant-numeric:tabular-nums}
+.ep-root .aw-dial--dual .aw-planet-degree{font-size:9px}
+.ep-root .aw-dial--compact :is(.aw-degree,.aw-axes,.aw-house-number,.aw-leaders){display:none}
+.ep-root .aw-dial--compact .ar-aspect{stroke-width:1.5}
+@media(prefers-reduced-motion:reduce){.ep-root .aw-dial .aw-planet-rim{transition:none}}
+@media print{
+ .ep-root[data-theme] .aw-dial{--aw-paper:#fff;--aw-depth:#fff;--aw-metal:#79633d;--aw-metal-light:#79633d;--aw-metal-dark:#79633d;--aw-glyph:#332d22;--aw-engraving:#888;--aw-house:#555;--aw-planet:#fff;--aw-soft:#4d6754;--aw-hard:#95574d;--aw-neutral:#776338}
+ .ep-root[data-theme] .aw-dial{--aw-core:#fff;--aw-core-edge:#fff}
+ .ep-root .aw-dial .ar-aspect{opacity:.85}
+}

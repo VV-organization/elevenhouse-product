@@ -1,3 +1,4 @@
+import {demoCalculate,demoRequest} from '../demo/calculationTemplates'
 /** Fictional local account fixtures. No integration or outbound action is executed. */
 import {createMemberPractice,memberPayments,memberServices} from './memberCore'
 import {memberWorkspaceModules} from './memberModules'
@@ -59,7 +60,7 @@ for(const c of practice.clients){if(!conversations.threads[c.id])conversations.t
 ]}
 const briefs:Record<string,Brief>=Object.fromEntries(practice.appointments.filter(a=>a.status==='confirmed').slice(0,8).map(a=>{
  const c=practice.clients.find(c=>c.id===a.clientId)!
- return [a.id,{id:`filled-brief-${a.id}`,appointmentId:a.id,clientId:c.id,source:'Рабочие заметки специалиста · пример',generatedAt:at,text:`Запрос: ${c.request}.\n\nПеред встречей: перечитать предыдущий итог и уточнить, что изменилось.\n\nПлан разговора:\n1. Выбрать главный вопрос на сегодня.\n2. Обсудить наблюдения и конкретные ситуации.\n3. Согласовать один следующий шаг и дату возвращения к нему.\n\n${c.unknownTime?'Время рождения неизвестно; обозначить ограничения разбора.':'Проверить исходные данные рождения с клиентом.'}`}]
+ return [a.id,{id:`filled-brief-${a.id}`,appointmentId:a.id,clientId:c.id,source:'Рабочие заметки специалиста',generatedAt:at,text:`Запрос: ${c.request}.\n\nПеред встречей: перечитать предыдущий итог и уточнить, что изменилось.\n\nПлан разговора:\n1. Выбрать главный вопрос на сегодня.\n2. Обсудить наблюдения и конкретные ситуации.\n3. Согласовать один следующий шаг и дату возвращения к нему.\n\n${c.unknownTime?'Время рождения неизвестно; обозначить ограничения разбора.':'Проверить исходные данные рождения с клиентом.'}`}]
 }))
 const profile:PublicProfileState=newPublicProfile('Анна Соколова')
 Object.assign(profile.draft,{slug:'anna-sokolova',tagline:'Индивидуальные консультации и сопровождение',bio:'Помогаю осмыслить профессиональные и личные перемены. Начинаем с вашего конкретного запроса, связываем разбор с реальными обстоятельствами и сохраняем понятные итоги встречи. Работаю с темами выбора направления, ритма жизни и перехода к новому этапу.',experience:'7',specializations:['Профессиональный выбор','Личные приоритеты','Сопровождение'],methods:['Натальная астрология','Соляр'],languages:['Русский'],blocks:[{id:'filled-faq',kind:'faq',title:'Нужно ли знать точное время рождения?',text:'Если время неизвестно, отметьте это при записи. Мы согласуем формат и заранее обсудим ограничения разбора.',visible:true},{id:'filled-steps',kind:'steps',title:'Как проходит работа',text:'Выберите услугу и оставьте запрос. Согласуем время, проведём встречу и сохраним письменное резюме в кабинете.',visible:true}]})
@@ -72,12 +73,15 @@ const calculations=Object.fromEntries(practice.clients.slice(0,8).flatMap(c=>[
 ]))
 const settlementPending=orderPayments.reduce((sum,p)=>sum+p.amount-p.commission,0)
 const wallet:WalletSnapshot & {example:true}={available:payments.filter(p=>p.status==='paid').reduce((sum,p)=>sum+p.amount-p.commission,0)-32000-settlementPending-4900,pending:settlementPending,held:4900,feePercent:1,updatedAt:at,example:true}
-const ledger:LedgerRow[]=[{id:'filled-settled-payout',type:'payout',date:'2026-10-09',amount:-32000,status:'paid',title:'Выплата на карту •••• 4242',details:'Пример завершённой выплаты в истории аккаунта',actual:true}]
+const ledger:LedgerRow[]=[{id:'filled-settled-payout',type:'payout',date:'2026-10-09',amount:-32000,status:'paid',title:'Выплата на карту •••• 4242',details:'Выплата завершена',actual:true}]
 const content:Publication[]=[...(memberWorkspaceModules.content as Publication[]),
  {id:'filled-post-6',title:'Вопросы к личному году',text:'Что хочется сохранить из прошлого года? Какой небольшой шаг поможет освободить время для собственного проекта? Какие обязательства можно пересмотреть?',date:'2026-10-28',time:'10:00',zone:'Europe/Moscow',status:'draft',audience:'sub',channels:['portal'],type:'post'},
  {id:'filled-post-7',title:'Открытая встреча: как сформулировать запрос',text:'Обсудим, как выделить один главный вопрос и подготовиться к индивидуальной консультации. Собрать вопросы участников и согласовать время.',date:'2026-10-29',time:'19:00',zone:'Europe/Moscow',status:'draft',type:'live',audience:'public',channels:['portal']},
 ]
+const astronomy=practice.clients.flatMap(c=>['natal','bodygraph'].flatMap(mode=>{const request=demoRequest(c,mode),answer=demoCalculate(request);return answer.status==='ready'?[{id:`demo-saved-${c.id}-${mode}`,clientId:c.id,at,title:answer.result.title.ru,request,result:answer.result}]:[]}))
 export const populatedModules:Record<string,unknown>={...memberWorkspaceModules,services:memberServices,payments,conversations,content,automations:flows,reviews,
+ 'saved-astronomy-calculations':astronomy,
+ 'calculation-child-profiles':{marina:{name:'Александра Иванова',date:'2015-06-12',time:'10:15',place:'Москва',unknownTime:false}},
  'notification-read':[...practice.appointments.map(a=>`meeting-${a.id}-${a.date}-${a.time}-${a.status}`),...payments.slice(3).map(p=>`payment-${p.id}-${p.status}`),...orders.filter(o=>!['requested','cancellation-requested'].includes(o.status)).map(o=>`order-${o.id}-${o.status}`),...Object.entries(calculations).slice(2).map(([key])=>`calculation-${key}-${at}`)],
  'client-orders':orders,'client-cases':cases,'money-requests':drafts,'wallet-snapshot':wallet,'financial-ledger':ledger,
  'client-family':[{id:'filled-family-1',name:'Александр Иванов',relation:'Партнёр',birthDate:'1989-05-12',birthTime:'10:30',birthPlace:'Москва',unknownTime:false}],

@@ -16,3 +16,20 @@
 .ep-root .ar-hd-comparison{margin:24px 0;padding:20px 0;border-block:1px solid var(--line)}.ep-root .ar-hd-comparison>details{margin-top:12px}.ep-root .ar-hd-comparison summary{min-height:44px;cursor:pointer;padding:10px 0}.ep-root .ar-hd-comparison details>p.ep-muted{margin:0 0 12px}
 
 .ep-root .ar-zoom-view{min-height:0;display:flex;flex-direction:column;overflow:hidden;padding:16px}.ep-root .ar-zoom-toolbar{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}.ep-root .ar-zoom-toolbar output{min-width:44px;text-align:center;font-variant-numeric:tabular-nums}.ep-root .ar-zoom-hint{font-size:13px;margin:12px 0}.ep-root .ar-zoom-canvas{overflow:auto;max-height:65svh;min-height:0;border:1px solid var(--line);border-radius:8px}.ep-root .ar-zoom-canvas .ar-bodygraph,.ep-root .ar-zoom-canvas .ar-wheel{display:block;max-height:none;max-width:none;width:100%;min-width:0}
+/* The report also appears in saved-result, consultation and print views. */
+.ep-root .ar-result .cs-result-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.ep-root .ar-result .cs-result-heading h2{margin:0}
+.ep-root .ar-result .cs-heading-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.ep-root .ar-result .cs-bodygraph-board{display:grid;grid-template-columns:54px minmax(0,1fr) 54px;gap:4px;align-items:center;max-width:640px;margin:auto}
+.ep-root .ar-result .cs-activations{display:flex;flex-direction:column;gap:10px;font-variant-numeric:tabular-nums}
+.ep-root .ar-result .cs-activations--design{color:var(--data-series-2)}
+.ep-root .ar-result .cs-activations h4{font-size:11px;margin:0 0 8px}
+.ep-root .ar-result .cs-activations>div{display:flex;align-items:center;justify-content:space-between;gap:4px;font-size:12px}
+.ep-root .ar-result .cs-activations small{font-size:10px}
+.ep-root .ar-result .cs-activations>div>span{display:flex;align-items:center}
+.ep-root .ar-result .ar-hd-summary{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0}
+.ep-root .ar-result .ar-hd-summary>div:first-child{grid-column:1/-1}
+.ep-root .ar-result .cs-chart-canvas>.ep-button{display:flex;margin:12px auto}
+.ep-root .ar-result :is(.cs-individual-chart,.cs-result-notes){margin-top:20px;border-top:1px solid var(--line)}
+.ep-root .ar-result :is(.cs-individual-chart,.cs-result-notes)>summary{padding:16px 0;cursor:pointer;min-height:44px}
+@media(max-width:520px){.ep-root .ar-result .cs-bodygraph-board{grid-template-columns:40px minmax(0,1fr) 40px;gap:0}.ep-root .ar-result .cs-activations{gap:6px}.ep-root .ar-result .cs-activations>div{font-size:10px}.ep-root .ar-result .cs-activations h4{font-size:9px}.ep-root .ar-result .cs-activations svg{width:12px;height:12px}}

@@ -60,10 +60,10 @@ describe('context and role organization',()=>{
   expect(html).not.toContain('name="birthDate"')
   expect(html).toContain('aria-current="page"')
  })
- it('keeps all client portal destinations in task groups',()=>{
+ it('keeps all client portal destinations in the navigation',()=>{
   setup()
   const html=renderToStaticMarkup(<ClientPortal practice={createExamplePractice()} onReturn={noop}/>)
-  for(const value of ['Мои консультации','Покупки','Мои материалы и данные','Встречи','Сообщения','Заказы','Подписки и оплаты','Лента','Материалы и дневник','Мои данные'])expect(html).toContain(value)
+  for(const value of ['Главная','Встречи','Сообщения','Заказы','Подписки и оплаты','Лента специалиста','Материалы и дневник','Мои данные'])expect(html).toContain(value)
  })
  it('keeps moderator restrictions when grouping the administration navigation',()=>{
   setup()

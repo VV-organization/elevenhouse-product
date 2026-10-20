@@ -17,7 +17,7 @@
 .ep-root .ep-day-request>span{color:var(--muted)}
 .ep-root .ep-day-note{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:12px}
 .ep-root .ep-day-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:12px}
-.ep-root .ep-day-actions>.ep-text-button{min-height:44px;padding:8px 0;text-align:left}
+.ep-root .ep-day-actions>.ep-text-button{min-height:44px;padding:8px 12px;text-align:left}
 .ep-root .ep-day-empty{padding:24px 0;display:grid;justify-items:start;gap:16px}
 .ep-root .ep-spatial-day .ep-quick-actions{margin:32px 0 0;padding-top:24px;border-top:1px solid var(--line)}
 .ep-root .ep-spatial-day .ep-today-aside{border:0;padding:0;display:grid;grid-template-columns:1fr;gap:32px}
@@ -45,7 +45,7 @@
 .ep-root .ep-appointment-form .ep-task-fields details{margin:0;border-bottom:0}
 .ep-root .ep-appointment-form .ep-form-fields{display:grid;gap:16px;padding-bottom:8px}
 .ep-root .ep-appointment-form .ep-task-fields .ep-client-picker{margin:0;width:100%;max-width:none}
-.ep-root .ep-appointment-client>.ep-text-button{min-height:44px;margin-top:4px;padding:8px 0}
+.ep-root .ep-appointment-client>.ep-text-button{min-height:44px;margin-top:4px;padding:8px 12px}
 .ep-root .ep-appointment-context p{margin:4px 0;font-size:14px}
 .ep-root .ep-appointment-conditions{margin:0;font-size:14px;color:var(--muted)}
 .ep-root .ep-appointment-form .ep-field-hint{margin:0;font-size:13px;color:var(--muted);line-height:1.6}
