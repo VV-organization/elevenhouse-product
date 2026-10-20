@@ -9,7 +9,7 @@ export function ClientStageDistribution({stages}:{stages:Stage[]}){
  const [active,setActive]=useState<string|null>(null)
  const order=['new','active','paused','archived']
  const rows=stages.filter(s=>s.count>0).sort((a,b)=>(order.includes(a.id)?order.indexOf(a.id):4)-(order.includes(b.id)?order.indexOf(b.id):4)),total=rows.reduce((sum,s)=>sum+s.count,0)
- const stageColor=(id:string)=>`var(--data-series-${order.includes(id)?order.indexOf(id)+1:5})`
+ const stageColor=(id:string)=>`var(--data-fill-${order.includes(id)?order.indexOf(id)+1:5})`
  const leading=rows.reduce<Stage|undefined>((best,s)=>!best||s.count>best.count?s:best,undefined)
  const percent=(count:number)=>(count/total*100).toLocaleString(localeTag(),{maximumFractionDigits:1})+'%'
  if(!total)return <p className="cs-empty">{tr('Распределение появится после добавления клиентов.','The breakdown appears when clients are added.')}</p>

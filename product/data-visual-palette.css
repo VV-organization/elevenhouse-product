@@ -1,15 +1,26 @@
-/* Five distinct data accents derived from the ElevenHouse night-blue, ivory and gold identity. */
+/* Dense olive, terracotta, sage, slate and bronze pigments.
+   Small marks and text stay lighter than solid, fully opaque chart surfaces. */
 .ep-root[data-theme=dark]{
-  --data-series-1:#e2ca79;
-  --data-series-2:#d08d87;
-  --data-series-3:#94b29c;
-  --data-series-4:#c2a0b0;
-  --data-series-5:#c19a73;
+  --data-series-1:#d6bf77;
+  --data-series-2:#c18a68;
+  --data-series-3:#9caf88;
+  --data-series-4:#a5afbf;
+  --data-series-5:#c9a16e;
+  --data-fill-1:#b49a47;
+  --data-fill-2:#ac6948;
+  --data-fill-3:#65885f;
+  --data-fill-4:#727d91;
+  --data-fill-5:#b78a52;
 }
 .ep-root[data-theme=light]{
-  --data-series-1:#82631f;
-  --data-series-2:#904b45;
-  --data-series-3:#4b6955;
-  --data-series-4:#80556d;
-  --data-series-5:#805b3c;
+  --data-series-1:#756437;
+  --data-series-2:#805f4f;
+  --data-series-3:#526b54;
+  --data-series-4:#696574;
+  --data-series-5:#786044;
+  --data-fill-1:#9b812e;
+  --data-fill-2:#a26040;
+  --data-fill-3:#587b50;
+  --data-fill-4:#667186;
+  --data-fill-5:#a57840;
 }
