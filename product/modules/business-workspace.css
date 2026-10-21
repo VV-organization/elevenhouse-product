@@ -47,7 +47,9 @@
 .ep-business-orders small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
 .ep-business-empty{padding:28px;border:1px dashed var(--line);border-radius:10px;min-height:240px}
 .ep-business-empty h3{margin:12px 0 8px}.ep-business-empty p{color:var(--muted);font-size:14px;margin-bottom:20px}
-.ep-business-more{display:flex;gap:10px;align-items:center;padding:12px 16px;min-height:44px;font-size:13px;margin-top:8px;border-radius:8px}
+.ep-business-more{display:flex;gap:10px;align-items:center;padding:12px 16px;min-height:44px;font-size:13px;margin-top:8px;border-radius:8px;background:var(--business-panel)}
+.ep-business-more>.ep-icon{margin-left:auto;flex-shrink:0}
+@media(max-width:560px){.ep-business-more{padding-inline:12px}}
 .ep-business-catalog{margin-top:40px;border-top:1px solid var(--line);padding-top:28px}
 .ep-business-categories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 .ep-business-category{min-width:0}.ep-business-category>h3{font-size:13px;color:var(--muted);margin-bottom:14px;font-weight:550}

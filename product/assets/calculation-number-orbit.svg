@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Original orbital seal; the centre is reserved for the actual result. -->
+  <g stroke="#b99e60" stroke-width=".7">
+    <circle cx="50" cy="50" r="39" opacity=".55"/>
+    <path d="M55 5A45 45 0 0 1 95 45M95 55A45 45 0 0 1 55 95M45 95A45 45 0 0 1 5 55M5 45A45 45 0 0 1 45 5" opacity=".3"/>
+    <path d="M50 1V11M50 89V99M1 50H11M89 50H99M18 18L23 23M77 77L82 82M18 82L23 77M77 23L82 18" opacity=".65"/>
+    <circle cx="50" cy="5" r="2" fill="#b99e60" stroke="none"/>
+    <circle cx="95" cy="50" r="2" fill="#b99e60" stroke="none"/>
+    <circle cx="50" cy="95" r="2" fill="#b99e60" stroke="none"/>
+    <circle cx="5" cy="50" r="2" fill="#b99e60" stroke="none"/>
+  </g>
+</svg>

@@ -1,0 +1,172 @@
+/* Mobile composition follows app/mobile*.jsx in the original ElevenHouseDesign:
+   persistent five-tab navigation, a compact app bar, swipeable metrics and sheets.
+   Current routes, live state and desktop composition remain shared. */
+.ep-root .mw-tabbar,.ep-root .mw-header-leading,.ep-root .mw-header-title,.ep-root .mw-header-help,.ep-root .mw-metrics{display:none}
+@media(max-width:800px){
+ .ep-root[data-theme] .ep-workspace.mw-app{display:block;min-height:100dvh;--mw-top:calc(64px + env(safe-area-inset-top,0px));--mw-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+ .ep-root[data-theme] .ep-workspace.mw-app>.ep-sidebar,.ep-root[data-theme] .ep-workspace.mw-app .ep-topbar{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-work-area{margin:0;width:100%;min-width:0;padding:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-main{padding:calc(var(--mw-top) + 16px) 16px calc(var(--mw-bottom) + 24px);min-height:100dvh;scroll-margin-top:var(--mw-top)}
+ .ep-root[data-theme] .ep-workspace.mw-app .wu-launchers{position:fixed;inset:0 0 auto;z-index:35;box-sizing:border-box;height:var(--mw-top);min-height:0;margin:0;padding:env(safe-area-inset-top,0px) 12px 0;display:flex;flex-wrap:nowrap;align-items:center;gap:4px;border:0;border-bottom:1px solid var(--line);background:var(--ivory);width:100%;border-radius:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-header-leading{display:block;flex:0 0 44px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-header-title{display:block;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 16px/1.4 'Auth Manrope',sans-serif;color:var(--navy)}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-header-leading .ep-account{width:44px;height:44px;min-height:44px;padding:4px;border:0;background:none;display:grid;place-items:center}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-header-leading .ep-account>span:not(.ep-account-avatar),.ep-root[data-theme] .ep-workspace.mw-app .mw-header-leading .ep-account>.ep-icon{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-header-leading .ep-account-avatar{width:34px;height:34px;font-size:12px;display:grid;place-items:center;border-radius:50%;background:var(--surface);border:1px solid var(--line);color:var(--gold)}
+ .ep-root[data-theme] .ep-workspace.mw-app .wu-launchers .wu-search-launcher,.ep-root[data-theme] .ep-workspace.mw-app .wu-launchers .wu-notifications,.ep-root[data-theme] .ep-workspace.mw-app .mw-header-help,.ep-root[data-theme] .ep-workspace.mw-app .mw-back{display:flex;align-items:center;justify-content:center;position:relative;flex:0 0 44px;width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border:0;border-radius:10px;background:transparent;gap:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .wu-header-actions{display:flex;gap:0;margin:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .wu-launchers .wu-message-launcher,.ep-root[data-theme] .ep-workspace.mw-app .wu-search-launcher>span:not(.ep-icon),.ep-root[data-theme] .ep-workspace.mw-app .wu-notifications>.em-util-label{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .wu-notifications .wu-unread-count{position:absolute;top:2px;right:0;min-width:16px;height:16px;padding:0 3px;font-size:9px;line-height:16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-tabbar{position:fixed;inset:auto 0 0;z-index:35;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));height:var(--mw-bottom);padding:4px 8px env(safe-area-inset-bottom,0px);box-sizing:border-box;border-top:1px solid var(--line);background:var(--ivory)}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-tabbar>a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:52px;min-width:0;padding:6px 2px;border-radius:12px;color:var(--muted);text-decoration:none;font-size:10px;line-height:1.2;font-weight:500;box-shadow:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-tabbar>a[aria-current]{color:var(--gold);background:color-mix(in srgb,var(--gold) 9%,transparent)}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-tabbar>a:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-page-heading{gap:12px;margin:0 0 20px;align-items:center}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-page-heading h1{font-size:28px;line-height:1.2}
+ /* The app bar owns screen identity; page space is for the task and its actions. */
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-main[data-tour-page=dashboard]>.pd-dashboard>.ep-page-heading h1,
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-main[data-tour-page=clients] .ep-page-heading h1,
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-directory>.ep-page-heading,
+ .ep-root[data-theme] .ep-workspace.mw-app .em-list-heading{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0;margin:0;border:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-directory-groups{grid-template-columns:minmax(0,1fr);gap:20px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-directory-group{padding:16px 4px 6px;border-radius:16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-directory .ep-directory-link{min-height:50px;padding:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-directory .ep-directory-group h2{font-size:13px;color:var(--muted);min-height:24px;margin-bottom:8px;padding:0 12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-dashboard{display:flex;flex-direction:column;gap:16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-dashboard>.ep-page-heading{order:2;margin:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-dashboard>.ep-page-heading>.ep-button{width:100%;min-height:46px;justify-content:center}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-welcome{order:0;display:grid;grid-template-columns:1fr;margin:0;padding:18px;gap:12px;border-radius:18px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-intro h2{font-family:var(--eh-title,'Vetrino',serif);font-size:26px;line-height:1.2;margin:4px 0}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-intro>p{font-size:11px;margin:0 0 8px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-intro a{min-height:44px;padding:8px 12px;margin-left:-12px;font-size:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-week{gap:8px;max-width:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-bar-space{height:34px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-day-link{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-metrics{order:1;display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:16px;margin:0 -16px;padding:0 16px 6px;scrollbar-width:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-metrics>a{flex:0 0 164px;display:grid;gap:8px;scroll-snap-align:start;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--navy);text-decoration:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-metrics span{font-size:11px;color:var(--muted)}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-metrics strong{font-size:23px;font-weight:600;line-height:1.2;letter-spacing:-.03em;white-space:nowrap}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-metrics small{font-size:10px;line-height:1.5;color:var(--muted)}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-summary-grid{order:3;display:flex;flex-direction:column;gap:16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-work-summary{order:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-attention{order:1}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-balance{order:2}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-income>strong{font-size:28px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-next-meeting{min-height:90px;padding:12px;gap:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-meeting-time time{font-size:20px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-details-grid,.ep-root[data-theme] .ep-workspace.mw-app .pd-dashboard>.pi-insights,.ep-root[data-theme] .ep-workspace.mw-app .pd-tools{order:4}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-details-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+ /* Messages is a separate full-height task, with its existing list/chat/back stack. */
+ .ep-root[data-theme] .ep-workspace.mw-app.ep-messages-workspace{height:100dvh;min-height:0;overflow:hidden}
+ .ep-root[data-theme] .ep-workspace.mw-app.ep-messages-workspace .ep-work-area{height:100%;min-height:0}
+ .ep-root[data-theme] .ep-workspace.mw-app.ep-messages-workspace .ep-main{height:100%;min-height:0;padding:var(--mw-top) 0 var(--mw-bottom)}
+ .ep-root[data-theme] .ep-workspace.mw-app.ep-messages-workspace .communication-master-detail{padding:0;gap:0;border:0;background:var(--ivory)}
+ .ep-root[data-theme] .ep-workspace.mw-app.ep-messages-workspace .communication-conversation-list,
+ .ep-root[data-theme] .ep-workspace.mw-app.ep-messages-workspace .communication-task-conversation{border:0;border-radius:0}
+ .ep-root[data-theme] .ep-workspace.mw-app.ep-messages-workspace .em-inbox-summary{padding-top:16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ex-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}
+ .ep-root[data-theme] .ep-workspace.mw-app .ex-tabs>button,.ep-root[data-theme] .ep-workspace.mw-app .ex-tabs>a{flex-shrink:0;white-space:nowrap;min-height:44px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-dialog:not(.ep-dialog--drawer){position:fixed;inset:auto 0 0;margin:0;width:100%;max-width:100%;max-height:90dvh;border-radius:22px 22px 0 0;padding-bottom:env(safe-area-inset-bottom,0px);overflow:auto;overscroll-behavior:contain}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-dialog:not(.ep-dialog--drawer)::before{content:'';display:block;width:36px;height:4px;margin:10px auto 0;border-radius:4px;background:var(--line)}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-dialog-head{position:sticky;top:0;padding:16px;background:var(--surface);z-index:2}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-dialog-head h2{font-size:20px}
+ .ep-root[data-theme] .ep-workspace.mw-app :is(input,textarea,select){font-size:16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-toast{bottom:calc(var(--mw-bottom) + 12px)}
+}
+.ep-root .mw-client-list,.ep-root .mw-client-contact{display:none}
+@media(max-width:800px){
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-dashboard>.pi-grid{order:5}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-intro h2{color:var(--navy);font-size:24px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-page-heading h1,.ep-root[data-theme] .ep-workspace.mw-app .ex-section-back{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0;margin:0;border:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-page-heading:not(:has(button,a,p)){display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-main[data-tour-page=calendar]>.ep-page-heading{margin-bottom:16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-main[data-tour-page=calendar]>.ep-page-heading>.ep-button{width:100%;justify-content:center}
+ .ep-root[data-theme] .ep-workspace.mw-app .cv-period-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cv-period-stat{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:10px 8px;gap:4px;min-height:64px;border:0;background:var(--surface);border-radius:10px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cv-period-stat .cv-stat-icon{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .cv-period-stat>strong{font:600 20px/1.2 'Auth Manrope',sans-serif;color:var(--navy);order:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .cv-period-stat>span:not(.cv-stat-icon){font-size:9px;order:1;line-height:1.3;overflow-wrap:anywhere}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-calendar-toolbar{gap:8px;padding-bottom:12px;margin-bottom:16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-calendar-toolbar>.ep-text-button{min-height:44px;padding:8px 12px;font-size:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-cal-agenda{padding:12px;border:0;background:transparent}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-cal-agenda .ep-cal-agenda-head h2{font-size:22px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-cal-choose{margin-bottom:8px;min-height:44px;padding:8px 12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cv-week-strip{margin-top:12px;padding-bottom:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cv-week-strip strong{font:600 19px/1.3 'Auth Manrope',sans-serif}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-cal-events{gap:10px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-cal-event{padding:14px 12px;gap:8px;grid-template-columns:52px minmax(0,1fr)}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-cal-event-heading h3{font-size:14px}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-cal-time strong{font-size:18px}
+ .ep-root[data-theme] .ep-workspace.mw-app :is(.ex-tabs,.commerce-task-nav,.ec-methods){display:flex;flex-wrap:nowrap;overflow-x:auto;max-width:100%;scrollbar-width:none;gap:4px;margin:0 0 16px;padding:0 0 8px}
+ .ep-root[data-theme] .ep-workspace.mw-app :is(.ex-tabs,.commerce-task-nav,.ec-methods)>button{width:auto;flex:0 0 auto;white-space:nowrap;min-height:44px;padding:10px 12px;font-size:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-table{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-list{display:grid;gap:10px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-table-scroll{overflow:visible;outline-offset:4px;scroll-margin-top:80px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-open{display:flex;align-items:center;gap:12px;width:100%;min-height:76px;padding:14px 12px;border:0;background:transparent;color:var(--navy);text-align:left;border-radius:10px;font:inherit}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-open>.ep-avatar{width:36px;height:36px;flex:0 0 36px;font-size:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-open>span:nth-child(2){display:grid;gap:4px;min-width:0;flex:1}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-open strong{font-size:14px;font-weight:600}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-open small{font-size:12px;color:var(--muted);white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-meta{display:flex;flex-wrap:wrap;justify-content:space-between;border-top:1px solid var(--line);padding:0 4px;gap:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-meta>.ep-text-button{font-size:10px;min-height:44px;padding:8px;gap:5px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-stage-counts{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px 16px;padding:0 16px 4px;gap:8px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-stage-counts>button{white-space:nowrap;flex-shrink:0;min-height:40px;font-size:11px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-client-count{border:0;padding:0;background:none;min-height:44px;gap:6px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-client-count .cd-count-icon{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-client-count>strong{font-size:20px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:8px}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-toolbar>.ep-button{font-size:0;width:44px;min-height:44px;padding:0;justify-content:center;gap:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-toolbar>.ep-button>.ep-icon{width:20px;height:20px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-contact{display:grid;gap:12px;overflow-wrap:anywhere}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-contact a{min-height:44px;display:flex;align-items:center;padding:8px 12px;border-radius:8px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-contact button{min-height:44px;justify-content:space-between}
+}
+.ep-root .pw-mobile-summary,.ep-root .pw-mobile-week,.ep-root .mw-today{display:none}
+@media(max-width:800px){
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-welcome{gap:4px;padding:18px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-intro h2{color:var(--navy)!important;font-size:23px!important;background:none!important;-webkit-text-fill-color:currentColor}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-intro>a,.ep-root[data-theme] .ep-workspace.mw-app .pw-welcome>.pw-week{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-mobile-summary{display:block;margin:4px 0;font-size:12px;color:var(--muted)}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-mobile-week{display:block;margin:4px -12px -8px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-mobile-week>summary{display:flex;align-items:center;justify-content:space-between;list-style:none;cursor:pointer;padding:12px;min-height:44px;border-radius:8px;font-size:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-mobile-week>summary::-webkit-details-marker{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-mobile-week .pw-week{padding:12px;margin-top:8px;box-sizing:border-box}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-today{display:block;order:3;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-today>header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 4px 16px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-today h2{font-size:15px;display:grid;gap:3px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-today h2 small{font-size:10px;color:var(--muted);font-weight:400}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-today>header>a{display:flex;align-items:center;gap:8px;padding:12px;min-height:44px;font-size:11px;border-radius:8px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-agenda{display:grid;gap:8px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-agenda>button{display:flex;gap:12px;align-items:center;width:100%;text-align:left;color:var(--navy);background:var(--surface-raised,var(--ivory));border:1px solid var(--line);border-radius:12px;min-height:76px;padding:12px;font:inherit}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-agenda>button.is-next{border-color:color-mix(in srgb,var(--gold) 45%,var(--line));background:color-mix(in srgb,var(--gold) 9%,var(--surface))}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-agenda-time{display:grid;align-self:start;gap:4px;min-width:46px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-agenda-time time{font:600 16px/1.5 'Auth Manrope',sans-serif;font-variant-numeric:tabular-nums;color:var(--gold)}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-agenda small{font-size:10px;color:var(--muted);line-height:1.5}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-agenda-person{display:grid;gap:4px;flex:1;min-width:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-agenda-person strong{font-size:13px;font-weight:600;line-height:24px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-day-open{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px;padding:12px;border-radius:8px;min-height:44px;font-size:12px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-day-rhythm>summary{list-style:none;min-height:44px;padding:12px;border-radius:8px;font-size:12px;color:var(--muted);cursor:pointer}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-day-rhythm>summary::-webkit-details-marker{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .pd-summary-grid>.pd-work-summary{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-toolbar>.ep-button>.cd-filter-label{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .cv-calendar-controls{margin-bottom:0;gap:0}
+ .ep-root[data-theme] .ep-workspace.mw-app .ep-cal-layout{margin-top:0;gap:0}
+}
+@media(max-width:800px){
+ .ep-root[data-theme] .ep-workspace.mw-app[data-mobile-keyboard]{--mw-bottom:0px}
+ .ep-root[data-theme] .ep-workspace.mw-app[data-mobile-keyboard]>.mw-tabbar{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app.ep-messages-workspace{height:var(--mw-viewport-height,100dvh)}
+ .ep-root[data-theme] .ep-workspace.mw-app .cd-toolbar>.ep-button{overflow:hidden}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-client-meta>.ep-text-button{padding-inline:12px}
+}
+@media(max-width:800px){
+ .ep-root[data-theme] .ep-workspace.mw-app .pw-mobile-week>summary>.ep-icon{display:none}
+}
+@media(max-width:800px){
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-calculation-subject{display:block;padding:0;margin-bottom:16px;border-radius:14px}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-calculation-subject>summary{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;min-height:72px;padding:14px 44px 14px 16px;font-size:14px;font-weight:600;border-radius:14px;list-style:none;cursor:pointer}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-calculation-subject>summary>span{font-size:11px;font-weight:400;color:var(--muted)}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-calculation-subject>summary::-webkit-details-marker{display:none}
+ .ep-root[data-theme] .ep-workspace.mw-app .mw-calculation-subject>div{padding:16px;border-top:1px solid var(--line)}
+}

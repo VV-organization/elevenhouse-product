@@ -1,0 +1,81 @@
+/* Shared product finish, 20 Oct 2026.
+   Supplied Soulra reference: deep navy, matte gold, fine separation and quiet
+   space around the main content. No corner ornaments or decorative stars.
+   Existing lunar and calculation graphics retain their meaning and data.
+   Scoped to the signed-in workspace; auth and the locked landing are excluded. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces {
+ --eh-quiet-edge:color-mix(in srgb,var(--navy) 6%,transparent);
+ --eh-quiet-material:linear-gradient(155deg,var(--eh-quiet-edge),transparent 46%);
+ font-variant-numeric:tabular-nums;
+}
+.ep-root[data-theme=dark] .ep-workspace.eh-surfaces {
+ --line:#2e3b4c;
+ --eh-quiet-edge:#b9d1e40a;
+ background:linear-gradient(160deg,#111d2c 0%,#101823 48%,#0e1724 100%);
+}
+.ep-root[data-theme=light] .ep-workspace.eh-surfaces {
+ --eh-quiet-edge:#ffffff7a;
+ background:linear-gradient(160deg,#f6f7f3,#f8f8f4 48%,#f0f3f3);
+}
+/* One navigation treatment across every working route. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-sidebar {
+ background:linear-gradient(180deg,#182539,#131f30 70%);
+ border-right-color:#a7bdd51c;
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-sidebar nav a {
+ border-radius:8px;
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-sidebar nav a[aria-current] {
+ background:linear-gradient(100deg,#d7be7921,#d7be7909);
+ box-shadow:inset 2px 0 #d6be7c;
+ color:#efdc9e;
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-sidebar nav a:focus-visible {
+ outline:2px solid #d6be7c;outline-offset:2px;
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .wu-search-launcher {
+ border-radius:10px;background:var(--surface);min-width:260px;
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .wu-launchers {border-bottom-color:var(--line)}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .wu-header-actions .ep-icon {filter:none}
+/* The same title relationship in finance, services, tools and daily work.
+   Conversation titles keep their compact, dedicated layout. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces.eh-hierarchy .ep-main .ep-page-heading h1 {
+ font:400 var(--eh-title)/1.2 'Auth Vetrino',serif;
+ letter-spacing:-.02em;text-wrap:balance;
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-page-heading {row-gap:16px}
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ex-panel,.ep-directory-group,.ep-business-entry,.ep-business-flows,.si-panel) {
+ border-radius:14px;border-color:var(--line);
+ background-image:var(--eh-quiet-material);
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ef-workspace :is(.ef-finance-summary,.ec-wallet) {
+ background-image:var(--eh-quiet-material);border-color:var(--line);
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-client-tabs,.ex-tabs,.commerce-task-nav) :is(button,a) {
+ border-radius:8px;
+}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-directory {max-width:none}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-directory-group h2 {font-weight:500}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-directory-group h2>.ep-icon {color:var(--directory-accent)}
+/* Secondary surfaces stay below the primary gold action in visual weight. */
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-button {border-radius:8px}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-search {border-radius:10px}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-select-trigger {border-radius:10px}
+.ep-root[data-theme] .ep-workspace.eh-surfaces .ep-dialog {border-radius:18px}
+@media(max-width:800px) {
+ .ep-root[data-theme] .ep-workspace.eh-surfaces .wu-search-launcher {min-width:0}
+ .ep-root[data-theme] .ep-workspace.eh-surfaces .ep-sidebar nav a[aria-current] {
+  box-shadow:inset 0 -2px #d6be7c;
+ }
+}
+@media(forced-colors:active) {
+ .ep-root[data-theme] .ep-workspace.eh-surfaces,
+ .ep-root[data-theme] .ep-workspace.eh-surfaces :is(.ep-sidebar,.ex-panel,.ep-directory-group,.ep-business-entry,.ep-business-flows,.si-panel,.ef-finance-summary,.ec-wallet) {background-image:none}
+ .ep-root[data-theme] .ep-workspace.eh-surfaces .ep-sidebar nav a[aria-current] {
+  background:Highlight;color:HighlightText;box-shadow:none;outline:1px solid Highlight;
+ }
+}
+@media print {
+ .ep-root[data-theme] .ep-workspace.eh-surfaces {background:none}
+}

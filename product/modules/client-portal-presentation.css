@@ -105,3 +105,26 @@
 .ep-root[data-theme=light] :is(.pc-meeting-date strong,.pc-avatar,.pc-material-icon){color:#806124}
 .ep-root[data-theme=light] .pc-status>span{background:#806124}
 .ep-root[data-theme=light] .ex-role-layout.pc-portal .ep-button--primary{background:#e2ca79;border-color:#cfb465;color:#152037}
+/* The client portal uses the same phone app structure as the practitioner app. */
+@media(max-width:800px){
+ .ep-root[data-theme] .pc-portal{padding:calc(64px + env(safe-area-inset-top,0px) + 16px) 16px calc(88px + env(safe-area-inset-bottom,0px));min-height:100dvh}
+ .ep-root[data-theme] .pc-portal .pc-header{position:fixed;inset:0 0 auto;z-index:35;height:calc(64px + env(safe-area-inset-top,0px));box-sizing:border-box;padding:env(safe-area-inset-top,0px) 12px 0;margin:0;background:var(--ivory);gap:8px;justify-content:flex-start}
+ .ep-root[data-theme] .pc-portal .pc-brand{min-height:44px;flex:1;gap:0;padding:8px;border-radius:8px;color:var(--navy);font:600 16px/1.4 'Auth Manrope',sans-serif}
+ .ep-root[data-theme] .pc-portal .pc-brand>img{display:none}
+ .ep-root[data-theme] .pc-portal .pc-brand>span{display:block}
+ .ep-root[data-theme] .pc-portal .pc-account{order:-1;padding:4px;width:44px;height:44px;gap:0}
+ .ep-root[data-theme] .pc-portal .pc-account>span:not(.pc-avatar),.ep-root[data-theme] .pc-portal .pc-account>.ep-icon{display:none}
+ .ep-root[data-theme] .pc-portal .pc-avatar{width:34px;height:34px}
+ .ep-root[data-theme] .pc-portal .pc-mobile-navigation{position:fixed;inset:auto 0 0;z-index:35;box-sizing:border-box;height:calc(68px + env(safe-area-inset-bottom,0px));padding:4px 8px env(safe-area-inset-bottom,0px);margin:0;border:0;border-top:1px solid var(--line);background:var(--ivory)}
+ .ep-root[data-theme] .pc-portal .pc-mobile-navigation button{min-height:52px;padding:6px 2px;border:0;border-radius:12px;gap:5px;font-size:10px}
+ .ep-root[data-theme] .pc-portal .pc-mobile-navigation button[aria-current=page]{color:var(--gold);background:color-mix(in srgb,var(--gold) 9%,transparent)}
+ .ep-root[data-theme] .pc-portal .pc-overview{gap:16px}
+ .ep-root[data-theme] .pc-portal .pc-page-heading h1{font-size:26px}
+ .ep-root[data-theme] .pc-portal .pc-next-meeting{padding:18px;gap:16px}
+ .ep-root[data-theme] .pc-portal .pc-next-copy h2{font-size:20px;margin:8px 0}
+ .ep-root[data-theme] .pc-portal .pc-next-copy p{margin-bottom:10px}
+ .ep-root[data-theme] .pc-portal .pc-meeting-date{padding-top:12px;gap:6px}
+ .ep-root[data-theme] .pc-portal .pc-meeting-date strong{font:600 28px/1.2 'Auth Manrope',sans-serif}
+ .ep-root[data-theme] .pc-portal .ep-dialog:not(.ep-dialog--drawer){position:fixed;inset:auto 0 0;margin:0;width:100%;max-width:100%;max-height:90dvh;border-radius:22px 22px 0 0;overflow:auto;padding-bottom:env(safe-area-inset-bottom,0px)}
+ .ep-root[data-theme] .pc-portal :is(input,textarea,select){font-size:16px}
+}

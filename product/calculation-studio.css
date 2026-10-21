@@ -261,3 +261,38 @@
 /* Planet names belong to the table row, not a tight individual hover box. */
 .ep-root[data-theme] .cs-workspace .ar-table button:hover{background:transparent;box-shadow:none!important}
 .ep-root[data-theme] .cs-workspace .ar-table tbody tr:has(button:is(:hover,:focus-visible)){background:var(--surface-raised)}
+
+/* Quiet tonal depth and number seals. Decorative corner ornaments are excluded
+   throughout the product following the user's visual review (20 Oct). */
+.ep-root[data-theme] .cs-workspace {
+ --cs-orbit-wash:color-mix(in srgb,#567ca5 9%,transparent);
+ --cs-orbit-gold:color-mix(in srgb,var(--gold) 7%,transparent);
+}
+.ep-root[data-theme=dark] .cs-workspace {
+ --cs-orbit-wash:color-mix(in srgb,#567ca5 20%,transparent);
+ --cs-orbit-gold:color-mix(in srgb,var(--gold) 8%,transparent);
+}
+.ep-root[data-theme] .cs-workspace .cs-chart-canvas {
+ position:relative;isolation:isolate;
+ background:radial-gradient(ellipse at 0% 100%,var(--cs-orbit-wash),transparent 62%),
+  radial-gradient(ellipse at 100% 0%,var(--cs-orbit-gold),transparent 48%),var(--cs-canvas);
+}
+.ep-root[data-theme] .cs-workspace .rc-matrix {
+ background:radial-gradient(ellipse at 0% 100%,var(--cs-orbit-wash),transparent 62%),var(--cs-canvas);
+}
+.ep-root[data-theme] .cs-workspace :is(.rc-number-value,.cs-year-heading>strong) {
+ display:grid;place-items:center;flex:0 0 88px;width:88px;height:88px;
+ background:url('./assets/calculation-number-orbit.svg') center/contain no-repeat;
+ font-size:36px;line-height:1;margin:0;
+}
+.ep-root[data-theme] .cs-workspace .rc-matrix-layout .rc-detail>.rc-big-number {
+ display:grid;place-items:center;width:80px;height:80px;
+ background:url('./assets/calculation-number-orbit.svg') center/contain no-repeat;
+ font-size:32px;line-height:1;margin:0 0 16px;
+}
+@media(max-width:800px) {
+ .ep-root[data-theme] .cs-workspace :is(.rc-number-value,.cs-year-heading>strong) {flex-basis:72px;width:72px;height:72px;font-size:30px}
+}
+@media print {
+ .ep-root[data-theme] .cs-workspace :is(.cs-chart-canvas,.rc-matrix,.rc-number-value,.rc-big-number,.cs-year-heading>strong) {background:none}
+}

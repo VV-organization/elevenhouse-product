@@ -19,10 +19,8 @@
 .ep-root .ep-directory-settings .ep-icon{color:var(--muted);flex-shrink:0}
 .ep-root .ep-directory-settings span:not(.ep-icon){min-width:0;overflow-wrap:break-word}
 @media(min-width:1201px){
- .ep-root .ep-directory-groups{grid-template-columns:repeat(6,minmax(0,1fr))}
- .ep-root .ep-directory-group{grid-column:span 2}
- .ep-root .ep-directory-group[data-directory-group=consultations],
- .ep-root .ep-directory-group[data-directory-group=business]{grid-column:span 3}
+ .ep-root .ep-directory-groups{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .ep-root .ep-directory-group{grid-column:auto}
 }
 @media(max-width:1200px){.ep-root .ep-directory-groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){
